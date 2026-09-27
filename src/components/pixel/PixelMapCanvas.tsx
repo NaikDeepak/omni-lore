@@ -70,16 +70,16 @@ function getLocationIcon(name: string, description: string): string {
 
 function getDangerRating(loc: MapLocationItem): { stars: number; label: string; color: string } {
   const text = `${loc.name} ${loc.description}`.toLowerCase();
-  if (text.includes('laugh tale') || text.includes('demonic emperor peak') || text.includes('necropolis') || text.includes('chaos sea') || text.includes('marineford') || text.includes('onigashima')) {
+  if (text.includes('laugh tale') || text.includes('demonic emperor peak') || text.includes('seven sacred mountains') || text.includes('necropolis') || text.includes('chaos sea') || text.includes('marineford') || text.includes('onigashima') || text.includes('sword star')) {
     return { stars: 5, label: 'EX-RANK FORBIDDEN APEX', color: 'text-rose-400 border-rose-500/40 bg-rose-950/40' };
   }
-  if (text.includes('wano') || text.includes('whole cake') || text.includes('enies lobby') || text.includes('impel down') || text.includes('hell valley') || text.includes('beast king') || text.includes('skyrite')) {
+  if (text.includes('wano') || text.includes('whole cake') || text.includes('enies lobby') || text.includes('impel down') || text.includes('hell valley') || text.includes('beast king') || text.includes('skyrite') || text.includes('thunder canyon') || text.includes('all dragon') || text.includes('ultimate clear') || text.includes('quanrong')) {
     return { stars: 4, label: 'S-RANK HIGH HAZARD', color: 'text-amber-400 border-amber-500/40 bg-amber-950/40' };
   }
-  if (text.includes('alabasta') || text.includes('skypiea') || text.includes('water 7') || text.includes('dressrosa') || text.includes('egghead') || text.includes('regent estate') || text.includes('demonic scheme') || text.includes('forest of darkness')) {
+  if (text.includes('alabasta') || text.includes('skypiea') || text.includes('water 7') || text.includes('dressrosa') || text.includes('egghead') || text.includes('regent estate') || text.includes('demonic scheme') || text.includes('forest of darkness') || text.includes('sea bright') || text.includes('shangguan') || text.includes('mysterious heaven')) {
     return { stars: 3, label: 'A-RANK MAJOR SECTOR', color: 'text-indigo-400 border-indigo-500/40 bg-indigo-950/40' };
   }
-  if (text.includes('loguetown') || text.includes('little garden') || text.includes('drum island') || text.includes('drifting flowers') || text.includes('veiled dragon') || text.includes('fenlai') || text.includes('ernst')) {
+  if (text.includes('loguetown') || text.includes('little garden') || text.includes('drum island') || text.includes('drifting flowers') || text.includes('veiled dragon') || text.includes('fenlai') || text.includes('ernst') || text.includes('merry woods')) {
     return { stars: 2, label: 'B-RANK REGIONAL HUB', color: 'text-cyan-400 border-cyan-500/40 bg-cyan-950/40' };
   }
   return { stars: 1, label: 'SAFE HAVEN / SETTLEMENT', color: 'text-emerald-400 border-emerald-500/40 bg-emerald-950/40' };
@@ -100,22 +100,43 @@ function getLocationControllingFaction(locId: string, seriesSlug?: string): { id
   }
 
   if (seriesSlug === 'demonic-emperor') {
-    if (['loc-windgale-city', 'loc-drifting-flowers-city', 'loc-veiled-dragon-pavilion', 'loc-sword-marquis-abode'].includes(locId)) {
+    if (locId === 'loc-windgale-city' || locId === 'loc-thunder-canyon') {
       return { id: 'faction-luo', name: 'Luo Clan Grand Alliance', emblem: '/assets/pixels/demonic-emperor/factions/faction-luo.svg', color: '#f59e0b' };
     }
-    if (['loc-regent-estate', 'loc-hell-valley', 'loc-pill-king-hall'].includes(locId)) {
-      return { id: 'faction-regent', name: 'Regent Estate Coalition', emblem: '/assets/pixels/demonic-emperor/factions/faction-regent.svg', color: '#a855f7' };
+    if (locId === 'loc-drifting-flowers-city') {
+      return { id: 'faction-drifting-flowers', name: 'Drifting Flowers Edifice', emblem: '/assets/pixels/demonic-emperor/factions/faction-drifting-flowers.svg', color: '#f472b6' };
     }
-    if (['loc-dragon-cloud-city', 'loc-dugu-encampment'].includes(locId)) {
+    if (locId === 'loc-veiled-dragon-pavilion') {
+      return { id: 'faction-veiled-dragon', name: 'Veiled Dragon Pavilion', emblem: '/assets/pixels/demonic-emperor/factions/faction-veiled-dragon.svg', color: '#38bdf8' };
+    }
+    if (locId === 'loc-sword-marquis-abode') {
+      return { id: 'faction-sword-marquise', name: 'Sword Marquis Abode', emblem: '/assets/pixels/demonic-emperor/factions/faction-sword-marquise.svg', color: '#94a3b8' };
+    }
+    if (locId === 'loc-regent-estate') {
+      return { id: 'faction-regent', name: 'Regent Estate', emblem: '/assets/pixels/demonic-emperor/factions/faction-regent.svg', color: '#a855f7' };
+    }
+    if (locId === 'loc-hell-valley') {
+      return { id: 'faction-hell-valley', name: 'Hell Valley', emblem: '/assets/pixels/demonic-emperor/factions/faction-hell-valley.svg', color: '#7e22ce' };
+    }
+    if (locId === 'loc-pill-king-hall') {
+      return { id: 'faction-pill-king', name: 'Pill King Hall', emblem: '/assets/pixels/demonic-emperor/factions/faction-pill-king.svg', color: '#10b981' };
+    }
+    if (locId === 'loc-merry-woods') {
+      return { id: 'faction-merry-woods', name: 'Merry Woods (Seventh House)', emblem: '/assets/pixels/demonic-emperor/factions/faction-merry-woods.svg', color: '#22c55e' };
+    }
+    if (locId === 'loc-dragon-cloud-city' || locId === 'loc-dugu-encampment' || locId === 'loc-all-dragon-mountain') {
       return { id: 'faction-tianyu-imperial', name: 'Tianyu Imperial Court & Dugu Army', emblem: '/assets/pixels/demonic-emperor/factions/faction-tianyu-imperial.svg', color: '#e11d48' };
     }
-    if (['loc-demon-scheming-sect', 'loc-double-dragon-manor'].includes(locId)) {
+    if (locId === 'loc-demon-scheming-sect') {
+      return { id: 'faction-demonic-scheme', name: 'Demon Scheming Sect', emblem: '/assets/pixels/demonic-emperor/factions/faction-demonic-scheme.svg', color: '#ef4444' };
+    }
+    if (locId === 'loc-double-dragon-manor' || locId === 'loc-mysterious-heaven-sect' || locId === 'loc-ultimate-clear-sect') {
       return { id: 'faction-double-dragon', name: 'Western Lands Supreme Sects', emblem: '/assets/pixels/demonic-emperor/factions/faction-double-dragon.svg', color: '#10b981' };
     }
-    if (['loc-sword-star-capital'].includes(locId)) {
+    if (locId === 'loc-sword-star-capital') {
       return { id: 'faction-sword-star', name: 'Sword Star Empire & Baili Clan', emblem: '/assets/pixels/demonic-emperor/factions/faction-sword-star.svg', color: '#94a3b8' };
     }
-    if (['loc-demonic-emperor-peak'].includes(locId)) {
+    if (locId === 'loc-demonic-emperor-peak' || locId === 'loc-seven-sacred-mountains') {
       return { id: 'faction-luo', name: 'Demonic Emperor Sacred Domain', emblem: '/assets/pixels/demonic-emperor/factions/faction-luo.svg', color: '#d946ef' };
     }
   }
@@ -600,62 +621,137 @@ export function PixelMapCanvas({
               {/* ======================================================== */}
               {seriesSlug === 'demonic-emperor' && (
                 <g id="demonic-emperor-cartography">
-                  {/* Dark Charcoal Parchment Base */}
-                  <rect x="0" y="0" width="1000" height="580" fill="#0a0a14" />
+                  {currentPlane?.id === 'plane-sacred-domain' ? (
+                    <g id="sacred-domain-full-cartography">
+                      {/* Astral Void Base */}
+                      <rect x="0" y="0" width="1000" height="580" fill="#04020a" />
 
-                  {/* Five Continents Mountain Masses */}
-                  {/* 1. Western Lands (Tianyu Empire Domain) */}
-                  <path
-                    d="M 60,200 L 220,180 L 400,160 L 420,380 L 370,520 L 150,510 L 60,380 Z"
-                    fill="#151b28"
-                    stroke="#2e3b52"
-                    strokeWidth="2"
-                  />
-                  <text x="210" y="195" fontSize="12" fill="#60a5fa" opacity="0.7" fontFamily="Silkscreen" fontWeight="bold">
-                    WESTERN LANDS (TIANYU EMPIRE)
-                  </text>
+                      {/* Astral Starfield Dots & Nebulae */}
+                      <circle cx="200" cy="100" r="1.5" fill="#f0abfc" opacity="0.6" />
+                      <circle cx="350" cy="180" r="2" fill="#c084fc" opacity="0.5" />
+                      <circle cx="150" cy="450" r="1" fill="#e879f9" opacity="0.7" />
+                      <circle cx="700" cy="480" r="1.5" fill="#f0abfc" opacity="0.6" />
+                      <circle cx="820" cy="350" r="2" fill="#a855f7" opacity="0.4" />
 
-                  {/* 2. Beast Mountain Range (Dense Dividing Forest) */}
-                  <path
-                    d="M 410,180 L 490,170 L 530,360 L 500,530 L 410,500 Z"
-                    fill="#0f291e"
-                    stroke="#10b981"
-                    strokeWidth="1.5"
-                    strokeDasharray="4,4"
-                    opacity="0.8"
-                  />
-                  <text x="460" y="460" fontSize="9" fill="#34d399" opacity="0.8" fontFamily="Silkscreen" transform="rotate(-75 460 460)">
-                    BEAST MOUNTAIN RANGE (SACRED BEASTS)
-                  </text>
+                      {/* Swirling Nine Serenities Cosmic Nebula */}
+                      <ellipse cx="500" cy="290" rx="420" ry="230" fill="#1e0b36" opacity="0.4" />
+                      <ellipse cx="500" cy="290" rx="280" ry="150" fill="#2e1065" opacity="0.5" stroke="#7e22ce" strokeWidth="1" strokeDasharray="8,8" />
 
-                  {/* 3. Central Continent (Sword Star Empire & Baili Hegemon) */}
-                  <path
-                    d="M 540,160 L 820,140 L 860,340 L 780,500 L 560,490 L 530,320 Z"
-                    fill="#1c1626"
-                    stroke="#581c87"
-                    strokeWidth="2"
-                  />
-                  <text x="690" y="180" fontSize="12" fill="#c084fc" opacity="0.8" fontFamily="Silkscreen" fontWeight="bold" textAnchor="middle">
-                    CENTRAL CONTINENT (SWORD STAR EMPIRE)
-                  </text>
+                      {/* Eight Demonic Emperors Domains Constellation Circle */}
+                      <circle cx="500" cy="290" r="180" fill="none" stroke="#d946ef" strokeWidth="1" strokeDasharray="4,6" opacity="0.3" />
+                      <text x="500" y="100" fontSize="13" fill="#f0abfc" opacity="0.8" fontFamily="Silkscreen" fontWeight="bold" textAnchor="middle" letterSpacing="4">
+                        SACRED DOMAIN (UPPER REALM OF EMPERORS & SAINTS)
+                      </text>
 
-                  {/* Sacred Domain Void Rift (Upper Realm Tear) */}
-                  <g id="sacred-domain-tear" opacity="0.85">
-                    <ellipse cx="860" cy="115" rx="90" ry="40" fill="#2e1065" stroke="#d946ef" strokeWidth="2" strokeDasharray="4,2" />
-                    <text x="860" y="65" fontSize="9" fill="#f0abfc" fontWeight="bold" fontFamily="Silkscreen" textAnchor="middle">
-                      ⚡ SACRED DOMAIN UPPER REALM RIFT
-                    </text>
-                  </g>
+                      {/* Seven Sacred Mountains Domain on Northeast */}
+                      <g id="sacred-mountains-domain">
+                        <polygon points="930,40 880,120 980,120" fill="#78350f" stroke="#fbbf24" strokeWidth="2" opacity="0.8" />
+                        <text x="930" y="135" fontSize="8" fill="#fde047" fontFamily="Silkscreen" fontWeight="bold" textAnchor="middle">
+                          SEVEN SACRED MOUNTAINS (TYRANT RULE)
+                        </text>
+                      </g>
 
-                  {/* Golden Dragon Veins / Spirit Leylines */}
-                  <path
-                    d="M 140,260 Q 220,270 300,290 T 365,210 M 300,290 L 245,470 M 300,290 L 355,470 M 300,290 Q 420,240 470,230 T 505,325 T 690,325"
-                    fill="none"
-                    stroke="#f59e0b"
-                    strokeWidth="1.5"
-                    strokeDasharray="4,4"
-                    opacity="0.45"
-                  />
+                      {/* Demonic Emperor Peak Ancestral Domain */}
+                      <g id="demonic-emperor-peak-domain">
+                        <polygon points="860,70 820,150 900,150" fill="#3b0764" stroke="#d946ef" strokeWidth="2" opacity="0.85" />
+                        <text x="860" y="165" fontSize="8" fill="#e879f9" fontFamily="Silkscreen" fontWeight="bold" textAnchor="middle">
+                          DEMONIC EMPEROR PEAK (NINE SERENITIES)
+                        </text>
+                      </g>
+                    </g>
+                  ) : (
+                    <g id="mortal-domain-cartography">
+                      {/* Dark Charcoal Parchment Base */}
+                      <rect x="0" y="0" width="1000" height="580" fill="#0a0a14" />
+
+                      {/* 0. Quanrong Nomadic Beast Garrison (Far West) */}
+                      <path
+                        d="M 15,220 L 70,200 L 75,410 L 15,380 Z"
+                        fill="#1a121f"
+                        stroke="#dc2626"
+                        strokeWidth="1.5"
+                        strokeDasharray="4,4"
+                      />
+                      <text x="45" y="430" fontSize="7" fill="#ef4444" opacity="0.8" fontFamily="Silkscreen" textAnchor="middle">
+                        QUANRONG NOMADIC EMPIRE
+                      </text>
+
+                      {/* 1. Western Lands (Tianyu Empire Domain) */}
+                      <path
+                        d="M 60,180 L 220,160 L 400,150 L 420,380 L 370,520 L 150,510 L 60,380 Z"
+                        fill="#151b28"
+                        stroke="#2e3b52"
+                        strokeWidth="2"
+                      />
+                      <text x="210" y="180" fontSize="12" fill="#60a5fa" opacity="0.75" fontFamily="Silkscreen" fontWeight="bold">
+                        WESTERN LANDS (TIANYU EMPIRE & SEVEN HOUSES)
+                      </text>
+
+                      {/* 2. Beast Mountain Range (Dense Dividing Forest) */}
+                      <path
+                        d="M 410,160 L 490,150 L 530,360 L 500,530 L 410,500 Z"
+                        fill="#0f291e"
+                        stroke="#10b981"
+                        strokeWidth="1.5"
+                        strokeDasharray="4,4"
+                        opacity="0.8"
+                      />
+                      <text x="460" y="460" fontSize="9" fill="#34d399" opacity="0.8" fontFamily="Silkscreen" transform="rotate(-75 460 460)">
+                        BEAST MOUNTAIN RANGE (SACRED BEAST BARRIER)
+                      </text>
+
+                      {/* 3. Northern Lands (Glacial Freezing Lands & Sea Bright Sect) */}
+                      <path
+                        d="M 550,50 L 780,45 L 810,135 L 540,135 Z"
+                        fill="#0c233c"
+                        stroke="#38bdf8"
+                        strokeWidth="1.8"
+                      />
+                      <text x="670" y="70" fontSize="9" fill="#7dd3fc" opacity="0.8" fontFamily="Silkscreen" fontWeight="bold" textAnchor="middle">
+                        NORTHERN LANDS (SEA BRIGHT SECT & GLACIAL SEA)
+                      </text>
+
+                      {/* 4. Central Continent (Sword Star Empire & Baili Hegemon) */}
+                      <path
+                        d="M 540,150 L 820,140 L 860,340 L 780,470 L 560,465 L 530,320 Z"
+                        fill="#1c1626"
+                        stroke="#581c87"
+                        strokeWidth="2"
+                      />
+                      <text x="690" y="170" fontSize="12" fill="#c084fc" opacity="0.8" fontFamily="Silkscreen" fontWeight="bold" textAnchor="middle">
+                        CENTRAL CONTINENT (SWORD STAR EMPIRE)
+                      </text>
+
+                      {/* 5. Southern Lands (Shangguan Clan Bamboo Jungle) */}
+                      <path
+                        d="M 550,480 L 800,475 L 810,560 L 540,560 Z"
+                        fill="#0b2419"
+                        stroke="#059669"
+                        strokeWidth="1.8"
+                      />
+                      <text x="680" y="550" fontSize="9" fill="#34d399" opacity="0.8" fontFamily="Silkscreen" fontWeight="bold" textAnchor="middle">
+                        SOUTHERN LANDS (SHANGGUAN CLAN JUNGLE)
+                      </text>
+
+                      {/* Sacred Domain Void Rift (Upper Realm Tear) */}
+                      <g id="sacred-domain-tear" opacity="0.85">
+                        <ellipse cx="890" cy="95" rx="80" ry="35" fill="#2e1065" stroke="#d946ef" strokeWidth="2" strokeDasharray="4,2" />
+                        <text x="890" y="55" fontSize="8" fill="#f0abfc" fontWeight="bold" fontFamily="Silkscreen" textAnchor="middle">
+                          ⚡ SACRED DOMAIN UPPER REALM RIFT
+                        </text>
+                      </g>
+
+                      {/* Golden Dragon Veins / Spirit Leylines */}
+                      <path
+                        d="M 140,260 Q 220,270 300,290 T 365,210 M 300,290 L 245,470 M 300,290 L 355,470 M 300,290 Q 420,240 470,230 T 505,325 T 690,325 M 300,290 L 290,335 M 140,260 L 115,195"
+                        fill="none"
+                        stroke="#f59e0b"
+                        strokeWidth="1.5"
+                        strokeDasharray="4,4"
+                        opacity="0.45"
+                      />
+                    </g>
+                  )}
                 </g>
               )}
 
