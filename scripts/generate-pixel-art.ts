@@ -55,11 +55,13 @@ async function main() {
     process.exit(1);
   }
 
-  const typesToProcess: ('character' | 'location')[] =
+  const typesToProcess: ('character' | 'location' | 'faction')[] =
     typeArg === 'all'
-      ? ['character', 'location']
+      ? ['character', 'location', 'faction']
       : typeArg === 'location'
       ? ['location']
+      : typeArg === 'faction'
+      ? ['faction']
       : ['character'];
 
   const { reports, updatedGraph } = await AssetPixelPipeline.processSeriesEntities(

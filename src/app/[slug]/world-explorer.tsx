@@ -2,8 +2,9 @@
 
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { CanonicalLoreGraph } from '../../domain/types';
+import { CanonicalLoreGraph, CharacterEntity } from '../../domain/types';
 import { getUniverseTheme } from '../../domain/themes';
+import { TemporalEngine } from '../../engine/temporal-engine';
 import { 
   projectPowerLadder, 
   projectRelationshipWeb, 
@@ -23,11 +24,25 @@ import {
   User, 
   Lock, 
   ArrowLeft, 
-  Info,
-  EyeOff,
-  Sparkles,
-  Compass
+  Info, 
+  EyeOff, 
+  Sparkles, 
+  Compass,
+  Shield,
+  Users,
+  Search
 } from 'lucide-react';
+
+function getRelBadgeColor(label: string): string {
+  const l = label.toLowerCase();
+  if (l.includes('brother') || l.includes('sworn')) return 'border-amber-400/50 bg-amber-950/40 text-amber-300';
+  if (l.includes('member') || l.includes('crew') || l.includes('shipwright') || l.includes('helmsman') || l.includes('musician')) return 'border-emerald-400/50 bg-emerald-950/40 text-emerald-300';
+  if (l.includes('alliance') || l.includes('partner') || l.includes('cross guild')) return 'border-cyan-400/50 bg-cyan-950/40 text-cyan-300';
+  if (l.includes('adversary') || l.includes('duel') || l.includes('rival') || l.includes('enemy')) return 'border-rose-400/50 bg-rose-950/40 text-rose-300';
+  if (l.includes('father') || l.includes('son') || l.includes('grandfather') || l.includes('family')) return 'border-blue-400/50 bg-blue-950/40 text-blue-300';
+  if (l.includes('mentor') || l.includes('master') || l.includes('apprentice') || l.includes('role model')) return 'border-purple-400/50 bg-purple-950/40 text-purple-300';
+  return 'border-slate-700 bg-slate-900 text-slate-300';
+}
 
 interface WorldExplorerProps {
   graph: CanonicalLoreGraph;
@@ -48,6 +63,11 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
         : 'linley-baruch'
   );
 
+  // Faction Web Filters
+  const [webFilter, setWebFilter] = useState<'all' | 'faction' | 'character'>('all');
+  const [selectedFactionId, setSelectedFactionId] = useState<string>('all');
+  const [webSearchQuery, setWebSearchQuery] = useState<string>('');
+
   // Computed projections strictly driven by userChapter
   const powerLadder = useMemo(() => projectPowerLadder(graph, userChapter), [graph, userChapter]);
   const relationshipWeb = useMemo(() => projectRelationshipWeb(graph, userChapter), [graph, userChapter]);
@@ -63,6 +83,72 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
   const activeStageFact = powerLadder.tiers.find(t => 
     t.characters.some(c => c.id === selectedCharacterId)
   );
+
+  const activeFactionFact = useMemo(() => {
+    return TemporalEngine.getActiveFact<string>(
+      selectedCharacterId,
+      'faction',
+      Object.values(graph.facts),
+      userChapter
+    );
+  }, [selectedCharacterId, graph.facts, userChapter]);
+
+  const activeFaction = activeFactionFact ? graph.entities[activeFactionFact.value] : null;
+  const factionName = activeFaction?.name ?? (graph.series.slug === 'one-piece' ? 'Independent' : 'Unaffiliated');
+
+  const activeLocationFact = useMemo(() => {
+    return TemporalEngine.getActiveFact<string>(
+      selectedCharacterId,
+      'location',
+      Object.values(graph.facts),
+      userChapter
+    );
+  }, [selectedCharacterId, graph.facts, userChapter]);
+
+  const locationName = activeLocationFact 
+    ? (graph.entities[activeLocationFact.value]?.name ?? 'Active Realm')
+    : (graph.series.slug === 'one-piece' ? 'Grand Line' : 'Active Domain');
+
+  const characterList = useMemo(() => {
+    return Object.values(graph.entities)
+      .filter((e): e is CharacterEntity => e.type === 'character')
+      .sort((a, b) => a.first_appearance - b.first_appearance);
+  }, [graph.entities]);
+
+  const featuredCharacters = useMemo(() => {
+    if (graph.series.slug === 'one-piece') {
+      return ['luffy', 'zoro', 'nami', 'sanji', 'ace', 'law', 'shanks', 'whitebeard', 'kaido', 'akainu', 'garp', 'buggy'];
+    }
+    if (graph.series.slug === 'demonic-emperor') {
+      return ['zhuo-fan', 'luo-yunchang', 'chu-qingcheng', 'long-jiu', 'huangpu-qingtian', 'xie-tianshang'];
+    }
+    return ['linley-baruch', 'bebe', 'doehring-cowart', 'beirut', 'delia'];
+  }, [graph.series.slug]);
+
+  const factionsInWeb = useMemo(() => {
+    return relationshipWeb.nodes.filter(n => n.type === 'faction');
+  }, [relationshipWeb.nodes]);
+
+  const filteredNodes = useMemo(() => {
+    return relationshipWeb.nodes.filter((node) => {
+      if (webFilter === 'faction' && node.type !== 'faction') return false;
+      if (webFilter === 'character' && node.type !== 'character') return false;
+
+      if (selectedFactionId !== 'all') {
+        if (node.type === 'faction' && node.id !== selectedFactionId) return false;
+        if (node.type === 'character' && node.faction_id !== selectedFactionId) return false;
+      }
+
+      if (webSearchQuery.trim()) {
+        const q = webSearchQuery.toLowerCase();
+        const matchesLabel = node.label.toLowerCase().includes(q);
+        const matchesDesc = (node.description ?? '').toLowerCase().includes(q);
+        if (!matchesLabel && !matchesDesc) return false;
+      }
+
+      return true;
+    });
+  }, [relationshipWeb.nodes, webFilter, selectedFactionId, webSearchQuery]);
 
   // Milestones per series
   const milestones = useMemo(() => {
@@ -335,7 +421,7 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
                               }}
                               className="cursor-pointer flex items-center gap-3 p-2.5 rounded-lg bg-slate-900 border border-slate-700/80 hover:border-amber-400 transition"
                             >
-                              <PixelAvatar id={char.id} name={char.displayName} size={36} />
+                              <PixelAvatar id={char.id} name={char.displayName} size={36} avatarUrl={char.avatar_url} />
                               <div>
                                 <div className="font-pixel text-xs text-white hover:text-amber-300">
                                   {char.displayName}
@@ -365,21 +451,59 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
             <div className="flex flex-col lg:flex-row gap-6 items-start">
               {/* Left Column: Authentic Retro RPG Status Screen */}
               <div className="w-full lg:w-auto shrink-0 space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="font-pixel text-xs text-slate-400">SELECT CHARACTER:</span>
-                  <select
-                    value={selectedCharacterId}
-                    onChange={(e) => setSelectedCharacterId(e.target.value)}
-                    className="bg-slate-900 text-white font-pixel text-xs px-3 py-1.5 rounded border border-slate-700 focus:outline-none focus:border-amber-400"
-                  >
-                    {Object.values(graph.entities)
-                      .filter((e) => e.type === 'character')
-                      .map((c) => (
-                        <option key={c.id} value={c.id}>
-                          {c.name}
-                        </option>
-                      ))}
-                  </select>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="font-pixel text-xs text-slate-400">SELECT CHARACTER:</span>
+                    <select
+                      value={selectedCharacterId}
+                      onChange={(e) => setSelectedCharacterId(e.target.value)}
+                      className="bg-slate-900 text-white font-pixel text-xs px-3 py-1.5 rounded border border-slate-700 focus:outline-none focus:border-amber-400 max-w-[220px] truncate"
+                    >
+                      <optgroup label={`Discovered by Ch. ${userChapter} (${characterList.filter(c => c.first_appearance <= userChapter).length})`}>
+                        {characterList
+                          .filter((c) => c.first_appearance <= userChapter)
+                          .map((c) => (
+                            <option key={c.id} value={c.id}>
+                              {c.name}
+                            </option>
+                          ))}
+                      </optgroup>
+                      {characterList.some((c) => c.first_appearance > userChapter) && (
+                        <optgroup label="Upcoming / Later Chapters">
+                          {characterList
+                            .filter((c) => c.first_appearance > userChapter)
+                            .map((c) => (
+                              <option key={c.id} value={c.id}>
+                                🔒 {c.name} (Ch. {c.first_appearance}+)
+                              </option>
+                            ))}
+                        </optgroup>
+                      )}
+                    </select>
+                  </div>
+
+                  {/* Featured Character Quick-Jump Chips */}
+                  <div className="flex flex-wrap gap-1.5 max-w-[320px]">
+                    {featuredCharacters.map((fid) => {
+                      const fChar = graph.entities[fid];
+                      if (!fChar) return null;
+                      const isSelected = selectedCharacterId === fid;
+                      return (
+                        <button
+                          key={fid}
+                          onClick={() => setSelectedCharacterId(fid)}
+                          className={`flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-pixel transition border ${
+                            isSelected
+                              ? 'bg-amber-500/20 border-amber-400 text-amber-300'
+                              : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'
+                          }`}
+                        >
+                          <PixelAvatar id={fid} name={fChar.name} size={16} avatarUrl={(fChar as any).avatar_url} />
+                          <span>{fChar.name.split(' ')[0]}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
 
                 <RpgStatusScreen
@@ -388,10 +512,10 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
                   displayName={characterJourney?.displayName ?? selectedCharacter?.name ?? selectedCharacterId}
                   isMasked={characterJourney?.displayName !== selectedCharacter?.name}
                   avatarUrl={(selectedCharacter as any)?.avatar_url}
-                  realmName={activeStageFact?.name ?? 'Mortal / Unranked'}
+                  realmName={activeStageFact?.name ?? (graph.series.slug === 'one-piece' ? 'East Blue Novice' : 'Mortal / Unranked')}
                   realmOrder={activeStageFact?.order ?? 1}
-                  factionName={selectedCharacter?.provenance.source.series.toUpperCase()}
-                  locationName="Active Domain"
+                  factionName={factionName}
+                  locationName={locationName}
                   userChapter={userChapter}
                   relationshipsCount={relationshipWeb.edges.filter(
                     (e) => e.source === selectedCharacterId || e.target === selectedCharacterId
@@ -437,26 +561,129 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
           </div>
         )}
 
-        {/* VIEW 4: RELATIONSHIP WEB */}
+        {/* VIEW 4: RELATIONSHIP & FACTION WEB */}
         {activeTab === 'web' && (
           <div className="space-y-6">
-            <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
-              <div>
-                <h2 className="text-base font-pixel font-bold text-white flex items-center gap-2">
-                  <Share2 className="w-4 h-4 text-indigo-400" />
-                  <span>CHARACTER & FACTION NETWORK</span>
-                </h2>
-                <p className="text-xs text-slate-400 mt-1 font-mono">
-                  Active alliances, master-disciple ties, and rivalries at Chapter {userChapter}.
-                </p>
+            {/* Faction Web Control Header */}
+            <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div>
+                  <h2 className="text-base font-pixel font-bold text-white flex items-center gap-2">
+                    <Share2 className="w-4 h-4 text-indigo-400" />
+                    <span>CHARACTER & FACTION NETWORK</span>
+                  </h2>
+                  <p className="text-xs text-slate-400 mt-0.5 font-mono">
+                    Alliances, sworn brotherhoods, Marine commands, and crew ties at Chapter {userChapter}.
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2.5 text-xs font-mono">
+                  <span className="px-2.5 py-1 rounded bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 font-pixel text-[11px] flex items-center gap-1.5">
+                    <Shield className="w-3.5 h-3.5" />
+                    {factionsInWeb.length} FACTIONS
+                  </span>
+                  <span className="px-2.5 py-1 rounded bg-amber-500/10 border border-amber-500/30 text-amber-300 font-pixel text-[11px] flex items-center gap-1.5">
+                    <Users className="w-3.5 h-3.5" />
+                    {relationshipWeb.nodes.length} NODES
+                  </span>
+                  <span className="px-2.5 py-1 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 font-pixel text-[11px] flex items-center gap-1.5">
+                    <Share2 className="w-3.5 h-3.5" />
+                    {relationshipWeb.edges.length} TIES
+                  </span>
+                </div>
               </div>
+
+              {/* Filter Controls Bar */}
+              <div className="pt-2 border-t border-slate-800/80 flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
+                {/* Type Filter Buttons */}
+                <div className="flex flex-wrap gap-1.5">
+                  <button
+                    onClick={() => { setWebFilter('all'); setSelectedFactionId('all'); }}
+                    className={`px-3 py-1 rounded-lg text-xs font-pixel transition border ${
+                      webFilter === 'all' && selectedFactionId === 'all'
+                        ? 'bg-indigo-600 text-white border-indigo-400 font-bold'
+                        : 'bg-slate-950 text-slate-400 border-slate-800 hover:text-white'
+                    }`}
+                  >
+                    ALL NETWORK ({relationshipWeb.nodes.length})
+                  </button>
+                  <button
+                    onClick={() => { setWebFilter('faction'); setSelectedFactionId('all'); }}
+                    className={`px-3 py-1 rounded-lg text-xs font-pixel transition border ${
+                      webFilter === 'faction'
+                        ? 'bg-amber-600 text-white border-amber-400 font-bold'
+                        : 'bg-slate-950 text-slate-400 border-slate-800 hover:text-white'
+                    }`}
+                  >
+                    🛡 FACTIONS ({factionsInWeb.length})
+                  </button>
+                  <button
+                    onClick={() => { setWebFilter('character'); setSelectedFactionId('all'); }}
+                    className={`px-3 py-1 rounded-lg text-xs font-pixel transition border ${
+                      webFilter === 'character'
+                        ? 'bg-cyan-600 text-white border-cyan-400 font-bold'
+                        : 'bg-slate-950 text-slate-400 border-slate-800 hover:text-white'
+                    }`}
+                  >
+                    👤 CHARACTERS ({relationshipWeb.nodes.filter(n => n.type === 'character').length})
+                  </button>
+                </div>
+
+                {/* Search Bar */}
+                <div className="relative min-w-[200px]">
+                  <input
+                    type="text"
+                    value={webSearchQuery}
+                    onChange={(e) => setWebSearchQuery(e.target.value)}
+                    placeholder="Search character or faction..."
+                    className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-1 text-xs font-mono text-white placeholder-slate-500 focus:outline-none focus:border-amber-400"
+                  />
+                  {webSearchQuery && (
+                    <button
+                      onClick={() => setWebSearchQuery('')}
+                      className="absolute right-2 top-1 text-xs text-slate-500 hover:text-slate-300"
+                    >
+                      ✕
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Faction Filter Chips */}
+              {factionsInWeb.length > 0 && (
+                <div className="pt-2 flex flex-wrap gap-1.5 items-center">
+                  <span className="text-[10px] font-pixel text-slate-500 mr-1">FACTIONS:</span>
+                  {factionsInWeb.map((fac) => {
+                    const isSelected = selectedFactionId === fac.id;
+                    return (
+                      <button
+                        key={fac.id}
+                        onClick={() => {
+                          setSelectedFactionId(isSelected ? 'all' : fac.id);
+                          setWebFilter('all');
+                        }}
+                        className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-pixel transition border ${
+                          isSelected
+                            ? 'bg-amber-500/20 border-amber-400 text-amber-300 shadow'
+                            : 'bg-slate-950 border-slate-800 text-slate-400 hover:border-slate-700 hover:text-slate-200'
+                        }`}
+                      >
+                        <PixelAvatar id={fac.id} name={fac.label} size={16} avatarUrl={fac.avatar_url} />
+                        <span>{fac.label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
             </div>
 
+            {/* Network Nodes Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 font-mono">
-              {relationshipWeb.nodes.map((node) => {
+              {filteredNodes.map((node) => {
                 const nodeEdges = relationshipWeb.edges.filter(
                   (e) => e.source === node.id || e.target === node.id
                 );
+                const isFaction = node.type === 'faction';
 
                 return (
                   <div
@@ -465,49 +692,94 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
                       if (node.type === 'character') {
                         setSelectedCharacterId(node.id);
                         setActiveTab('journey');
+                      } else {
+                        setSelectedFactionId(selectedFactionId === node.id ? 'all' : node.id);
                       }
                     }}
-                    className="cursor-pointer rounded-xl border border-slate-800 bg-[#0c1220] p-4 hover:border-amber-400 transition shadow"
+                    className={`cursor-pointer rounded-xl border p-4 transition shadow-lg flex flex-col justify-between ${
+                      isFaction
+                        ? 'border-amber-500/40 bg-[#0d1424] hover:border-amber-400'
+                        : 'border-slate-800 bg-[#0c1220] hover:border-cyan-400'
+                    }`}
                   >
-                    <div className="flex items-center gap-3 mb-3">
-                      <PixelAvatar id={node.id} name={node.label} size={42} isMasked={node.isMasked} />
-                      <div>
-                        <div className="font-pixel text-xs text-white flex items-center gap-1.5">
-                          {node.label}
-                          {node.isMasked && <EyeOff className="w-3.5 h-3.5 text-amber-400" />}
+                    <div>
+                      {/* Node Header with Pixel Avatar / Faction Emblem */}
+                      <div className="flex items-start gap-3.5 mb-3">
+                        <PixelAvatar 
+                          id={node.id} 
+                          name={node.label} 
+                          size={isFaction ? 52 : 44} 
+                          isMasked={node.isMasked} 
+                          avatarUrl={node.avatar_url} 
+                        />
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between gap-1">
+                            <span className="font-pixel text-xs font-bold text-white truncate flex items-center gap-1.5">
+                              {node.label}
+                              {node.isMasked && <EyeOff className="w-3.5 h-3.5 text-amber-400" />}
+                            </span>
+                            <span className={`text-[9px] uppercase font-pixel px-1.5 py-0.5 rounded border shrink-0 ${
+                              isFaction 
+                                ? 'bg-amber-500/20 text-amber-300 border-amber-500/40' 
+                                : 'bg-slate-800 text-slate-400 border-slate-700'
+                            }`}>
+                              {isFaction ? 'FACTION' : 'CHARACTER'}
+                            </span>
+                          </div>
+
+                          {node.description && (
+                            <p className="text-[11px] text-slate-400 line-clamp-2 mt-1 leading-snug">
+                              {node.description}
+                            </p>
+                          )}
                         </div>
-                        <span className="text-[10px] uppercase font-mono text-slate-500">
-                          {node.type}
-                        </span>
+                      </div>
+
+                      {/* Relationship Ties List */}
+                      <div className="space-y-1.5 pt-2 border-t border-slate-800/80">
+                        {nodeEdges.length > 0 ? (
+                          nodeEdges.slice(0, 5).map((edge) => {
+                            const isSource = edge.source === node.id;
+                            const otherId = isSource ? edge.target : edge.source;
+                            const otherNode = relationshipWeb.nodes.find((n) => n.id === otherId);
+
+                            return (
+                              <div
+                                key={edge.id}
+                                className="flex items-center justify-between text-[11px] py-1 px-2 rounded bg-slate-950/80 border border-slate-800/80 gap-2"
+                              >
+                                <span className={`font-pixel text-[9px] px-1.5 py-0.5 rounded border ${getRelBadgeColor(edge.label ?? edge.predicate)}`}>
+                                  {edge.label}
+                                </span>
+                                <span className="text-slate-300 font-pixel text-[10px] truncate flex items-center gap-1">
+                                  {otherNode?.avatar_url && (
+                                    <img 
+                                      src={otherNode.avatar_url} 
+                                      alt="" 
+                                      className="w-3.5 h-3.5 object-contain [image-rendering:pixelated]" 
+                                    />
+                                  )}
+                                  <span>{otherNode?.label ?? otherId}</span>
+                                </span>
+                              </div>
+                            );
+                          })
+                        ) : (
+                          <div className="text-[10px] text-slate-600 font-pixel py-1">
+                            ░░ NO ACTIVE TIES AT CH {userChapter} ░░
+                          </div>
+                        )}
+                        {nodeEdges.length > 5 && (
+                          <div className="text-[10px] font-pixel text-slate-500 text-right">
+                            +{nodeEdges.length - 5} more ties
+                          </div>
+                        )}
                       </div>
                     </div>
 
-                    <div className="space-y-1.5 pt-2 border-t border-slate-800">
-                      {nodeEdges.length > 0 ? (
-                        nodeEdges.map((edge) => {
-                          const isSource = edge.source === node.id;
-                          const otherId = isSource ? edge.target : edge.source;
-                          const otherNode = relationshipWeb.nodes.find((n) => n.id === otherId);
-
-                          return (
-                            <div
-                              key={edge.id}
-                              className="flex items-center justify-between text-[11px] py-1 px-2 rounded bg-slate-900 border border-slate-800/60"
-                            >
-                              <span className="text-amber-300 font-pixel text-[9px]">
-                                {edge.label}
-                              </span>
-                              <span className="text-slate-400">
-                                → {otherNode?.label ?? otherId}
-                              </span>
-                            </div>
-                          );
-                        })
-                      ) : (
-                        <div className="text-[10px] text-slate-600 font-pixel">
-                          ░░ NO ACTIVE TIES ░░
-                        </div>
-                      )}
+                    <div className="pt-3 mt-2 border-t border-slate-800/40 flex items-center justify-between text-[10px] font-pixel text-slate-500">
+                      <span>{isFaction ? 'CLICK TO FILTER MEMBERS' : 'CLICK TO VIEW RPG STATUS'}</span>
+                      <span className="text-amber-400 group-hover:translate-x-1 transition-transform">→</span>
                     </div>
                   </div>
                 );

@@ -895,6 +895,91 @@
       "first_appearance": 570,
       "revealed_at": 570,
       "aliases": []
+    },
+    "faction-baruch": {
+      "id": "faction-baruch",
+      "type": "faction",
+      "name": "Baruch Dragonblood Clan",
+      "aliases": [
+        "Baruch Dragonblood Clan"
+      ],
+      "description": "Ancient lineage of Supreme Supreme Dragonblood Warriors.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
+    },
+    "faction-beirut": {
+      "id": "faction-beirut",
+      "type": "faction",
+      "name": "Beirut Domain",
+      "aliases": [
+        "Beirut Domain"
+      ],
+      "description": "Beirut’s forest realm and divine beasts sovereign lineage.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
+    },
+    "faction-four-beasts": {
+      "id": "faction-four-beasts",
+      "type": "faction",
+      "name": "Four Divine Beasts Clan",
+      "aliases": [
+        "Four Divine Beasts Clan"
+      ],
+      "description": "Infernal Realm mega-clan descended from Azure Dragon, White Tiger, Black Tortoise, and Vermilion Bird.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
+    },
+    "faction-radiant-church": {
+      "id": "faction-radiant-church",
+      "type": "faction",
+      "name": "Holy Union (Radiant Church)",
+      "aliases": [
+        "Holy Union (Radiant Church)"
+      ],
+      "description": "Dominant theocratic superpower of the Yulan Material Plane.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1,
+      "emblem_url": "/assets/pixels/coiling-dragon/factions/faction-radiant-church.svg"
     }
   },
   "facts": {
@@ -975,6 +1060,90 @@
         "source": {
           "series": "coiling-dragon",
           "chapter": 500
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-linley-baruch": {
+      "id": "fact-faction-linley-baruch",
+      "entity_id": "linley-baruch",
+      "predicate": "faction",
+      "value": "faction-baruch",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-bebe": {
+      "id": "fact-faction-bebe",
+      "entity_id": "bebe",
+      "predicate": "faction",
+      "value": "faction-beirut",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-beirut": {
+      "id": "fact-faction-beirut",
+      "entity_id": "beirut",
+      "predicate": "faction",
+      "value": "faction-beirut",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-delia": {
+      "id": "fact-faction-delia",
+      "entity_id": "delia",
+      "predicate": "faction",
+      "value": "faction-baruch",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 1
         },
         "extracted_by": "deterministic",
         "confidence": 1,

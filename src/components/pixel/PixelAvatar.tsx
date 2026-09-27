@@ -60,7 +60,7 @@ export function PixelAvatar({
           src={avatarUrl} 
           alt={name}
           onError={() => setImgError(true)}
-          className="w-full h-full object-cover"
+          className={`w-full h-full ${id.startsWith('faction-') ? 'object-contain p-1' : 'object-cover'}`}
           style={{ 
             imageRendering: 'pixelated',
             shapeRendering: 'crispEdges'

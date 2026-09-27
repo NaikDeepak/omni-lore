@@ -26,7 +26,7 @@ export class AssetPixelPipeline {
    */
   public static async processSeriesEntities(
     graph: CanonicalLoreGraph,
-    entityTypes: ('character' | 'location')[] = ['character'],
+    entityTypes: ('character' | 'location' | 'faction')[] = ['character'],
     options: BatchPixelateOptions = {}
   ): Promise<{
     reports: PixelateEntityReport[];
@@ -41,7 +41,11 @@ export class AssetPixelPipeline {
     );
 
     for (const entity of entitiesToProcess) {
-      const typePlural = entity.type === 'character' ? 'avatars' : 'locations';
+      const typePlural = entity.type === 'character' 
+        ? 'avatars' 
+        : entity.type === 'location' 
+          ? 'locations' 
+          : 'factions';
       const outputDir = path.join(publicBase, 'assets', 'pixels', slug, typePlural);
       const outputFile = path.join(outputDir, `${entity.id}.svg`);
       const publicUrl = `/assets/pixels/${slug}/${typePlural}/${entity.id}.svg`;
@@ -91,6 +95,8 @@ export class AssetPixelPipeline {
           (entity as any).avatar_url = publicUrl;
         } else if (entity.type === 'location') {
           (entity as any).thumbnail_url = publicUrl;
+        } else if (entity.type === 'faction') {
+          (entity as any).emblem_url = publicUrl;
         }
 
         reports.push({

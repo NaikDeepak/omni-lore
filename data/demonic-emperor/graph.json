@@ -1081,6 +1081,138 @@
       "first_appearance": 740,
       "revealed_at": 740,
       "aliases": []
+    },
+    "faction-luo": {
+      "id": "faction-luo",
+      "type": "faction",
+      "name": "Luo Clan",
+      "aliases": [
+        "Luo Clan"
+      ],
+      "description": "Rising Third-Rate Clan of Windfall City led by Zhuo Fan to conquer Tianyu Empire.",
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1,
+      "emblem_url": "/assets/pixels/demonic-emperor/factions/faction-luo.svg"
+    },
+    "faction-regent": {
+      "id": "faction-regent",
+      "type": "faction",
+      "name": "Regent Estate",
+      "aliases": [
+        "Regent Estate"
+      ],
+      "description": "Supreme Noble House commanding the 7 Houses of Tianyu with iron ambition.",
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1,
+      "emblem_url": "/assets/pixels/demonic-emperor/factions/faction-regent.svg"
+    },
+    "faction-drifting-flowers": {
+      "id": "faction-drifting-flowers",
+      "type": "faction",
+      "name": "Drifting Flowers Edifice",
+      "aliases": [
+        "Drifting Flowers Edifice"
+      ],
+      "description": "All-female noble house masters of ice and flower arts led by Chu Qingcheng.",
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1,
+      "emblem_url": "/assets/pixels/demonic-emperor/factions/faction-drifting-flowers.svg"
+    },
+    "faction-sword-marquise": {
+      "id": "faction-sword-marquise",
+      "type": "faction",
+      "name": "Sword Marquise Abode",
+      "aliases": [
+        "Sword Marquise Abode"
+      ],
+      "description": "Noble House of peerless sword dao fanatics led by Xie Tianshang.",
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1,
+      "emblem_url": "/assets/pixels/demonic-emperor/factions/faction-sword-marquise.svg"
+    },
+    "faction-veiled-dragon": {
+      "id": "faction-veiled-dragon",
+      "type": "faction",
+      "name": "Veiled Dragon Pavilion",
+      "aliases": [
+        "Veiled Dragon Pavilion"
+      ],
+      "description": "Commercial superpower house and steadfast early ally to the Luo Clan.",
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1,
+      "emblem_url": "/assets/pixels/demonic-emperor/factions/faction-veiled-dragon.svg"
+    },
+    "faction-hell-valley": {
+      "id": "faction-hell-valley",
+      "type": "faction",
+      "name": "Hell Valley",
+      "aliases": [
+        "Hell Valley"
+      ],
+      "description": "Sinister House masters of poison, shadows, and ruthless subterranean warfare.",
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1,
+      "emblem_url": "/assets/pixels/demonic-emperor/factions/faction-hell-valley.svg"
     }
   },
   "facts": {
@@ -1203,6 +1335,195 @@
         "source": {
           "series": "demonic-emperor",
           "chapter": 1101
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-zhuo-fan": {
+      "id": "fact-faction-zhuo-fan",
+      "entity_id": "zhuo-fan",
+      "predicate": "faction",
+      "value": "faction-luo",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-luo-yunchang": {
+      "id": "fact-faction-luo-yunchang",
+      "entity_id": "luo-yunchang",
+      "predicate": "faction",
+      "value": "faction-luo",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-luo-yunhai": {
+      "id": "fact-faction-luo-yunhai",
+      "entity_id": "luo-yunhai",
+      "predicate": "faction",
+      "value": "faction-luo",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-chu-qingcheng": {
+      "id": "fact-faction-chu-qingcheng",
+      "entity_id": "chu-qingcheng",
+      "predicate": "faction",
+      "value": "faction-drifting-flowers",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-long-jiu": {
+      "id": "fact-faction-long-jiu",
+      "entity_id": "long-jiu",
+      "predicate": "faction",
+      "value": "faction-veiled-dragon",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-you-guiqi": {
+      "id": "fact-faction-you-guiqi",
+      "entity_id": "you-guiqi",
+      "predicate": "faction",
+      "value": "faction-hell-valley",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-huangpu-qingtian": {
+      "id": "fact-faction-huangpu-qingtian",
+      "entity_id": "huangpu-qingtian",
+      "predicate": "faction",
+      "value": "faction-regent",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-zhuge-changfeng": {
+      "id": "fact-faction-zhuge-changfeng",
+      "entity_id": "zhuge-changfeng",
+      "predicate": "faction",
+      "value": "faction-regent",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-xie-tianshang": {
+      "id": "fact-faction-xie-tianshang",
+      "entity_id": "xie-tianshang",
+      "predicate": "faction",
+      "value": "faction-sword-marquise",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
         },
         "extracted_by": "deterministic",
         "confidence": 1,
