@@ -1,0 +1,50 @@
+[
+  {
+    "slug": "coiling-dragon",
+    "title": "Coiling Dragon",
+    "type": "cultivation",
+    "status": "completed",
+    "wiki_api_endpoint": "https://coiling-dragon.fandom.com/api.php",
+    "total_chapters": 842,
+    "knowledge_boundary": {
+      "latest_processed_chapter": 842,
+      "as_of": "2026-09-27T00:00:00Z"
+    }
+  },
+  {
+    "slug": "solo-leveling",
+    "title": "Solo Leveling",
+    "type": "litrpg",
+    "status": "completed",
+    "wiki_api_endpoint": "https://solo-leveling.fandom.com/api.php",
+    "total_chapters": 270,
+    "knowledge_boundary": {
+      "latest_processed_chapter": 270,
+      "as_of": "2026-09-27T00:00:00Z"
+    }
+  },
+  {
+    "slug": "lord-of-the-mysteries",
+    "title": "Lord of the Mysteries",
+    "type": "fantasy",
+    "status": "ongoing",
+    "wiki_api_endpoint": "https://lordofthemysteries.fandom.com/api.php",
+    "total_chapters": 1432,
+    "knowledge_boundary": {
+      "latest_processed_chapter": 1432,
+      "as_of": "2026-09-27T00:00:00Z"
+    }
+  },
+  {
+    "slug": "one-piece",
+    "title": "One Piece",
+    "type": "anime",
+    "status": "ongoing",
+    "wiki_api_endpoint": "https://onepiece.fandom.com/api.php",
+    "total_chapters": 1130,
+    "knowledge_boundary": {
+      "latest_processed_chapter": 1130,
+      "as_of": "2026-09-27T00:00:00Z"
+    }
+  }
+]
