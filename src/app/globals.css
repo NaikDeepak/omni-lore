@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen:wght@400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,10 +9,55 @@
 }
 
 body {
-  background-color: #070913;
+  background-color: #060810;
   color: #f1f5f9;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   overflow-x: hidden;
+}
+
+/* Pixel Typography */
+.font-pixel {
+  font-family: 'Silkscreen', monospace;
+  letter-spacing: -0.01em;
+}
+
+.font-retro {
+  font-family: 'Press Start 2P', monospace;
+  line-height: 1.5;
+}
+
+/* Subtle CRT scanline effect */
+.crt-scanlines {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.03),
+    rgba(0, 255, 0, 0.01),
+    rgba(0, 0, 255, 0.03)
+  );
+  background-size: 100% 4px, 6px 100%;
+  pointer-events: none;
+}
+
+/* 8-Bit Pixel Box Borders */
+.pixel-box {
+  position: relative;
+  border: 2px solid;
+  border-image-slice: 2;
+  box-shadow: 
+    inset -2px -2px 0px rgba(0, 0, 0, 0.6),
+    inset 2px 2px 0px rgba(255, 255, 255, 0.1);
+}
+
+.pixel-corners {
+  clip-path: polygon(
+    0 4px, 4px 4px, 4px 0,
+    calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px,
+    100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%,
+    4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px)
+  );
 }
 
 /* Custom scrollbars */
@@ -19,14 +66,14 @@ body {
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #0d1224;
+  background: #090c17;
 }
 ::-webkit-scrollbar-thumb {
-  background: #232c52;
-  border-radius: 4px;
+  background: #1f2942;
+  border: 1px solid #334168;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #384576;
+  background: #334168;
 }
 
 /* Range input accent styling */

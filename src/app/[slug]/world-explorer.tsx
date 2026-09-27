@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { CanonicalLoreGraph } from '../../domain/types';
+import { getUniverseTheme } from '../../domain/themes';
 import { 
   projectPowerLadder, 
   projectRelationshipWeb, 
@@ -10,6 +11,10 @@ import {
   projectWorldMap, 
   projectCharacterJourney 
 } from '../../projections';
+import { PixelAvatar } from '../../components/pixel/PixelAvatar';
+import { PixelGauge } from '../../components/pixel/PixelGauge';
+import { RpgStatusScreen } from '../../components/pixel/RpgStatusScreen';
+import { PixelMapCanvas } from '../../components/pixel/PixelMapCanvas';
 import { 
   Flame, 
   Share2, 
@@ -19,7 +24,9 @@ import {
   Lock, 
   ArrowLeft, 
   Info,
-  EyeOff
+  EyeOff,
+  Sparkles,
+  Compass
 } from 'lucide-react';
 
 interface WorldExplorerProps {
@@ -28,11 +35,14 @@ interface WorldExplorerProps {
 
 export function WorldExplorer({ graph }: WorldExplorerProps) {
   const totalChapters = graph.series.total_chapters;
-  
+  const theme = getUniverseTheme(graph.series.slug);
+
   // Scrubber state
   const [userChapter, setUserChapter] = useState<number>(150);
-  const [activeTab, setActiveTab] = useState<'ladder' | 'web' | 'map' | 'timeline' | 'journey'>('ladder');
-  const [selectedCharacterId, setSelectedCharacterId] = useState<string>('linley-baruch');
+  const [activeTab, setActiveTab] = useState<'ladder' | 'web' | 'map' | 'timeline' | 'journey'>('map');
+  const [selectedCharacterId, setSelectedCharacterId] = useState<string>(
+    graph.series.slug === 'demonic-emperor' ? 'zhuo-fan' : 'linley-baruch'
+  );
 
   // Computed projections strictly driven by userChapter
   const powerLadder = useMemo(() => projectPowerLadder(graph, userChapter), [graph, userChapter]);
@@ -44,98 +54,118 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
     [selectedCharacterId, graph, userChapter]
   );
 
-  // Quick milestone shortcuts
-  const milestones = [
-    { label: 'Ch 1: Genesis', chapter: 1 },
-    { label: 'Ch 8: Bebe Meets Linley', chapter: 8 },
-    { label: 'Ch 115: Saint Breakthrough', chapter: 115 },
-    { label: 'Ch 200: Infernal Realm Revealed', chapter: 200 },
-    { label: 'Ch 450: God Breakthrough', chapter: 450 },
-    { label: 'Ch 500: Identity Unveiled', chapter: 500 },
-    { label: 'Ch 842: Finale', chapter: 842 },
-  ];
+  // Selected character details for RPG Status Screen
+  const selectedCharacter = graph.entities[selectedCharacterId];
+  const activeStageFact = powerLadder.tiers.find(t => 
+    t.characters.some(c => c.id === selectedCharacterId)
+  );
+
+  // Milestones per series
+  const milestones = useMemo(() => {
+    if (graph.series.slug === 'demonic-emperor') {
+      return [
+        { label: 'Ch 1: Rebirth', chapter: 1 },
+        { label: 'Ch 25: Blood Infant', chapter: 25 },
+        { label: 'Ch 140: Pill Contest', chapter: 140 },
+        { label: 'Ch 315: Huangpu Duel', chapter: 315 },
+        { label: 'Ch 350: 8th Noble House', chapter: 350 },
+        { label: 'Ch 1315: Emperor Peak', chapter: 1315 },
+      ];
+    }
+    return [
+      { label: 'Ch 1: Genesis', chapter: 1 },
+      { label: 'Ch 8: Bebe Enters', chapter: 8 },
+      { label: 'Ch 115: Saint Rank', chapter: 115 },
+      { label: 'Ch 200: Infernal Plane', chapter: 200 },
+      { label: 'Ch 450: God Rank', chapter: 450 },
+      { label: 'Ch 500: Identity Unveiled', chapter: 500 },
+      { label: 'Ch 842: Finale', chapter: 842 },
+    ];
+  }, [graph.series.slug]);
 
   return (
     <div className="space-y-6">
-      {/* Back button and series title */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      {/* Header Bar */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
         <div>
           <Link 
             href="/" 
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-amber-300 transition-colors mb-2"
+            className="inline-flex items-center gap-1.5 text-xs font-pixel text-slate-400 hover:text-amber-300 transition-colors mb-2"
           >
-            <ArrowLeft className="w-3.5 h-3.5" /> Back to Universes
+            <ArrowLeft className="w-3.5 h-3.5" /> [ ESC TO UNIVERSES ]
           </Link>
           <div className="flex items-center gap-3">
-            <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+            <span className="text-2xl select-none">{theme.runeSymbol}</span>
+            <h1 className="text-2xl sm:text-3xl font-pixel font-bold text-white tracking-tight">
               {graph.series.title}
             </h1>
-            <span className="text-xs uppercase px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/20 font-bold">
+            <span className={`text-[10px] font-pixel px-2.5 py-1 rounded border uppercase ${theme.badgeBg} ${theme.badgeText} ${theme.accentBorder}`}>
               {graph.series.type}
             </span>
           </div>
+          <p className="text-xs text-slate-400 mt-1 italic font-mono">{theme.tagline}</p>
         </div>
 
-        <div className="flex items-center gap-2 text-xs text-slate-400 bg-cosmic-800/80 px-3 py-1.5 rounded-lg border border-cosmic-700">
+        <div className="flex items-center gap-2 text-xs font-mono text-slate-400 bg-slate-900/90 px-3 py-1.5 rounded-lg border border-slate-700">
           <Info className="w-4 h-4 text-amber-400" />
-          <span>Knowledge boundary: Ch {graph.series.knowledge_boundary.latest_processed_chapter}</span>
+          <span>Knowledge Boundary: Ch {graph.series.knowledge_boundary.latest_processed_chapter}</span>
         </div>
       </div>
 
-      {/* Global Spoiler Scrubber Card */}
-      <div className="rounded-2xl border border-amber-500/30 bg-gradient-to-r from-cosmic-800 via-cosmic-800/90 to-cosmic-800 p-5 shadow-xl shadow-amber-500/5 space-y-4">
+      {/* Global Spoiler Scrubber (RPG Timeline Console) */}
+      <div className="rounded-2xl border-2 border-slate-700 bg-slate-950 p-5 shadow-2xl relative space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-          <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-lg bg-amber-500/20 text-amber-400">
+          <div className="flex items-center gap-3">
+            <div className="p-2 rounded-lg bg-amber-500/20 text-amber-400 border border-amber-500/30">
               <Lock className="w-4 h-4" />
             </div>
             <div>
-              <div className="text-xs font-semibold uppercase tracking-wider text-amber-400">
-                Global Spoiler Scrubber
+              <div className="text-[10px] font-pixel text-amber-400 tracking-wider">
+                SPOILER SCRUBBER CONSOLE
               </div>
-              <div className="text-lg font-bold text-white">
-                Reading Chapter: <span className="text-amber-400 font-mono text-xl">{userChapter}</span> / {totalChapters}
+              <div className="text-lg font-mono font-bold text-white flex items-center gap-2">
+                READING CHAPTER: <span className="text-amber-400 text-xl font-pixel">[{userChapter}]</span> / {totalChapters}
               </div>
             </div>
           </div>
 
-          <div className="text-xs text-slate-400">
+          <div className="text-xs font-mono text-slate-400">
             {userChapter >= totalChapters ? (
-              <span className="text-emerald-400 font-medium">All Spoilers Unlocked (Completed Story)</span>
+              <span className="text-emerald-400 font-pixel text-[11px]">✦ FULL LORE REVEALED ✦</span>
             ) : (
-              <span className="text-amber-300/90">Hiding events, deaths & breakthroughs after Ch {userChapter}</span>
+              <span className="text-amber-300 font-mono">░░ HIDING FUTURE EVENTS PAST CH {userChapter} ░░</span>
             )}
           </div>
         </div>
 
         {/* Range Slider */}
-        <div className="space-y-1">
+        <div className="space-y-1 pt-1">
           <input
             type="range"
             min={1}
             max={totalChapters}
             value={userChapter}
             onChange={(e) => setUserChapter(Number(e.target.value))}
-            className="w-full h-2.5 bg-cosmic-700 rounded-lg appearance-none cursor-pointer"
+            className="w-full h-3 bg-slate-800 rounded-lg appearance-none cursor-pointer border border-slate-700"
           />
-          <div className="flex justify-between text-[11px] text-slate-500 font-mono">
-            <span>Ch 1</span>
-            <span>Ch {Math.round(totalChapters / 2)}</span>
-            <span>Ch {totalChapters}</span>
+          <div className="flex justify-between text-[10px] font-pixel text-slate-500">
+            <span>CH 1</span>
+            <span>CH {Math.round(totalChapters / 2)}</span>
+            <span>CH {totalChapters}</span>
           </div>
         </div>
 
         {/* Quick Jump Buttons */}
         <div className="flex flex-wrap items-center gap-1.5 pt-1">
-          <span className="text-xs text-slate-400 font-medium mr-1">Key Arcs:</span>
+          <span className="text-[10px] font-pixel text-slate-400 mr-1">ARC JUMP:</span>
           {milestones.map((m) => (
             <button
               key={m.chapter}
               onClick={() => setUserChapter(m.chapter)}
-              className={`text-xs px-2.5 py-1 rounded-md transition font-medium ${
+              className={`text-[11px] font-pixel px-2.5 py-1 rounded transition border ${
                 userChapter === m.chapter
-                  ? 'bg-amber-500 text-cosmic-900 font-bold shadow'
-                  : 'bg-cosmic-700/60 hover:bg-cosmic-700 text-slate-300'
+                  ? 'bg-amber-500 text-slate-950 font-bold border-amber-400 shadow'
+                  : 'bg-slate-900 hover:bg-slate-800 text-slate-300 border-slate-700'
               }`}
             >
               {m.label}
@@ -144,87 +174,98 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
         </div>
       </div>
 
-      {/* Projection Views Tab Switcher */}
-      <div className="flex flex-wrap gap-2 border-b border-cosmic-700 pb-3">
-        <button
-          onClick={() => setActiveTab('ladder')}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-sm transition ${
-            activeTab === 'ladder'
-              ? 'bg-amber-500 text-cosmic-900 shadow-md shadow-amber-500/20'
-              : 'bg-cosmic-800 text-slate-300 hover:bg-cosmic-700 hover:text-white'
-          }`}
-        >
-          <Flame className="w-4 h-4" />
-          <span>Cultivation Ladder</span>
-        </button>
-
-        <button
-          onClick={() => setActiveTab('web')}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-sm transition ${
-            activeTab === 'web'
-              ? 'bg-amber-500 text-cosmic-900 shadow-md shadow-amber-500/20'
-              : 'bg-cosmic-800 text-slate-300 hover:bg-cosmic-700 hover:text-white'
-          }`}
-        >
-          <Share2 className="w-4 h-4" />
-          <span>Relationship Web</span>
-        </button>
-
+      {/* Retro Navigation Tabs */}
+      <div className="flex flex-wrap gap-2 border-b border-slate-800 pb-3">
         <button
           onClick={() => setActiveTab('map')}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-sm transition ${
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-pixel text-xs transition border ${
             activeTab === 'map'
-              ? 'bg-amber-500 text-cosmic-900 shadow-md shadow-amber-500/20'
-              : 'bg-cosmic-800 text-slate-300 hover:bg-cosmic-700 hover:text-white'
+              ? 'bg-cyan-500 text-slate-950 font-bold border-cyan-400 shadow-lg'
+              : 'bg-slate-900 text-slate-300 hover:bg-slate-800 border-slate-800'
           }`}
         >
           <MapIcon className="w-4 h-4" />
-          <span>Cosmology & Map</span>
+          <span>PIXEL WORLD MAP</span>
         </button>
 
         <button
-          onClick={() => setActiveTab('timeline')}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-sm transition ${
-            activeTab === 'timeline'
-              ? 'bg-amber-500 text-cosmic-900 shadow-md shadow-amber-500/20'
-              : 'bg-cosmic-800 text-slate-300 hover:bg-cosmic-700 hover:text-white'
+          onClick={() => setActiveTab('ladder')}
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-pixel text-xs transition border ${
+            activeTab === 'ladder'
+              ? 'bg-amber-500 text-slate-950 font-bold border-amber-400 shadow-lg'
+              : 'bg-slate-900 text-slate-300 hover:bg-slate-800 border-slate-800'
           }`}
         >
-          <Clock className="w-4 h-4" />
-          <span>Story Timeline</span>
+          <Flame className="w-4 h-4" />
+          <span>POWER LADDER</span>
         </button>
 
         <button
           onClick={() => setActiveTab('journey')}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-sm transition ${
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-pixel text-xs transition border ${
             activeTab === 'journey'
-              ? 'bg-amber-500 text-cosmic-900 shadow-md shadow-amber-500/20'
-              : 'bg-cosmic-800 text-slate-300 hover:bg-cosmic-700 hover:text-white'
+              ? 'bg-amber-500 text-slate-950 font-bold border-amber-400 shadow-lg'
+              : 'bg-slate-900 text-slate-300 hover:bg-slate-800 border-slate-800'
           }`}
         >
           <User className="w-4 h-4" />
-          <span>Character Journey</span>
+          <span>RPG STATUS SHEET</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('web')}
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-pixel text-xs transition border ${
+            activeTab === 'web'
+              ? 'bg-indigo-500 text-white font-bold border-indigo-400 shadow-lg'
+              : 'bg-slate-900 text-slate-300 hover:bg-slate-800 border-slate-800'
+          }`}
+        >
+          <Share2 className="w-4 h-4" />
+          <span>FACTION WEB</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('timeline')}
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-pixel text-xs transition border ${
+            activeTab === 'timeline'
+              ? 'bg-purple-500 text-white font-bold border-purple-400 shadow-lg'
+              : 'bg-slate-900 text-slate-300 hover:bg-slate-800 border-slate-800'
+          }`}
+        >
+          <Clock className="w-4 h-4" />
+          <span>STORY TIMELINE</span>
         </button>
       </div>
 
-      {/* Projection Content Area */}
-      <div className="bg-cosmic-800/40 rounded-2xl border border-cosmic-700 p-6 min-h-[500px]">
-        {/* VIEW 1: POWER LADDER */}
+      {/* Main Content Area */}
+      <div className="min-h-[500px]">
+        {/* VIEW 1: PIXEL WORLD MAP (SHOWSTOPPER) */}
+        {activeTab === 'map' && (
+          <div className="space-y-4">
+            <PixelMapCanvas
+              planes={worldMap.planes}
+              userChapter={userChapter}
+              totalChapters={totalChapters}
+            />
+          </div>
+        )}
+
+        {/* VIEW 2: POWER LADDER */}
         {activeTab === 'ladder' && (
           <div className="space-y-6">
-            <div className="flex items-center justify-between">
+            <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
               <div>
-                <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                  <Flame className="w-5 h-5 text-orange-400" />
+                <h2 className="text-base font-pixel font-bold text-white flex items-center gap-2">
+                  <Flame className="w-4 h-4 text-orange-400" />
                   <span>{powerLadder.system_name}</span>
                 </h2>
-                <p className="text-xs text-slate-400 mt-1">
-                  Active power tier positions at Chapter {userChapter}. Characters dynamically advance as you slide the scrubber.
+                <p className="text-xs text-slate-400 mt-1 font-mono">
+                  Realm tiers active at Chapter {userChapter}. Characters dynamically advance as you slide the scrubber.
                 </p>
               </div>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3 font-mono">
               {powerLadder.tiers
                 .slice()
                 .reverse()
@@ -234,56 +275,58 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
                   return (
                     <div
                       key={tier.id}
-                      className={`rounded-xl border p-5 transition-all ${
+                      className={`rounded-xl border p-4 transition-all ${
                         hasCharacters
-                          ? 'border-amber-500/40 bg-gradient-to-r from-cosmic-800 to-cosmic-800/80 shadow-lg'
-                          : 'border-cosmic-700/60 bg-cosmic-900/40 opacity-70'
+                          ? 'border-amber-500/60 bg-[#0c1220] shadow-md'
+                          : 'border-slate-800 bg-slate-950/60 opacity-60'
                       }`}
                     >
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
                         <div className="flex items-center gap-3">
-                          <span className="w-8 h-8 rounded-lg bg-cosmic-700 flex items-center justify-center font-bold text-amber-400 text-sm border border-cosmic-600">
-                            {tier.order}
+                          <span className="font-pixel text-xs px-2 py-1 rounded bg-slate-800 border border-slate-700 text-amber-400">
+                            T{tier.order}
                           </span>
                           <div>
-                            <h3 className="font-extrabold text-lg text-white">
+                            <h3 className="font-pixel text-sm text-white">
                               {tier.name}
                             </h3>
-                            <p className="text-xs text-slate-400">{tier.description}</p>
+                            <p className="text-xs text-slate-400 mt-0.5">{tier.description}</p>
                           </div>
                         </div>
 
-                        <span className={`text-xs px-2.5 py-1 rounded-full font-semibold ${
-                          hasCharacters ? 'bg-amber-500/20 text-amber-300' : 'bg-cosmic-700 text-slate-400'
+                        <span className={`text-[10px] font-pixel px-2 py-0.5 rounded ${
+                          hasCharacters ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-slate-800 text-slate-500'
                         }`}>
-                          {tier.characters.length} {tier.characters.length === 1 ? 'Occupant' : 'Occupants'}
+                          {tier.characters.length} OCCUPANT{tier.characters.length === 1 ? '' : 'S'}
                         </span>
                       </div>
 
                       {hasCharacters ? (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-2">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 pt-2">
                           {tier.characters.map((char) => (
                             <div
                               key={char.id}
-                              className="flex items-center justify-between p-3 rounded-lg bg-cosmic-900/80 border border-cosmic-700/80 hover:border-amber-500/40 transition"
+                              onClick={() => {
+                                setSelectedCharacterId(char.id);
+                                setActiveTab('journey');
+                              }}
+                              className="cursor-pointer flex items-center gap-3 p-2.5 rounded-lg bg-slate-900 border border-slate-700/80 hover:border-amber-400 transition"
                             >
-                              <div className="flex items-center gap-2.5">
-                                <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-amber-500 to-indigo-600 flex items-center justify-center font-bold text-xs text-white">
-                                  {char.displayName[0]}
+                              <PixelAvatar id={char.id} name={char.displayName} size={36} />
+                              <div>
+                                <div className="font-pixel text-xs text-white hover:text-amber-300">
+                                  {char.displayName}
                                 </div>
-                                <div>
-                                  <div className="font-bold text-sm text-slate-100">{char.displayName}</div>
-                                  <div className="text-[11px] text-amber-400/80 font-mono">
-                                    Achieved Ch {char.achieved_at_chapter}
-                                  </div>
+                                <div className="text-[10px] text-amber-400/80 font-mono">
+                                  Achieved Ch {char.achieved_at_chapter}
                                 </div>
                               </div>
                             </div>
                           ))}
                         </div>
                       ) : (
-                        <div className="text-xs text-slate-500 italic py-1">
-                          No known characters at this tier by Chapter {userChapter}.
+                        <div className="text-xs text-slate-600 font-pixel py-1">
+                          ░░ NO CHARACTERS AT THIS REALM BY CH {userChapter} ░░
                         </div>
                       )}
                     </div>
@@ -293,270 +336,221 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
           </div>
         )}
 
-        {/* VIEW 2: RELATIONSHIP WEB */}
-        {activeTab === 'web' && (
+        {/* VIEW 3: RPG STATUS SCREEN & CHARACTER JOURNEY */}
+        {activeTab === 'journey' && (
           <div className="space-y-6">
-            <div>
-              <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                <Share2 className="w-5 h-5 text-indigo-400" />
-                <span>Character & Faction Network</span>
-              </h2>
-              <p className="text-xs text-slate-400 mt-1">
-                Visual relationship graph active at Chapter {userChapter}. Expired ties fade; future allies remain locked.
-              </p>
-            </div>
+            <div className="flex flex-col lg:flex-row gap-6 items-start">
+              {/* Left Column: Authentic Retro RPG Status Screen */}
+              <div className="w-full lg:w-auto shrink-0 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="font-pixel text-xs text-slate-400">SELECT CHARACTER:</span>
+                  <select
+                    value={selectedCharacterId}
+                    onChange={(e) => setSelectedCharacterId(e.target.value)}
+                    className="bg-slate-900 text-white font-pixel text-xs px-3 py-1.5 rounded border border-slate-700 focus:outline-none focus:border-amber-400"
+                  >
+                    {Object.values(graph.entities)
+                      .filter((e) => e.type === 'character')
+                      .map((c) => (
+                        <option key={c.id} value={c.id}>
+                          {c.name}
+                        </option>
+                      ))}
+                  </select>
+                </div>
 
-            <div className="relative rounded-xl border border-cosmic-700 bg-cosmic-900/90 p-8 min-h-[350px] flex flex-col items-center justify-center">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
-                {relationshipWeb.nodes.map((node) => {
-                  const nodeEdges = relationshipWeb.edges.filter(
-                    (e) => e.source === node.id || e.target === node.id
-                  );
+                <RpgStatusScreen
+                  characterId={selectedCharacterId}
+                  name={selectedCharacter?.name ?? selectedCharacterId}
+                  displayName={characterJourney?.displayName ?? selectedCharacter?.name ?? selectedCharacterId}
+                  isMasked={characterJourney?.displayName !== selectedCharacter?.name}
+                  realmName={activeStageFact?.name ?? 'Mortal / Unranked'}
+                  realmOrder={activeStageFact?.order ?? 1}
+                  factionName={selectedCharacter?.provenance.source.series.toUpperCase()}
+                  locationName="Active Domain"
+                  userChapter={userChapter}
+                  relationshipsCount={relationshipWeb.edges.filter(
+                    (e) => e.source === selectedCharacterId || e.target === selectedCharacterId
+                  ).length}
+                />
+              </div>
 
-                  return (
-                    <div
-                      key={node.id}
-                      onClick={() => {
-                        if (node.type === 'character') setSelectedCharacterId(node.id);
-                      }}
-                      className="cursor-pointer rounded-xl border border-cosmic-700 bg-cosmic-800 p-4 hover:border-amber-500 transition shadow"
-                    >
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="flex items-center gap-2">
-                          <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs ${
-                            node.type === 'faction' 
-                              ? 'bg-emerald-600 text-white' 
-                              : 'bg-indigo-600 text-white'
-                          }`}>
-                            {node.label[0]}
-                          </div>
-                          <div>
-                            <span className="font-bold text-sm text-white flex items-center gap-1.5">
-                              {node.label}
-                              {node.isMasked && (
-                                <span title="Secret Identity Masked" className="inline-flex items-center text-amber-400">
-                                  <EyeOff className="w-3.5 h-3.5" />
-                                </span>
-                              )}
-                            </span>
-                            <span className="text-[10px] uppercase text-slate-400 tracking-wider">
-                              {node.type}
+              {/* Right Column: Character Biographical Journey */}
+              <div className="flex-1 w-full space-y-4 font-mono">
+                <div className="p-4 rounded-xl bg-slate-900 border border-slate-800">
+                  <h3 className="font-pixel text-xs text-amber-300">
+                    BIOGRAPHICAL CHRONICLE (UP TO CH {userChapter})
+                  </h3>
+                  <p className="text-xs text-slate-400 mt-1">
+                    Combined roadmap of breakthroughs, relationships, and key events experienced by {characterJourney?.displayName}.
+                  </p>
+                </div>
+
+                {characterJourney && characterJourney.milestones.length > 0 ? (
+                  <div className="relative pl-6 space-y-3 before:absolute before:left-2.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-800">
+                    {characterJourney.milestones.map((m, idx) => (
+                      <div key={idx} className="relative flex items-start gap-3">
+                        <div className="absolute -left-6 top-2 w-2.5 h-2.5 rounded-full bg-amber-400 border border-slate-950" />
+                        <div className="w-full rounded-xl border border-slate-800 bg-slate-900/90 p-3.5 space-y-1">
+                          <div className="flex items-center justify-between">
+                            <span className="font-pixel text-xs text-white">{m.title}</span>
+                            <span className="text-[10px] font-pixel text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">
+                              CH {m.chapter}
                             </span>
                           </div>
+                          <p className="text-xs text-slate-300">{m.description}</p>
                         </div>
                       </div>
-
-                      <div className="space-y-1.5 pt-2 border-t border-cosmic-700/60">
-                        {nodeEdges.length > 0 ? (
-                          nodeEdges.map((edge) => {
-                            const isSource = edge.source === node.id;
-                            const otherId = isSource ? edge.target : edge.source;
-                            const otherNode = relationshipWeb.nodes.find((n) => n.id === otherId);
-
-                            return (
-                              <div
-                                key={edge.id}
-                                className="flex items-center justify-between text-xs py-1 px-2 rounded bg-cosmic-900/60"
-                              >
-                                <span className="font-medium text-amber-300">
-                                  {edge.label}
-                                </span>
-                                <span className="text-slate-400">
-                                  → {otherNode?.label ?? otherId}
-                                </span>
-                              </div>
-                            );
-                          })
-                        ) : (
-                          <div className="text-[11px] text-slate-500 italic">
-                            No active relationships at Ch {userChapter}.
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-xs font-pixel text-slate-600 p-6 rounded-xl border border-slate-800 text-center">
+                    ░░ NO MILESTONES RECORDED PRIOR TO CH {userChapter} ░░
+                  </div>
+                )}
               </div>
             </div>
           </div>
         )}
 
-        {/* VIEW 3: COSMOLOGY & MAP */}
-        {activeTab === 'map' && (
+        {/* VIEW 4: RELATIONSHIP WEB */}
+        {activeTab === 'web' && (
           <div className="space-y-6">
-            <div>
-              <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                <MapIcon className="w-5 h-5 text-cyan-400" />
-                <span>Cosmology & Known Geography</span>
-              </h2>
-              <p className="text-xs text-slate-400 mt-1">
-                Discovered planar realms and territories known by Chapter {userChapter}.
-              </p>
+            <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+              <div>
+                <h2 className="text-base font-pixel font-bold text-white flex items-center gap-2">
+                  <Share2 className="w-4 h-4 text-indigo-400" />
+                  <span>CHARACTER & FACTION NETWORK</span>
+                </h2>
+                <p className="text-xs text-slate-400 mt-1 font-mono">
+                  Active alliances, master-disciple ties, and rivalries at Chapter {userChapter}.
+                </p>
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {worldMap.planes.map((plane) => (
-                <div
-                  key={plane.id}
-                  className="rounded-xl border border-cosmic-700 bg-cosmic-800 p-5 space-y-4"
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <span className="text-[10px] uppercase font-bold text-cyan-400 px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/20">
-                        Tier {plane.tier_order} Plane
-                      </span>
-                      <h3 className="text-lg font-bold text-white mt-1">{plane.name}</h3>
-                      <p className="text-xs text-slate-400">{plane.description}</p>
-                    </div>
-                  </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 font-mono">
+              {relationshipWeb.nodes.map((node) => {
+                const nodeEdges = relationshipWeb.edges.filter(
+                  (e) => e.source === node.id || e.target === node.id
+                );
 
-                  <div className="space-y-2 pt-2 border-t border-cosmic-700/60">
-                    <div className="text-xs font-semibold text-slate-300">
-                      Discovered Locations ({plane.locations.length})
-                    </div>
-                    {plane.locations.length > 0 ? (
-                      plane.locations.map((loc) => (
-                        <div
-                          key={loc.id}
-                          className="p-3 rounded-lg bg-cosmic-900/70 border border-cosmic-700/70 space-y-1"
-                        >
-                          <div className="flex items-center justify-between">
-                            <span className="font-bold text-sm text-slate-200">{loc.name}</span>
-                            {loc.coordinates && (
-                              <span className="text-[10px] font-mono text-cyan-400">
-                                ({loc.coordinates.x}, {loc.coordinates.y})
-                              </span>
-                            )}
-                          </div>
-                          <p className="text-xs text-slate-400">{loc.description}</p>
-                          <div className="text-[10px] text-slate-500">
-                            First visited in Chapter {loc.first_appearance}
-                          </div>
+                return (
+                  <div
+                    key={node.id}
+                    onClick={() => {
+                      if (node.type === 'character') {
+                        setSelectedCharacterId(node.id);
+                        setActiveTab('journey');
+                      }
+                    }}
+                    className="cursor-pointer rounded-xl border border-slate-800 bg-[#0c1220] p-4 hover:border-amber-400 transition shadow"
+                  >
+                    <div className="flex items-center gap-3 mb-3">
+                      <PixelAvatar id={node.id} name={node.label} size={42} isMasked={node.isMasked} />
+                      <div>
+                        <div className="font-pixel text-xs text-white flex items-center gap-1.5">
+                          {node.label}
+                          {node.isMasked && <EyeOff className="w-3.5 h-3.5 text-amber-400" />}
                         </div>
-                      ))
-                    ) : (
-                      <div className="text-xs text-slate-500 italic p-3 rounded bg-cosmic-900/40">
-                        Uncharted territory. No locations discovered yet by Chapter {userChapter}.
+                        <span className="text-[10px] uppercase font-mono text-slate-500">
+                          {node.type}
+                        </span>
                       </div>
-                    )}
+                    </div>
+
+                    <div className="space-y-1.5 pt-2 border-t border-slate-800">
+                      {nodeEdges.length > 0 ? (
+                        nodeEdges.map((edge) => {
+                          const isSource = edge.source === node.id;
+                          const otherId = isSource ? edge.target : edge.source;
+                          const otherNode = relationshipWeb.nodes.find((n) => n.id === otherId);
+
+                          return (
+                            <div
+                              key={edge.id}
+                              className="flex items-center justify-between text-[11px] py-1 px-2 rounded bg-slate-900 border border-slate-800/60"
+                            >
+                              <span className="text-amber-300 font-pixel text-[9px]">
+                                {edge.label}
+                              </span>
+                              <span className="text-slate-400">
+                                → {otherNode?.label ?? otherId}
+                              </span>
+                            </div>
+                          );
+                        })
+                      ) : (
+                        <div className="text-[10px] text-slate-600 font-pixel">
+                          ░░ NO ACTIVE TIES ░░
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         )}
 
-        {/* VIEW 4: TIMELINE */}
+        {/* VIEW 5: TIMELINE */}
         {activeTab === 'timeline' && (
           <div className="space-y-6">
-            <div>
-              <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                <Clock className="w-5 h-5 text-purple-400" />
-                <span>Story Arcs & Event Roadmap</span>
-              </h2>
-              <p className="text-xs text-slate-400 mt-1">
-                Major battles, breakthroughs, and world events occurring up to Chapter {userChapter}.
-              </p>
+            <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+              <div>
+                <h2 className="text-base font-pixel font-bold text-white flex items-center gap-2">
+                  <Clock className="w-4 h-4 text-purple-400" />
+                  <span>STORY ARCS & EVENT CHRONOLOGY</span>
+                </h2>
+                <p className="text-xs text-slate-400 mt-1 font-mono">
+                  Events and breakthroughs occurring strictly prior to Chapter {userChapter}.
+                </p>
+              </div>
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-4 font-mono">
               {timeline.arcs.map((arc) => (
                 <div
                   key={arc.id}
-                  className="rounded-xl border border-cosmic-700 bg-cosmic-800 p-5 space-y-4"
+                  className="rounded-xl border border-slate-800 bg-slate-950 p-5 space-y-3"
                 >
                   <div className="flex items-center justify-between">
                     <div>
-                      <span className="text-[10px] font-bold text-purple-400 px-2 py-0.5 rounded bg-purple-500/10 border border-purple-500/20">
-                        Arc {arc.order}
+                      <span className="text-[10px] font-pixel text-purple-400 px-2 py-0.5 rounded bg-purple-500/10 border border-purple-500/20">
+                        ARC {arc.order}
                       </span>
-                      <h3 className="text-lg font-bold text-white mt-1">{arc.name}</h3>
-                      <p className="text-xs text-slate-400 font-mono">
+                      <h3 className="font-pixel text-sm text-white mt-1">{arc.name}</h3>
+                      <p className="text-xs text-slate-400">
                         Chapters {arc.chapter_start} – {arc.chapter_end}
                       </p>
                     </div>
                   </div>
 
-                  <div className="space-y-3 pt-2 border-t border-cosmic-700/60">
+                  <div className="space-y-2 pt-2 border-t border-slate-800/80">
                     {arc.events.length > 0 ? (
                       arc.events.map((ev) => (
                         <div
                           key={ev.id}
-                          className="flex items-start gap-3 p-3.5 rounded-lg bg-cosmic-900/70 border border-cosmic-700/80"
+                          className="flex items-start gap-3 p-3 rounded-lg bg-slate-900 border border-slate-800"
                         >
-                          <div className="w-9 h-9 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center shrink-0 text-xs font-bold font-mono">
-                            Ch {ev.chapter}
+                          <div className="w-10 h-10 rounded bg-purple-500/20 text-purple-400 flex items-center justify-center shrink-0 font-pixel text-[10px]">
+                            CH{ev.chapter}
                           </div>
                           <div className="space-y-1">
                             <div className="flex items-center gap-2">
-                              <span className="font-bold text-sm text-slate-100">{ev.title}</span>
-                              <span className="text-[10px] uppercase font-semibold px-2 py-0.5 rounded bg-cosmic-700 text-slate-300">
+                              <span className="font-pixel text-xs text-slate-200">{ev.title}</span>
+                              <span className="text-[9px] uppercase font-pixel px-1.5 py-0.5 rounded bg-slate-800 text-slate-400">
                                 {ev.event_type}
                               </span>
                             </div>
                             <p className="text-xs text-slate-400">{ev.description}</p>
-                            {ev.involved_characters.length > 0 && (
-                              <div className="text-[11px] text-amber-400/90 pt-1">
-                                Involved: {ev.involved_characters.map((c) => c.name).join(', ')}
-                              </div>
-                            )}
                           </div>
                         </div>
                       ))
                     ) : (
-                      <div className="text-xs text-slate-500 italic p-3">
-                        Events in this arc have not occurred yet by Chapter {userChapter}.
+                      <div className="text-xs font-pixel text-slate-600 py-1">
+                        ░░ FUTURE EVENTS IN THIS ARC HIDDEN BY SPOILER FILTER ░░
                       </div>
                     )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* VIEW 5: CHARACTER JOURNEY */}
-        {activeTab === 'journey' && characterJourney && (
-          <div className="space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div>
-                <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                  <User className="w-5 h-5 text-amber-400" />
-                  <span>{characterJourney.displayName}'s Biography</span>
-                </h2>
-                <p className="text-xs text-slate-400 mt-1">
-                  Individual timeline combining breakthroughs, key events, and relationship transitions up to Chapter {userChapter}.
-                </p>
-              </div>
-
-              {/* Character Selector */}
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-slate-400">Select Character:</span>
-                <select
-                  value={selectedCharacterId}
-                  onChange={(e) => setSelectedCharacterId(e.target.value)}
-                  className="bg-cosmic-700 text-white text-xs font-semibold px-3 py-1.5 rounded-lg border border-cosmic-600 focus:outline-none focus:border-amber-400"
-                >
-                  <option value="linley-baruch">Linley Baruch</option>
-                  <option value="doehring-cowart">Doehring Cowart</option>
-                  <option value="bebe">Bebe</option>
-                </select>
-              </div>
-            </div>
-
-            {/* Milestones list */}
-            <div className="relative pl-6 space-y-4 before:absolute before:left-2.5 before:top-3 before:bottom-3 before:w-0.5 before:bg-cosmic-700">
-              {characterJourney.milestones.map((m, idx) => (
-                <div key={idx} className="relative flex items-start gap-4">
-                  <div className="absolute -left-6 top-1.5 w-3 h-3 rounded-full bg-amber-400 border-2 border-cosmic-900 ring-2 ring-amber-500/30" />
-                  <div className="w-full rounded-xl border border-cosmic-700 bg-cosmic-800 p-4 space-y-1">
-                    <div className="flex items-center justify-between">
-                      <span className="font-bold text-sm text-white">{m.title}</span>
-                      <span className="text-[11px] font-mono text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded">
-                        Chapter {m.chapter}
-                      </span>
-                    </div>
-                    <p className="text-xs text-slate-300">{m.description}</p>
                   </div>
                 </div>
               ))}
