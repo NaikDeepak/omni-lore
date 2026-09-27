@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { Fact } from '../src/domain/types.js';
-import { ConflictEngine } from '../src/engine/conflict-engine.js';
-import { coilingDragonFixture } from './fixtures/coiling-dragon.fixture.js';
+import { Fact } from '../src/domain/types';
+import { ConflictEngine } from '../src/engine/conflict-engine';
+import { coilingDragonFixture } from './fixtures/coiling-dragon.fixture';
 
 describe('ConflictEngine & Canon Confidence', () => {
   it('detects overlapping contradictory facts without silent overwriting', () => {

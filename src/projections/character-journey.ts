@@ -1,5 +1,5 @@
-import { CanonicalLoreGraph, EventEntity } from '../domain/types.js';
-import { TemporalEngine } from '../engine/temporal-engine.js';
+import { CanonicalLoreGraph, EventEntity } from '../domain/types';
+import { TemporalEngine } from '../engine/temporal-engine';
 
 export interface JourneyMilestone {
   chapter: number;
@@ -31,7 +31,6 @@ export function projectCharacterJourney(
 
   const milestones: JourneyMilestone[] = [];
 
-  // 1. Power stage breakthroughs up to userChapter
   const facts = Object.values(graph.facts).filter(f => 
     f.entity_id === characterId && 
     f.predicate === 'power_stage' && 
@@ -49,7 +48,6 @@ export function projectCharacterJourney(
     });
   }
 
-  // 2. Events participated in up to userChapter
   const events = Object.values(filtered.entities).filter((e): e is EventEntity => 
     e.type === 'event' && 
     e.chapter <= userChapter && 
@@ -66,7 +64,6 @@ export function projectCharacterJourney(
     });
   }
 
-  // 3. Relationships formed or ended up to userChapter
   const relationships = Object.values(graph.relationships).filter(r => 
     (r.source_id === characterId || r.target_id === characterId) &&
     TemporalEngine.isRevealedAt(r.temporal, userChapter) &&
@@ -96,7 +93,6 @@ export function projectCharacterJourney(
     }
   }
 
-  // Sort chronologically by chapter
   milestones.sort((a, b) => a.chapter - b.chapter);
 
   return {

@@ -5,8 +5,8 @@ import {
   projectRelationshipWeb, 
   projectTimeline, 
   projectWorldMap 
-} from '../src/projections/index.js';
-import { coilingDragonFixture } from './fixtures/coiling-dragon.fixture.js';
+} from '../src/projections';
+import { coilingDragonFixture } from './fixtures/coiling-dragon.fixture';
 
 describe('Projections Engine (Projections of Single Knowledge Graph)', () => {
   const graph = coilingDragonFixture;

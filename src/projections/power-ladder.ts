@@ -1,5 +1,5 @@
-import { CanonicalLoreGraph, PowerStageEntity } from '../domain/types.js';
-import { TemporalEngine } from '../engine/temporal-engine.js';
+import { CanonicalLoreGraph, PowerStageEntity } from '../domain/types';
+import { TemporalEngine } from '../engine/temporal-engine';
 
 export interface PowerLadderTier {
   id: string;
@@ -29,14 +29,12 @@ export function projectPowerLadder(
 ): PowerLadderProjection {
   const filtered = TemporalEngine.filterGraphAtChapter(graph, userChapter);
 
-  // Extract all power stages defined in entities
   const powerStages = Object.values(filtered.entities)
     .filter((e): e is PowerStageEntity => e.type === 'power_stage')
     .sort((a, b) => a.order - b.order);
 
   const systemName = powerStages[0]?.system_name ?? 'Cultivation System';
 
-  // Group characters into their active power stage fact at userChapter
   const tiers: PowerLadderTier[] = powerStages.map(stage => ({
     id: stage.id,
     name: stage.name,
@@ -50,7 +48,6 @@ export function projectPowerLadder(
   const tierMap = new Map<string, PowerLadderTier>();
   tiers.forEach(t => tierMap.set(t.id, t));
 
-  // Check each visible character's active power stage fact
   const characterEntities = Object.values(filtered.entities).filter(e => e.type === 'character');
   const allFacts = Object.values(graph.facts);
 

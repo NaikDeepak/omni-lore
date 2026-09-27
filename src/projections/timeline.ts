@@ -1,5 +1,5 @@
-import { ArcEntity, CanonicalLoreGraph, EventEntity } from '../domain/types.js';
-import { TemporalEngine } from '../engine/temporal-engine.js';
+import { ArcEntity, CanonicalLoreGraph, EventEntity } from '../domain/types';
+import { TemporalEngine } from '../engine/temporal-engine';
 
 export interface TimelineEventItem {
   id: string;
@@ -33,12 +33,10 @@ export function projectTimeline(
 ): TimelineProjection {
   const filtered = TemporalEngine.filterGraphAtChapter(graph, userChapter);
 
-  // Arcs that have begun by userChapter
   const visibleArcs = Object.values(filtered.entities)
     .filter((e): e is ArcEntity => e.type === 'arc' && e.chapter_start <= userChapter)
     .sort((a, b) => a.order - b.order);
 
-  // Events that have occurred by userChapter
   const visibleEvents = Object.values(filtered.entities)
     .filter((e): e is EventEntity => e.type === 'event' && e.chapter <= userChapter)
     .sort((a, b) => a.chapter - b.chapter);
@@ -55,7 +53,6 @@ export function projectTimeline(
     });
   });
 
-  // Attach events to their respective arcs
   for (const event of visibleEvents) {
     if (arcMap.has(event.arc_id)) {
       const arc = arcMap.get(event.arc_id)!;

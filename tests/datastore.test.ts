@@ -1,6 +1,6 @@
 import * as path from 'path';
 import { describe, expect, it } from 'vitest';
-import { LocalGitDataStore } from '../src/datastore/local-git-store.js';
+import { LocalGitDataStore } from '../src/datastore/local-git-store';
 
 describe('LocalGitDataStore', () => {
   const store = new LocalGitDataStore(path.resolve(__dirname, '../data'));

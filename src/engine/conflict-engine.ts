@@ -1,4 +1,4 @@
-import { CanonicalLoreGraph, Fact } from '../domain/types.js';
+import { CanonicalLoreGraph, Fact } from '../domain/types';
 
 export interface ConflictReport {
   entity_id: string;
@@ -8,11 +8,6 @@ export interface ConflictReport {
 }
 
 export class ConflictEngine {
-  /**
-   * Detects temporal contradictions in facts for an entity.
-   * e.g., two facts claiming different values for the same predicate
-   * with overlapping valid_from and valid_to ranges.
-   */
   public static detectFactConflicts(facts: Fact[]): ConflictReport[] {
     const reports: ConflictReport[] = [];
     const grouped: Record<string, Fact[]> = {};
@@ -31,9 +26,7 @@ export class ConflictEngine {
           const a = entityFacts[i];
           const b = entityFacts[j];
 
-          // Check if values differ
           if (JSON.stringify(a.value) !== JSON.stringify(b.value)) {
-            // Check if their temporal validity overlaps
             const aStart = a.temporal.valid_from;
             const aEnd = a.temporal.valid_to ?? Infinity;
             const bStart = b.temporal.valid_from;
@@ -63,10 +56,6 @@ export class ConflictEngine {
     return reports;
   }
 
-  /**
-   * Validates graph referential integrity: ensures every source and target
-   * referenced in relationships and events actually exists in the graph.
-   */
   public static detectIntegrityIssues(graph: CanonicalLoreGraph): string[] {
     const issues: string[] = [];
 

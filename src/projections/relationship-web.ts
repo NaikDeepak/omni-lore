@@ -1,5 +1,5 @@
-import { CanonicalLoreGraph, CharacterEntity, FactionEntity } from '../domain/types.js';
-import { TemporalEngine } from '../engine/temporal-engine.js';
+import { CanonicalLoreGraph, CharacterEntity, FactionEntity } from '../domain/types';
+import { TemporalEngine } from '../engine/temporal-engine';
 
 export interface GraphNode {
   id: string;
@@ -35,7 +35,6 @@ export function projectRelationshipWeb(
   const nodes: GraphNode[] = [];
   const nodeIds = new Set<string>();
 
-  // Add characters
   for (const entity of Object.values(filtered.entities)) {
     if (entity.type === 'character') {
       const char = entity as CharacterEntity;
@@ -60,7 +59,6 @@ export function projectRelationshipWeb(
     }
   }
 
-  // Filter edges where both source and target exist in the visible nodes
   const edges: GraphEdge[] = [];
   for (const rel of Object.values(filtered.activeRelationships)) {
     if (nodeIds.has(rel.source_id) && nodeIds.has(rel.target_id)) {

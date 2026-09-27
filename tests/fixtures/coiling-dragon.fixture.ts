@@ -1,4 +1,4 @@
-import { CanonicalLoreGraph } from '../../src/domain/types.js';
+import { CanonicalLoreGraph } from '../../src/domain/types';
 
 export const coilingDragonFixture: CanonicalLoreGraph = {
   series: {

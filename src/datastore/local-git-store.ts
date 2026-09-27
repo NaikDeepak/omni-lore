@@ -1,7 +1,7 @@
 import * as fs from 'fs/promises';
 import * as path from 'path';
-import { CanonicalLoreGraph, SeriesMetadata } from '../domain/types.js';
-import { LoreDataStore } from './interface.js';
+import { CanonicalLoreGraph, SeriesMetadata } from '../domain/types';
+import { LoreDataStore } from './interface';
 
 export class LocalGitDataStore implements LoreDataStore {
   private baseDir: string;

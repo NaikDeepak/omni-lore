@@ -1,5 +1,5 @@
-import { CanonicalLoreGraph, LocationEntity, PlaneEntity } from '../domain/types.js';
-import { TemporalEngine } from '../engine/temporal-engine.js';
+import { CanonicalLoreGraph, LocationEntity, PlaneEntity } from '../domain/types';
+import { TemporalEngine } from '../engine/temporal-engine';
 
 export interface MapLocationItem {
   id: string;
@@ -29,7 +29,6 @@ export function projectWorldMap(
 ): WorldMapProjection {
   const filtered = TemporalEngine.filterGraphAtChapter(graph, userChapter);
 
-  // Planes visible at userChapter
   const planes = Object.values(filtered.entities)
     .filter((e): e is PlaneEntity => e.type === 'plane')
     .sort((a, b) => a.tier_order - b.tier_order);
@@ -45,7 +44,6 @@ export function projectWorldMap(
     });
   });
 
-  // Locations discovered at or before userChapter
   const locations = Object.values(filtered.entities)
     .filter((e): e is LocationEntity => e.type === 'location' && e.first_appearance <= userChapter);
 

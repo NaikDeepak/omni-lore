@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { TemporalEngine } from '../src/engine/temporal-engine.js';
-import { coilingDragonFixture } from './fixtures/coiling-dragon.fixture.js';
+import { TemporalEngine } from '../src/engine/temporal-engine';
+import { coilingDragonFixture } from './fixtures/coiling-dragon.fixture';
 
 describe('TemporalEngine & Spoiler Scrubber', () => {
   const graph = coilingDragonFixture;
