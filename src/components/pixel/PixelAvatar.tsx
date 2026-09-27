@@ -1,13 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 interface PixelAvatarProps {
   id: string;
   name: string;
   size?: number;
   isMasked?: boolean;
+  avatarUrl?: string;
 }
 
-export function PixelAvatar({ id, name, size = 64, isMasked = false }: PixelAvatarProps) {
+export function PixelAvatar({ 
+  id, 
+  name, 
+  size = 64, 
+  isMasked = false,
+  avatarUrl
+}: PixelAvatarProps) {
+  const [imgError, setImgError] = useState(false);
+
   // Signature pixel color schemes per character
   let primaryColor = '#f59e0b'; // Amber default
   let secondaryColor = '#4338ca'; // Indigo
@@ -39,47 +48,62 @@ export function PixelAvatar({ id, name, size = 64, isMasked = false }: PixelAvat
     accentColor = '#fbcfe8';
   }
 
+  const hasCustomAvatar = Boolean(avatarUrl && !isMasked && !imgError);
+
   return (
     <div 
       className="relative flex items-center justify-center rounded-lg bg-black border-2 border-slate-700/80 shadow-md select-none overflow-hidden"
       style={{ width: size, height: size }}
     >
-      {/* 8x8 Pixel Grid Character Sprite */}
-      <svg 
-        viewBox="0 0 8 8" 
-        className="w-full h-full"
-        style={{ shapeRendering: 'crispEdges' }}
-      >
-        {/* Hair / Headgear */}
-        <rect x="2" y="1" width="4" height="2" fill={secondaryColor} />
-        <rect x="1" y="2" width="1" height="2" fill={secondaryColor} />
-        <rect x="6" y="2" width="1" height="2" fill={secondaryColor} />
-        
-        {/* Face */}
-        <rect x="2" y="2" width="4" height="3" fill="#fed7aa" />
-        
-        {/* Eyes (or Mask) */}
-        {isMasked ? (
-          <rect x="2" y="3" width="4" height="1" fill="#334155" />
-        ) : (
-          <>
-            <rect x="2" y="3" width="1" height="1" fill={primaryColor} />
-            <rect x="5" y="3" width="1" height="1" fill={primaryColor} />
-          </>
-        )}
+      {hasCustomAvatar ? (
+        <img 
+          src={avatarUrl} 
+          alt={name}
+          onError={() => setImgError(true)}
+          className="w-full h-full object-cover"
+          style={{ 
+            imageRendering: 'pixelated',
+            shapeRendering: 'crispEdges'
+          } as React.CSSProperties}
+        />
+      ) : (
+        /* 8x8 Pixel Grid Character Sprite Fallback */
+        <svg 
+          viewBox="0 0 8 8" 
+          className="w-full h-full"
+          style={{ shapeRendering: 'crispEdges' }}
+        >
+          {/* Hair / Headgear */}
+          <rect x="2" y="1" width="4" height="2" fill={secondaryColor} />
+          <rect x="1" y="2" width="1" height="2" fill={secondaryColor} />
+          <rect x="6" y="2" width="1" height="2" fill={secondaryColor} />
+          
+          {/* Face */}
+          <rect x="2" y="2" width="4" height="3" fill="#fed7aa" />
+          
+          {/* Eyes (or Mask) */}
+          {isMasked ? (
+            <rect x="2" y="3" width="4" height="1" fill="#334155" />
+          ) : (
+            <>
+              <rect x="2" y="3" width="1" height="1" fill={primaryColor} />
+              <rect x="5" y="3" width="1" height="1" fill={primaryColor} />
+            </>
+          )}
 
-        {/* Accents: Dragon Horns / Demonic Crown / Hat */}
-        <rect x="2" y="0" width="1" height="1" fill={accentColor} />
-        <rect x="5" y="0" width="1" height="1" fill={accentColor} />
+          {/* Accents: Dragon Horns / Demonic Crown / Hat */}
+          <rect x="2" y="0" width="1" height="1" fill={accentColor} />
+          <rect x="5" y="0" width="1" height="1" fill={accentColor} />
 
-        {/* Body / Cloak */}
-        <rect x="1" y="5" width="6" height="3" fill={primaryColor} />
-        <rect x="3" y="5" width="2" height="3" fill={secondaryColor} />
-      </svg>
+          {/* Body / Cloak */}
+          <rect x="1" y="5" width="6" height="3" fill={primaryColor} />
+          <rect x="3" y="5" width="2" height="3" fill={secondaryColor} />
+        </svg>
+      )}
 
       {/* Tiny corner bracket pixel overlay */}
-      <div className="absolute top-0 left-0 w-1.5 h-1.5 border-t border-l border-amber-400/80" />
-      <div className="absolute bottom-0 right-0 w-1.5 h-1.5 border-b border-r border-amber-400/80" />
+      <div className="absolute top-0 left-0 w-1.5 h-1.5 border-t border-l border-amber-400/80 pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-1.5 h-1.5 border-b border-r border-amber-400/80 pointer-events-none" />
     </div>
   );
 }

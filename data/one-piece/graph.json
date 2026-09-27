@@ -41,7 +41,8 @@
           "masked_name": "Rubber Human Luffy (Gomu Gomu)",
           "true_identity": "Sun God Nika (Mythical Zoan Hito Hito)"
         }
-      ]
+      ],
+      "avatar_url": "/assets/pixels/one-piece/avatars/luffy.svg"
     },
     "zoro": {
       "id": "zoro",
@@ -64,7 +65,8 @@
       },
       "canon_status": "canon",
       "first_appearance": 3,
-      "revealed_at": 3
+      "revealed_at": 3,
+      "avatar_url": "/assets/pixels/one-piece/avatars/zoro.svg"
     },
     "nami": {
       "id": "nami",
@@ -87,7 +89,8 @@
       },
       "canon_status": "canon",
       "first_appearance": 8,
-      "revealed_at": 8
+      "revealed_at": 8,
+      "avatar_url": "/assets/pixels/one-piece/avatars/nami.svg"
     },
     "usopp": {
       "id": "usopp",
@@ -110,7 +113,8 @@
       },
       "canon_status": "canon",
       "first_appearance": 23,
-      "revealed_at": 23
+      "revealed_at": 23,
+      "avatar_url": "/assets/pixels/one-piece/avatars/usopp.svg"
     },
     "sanji": {
       "id": "sanji",
@@ -133,7 +137,8 @@
       },
       "canon_status": "canon",
       "first_appearance": 43,
-      "revealed_at": 43
+      "revealed_at": 43,
+      "avatar_url": "/assets/pixels/one-piece/avatars/sanji.svg"
     },
     "chopper": {
       "id": "chopper",
@@ -155,7 +160,8 @@
       },
       "canon_status": "canon",
       "first_appearance": 134,
-      "revealed_at": 134
+      "revealed_at": 134,
+      "avatar_url": "/assets/pixels/one-piece/avatars/chopper.svg"
     },
     "robin": {
       "id": "robin",
@@ -185,7 +191,8 @@
           "masked_name": "Miss All Sunday (Baroque Works VP)",
           "true_identity": "Nico Robin (Ohara Archaeologist)"
         }
-      ]
+      ],
+      "avatar_url": "/assets/pixels/one-piece/avatars/robin.svg"
     },
     "shanks": {
       "id": "shanks",
@@ -208,7 +215,8 @@
       },
       "canon_status": "canon",
       "first_appearance": 1,
-      "revealed_at": 1
+      "revealed_at": 1,
+      "avatar_url": "/assets/pixels/one-piece/avatars/shanks.svg"
     },
     "whitebeard": {
       "id": "whitebeard",
@@ -231,7 +239,8 @@
       },
       "canon_status": "canon",
       "first_appearance": 234,
-      "revealed_at": 234
+      "revealed_at": 234,
+      "avatar_url": "/assets/pixels/one-piece/avatars/whitebeard.svg"
     },
     "blackbeard": {
       "id": "blackbeard",
@@ -254,7 +263,8 @@
       },
       "canon_status": "canon",
       "first_appearance": 223,
-      "revealed_at": 223
+      "revealed_at": 223,
+      "avatar_url": "/assets/pixels/one-piece/avatars/blackbeard.svg"
     },
     "kaido": {
       "id": "kaido",
@@ -277,7 +287,8 @@
       },
       "canon_status": "canon",
       "first_appearance": 795,
-      "revealed_at": 795
+      "revealed_at": 795,
+      "avatar_url": "/assets/pixels/one-piece/avatars/kaido.svg"
     },
     "akainu": {
       "id": "akainu",
@@ -300,7 +311,8 @@
       },
       "canon_status": "canon",
       "first_appearance": 397,
-      "revealed_at": 397
+      "revealed_at": 397,
+      "avatar_url": "/assets/pixels/one-piece/avatars/akainu.svg"
     },
     "dragon": {
       "id": "dragon",
@@ -323,7 +335,8 @@
       },
       "canon_status": "canon",
       "first_appearance": 100,
-      "revealed_at": 100
+      "revealed_at": 100,
+      "avatar_url": "/assets/pixels/one-piece/avatars/dragon.svg"
     },
     "roger": {
       "id": "roger",
@@ -346,7 +359,8 @@
       },
       "canon_status": "canon",
       "first_appearance": 1,
-      "revealed_at": 1
+      "revealed_at": 1,
+      "avatar_url": "/assets/pixels/one-piece/avatars/roger.svg"
     },
     "tier-rookie": {
       "id": "tier-rookie",
@@ -547,7 +561,8 @@
       "aliases": [
         "Dawn Island",
         "Windmill Village"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/one-piece/locations/loc-foosha-village.svg"
     },
     "loc-shells-town": {
       "id": "loc-shells-town",
@@ -573,7 +588,8 @@
       "revealed_at": 3,
       "aliases": [
         "153rd Marine Branch"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/one-piece/locations/loc-shells-town.svg"
     },
     "loc-orange-town": {
       "id": "loc-orange-town",
@@ -597,7 +613,8 @@
       "canon_status": "canon",
       "first_appearance": 8,
       "revealed_at": 8,
-      "aliases": []
+      "aliases": [],
+      "thumbnail_url": "/assets/pixels/one-piece/locations/loc-orange-town.svg"
     },
     "loc-syrup-village": {
       "id": "loc-syrup-village",
@@ -623,7 +640,8 @@
       "revealed_at": 23,
       "aliases": [
         "Gecko Islands"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/one-piece/locations/loc-syrup-village.svg"
     },
     "loc-baratie": {
       "id": "loc-baratie",
@@ -675,7 +693,8 @@
       "revealed_at": 69,
       "aliases": [
         "Cocoyasi Village"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/one-piece/locations/loc-arlong-park.svg"
     },
     "loc-loguetown": {
       "id": "loc-loguetown",
@@ -701,7 +720,8 @@
       "revealed_at": 96,
       "aliases": [
         "Town of the Beginning and the End"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/one-piece/locations/loc-loguetown.svg"
     },
     "loc-reverse-mountain": {
       "id": "loc-reverse-mountain",
@@ -727,7 +747,8 @@
       "revealed_at": 101,
       "aliases": [
         "Twin Cape"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/one-piece/locations/loc-reverse-mountain.svg"
     },
     "loc-whiskey-peak": {
       "id": "loc-whiskey-peak",
@@ -753,7 +774,8 @@
       "revealed_at": 106,
       "aliases": [
         "Cactus Island"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/one-piece/locations/loc-whiskey-peak.svg"
     },
     "loc-little-garden": {
       "id": "loc-little-garden",
@@ -779,7 +801,8 @@
       "revealed_at": 115,
       "aliases": [
         "Giant Duel Island"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/one-piece/locations/loc-little-garden.svg"
     },
     "loc-drum-island": {
       "id": "loc-drum-island",
@@ -805,7 +828,8 @@
       "revealed_at": 130,
       "aliases": [
         "Sakura Kingdom"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/one-piece/locations/loc-drum-island.svg"
     },
     "loc-alabasta": {
       "id": "loc-alabasta",
@@ -832,7 +856,8 @@
       "aliases": [
         "Sandy Island",
         "Alubarna"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/one-piece/locations/loc-alabasta.svg"
     },
     "loc-jaya": {
       "id": "loc-jaya",
@@ -858,7 +883,8 @@
       "revealed_at": 223,
       "aliases": [
         "Mock Town"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/one-piece/locations/loc-jaya.svg"
     },
     "loc-water-7": {
       "id": "loc-water-7",
@@ -884,7 +910,8 @@
       "revealed_at": 323,
       "aliases": [
         "City of Water"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/one-piece/locations/loc-water-7.svg"
     },
     "loc-enies-lobby": {
       "id": "loc-enies-lobby",
@@ -911,7 +938,8 @@
       "aliases": [
         "Judicial Island",
         "Day Island"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/one-piece/locations/loc-enies-lobby.svg"
     },
     "loc-thriller-bark": {
       "id": "loc-thriller-bark",
@@ -937,7 +965,8 @@
       "revealed_at": 442,
       "aliases": [
         "Florian Triangle Fortress"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/one-piece/locations/loc-thriller-bark.svg"
     },
     "loc-sabaody": {
       "id": "loc-sabaody",
@@ -963,7 +992,8 @@
       "revealed_at": 496,
       "aliases": [
         "Yarukiman Mangroves"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/one-piece/locations/loc-sabaody.svg"
     },
     "loc-marineford": {
       "id": "loc-marineford",
@@ -989,7 +1019,8 @@
       "revealed_at": 550,
       "aliases": [
         "Marine Headquarters"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/one-piece/locations/loc-marineford.svg"
     },
     "loc-skypiea": {
       "id": "loc-skypiea",
@@ -1016,7 +1047,8 @@
       "aliases": [
         "Upper Yard",
         "City of Gold Shandora"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/one-piece/locations/loc-skypiea.svg"
     },
     "loc-weatheria": {
       "id": "loc-weatheria",
@@ -1042,7 +1074,8 @@
       "revealed_at": 523,
       "aliases": [
         "Sky Science Island"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/one-piece/locations/loc-weatheria.svg"
     },
     "loc-impel-down": {
       "id": "loc-impel-down",
@@ -1068,7 +1101,8 @@
       "revealed_at": 526,
       "aliases": [
         "Great Prison"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/one-piece/locations/loc-impel-down.svg"
     },
     "loc-fishman-island": {
       "id": "loc-fishman-island",
@@ -1094,7 +1128,8 @@
       "revealed_at": 605,
       "aliases": [
         "Ryugu Kingdom"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/one-piece/locations/loc-fishman-island.svg"
     },
     "loc-punk-hazard": {
       "id": "loc-punk-hazard",
@@ -1120,7 +1155,8 @@
       "revealed_at": 655,
       "aliases": [
         "Island of Fire and Ice"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/one-piece/locations/loc-punk-hazard.svg"
     },
     "loc-dressrosa": {
       "id": "loc-dressrosa",
@@ -1172,7 +1208,8 @@
       "revealed_at": 802,
       "aliases": [
         "Phantom Island Zunesha"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/one-piece/locations/loc-zou.svg"
     },
     "loc-whole-cake": {
       "id": "loc-whole-cake",
@@ -1198,7 +1235,8 @@
       "revealed_at": 825,
       "aliases": [
         "Totto Land"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/one-piece/locations/loc-whole-cake.svg"
     },
     "loc-wano": {
       "id": "loc-wano",
@@ -1225,7 +1263,8 @@
       "aliases": [
         "Land of Gold Wano",
         "Onigashima"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/one-piece/locations/loc-wano.svg"
     },
     "loc-hachinosu": {
       "id": "loc-hachinosu",
@@ -1252,7 +1291,8 @@
       "aliases": [
         "Beehive Island",
         "Pirate Paradise"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/one-piece/locations/loc-hachinosu.svg"
     },
     "loc-egghead": {
       "id": "loc-egghead",
@@ -1332,7 +1372,8 @@
       "aliases": [
         "Raftel",
         "Final Island"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/one-piece/locations/loc-laugh-tale.svg"
     },
     "arc-east-blue": {
       "id": "arc-east-blue",

@@ -172,15 +172,26 @@ export function PixelMapCanvas({
                     opacity={isSelected ? "0.35" : "0.2"} 
                     className={isSelected ? "animate-ping" : "animate-pulse"} 
                   />
-                  {/* Pixel Landmark Icon */}
-                  <text 
-                    x={x - 7} 
-                    y={y + 5} 
-                    fontSize={isSelected ? "16" : "13"} 
-                    className="select-none filter drop-shadow-[0_0_8px_rgba(245,158,11,0.8)]"
-                  >
-                    {icon}
-                  </text>
+                  {/* Pixel Landmark Icon or SVG Sprite */}
+                  {loc.thumbnail_url ? (
+                    <image 
+                      href={loc.thumbnail_url} 
+                      x={isSelected ? x - 10 : x - 8} 
+                      y={isSelected ? y - 10 : y - 8} 
+                      width={isSelected ? "20" : "16"} 
+                      height={isSelected ? "20" : "16"} 
+                      className="select-none filter drop-shadow-[0_0_8px_rgba(245,158,11,0.8)] [image-rendering:pixelated]" 
+                    />
+                  ) : (
+                    <text 
+                      x={x - 7} 
+                      y={y + 5} 
+                      fontSize={isSelected ? "16" : "13"} 
+                      className="select-none filter drop-shadow-[0_0_8px_rgba(245,158,11,0.8)]"
+                    >
+                      {icon}
+                    </text>
+                  )}
                   {/* Location Label Badge */}
                   <rect 
                     x={x - 30} 
@@ -244,13 +255,21 @@ export function PixelMapCanvas({
                 <button
                   key={loc.id}
                   onClick={() => setActiveLocation(loc)}
-                  className={`text-[11px] px-2 py-0.5 rounded border transition font-pixel flex items-center gap-1 ${
+                  className={`text-[11px] px-2 py-0.5 rounded border transition font-pixel flex items-center gap-1.5 ${
                     isSelected
                       ? 'bg-amber-500/20 border-amber-400 text-amber-300'
                       : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'
                   }`}
                 >
-                  <span>{icon}</span>
+                  {loc.thumbnail_url ? (
+                    <img 
+                      src={loc.thumbnail_url} 
+                      alt="" 
+                      className="w-3.5 h-3.5 object-contain [image-rendering:pixelated]" 
+                    />
+                  ) : (
+                    <span>{icon}</span>
+                  )}
                   <span>{loc.name.split(' ')[0]}</span>
                 </button>
               );
@@ -260,29 +279,44 @@ export function PixelMapCanvas({
 
         {/* Selected Location Dialogue Box */}
         {activeLocation ? (
-          <div className="mt-3 w-full max-w-2xl p-4 rounded-xl border border-amber-500/50 bg-slate-900/95 space-y-2 shadow-xl animate-in fade-in slide-in-from-bottom-2">
-            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-2">
-              <span className="font-pixel text-xs text-amber-300 flex items-center gap-1.5">
-                <span>{getLocationIcon(activeLocation.name, activeLocation.description)}</span> 
-                {activeLocation.name}
-                {activeLocation.coordinates && (
-                  <span className="text-[10px] text-slate-500 font-mono">
-                    [{activeLocation.coordinates.x}, {activeLocation.coordinates.y}]
+          <div className="mt-3 w-full max-w-2xl p-4 rounded-xl border border-amber-500/50 bg-slate-900/95 space-y-3 shadow-xl animate-in fade-in slide-in-from-bottom-2">
+            <div className="flex items-start gap-4">
+              {activeLocation.thumbnail_url && (
+                <div className="flex-shrink-0 w-16 h-16 rounded-lg border-2 border-amber-500/40 bg-slate-950 p-1 flex items-center justify-center overflow-hidden shadow-inner">
+                  <img
+                    src={activeLocation.thumbnail_url}
+                    alt={activeLocation.name}
+                    className="w-full h-full object-contain [image-rendering:pixelated]"
+                  />
+                </div>
+              )}
+              <div className="flex-1 min-w-0 space-y-1.5">
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-2">
+                  <span className="font-pixel text-xs text-amber-300 flex items-center gap-1.5">
+                    {!activeLocation.thumbnail_url && (
+                      <span>{getLocationIcon(activeLocation.name, activeLocation.description)}</span>
+                    )}
+                    {activeLocation.name}
+                    {activeLocation.coordinates && (
+                      <span className="text-[10px] text-slate-500 font-mono">
+                        [{activeLocation.coordinates.x}, {activeLocation.coordinates.y}]
+                      </span>
+                    )}
                   </span>
+                  <span className="text-[11px] font-mono text-cyan-400 bg-cyan-950/40 border border-cyan-800/40 px-2 py-0.5 rounded">
+                    First Appeared: Chapter {activeLocation.first_appearance}
+                  </span>
+                </div>
+
+                {activeLocation.aliases && activeLocation.aliases.length > 0 && (
+                  <div className="text-[11px] text-slate-400">
+                    <span className="text-slate-500 font-pixel">Known As:</span> {activeLocation.aliases.join(', ')}
+                  </div>
                 )}
-              </span>
-              <span className="text-[11px] font-mono text-cyan-400 bg-cyan-950/40 border border-cyan-800/40 px-2 py-0.5 rounded">
-                First Appeared: Chapter {activeLocation.first_appearance}
-              </span>
-            </div>
 
-            {activeLocation.aliases && activeLocation.aliases.length > 0 && (
-              <div className="text-[11px] text-slate-400">
-                <span className="text-slate-500 font-pixel">Known As:</span> {activeLocation.aliases.join(', ')}
+                <p className="text-xs text-slate-300 leading-relaxed">{activeLocation.description}</p>
               </div>
-            )}
-
-            <p className="text-xs text-slate-300 leading-relaxed">{activeLocation.description}</p>
+            </div>
 
             {/* Historical Recorded Events at this location */}
             {activeLocation.events && activeLocation.events.length > 0 && (

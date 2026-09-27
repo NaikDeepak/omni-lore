@@ -41,7 +41,11 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
   const [userChapter, setUserChapter] = useState<number>(150);
   const [activeTab, setActiveTab] = useState<'ladder' | 'web' | 'map' | 'timeline' | 'journey'>('map');
   const [selectedCharacterId, setSelectedCharacterId] = useState<string>(
-    graph.series.slug === 'demonic-emperor' ? 'zhuo-fan' : 'linley-baruch'
+    graph.series.slug === 'demonic-emperor'
+      ? 'zhuo-fan'
+      : graph.series.slug === 'one-piece'
+        ? 'luffy'
+        : 'linley-baruch'
   );
 
   // Computed projections strictly driven by userChapter
@@ -62,6 +66,17 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
 
   // Milestones per series
   const milestones = useMemo(() => {
+    if (graph.series.slug === 'one-piece') {
+      return [
+        { label: 'Ch 1: Romance Dawn', chapter: 1 },
+        { label: 'Ch 100: Grand Line', chapter: 100 },
+        { label: 'Ch 218: Sky Island', chapter: 218 },
+        { label: 'Ch 390: Gear Second', chapter: 390 },
+        { label: 'Ch 574: Marineford', chapter: 574 },
+        { label: 'Ch 1044: Gear 5th Sun God', chapter: 1044 },
+        { label: 'Ch 1110: Egghead', chapter: 1110 },
+      ];
+    }
     if (graph.series.slug === 'demonic-emperor') {
       return [
         { label: 'Ch 1: Rebirth', chapter: 1 },
@@ -235,6 +250,14 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
           <Clock className="w-4 h-4" />
           <span>STORY TIMELINE</span>
         </button>
+
+        <Link
+          href="/pixel-studio"
+          className="ml-auto flex items-center gap-1.5 px-3 py-2 rounded-xl font-pixel text-xs text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/40 transition"
+        >
+          <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+          <span>PIXEL STUDIO ↗</span>
+        </Link>
       </div>
 
       {/* Main Content Area */}
@@ -364,6 +387,7 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
                   name={selectedCharacter?.name ?? selectedCharacterId}
                   displayName={characterJourney?.displayName ?? selectedCharacter?.name ?? selectedCharacterId}
                   isMasked={characterJourney?.displayName !== selectedCharacter?.name}
+                  avatarUrl={(selectedCharacter as any)?.avatar_url}
                   realmName={activeStageFact?.name ?? 'Mortal / Unranked'}
                   realmOrder={activeStageFact?.order ?? 1}
                   factionName={selectedCharacter?.provenance.source.series.toUpperCase()}

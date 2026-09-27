@@ -52,6 +52,13 @@ export default async function HomePage() {
             <span className="px-2 py-1 rounded bg-slate-900 border border-slate-800">
               🔒 SPOILER SCRUBBER
             </span>
+            <Link
+              href="/pixel-studio"
+              className="px-2.5 py-1 rounded bg-amber-500/20 text-amber-300 border border-amber-500/50 hover:bg-amber-500/30 transition flex items-center gap-1.5"
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>PIXEL STUDIO ↗</span>
+            </Link>
           </div>
         </div>
       </div>
@@ -63,14 +70,23 @@ export default async function HomePage() {
             <Book className="w-4 h-4 text-amber-400" />
             <span>AVAILABLE FICTIONAL UNIVERSES</span>
           </h2>
-          <span className="text-xs font-pixel text-slate-400">
-            {seriesList.length} PORTALS INDEXED
-          </span>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/pixel-studio"
+              className="text-xs font-pixel text-amber-400 hover:text-amber-300 flex items-center gap-1.5 transition"
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>TEST PIXEL CONVERTER</span>
+            </Link>
+            <span className="text-xs font-pixel text-slate-400">
+              {seriesList.length} PORTALS INDEXED
+            </span>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {seriesList.map((series) => {
-            const isReady = series.slug === 'coiling-dragon' || series.slug === 'demonic-emperor';
+            const isReady = series.slug === 'coiling-dragon' || series.slug === 'demonic-emperor' || series.slug === 'one-piece';
             const theme = getUniverseTheme(series.slug);
 
             return (

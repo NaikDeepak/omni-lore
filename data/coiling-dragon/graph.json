@@ -39,7 +39,8 @@
           "masked_name": "Mysterious Sovereign Envoy",
           "true_identity": "Linley Baruch"
         }
-      ]
+      ],
+      "avatar_url": "/assets/pixels/coiling-dragon/avatars/linley-baruch.svg"
     },
     "doehring-cowart": {
       "id": "doehring-cowart",
@@ -61,7 +62,8 @@
       },
       "canon_status": "canon",
       "first_appearance": 1,
-      "revealed_at": 1
+      "revealed_at": 1,
+      "avatar_url": "/assets/pixels/coiling-dragon/avatars/doehring-cowart.svg"
     },
     "bebe": {
       "id": "bebe",
@@ -84,7 +86,8 @@
       },
       "canon_status": "canon",
       "first_appearance": 8,
-      "revealed_at": 8
+      "revealed_at": 8,
+      "avatar_url": "/assets/pixels/coiling-dragon/avatars/bebe.svg"
     },
     "beirut": {
       "id": "beirut",
@@ -107,7 +110,8 @@
       },
       "canon_status": "canon",
       "first_appearance": 180,
-      "revealed_at": 180
+      "revealed_at": 180,
+      "avatar_url": "/assets/pixels/coiling-dragon/avatars/beirut.svg"
     },
     "delia": {
       "id": "delia",
@@ -129,7 +133,8 @@
       },
       "canon_status": "canon",
       "first_appearance": 25,
-      "revealed_at": 25
+      "revealed_at": 25,
+      "avatar_url": "/assets/pixels/coiling-dragon/avatars/delia.svg"
     },
     "stage-mortal": {
       "id": "stage-mortal",

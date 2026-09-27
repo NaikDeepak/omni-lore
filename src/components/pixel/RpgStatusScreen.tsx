@@ -8,6 +8,7 @@ interface RpgStatusScreenProps {
   name: string;
   displayName: string;
   isMasked: boolean;
+  avatarUrl?: string;
   realmName: string;
   realmOrder: number;
   factionName?: string;
@@ -22,6 +23,7 @@ export function RpgStatusScreen({
   name,
   displayName,
   isMasked,
+  avatarUrl,
   realmName,
   realmOrder,
   factionName = 'Unaligned Wanderer',
@@ -52,7 +54,13 @@ export function RpgStatusScreen({
       {/* Main Avatar & Core Info Row */}
       <div className="flex items-start gap-4 mb-5">
         <div className="shrink-0">
-          <PixelAvatar id={characterId} name={displayName} size={72} isMasked={isMasked} />
+          <PixelAvatar 
+            id={characterId} 
+            name={displayName} 
+            size={72} 
+            isMasked={isMasked} 
+            avatarUrl={avatarUrl}
+          />
         </div>
 
         <div className="space-y-1.5 flex-1 min-w-0">

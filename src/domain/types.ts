@@ -100,6 +100,7 @@ export interface LocationEntity extends BaseEntity {
   plane_id: string;           // Belongs to which cosmological plane
   coordinates?: { x: number; y: number };
   parent_location_id?: string;
+  thumbnail_url?: string;
 }
 
 export interface PlaneEntity extends BaseEntity {

@@ -16,6 +16,7 @@ export interface MapLocationItem {
   first_appearance: number;
   aliases?: string[];
   events?: MapLocationEvent[];
+  thumbnail_url?: string;
 }
 
 export interface MapPlaneItem {
@@ -80,6 +81,7 @@ export function projectWorldMap(
         first_appearance: loc.first_appearance,
         aliases: loc.aliases,
         events: locEvents,
+        thumbnail_url: loc.thumbnail_url,
       });
     }
   }

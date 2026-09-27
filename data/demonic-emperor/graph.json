@@ -41,7 +41,8 @@
           "masked_name": "Luo Clan Steward Zhuo",
           "true_identity": "Demonic Emperor Zhuo Yifan"
         }
-      ]
+      ],
+      "avatar_url": "/assets/pixels/demonic-emperor/avatars/zhuo-fan.svg"
     },
     "luo-yunchang": {
       "id": "luo-yunchang",
@@ -63,7 +64,8 @@
       },
       "canon_status": "canon",
       "first_appearance": 1,
-      "revealed_at": 1
+      "revealed_at": 1,
+      "avatar_url": "/assets/pixels/demonic-emperor/avatars/luo-yunchang.svg"
     },
     "luo-yunhai": {
       "id": "luo-yunhai",
@@ -86,7 +88,8 @@
       },
       "canon_status": "canon",
       "first_appearance": 1,
-      "revealed_at": 1
+      "revealed_at": 1,
+      "avatar_url": "/assets/pixels/demonic-emperor/avatars/luo-yunhai.svg"
     },
     "chu-qingcheng": {
       "id": "chu-qingcheng",
@@ -108,7 +111,8 @@
       },
       "canon_status": "canon",
       "first_appearance": 90,
-      "revealed_at": 90
+      "revealed_at": 90,
+      "avatar_url": "/assets/pixels/demonic-emperor/avatars/chu-qingcheng.svg"
     },
     "long-jiu": {
       "id": "long-jiu",
@@ -130,7 +134,8 @@
       },
       "canon_status": "canon",
       "first_appearance": 20,
-      "revealed_at": 20
+      "revealed_at": 20,
+      "avatar_url": "/assets/pixels/demonic-emperor/avatars/long-jiu.svg"
     },
     "you-guiqi": {
       "id": "you-guiqi",
@@ -153,7 +158,8 @@
       },
       "canon_status": "canon",
       "first_appearance": 40,
-      "revealed_at": 40
+      "revealed_at": 40,
+      "avatar_url": "/assets/pixels/demonic-emperor/avatars/you-guiqi.svg"
     },
     "huangpu-qingtian": {
       "id": "huangpu-qingtian",
@@ -176,7 +182,8 @@
       },
       "canon_status": "canon",
       "first_appearance": 200,
-      "revealed_at": 200
+      "revealed_at": 200,
+      "avatar_url": "/assets/pixels/demonic-emperor/avatars/huangpu-qingtian.svg"
     },
     "zhuge-changfeng": {
       "id": "zhuge-changfeng",
@@ -199,7 +206,8 @@
       },
       "canon_status": "canon",
       "first_appearance": 100,
-      "revealed_at": 100
+      "revealed_at": 100,
+      "avatar_url": "/assets/pixels/demonic-emperor/avatars/zhuge-changfeng.svg"
     },
     "dugu-zhantian": {
       "id": "dugu-zhantian",
@@ -222,7 +230,8 @@
       },
       "canon_status": "canon",
       "first_appearance": 170,
-      "revealed_at": 170
+      "revealed_at": 170,
+      "avatar_url": "/assets/pixels/demonic-emperor/avatars/dugu-zhantian.svg"
     },
     "xie-tianshang": {
       "id": "xie-tianshang",
@@ -245,7 +254,8 @@
       },
       "canon_status": "canon",
       "first_appearance": 120,
-      "revealed_at": 120
+      "revealed_at": 120,
+      "avatar_url": "/assets/pixels/demonic-emperor/avatars/xie-tianshang.svg"
     },
     "stage-qi-condensation": {
       "id": "stage-qi-condensation",
