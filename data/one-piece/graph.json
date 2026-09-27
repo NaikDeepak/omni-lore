@@ -1,0 +1,907 @@
+{
+  "series": {
+    "slug": "one-piece",
+    "title": "One Piece",
+    "type": "anime",
+    "status": "ongoing",
+    "total_chapters": 1130,
+    "knowledge_boundary": {
+      "latest_processed_chapter": 1130,
+      "as_of": "2026-09-27T12:37:24.077Z"
+    }
+  },
+  "entities": {
+    "luffy": {
+      "id": "luffy",
+      "type": "character",
+      "name": "Monkey D. Luffy",
+      "aliases": [
+        "Straw Hat Luffy",
+        "Fifth Emperor",
+        "Joy Boy",
+        "Sun God Nika"
+      ],
+      "description": "Captain of the Straw Hat Pirates with a dream to find the One Piece and become the Pirate King.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "page": "Monkey D. Luffy",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1,
+      "reveals": [
+        {
+          "revealed_at": 1044,
+          "masked_name": "Rubber Human Luffy (Gomu Gomu)",
+          "true_identity": "Sun God Nika (Mythical Zoan Hito Hito)"
+        }
+      ]
+    },
+    "zoro": {
+      "id": "zoro",
+      "type": "character",
+      "name": "Roronoa Zoro",
+      "aliases": [
+        "Pirate Hunter",
+        "King of Hell"
+      ],
+      "description": "Master swordsman of the Three-Sword Style and first mate of the Straw Hat Pirates.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "page": "Roronoa Zoro",
+          "chapter": 3
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 3,
+      "revealed_at": 3
+    },
+    "shanks": {
+      "id": "shanks",
+      "type": "character",
+      "name": "Red-Haired Shanks",
+      "aliases": [
+        "Red Hair",
+        "Four Emperors"
+      ],
+      "description": "Chief of the Red Hair Pirates and one of the Four Emperors who inspired Luffy to become a pirate.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "page": "Shanks",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
+    },
+    "whitebeard": {
+      "id": "whitebeard",
+      "type": "character",
+      "name": "Edward Newgate",
+      "aliases": [
+        "Whitebeard",
+        "Strongest Man in the World"
+      ],
+      "description": "Legendary Emperor of the Sea and captain of the Whitebeard Pirates who ushered in the Great Pirate Era.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "page": "Edward Newgate",
+          "chapter": 234
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 234,
+      "revealed_at": 234
+    },
+    "kaido": {
+      "id": "kaido",
+      "type": "character",
+      "name": "Kaido of the Beasts",
+      "aliases": [
+        "Strongest Creature",
+        "Governor-General of Beast Pirates"
+      ],
+      "description": "Emperor of the Sea occupying Wano Country with the Mythical Azure Dragon Devil Fruit.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "page": "Kaido",
+          "chapter": 795
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 795,
+      "revealed_at": 795
+    },
+    "akainu": {
+      "id": "akainu",
+      "type": "character",
+      "name": "Sakazuki (Akainu)",
+      "aliases": [
+        "Fleet Admiral Akainu",
+        "Red Dog"
+      ],
+      "description": "Leader of the entire Marine military force, wielding the devastating Mag-Mag Devil Fruit.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "page": "Sakazuki",
+          "chapter": 397
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 397,
+      "revealed_at": 397
+    },
+    "dragon": {
+      "id": "dragon",
+      "type": "character",
+      "name": "Monkey D. Dragon",
+      "aliases": [
+        "World's Worst Criminal",
+        "Supreme Commander of Revolutionary Army"
+      ],
+      "description": "Leader of the Revolutionary Army and father of Monkey D. Luffy.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "page": "Monkey D. Dragon",
+          "chapter": 100
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 100,
+      "revealed_at": 100
+    },
+    "tier-rookie": {
+      "id": "tier-rookie",
+      "type": "power_stage",
+      "name": "East Blue Rookie / Novice",
+      "order": 1,
+      "system_name": "Bounty & Pirate Tier System",
+      "description": "Initial pirate bounties under 30 Million Berries.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1,
+      "aliases": []
+    },
+    "tier-supernova": {
+      "id": "tier-supernova",
+      "type": "power_stage",
+      "name": "Worst Generation / Supernova",
+      "order": 2,
+      "system_name": "Bounty & Pirate Tier System",
+      "description": "Rookies reaching Sabaody Archipelago with bounties exceeding 100 Million Berries.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 100
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 100,
+      "revealed_at": 100,
+      "aliases": []
+    },
+    "tier-commander": {
+      "id": "tier-commander",
+      "type": "power_stage",
+      "name": "Warlord / Yonko Commander",
+      "order": 3,
+      "system_name": "Bounty & Pirate Tier System",
+      "description": "World-class warriors with bounties between 300 Million and 1 Billion Berries.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 388
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 388,
+      "revealed_at": 388,
+      "aliases": []
+    },
+    "tier-emperor-admiral": {
+      "id": "tier-emperor-admiral",
+      "type": "power_stage",
+      "name": "Emperor of the Sea / Marine Admiral",
+      "order": 4,
+      "system_name": "Bounty & Pirate Tier System",
+      "description": "The four Emperors (Yonko) and Fleet Admirals commanding world-destroying armies; bounties 1.5B – 4.5B Berries.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 432
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 432,
+      "revealed_at": 432,
+      "aliases": []
+    },
+    "tier-pirate-king": {
+      "id": "tier-pirate-king",
+      "type": "power_stage",
+      "name": "Pirate King Legend",
+      "order": 5,
+      "system_name": "Bounty & Pirate Tier System",
+      "description": "Conqueror of the Grand Line possessing the ultimate bounty (5B+ Berries).",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1,
+      "aliases": []
+    },
+    "plane-four-blues": {
+      "id": "plane-four-blues",
+      "type": "plane",
+      "name": "The Four Blues & Grand Line (Paradise)",
+      "tier_order": 1,
+      "description": "The outer seas and the first half of the Grand Line navigated via Log Pose.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1,
+      "aliases": []
+    },
+    "plane-sky-ocean": {
+      "id": "plane-sky-ocean",
+      "type": "plane",
+      "name": "Sky Islands & Deep Trenches",
+      "tier_order": 2,
+      "description": "Hidden vertical realms: Skypiea 10,000 meters in the clouds and Fish-Man Island 10,000 meters under the sea.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 237
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 237,
+      "revealed_at": 237,
+      "aliases": []
+    },
+    "plane-new-world": {
+      "id": "plane-new-world",
+      "type": "plane",
+      "name": "The New World (Shinsekai)",
+      "tier_order": 3,
+      "description": "The treacherous second half of the Grand Line ruled by the Four Emperors.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 650
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 650,
+      "revealed_at": 650,
+      "aliases": []
+    },
+    "loc-foosha-village": {
+      "id": "loc-foosha-village",
+      "type": "location",
+      "name": "Foosha Village & Windmill Island",
+      "plane_id": "plane-four-blues",
+      "coordinates": {
+        "x": 60,
+        "y": 180
+      },
+      "description": "Luffy's peaceful hometown in the East Blue where Shanks entrusted him with the Straw Hat.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1,
+      "aliases": []
+    },
+    "loc-alabasta": {
+      "id": "loc-alabasta",
+      "type": "location",
+      "name": "Kingdom of Alabasta",
+      "plane_id": "plane-four-blues",
+      "coordinates": {
+        "x": 180,
+        "y": 150
+      },
+      "description": "Vast desert kingdom where the Straw Hats defeated Warlord Crocodile.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 113
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 113,
+      "revealed_at": 113,
+      "aliases": []
+    },
+    "loc-marineford": {
+      "id": "loc-marineford",
+      "type": "location",
+      "name": "Marineford Headquarters",
+      "plane_id": "plane-four-blues",
+      "coordinates": {
+        "x": 330,
+        "y": 110
+      },
+      "description": "Fortress of absolute justice where the Summit War shook the foundation of the world.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 550
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 550,
+      "revealed_at": 550,
+      "aliases": []
+    },
+    "loc-wano": {
+      "id": "loc-wano",
+      "type": "location",
+      "name": "Wano Country & Onigashima",
+      "plane_id": "plane-new-world",
+      "coordinates": {
+        "x": 420,
+        "y": 160
+      },
+      "description": "Isolated land of samurai where Luffy awakened Sun God Nika and toppled Kaido.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 909
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 909,
+      "revealed_at": 909,
+      "aliases": []
+    },
+    "loc-egghead": {
+      "id": "loc-egghead",
+      "type": "location",
+      "name": "Egghead Future Island",
+      "plane_id": "plane-new-world",
+      "coordinates": {
+        "x": 480,
+        "y": 120
+      },
+      "description": "500-years-in-the-future laboratory island of Dr. Vegapunk, scene of the Buster Call and ancient Void Century broadcast.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1058
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1058,
+      "revealed_at": 1058,
+      "aliases": []
+    },
+    "arc-east-blue": {
+      "id": "arc-east-blue",
+      "type": "arc",
+      "name": "East Blue Saga",
+      "order": 1,
+      "chapter_start": 1,
+      "chapter_end": 100,
+      "description": "Luffy sets to sea, recruits Zoro, Nami, Usopp, and Sanji, and earns his first 30M Bounty.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1,
+      "aliases": []
+    },
+    "arc-alabasta": {
+      "id": "arc-alabasta",
+      "type": "arc",
+      "name": "Alabasta Saga",
+      "order": 2,
+      "chapter_start": 101,
+      "chapter_end": 217,
+      "description": "Entering the Grand Line, sailing with Princess Vivi, and defeating Warlord Crocodile (Bounty: 100M).",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 101
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 101,
+      "revealed_at": 101,
+      "aliases": []
+    },
+    "arc-water7": {
+      "id": "arc-water7",
+      "type": "arc",
+      "name": "Water 7 & Enies Lobby",
+      "order": 3,
+      "chapter_start": 322,
+      "chapter_end": 441,
+      "description": "Declaring war on the World Government to rescue Robin, unveiling Gear 2 and Gear 3 (Bounty: 300M).",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 322
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 322,
+      "revealed_at": 322,
+      "aliases": []
+    },
+    "arc-summit-war": {
+      "id": "arc-summit-war",
+      "type": "arc",
+      "name": "Summit War of Marineford",
+      "order": 4,
+      "chapter_start": 525,
+      "chapter_end": 597,
+      "description": "Infiltrating Impel Down, the cataclysmic battle at Marineford, and the 2-year timeskip (Bounty: 400M).",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 525
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 525,
+      "revealed_at": 525,
+      "aliases": []
+    },
+    "arc-wano": {
+      "id": "arc-wano",
+      "type": "arc",
+      "name": "Wano Country & Raid on Onigashima",
+      "order": 5,
+      "chapter_start": 909,
+      "chapter_end": 1057,
+      "description": "Samurai alliance war, awakening of Gear 5 / Sun God Nika, defeat of Kaido, crowned Emperor (Bounty: 3B).",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 909
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 909,
+      "revealed_at": 909,
+      "aliases": []
+    },
+    "arc-egghead": {
+      "id": "arc-egghead",
+      "type": "arc",
+      "name": "Egghead Future Island Saga",
+      "order": 6,
+      "chapter_start": 1058,
+      "chapter_end": 1130,
+      "description": "Confronting the Five Elders and Admiral Kizaru, unveiling the Ancient Kingdom and the World Sinking truth.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1058
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1058,
+      "revealed_at": 1058,
+      "aliases": []
+    },
+    "event-strawhat-promise": {
+      "id": "event-strawhat-promise",
+      "type": "event",
+      "name": "The Straw Hat Oath",
+      "chapter": 1,
+      "arc_id": "arc-east-blue",
+      "event_type": "revelation",
+      "involved_character_ids": [
+        "luffy",
+        "shanks"
+      ],
+      "location_id": "loc-foosha-village",
+      "description": "Shanks sacrifices his arm to save young Luffy and gives him the Straw Hat, sealing their promise.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1,
+      "aliases": []
+    },
+    "event-gear-second": {
+      "id": "event-gear-second",
+      "type": "event",
+      "name": "Gear Second & Third Breakthrough",
+      "chapter": 388,
+      "arc_id": "arc-water7",
+      "event_type": "breakthrough",
+      "involved_character_ids": [
+        "luffy"
+      ],
+      "description": "Luffy pumps his blood at superhuman speeds, unveiling Gear 2 and Gear 3 against CP9.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 388
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 388,
+      "revealed_at": 388,
+      "aliases": []
+    },
+    "event-marineford-war": {
+      "id": "event-marineford-war",
+      "type": "event",
+      "name": "The Paramount War of Marineford",
+      "chapter": 574,
+      "arc_id": "arc-summit-war",
+      "event_type": "battle",
+      "involved_character_ids": [
+        "luffy",
+        "whitebeard",
+        "akainu"
+      ],
+      "location_id": "loc-marineford",
+      "description": "The clash of titans at Marineford; Whitebeard proclaims 'The One Piece does exist!' before his demise.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 574
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 574,
+      "revealed_at": 574,
+      "aliases": []
+    },
+    "event-gear-fifth": {
+      "id": "event-gear-fifth",
+      "type": "event",
+      "name": "Awakening of Sun God Nika (Gear 5)",
+      "chapter": 1044,
+      "arc_id": "arc-wano",
+      "event_type": "breakthrough",
+      "involved_character_ids": [
+        "luffy",
+        "kaido"
+      ],
+      "location_id": "loc-wano",
+      "description": "Luffy's heartbeat drum becomes the Drums of Liberation; awakening the true Mythical Zoan God Nika.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1044
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1044,
+      "revealed_at": 1044,
+      "aliases": []
+    }
+  },
+  "facts": {
+    "fact-luffy-rookie": {
+      "id": "fact-luffy-rookie",
+      "entity_id": "luffy",
+      "predicate": "power_stage",
+      "value": "tier-rookie",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": 99,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-luffy-supernova": {
+      "id": "fact-luffy-supernova",
+      "entity_id": "luffy",
+      "predicate": "power_stage",
+      "value": "tier-supernova",
+      "temporal": {
+        "valid_from": 100,
+        "valid_to": 387,
+        "revealed_at": 100
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 100
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-luffy-commander": {
+      "id": "fact-luffy-commander",
+      "entity_id": "luffy",
+      "predicate": "power_stage",
+      "value": "tier-commander",
+      "temporal": {
+        "valid_from": 388,
+        "valid_to": 1043,
+        "revealed_at": 388
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 388
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-luffy-emperor": {
+      "id": "fact-luffy-emperor",
+      "entity_id": "luffy",
+      "predicate": "power_stage",
+      "value": "tier-emperor-admiral",
+      "temporal": {
+        "valid_from": 1044,
+        "valid_to": null,
+        "revealed_at": 1044
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1044
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    }
+  },
+  "relationships": {
+    "rel-shanks-luffy": {
+      "id": "rel-shanks-luffy",
+      "source_id": "shanks",
+      "target_id": "luffy",
+      "predicate": "MASTER_OF",
+      "label": "Straw Hat Mentor & Oath",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-zoro-luffy": {
+      "id": "rel-zoro-luffy",
+      "source_id": "zoro",
+      "target_id": "luffy",
+      "predicate": "ALLY_OF",
+      "label": "First Mate & Sworn Loyalty",
+      "temporal": {
+        "valid_from": 3,
+        "valid_to": null,
+        "revealed_at": 3
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 3
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-dragon-luffy": {
+      "id": "rel-dragon-luffy",
+      "source_id": "dragon",
+      "target_id": "luffy",
+      "predicate": "RELATED_TO",
+      "label": "Revolutionary Father",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 432
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 432
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-kaido-luffy": {
+      "id": "rel-kaido-luffy",
+      "source_id": "kaido",
+      "target_id": "luffy",
+      "predicate": "ENEMY_OF",
+      "label": "Emperor of the Sea Clash",
+      "temporal": {
+        "valid_from": 795,
+        "valid_to": 1050,
+        "revealed_at": 795
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 795
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-akainu-luffy": {
+      "id": "rel-akainu-luffy",
+      "source_id": "akainu",
+      "target_id": "luffy",
+      "predicate": "ENEMY_OF",
+      "label": "Marineford Blood Vendetta",
+      "temporal": {
+        "valid_from": 574,
+        "valid_to": null,
+        "revealed_at": 574
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 574
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    }
+  }
+}
