@@ -18,6 +18,7 @@ import { RpgStatusScreen } from '../../components/pixel/RpgStatusScreen';
 import { PixelMapCanvas } from '../../components/pixel/PixelMapCanvas';
 import { PixelNetworkCanvas } from '../../components/pixel/PixelNetworkCanvas';
 import { NodeDossierDrawer } from '../../components/pixel/NodeDossierDrawer';
+import { RpgDuelSimulator } from '../../components/pixel/RpgDuelSimulator';
 import { 
   Flame, 
   Share2, 
@@ -25,6 +26,7 @@ import {
   Clock, 
   User, 
   Lock, 
+  Swords, 
   ArrowLeft, 
   Info, 
   EyeOff, 
@@ -56,7 +58,9 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
 
   // Scrubber state
   const [userChapter, setUserChapter] = useState<number>(150);
-  const [activeTab, setActiveTab] = useState<'ladder' | 'web' | 'map' | 'timeline' | 'journey'>('map');
+  const [activeTab, setActiveTab] = useState<'ladder' | 'web' | 'map' | 'timeline' | 'journey' | 'duel'>('map');
+  const [duelFighterA, setDuelFighterA] = useState<string | undefined>(undefined);
+  const [duelFighterB, setDuelFighterB] = useState<string | undefined>(undefined);
   const [selectedCharacterId, setSelectedCharacterId] = useState<string>(
     graph.series.slug === 'demonic-emperor'
       ? 'zhuo-fan'
@@ -346,6 +350,18 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
           <span>STORY TIMELINE</span>
         </button>
 
+        <button
+          onClick={() => setActiveTab('duel')}
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-pixel text-xs transition border ${
+            activeTab === 'duel'
+              ? 'bg-rose-600 text-white font-bold border-rose-400 shadow-lg'
+              : 'bg-slate-900 text-slate-300 hover:bg-slate-800 border-slate-800'
+          }`}
+        >
+          <Swords className="w-4 h-4 text-rose-400" />
+          <span>DUEL ARENA</span>
+        </button>
+
         <Link
           href="/pixel-studio"
           className="ml-auto flex items-center gap-1.5 px-3 py-2 rounded-xl font-pixel text-xs text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/40 transition"
@@ -533,6 +549,10 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
                   relationshipsCount={relationshipWeb.edges.filter(
                     (e) => e.source === selectedCharacterId || e.target === selectedCharacterId
                   ).length}
+                  onChallengeInDuel={(cid) => {
+                    setDuelFighterA(cid);
+                    setActiveTab('duel');
+                  }}
                 />
               </div>
 
@@ -747,7 +767,8 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
                         setActiveTab('journey');
                       }}
                       onSelectForDuel={(cid) => {
-                        setSelectedCharacterId(cid);
+                        setDuelFighterA(cid);
+                        setActiveTab('duel');
                       }}
                     />
                   </div>
@@ -930,6 +951,21 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
               ))}
             </div>
           </div>
+        )}
+
+        {/* VIEW 6: RPG HEAD-TO-HEAD DUEL SIMULATOR */}
+        {activeTab === 'duel' && (
+          <RpgDuelSimulator
+            graph={graph}
+            userChapter={userChapter}
+            initialFighterA={duelFighterA}
+            initialFighterB={duelFighterB}
+            onChapterChange={setUserChapter}
+            onSelectCharacter={(cid) => {
+              setSelectedCharacterId(cid);
+              setActiveTab('journey');
+            }}
+          />
         )}
       </div>
     </div>

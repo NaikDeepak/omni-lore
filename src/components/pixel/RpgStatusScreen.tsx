@@ -1,7 +1,7 @@
 import React from 'react';
 import { PixelAvatar } from './PixelAvatar';
 import { PixelGauge } from './PixelGauge';
-import { Shield, MapPin, Sparkles, EyeOff } from 'lucide-react';
+import { Shield, MapPin, Sparkles, EyeOff, Swords } from 'lucide-react';
 
 interface RpgStatusScreenProps {
   characterId: string;
@@ -16,6 +16,7 @@ interface RpgStatusScreenProps {
   userChapter: number;
   themeAccent?: string;
   relationshipsCount?: number;
+  onChallengeInDuel?: (characterId: string) => void;
 }
 
 export function RpgStatusScreen({
@@ -31,6 +32,7 @@ export function RpgStatusScreen({
   userChapter,
   themeAccent = '#f59e0b',
   relationshipsCount = 0,
+  onChallengeInDuel,
 }: RpgStatusScreenProps) {
   // Compute normalized power level from realmOrder (1 to 10)
   const powerScore = Math.min(Math.max(realmOrder, 1), 10);
@@ -103,6 +105,17 @@ export function RpgStatusScreen({
           <PixelGauge label="⚔ POWER RATING" value={powerScore} max={10} colorClass="text-amber-400" />
           <PixelGauge label="✦ INFLUENCE & TIES" value={influenceScore} max={10} colorClass="text-indigo-400" />
         </div>
+
+        {/* Challenge in Duel Button */}
+        {onChallengeInDuel && (
+          <button
+            onClick={() => onChallengeInDuel(characterId)}
+            className="w-full mt-2 py-2 px-3 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-pixel text-xs transition border border-rose-400 shadow-md flex items-center justify-center gap-2"
+          >
+            <Swords className="w-3.5 h-3.5" />
+            <span>CHALLENGE IN DUEL ARENA</span>
+          </button>
+        )}
       </div>
 
       {/* Bottom CRT line */}
