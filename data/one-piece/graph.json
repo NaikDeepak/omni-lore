@@ -542,8 +542,8 @@
       "name": "Foosha Village & Dawn Island",
       "plane_id": "plane-four-blues",
       "coordinates": {
-        "x": 35,
-        "y": 155
+        "x": 75,
+        "y": 440
       },
       "description": "Luffy's peaceful hometown in the Goa Kingdom where Red-Haired Shanks sacrificed his arm to save young Luffy and entrusted him with the Straw Hat.",
       "provenance": {
@@ -570,8 +570,8 @@
       "name": "Shells Town (Marine 153rd Branch)",
       "plane_id": "plane-four-blues",
       "coordinates": {
-        "x": 55,
-        "y": 135
+        "x": 130,
+        "y": 410
       },
       "description": "Marine base town governed by tyrannical 'Axe-Hand' Morgan, where Luffy freed Roronoa Zoro from execution and made him his first mate.",
       "provenance": {
@@ -597,8 +597,8 @@
       "name": "Orange Town",
       "plane_id": "plane-four-blues",
       "coordinates": {
-        "x": 75,
-        "y": 160
+        "x": 175,
+        "y": 470
       },
       "description": "Town evacuated due to Buggy the Clown's pirate rampages; where Luffy, Zoro, and Nami first teamed up and saved Mayor Boodle and dog Chouchou.",
       "provenance": {
@@ -622,8 +622,8 @@
       "name": "Syrup Village (Gecko Islands)",
       "plane_id": "plane-four-blues",
       "coordinates": {
-        "x": 95,
-        "y": 130
+        "x": 215,
+        "y": 405
       },
       "description": "Usopp's hillside village where the Straw Hats defeated Captain Kuro and the Black Cat Pirates, acquiring the caravel Going Merry.",
       "provenance": {
@@ -649,8 +649,8 @@
       "name": "Baratie Ocean Restaurant",
       "plane_id": "plane-four-blues",
       "coordinates": {
-        "x": 115,
-        "y": 165
+        "x": 255,
+        "y": 475
       },
       "description": "Floating fish-shaped ocean restaurant founded by Chef Zeff; site of Don Krieg's armada attack, Mihawk's duel with Zoro, and Sanji's recruitment.",
       "provenance": {
@@ -675,8 +675,8 @@
       "name": "Arlong Park (Conomi Islands)",
       "plane_id": "plane-four-blues",
       "coordinates": {
-        "x": 130,
-        "y": 125
+        "x": 295,
+        "y": 400
       },
       "description": "Towering headquarters of the fishman tyrant Arlong; demolished to rubble by Luffy to liberate Nami and Cocoyasi Village from eight years of slavery.",
       "provenance": {
@@ -702,8 +702,8 @@
       "name": "Loguetown (The Beginning & The End)",
       "plane_id": "plane-four-blues",
       "coordinates": {
-        "x": 150,
-        "y": 150
+        "x": 335,
+        "y": 450
       },
       "description": "Legendary city where Pirate King Gol D. Roger was born and executed; final port in the East Blue where Monkey D. Dragon saved Luffy from Smoker.",
       "provenance": {
@@ -729,8 +729,8 @@
       "name": "Reverse Mountain & Twin Cape",
       "plane_id": "plane-four-blues",
       "coordinates": {
-        "x": 175,
-        "y": 115
+        "x": 110,
+        "y": 285
       },
       "description": "Ascending ocean currents where all four blues converge to enter the Grand Line; home to the lighthouse keeper Crocus and the island whale Laboon.",
       "provenance": {
@@ -756,8 +756,8 @@
       "name": "Whiskey Peak (Cactus Island)",
       "plane_id": "plane-four-blues",
       "coordinates": {
-        "x": 200,
-        "y": 130
+        "x": 165,
+        "y": 285
       },
       "description": "Town that welcomes pirates with wine and celebration only to slaughter them; where Zoro defeated 100 Baroque Works bounty hunters in the moonlight.",
       "provenance": {
@@ -783,8 +783,8 @@
       "name": "Little Garden",
       "plane_id": "plane-four-blues",
       "coordinates": {
-        "x": 225,
-        "y": 145
+        "x": 215,
+        "y": 305
       },
       "description": "Prehistoric jungle island populated by dinosaurs and giant warriors Dorry and Brogy, who have fought a sacred duel of honor for over a century.",
       "provenance": {
@@ -810,8 +810,8 @@
       "name": "Drum Island (Sakura Kingdom)",
       "plane_id": "plane-four-blues",
       "coordinates": {
-        "x": 250,
-        "y": 95
+        "x": 265,
+        "y": 250
       },
       "description": "Permanent winter country ruled by the drum rockies; where Dr. Hiriluk's cherry blossom powder bloomed and Tony Tony Chopper joined the crew.",
       "provenance": {
@@ -837,8 +837,8 @@
       "name": "Kingdom of Alabasta",
       "plane_id": "plane-four-blues",
       "coordinates": {
-        "x": 275,
-        "y": 140
+        "x": 315,
+        "y": 310
       },
       "description": "Vast desert realm beset by drought and civil war plotted by Baroque Works; saved when Luffy defeated Warlord Sir Crocodile in the royal tombs.",
       "provenance": {
@@ -865,8 +865,8 @@
       "name": "Jaya & Mock Town",
       "plane_id": "plane-four-blues",
       "coordinates": {
-        "x": 300,
-        "y": 110
+        "x": 365,
+        "y": 260
       },
       "description": "Lawless pirate haven where Bellamy mocked dreams, Marshall D. Teach declared 'A man's dream will never die!', and the Knock Up Stream was located.",
       "provenance": {
@@ -892,8 +892,8 @@
       "name": "Water 7 (Metropolis of Water)",
       "plane_id": "plane-four-blues",
       "coordinates": {
-        "x": 330,
-        "y": 105
+        "x": 410,
+        "y": 285
       },
       "description": "Stunning canal metropolis of world-renowned shipwrights (Galley-La Company), sea train Puffing Tom, and birthplace of the Thousand Sunny.",
       "provenance": {
@@ -919,8 +919,8 @@
       "name": "Enies Lobby (Judicial Island)",
       "plane_id": "plane-four-blues",
       "coordinates": {
-        "x": 350,
-        "y": 85
+        "x": 445,
+        "y": 245
       },
       "description": "Everday judicial stronghold of the World Government; where the Straw Hats burned the World Government flag to rescue Nico Robin from CP9.",
       "provenance": {
@@ -947,8 +947,8 @@
       "name": "Thriller Bark (Ghost Island Ship)",
       "plane_id": "plane-four-blues",
       "coordinates": {
-        "x": 360,
-        "y": 140
+        "x": 440,
+        "y": 345
       },
       "description": "World's largest pirate ship masked as a haunted island within the Florian Triangle; where Warlord Gecko Moria stole shadows and Zoro absorbed Luffy's pain.",
       "provenance": {
@@ -974,8 +974,8 @@
       "name": "Sabaody Archipelago",
       "plane_id": "plane-four-blues",
       "coordinates": {
-        "x": 375,
-        "y": 115
+        "x": 470,
+        "y": 290
       },
       "description": "Giant mangrove archipelago at the base of the Red Line; notorious for Celestial Dragon slave auctions, the Eleven Supernovas, and Kuma's crew dispersion.",
       "provenance": {
@@ -1001,8 +1001,8 @@
       "name": "Marineford Naval Headquarters",
       "plane_id": "plane-four-blues",
       "coordinates": {
-        "x": 385,
-        "y": 65
+        "x": 470,
+        "y": 225
       },
       "description": "Fortress of absolute justice where the Summit War shook the foundation of the world, concluding with the deaths of Portgas D. Ace and Edward Newgate.",
       "provenance": {
@@ -1028,8 +1028,8 @@
       "name": "Skypiea & Upper Yard",
       "plane_id": "plane-sky-ocean",
       "coordinates": {
-        "x": 120,
-        "y": 55
+        "x": 365,
+        "y": 125
       },
       "description": "Heavenly realm floating 10,000 meters high upon the White-White Sea, holding the ancient golden city of Shandora and ruled by 'God' Enel.",
       "provenance": {
@@ -1056,8 +1056,8 @@
       "name": "Weatheria (Sky Weather Island)",
       "plane_id": "plane-sky-ocean",
       "coordinates": {
-        "x": 260,
-        "y": 45
+        "x": 435,
+        "y": 105
       },
       "description": "Artificial meteorological cloud island drifting freely across the sky, where Nami mastered New World weather science during the two-year timeskip.",
       "provenance": {
@@ -1083,8 +1083,8 @@
       "name": "Impel Down (Great Underwater Prison)",
       "plane_id": "plane-sky-ocean",
       "coordinates": {
-        "x": 180,
-        "y": 165
+        "x": 430,
+        "y": 440
       },
       "description": "Heavily fortified subterranean ocean prison submerged in the Calm Belt with six levels of brutal torment; breached by Luffy in a desperate rescue bid.",
       "provenance": {
@@ -1110,8 +1110,8 @@
       "name": "Fish-Man Island (Ryugu Kingdom)",
       "plane_id": "plane-sky-ocean",
       "coordinates": {
-        "x": 300,
-        "y": 185
+        "x": 500,
+        "y": 470
       },
       "description": "Bioluminescent kingdom encased in a giant dual-membrane bubble 10,000 meters beneath the Red Line; home of Princess Shirahoshi (Ancient Weapon Poseidon).",
       "provenance": {
@@ -1137,8 +1137,8 @@
       "name": "Punk Hazard (PH-006)",
       "plane_id": "plane-new-world",
       "coordinates": {
-        "x": 50,
-        "y": 110
+        "x": 555,
+        "y": 285
       },
       "description": "Ruined laboratory island permanently split between blazing magma and freezing blizzards by Admirals Akainu and Aokiji; where Luffy and Law forged their alliance.",
       "provenance": {
@@ -1164,8 +1164,8 @@
       "name": "Kingdom of Dressrosa",
       "plane_id": "plane-new-world",
       "coordinates": {
-        "x": 110,
-        "y": 145
+        "x": 615,
+        "y": 335
       },
       "description": "Island of passion, flamenco, and living toys ruled by Warlord Donquixote Doflamingo; site of Corrida Colosseum and formation of the 5,600-strong Straw Hat Grand Fleet.",
       "provenance": {
@@ -1190,8 +1190,8 @@
       "name": "Zou (Mokomo Dukedom)",
       "plane_id": "plane-new-world",
       "coordinates": {
-        "x": 165,
-        "y": 80
+        "x": 670,
+        "y": 235
       },
       "description": "Phantom nation carried on the massive back of the ancient elephant Zunesha for 1,000 years; sanctuary of the warrior Mink Tribe and guardian of a red Road Poneglyph.",
       "provenance": {
@@ -1217,8 +1217,8 @@
       "name": "Whole Cake Island (Totto Land)",
       "plane_id": "plane-new-world",
       "coordinates": {
-        "x": 225,
-        "y": 135
+        "x": 730,
+        "y": 325
       },
       "description": "Capital island of Emperor Big Mom's sweet confectionery archipelago; site of the tea party infiltration, Sanji's rescue, and Luffy's awakening against Charlotte Katakuri.",
       "provenance": {
@@ -1244,8 +1244,8 @@
       "name": "Wano Country & Onigashima",
       "plane_id": "plane-new-world",
       "coordinates": {
-        "x": 285,
-        "y": 95
+        "x": 795,
+        "y": 255
       },
       "description": "Isolated mountainous realm of samurai where the fire festival raid culminated in Luffy awakening the Drums of Liberation (Sun God Nika) and toppling Kaido.",
       "provenance": {
@@ -1272,8 +1272,8 @@
       "name": "Pirate Island Hachinosu (Beehive)",
       "plane_id": "plane-new-world",
       "coordinates": {
-        "x": 320,
-        "y": 160
+        "x": 845,
+        "y": 345
       },
       "description": "Birthplace of the legendary Rocks Pirates and modern fortress of Emperor Blackbeard Marshall D. Teach; where Monkey D. Garp unleashed Galaxy Impact.",
       "provenance": {
@@ -1300,8 +1300,8 @@
       "name": "Egghead Future Island",
       "plane_id": "plane-new-world",
       "coordinates": {
-        "x": 345,
-        "y": 115
+        "x": 890,
+        "y": 275
       },
       "description": "500-years-in-the-future laboratory island of Dr. Vegapunk, holding Punk Records, Iron Giant Emet, and the scene of the Five Elders' cataclysmic Buster Call.",
       "provenance": {
@@ -1327,8 +1327,8 @@
       "name": "Elbaf (Warland of Giants)",
       "plane_id": "plane-new-world",
       "coordinates": {
-        "x": 375,
-        "y": 75
+        "x": 935,
+        "y": 225
       },
       "description": "Sacred land of the mighty giant warriors beneath the colossal cosmic tree Yggdrasil; homeland of Dorry, Brogy, and Prince Loki.",
       "provenance": {
@@ -1353,8 +1353,8 @@
       "name": "Laugh Tale (The Final Island)",
       "plane_id": "plane-new-world",
       "coordinates": {
-        "x": 390,
-        "y": 145
+        "x": 970,
+        "y": 305
       },
       "description": "The elusive final island of the Grand Line reached only by triangulating the four Road Poneglyphs, where Joy Boy left his world-shaking treasure.",
       "provenance": {

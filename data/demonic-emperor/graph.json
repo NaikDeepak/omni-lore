@@ -1678,8 +1678,8 @@
       "description": "Origin fortress of the Luo Clan, fortified by Zhuo Fan with impenetrable 5th and 6th-grade grand spirit arrays.",
       "plane_id": "plane-mortal",
       "coordinates": {
-        "x": 180,
-        "y": 240
+        "x": 140,
+        "y": 260
       },
       "first_appearance": 1,
       "revealed_at": 1,
@@ -1704,8 +1704,8 @@
       "description": "The subterranean fortress and banking capital of Veiled Dragon Pavilion, guarded by thunder arrays.",
       "plane_id": "plane-mortal",
       "coordinates": {
-        "x": 160,
-        "y": 320
+        "x": 210,
+        "y": 340
       },
       "first_appearance": 20,
       "revealed_at": 20,
@@ -1730,8 +1730,8 @@
       "description": "A gloomy canyon filled with toxic miasma and ghost wails, headquarters of Hell Valley.",
       "plane_id": "plane-mortal",
       "coordinates": {
-        "x": 380,
-        "y": 450
+        "x": 355,
+        "y": 470
       },
       "first_appearance": 25,
       "revealed_at": 25,
@@ -1757,8 +1757,8 @@
       "description": "The floral capital of Drifting Flowers Edifice, venue of the Hundred Pill Gathering where Zhuo Fan displayed miraculous pill alchemy.",
       "plane_id": "plane-mortal",
       "coordinates": {
-        "x": 220,
-        "y": 420
+        "x": 245,
+        "y": 470
       },
       "first_appearance": 85,
       "revealed_at": 85,
@@ -1783,8 +1783,8 @@
       "description": "Ancient cauldron valley filled with spirit medicinal herb gardens and supreme pill cauldrons.",
       "plane_id": "plane-mortal",
       "coordinates": {
-        "x": 410,
-        "y": 310
+        "x": 380,
+        "y": 345
       },
       "first_appearance": 95,
       "revealed_at": 95,
@@ -1809,8 +1809,8 @@
       "description": "A mountain peak jutting like an unsheathed blade into the clouds, bristling with ancestral sword spirits.",
       "plane_id": "plane-mortal",
       "coordinates": {
-        "x": 140,
-        "y": 360
+        "x": 165,
+        "y": 450
       },
       "first_appearance": 40,
       "revealed_at": 40,
@@ -1835,8 +1835,8 @@
       "description": "The fortified frontline base of Dugu Zhantian’s million soldiers defending Tianyu from the Quanrong beasts.",
       "plane_id": "plane-mortal",
       "coordinates": {
-        "x": 110,
-        "y": 210
+        "x": 90,
+        "y": 360
       },
       "first_appearance": 170,
       "revealed_at": 170,
@@ -1862,8 +1862,8 @@
       "description": "The monumental capital of the Tianyu Empire, venue of the 100-year Esoteric Debate and grand court politics.",
       "plane_id": "plane-mortal",
       "coordinates": {
-        "x": 310,
-        "y": 260
+        "x": 300,
+        "y": 290
       },
       "first_appearance": 180,
       "revealed_at": 180,
@@ -1889,8 +1889,8 @@
       "description": "A deadly spirit beast mountain range used as the brutal battleground for the Esoteric Debate.",
       "plane_id": "plane-mortal",
       "coordinates": {
-        "x": 280,
-        "y": 370
+        "x": 275,
+        "y": 395
       },
       "first_appearance": 220,
       "revealed_at": 220,
@@ -1915,8 +1915,8 @@
       "description": "The golden citadel of Regent Estate built upon the royal dragon veins of Tianyu.",
       "plane_id": "plane-mortal",
       "coordinates": {
-        "x": 360,
-        "y": 170
+        "x": 365,
+        "y": 210
       },
       "first_appearance": 30,
       "revealed_at": 30,
@@ -1941,8 +1941,8 @@
       "description": "A dark, jagged mountain in the Western Continent housing the Laborer Cemetery and Elite Laborer Hall.",
       "plane_id": "plane-mortal",
       "coordinates": {
-        "x": 530,
-        "y": 220
+        "x": 470,
+        "y": 230
       },
       "first_appearance": 500,
       "revealed_at": 500,
@@ -1967,8 +1967,8 @@
       "description": "Floating jade island above the clouds hosting the 9 Sects Double Dragon Gathering.",
       "plane_id": "plane-mortal",
       "coordinates": {
-        "x": 620,
-        "y": 280
+        "x": 505,
+        "y": 325
       },
       "first_appearance": 550,
       "revealed_at": 550,
@@ -1993,8 +1993,8 @@
       "description": "The gargantuan capital of the Sword Star Empire, center of the Five Continents’ political gravity.",
       "plane_id": "plane-mortal",
       "coordinates": {
-        "x": 560,
-        "y": 420
+        "x": 690,
+        "y": 325
       },
       "first_appearance": 780,
       "revealed_at": 780,
@@ -2020,8 +2020,8 @@
       "description": "The ancient mountaintop retreat of Demonic Emperor Zhuo Yifan in the Sacred Domain where he obtained the Nine Serenities Secret Art.",
       "plane_id": "plane-sacred-domain",
       "coordinates": {
-        "x": 720,
-        "y": 150
+        "x": 860,
+        "y": 115
       },
       "first_appearance": 1,
       "revealed_at": 1,

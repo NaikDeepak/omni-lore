@@ -270,8 +270,8 @@
       "name": "Wushan Township (Baruch Clan Manor)",
       "plane_id": "plane-yulan",
       "coordinates": {
-        "x": 45,
-        "y": 165
+        "x": 120,
+        "y": 340
       },
       "description": "Quiet countryside village in the Kingdom of Fenlai and ancestral home of the declining Baruch Dragonblood clan; where Linley discovered the Coiling Dragon ring.",
       "provenance": {
@@ -297,8 +297,8 @@
       "name": "Fenlai City (Holy Capital)",
       "plane_id": "plane-yulan",
       "coordinates": {
-        "x": 95,
-        "y": 135
+        "x": 230,
+        "y": 280
       },
       "description": "Capital of the Holy Union and seat of the Radiant Church; famed for Scented Leaf Avenue, Debs Clan auctions, and the Apocalypse of Daybreak.",
       "provenance": {
@@ -324,8 +324,8 @@
       "name": "Ernst Institute (Continental Magic Academy)",
       "plane_id": "plane-yulan",
       "coordinates": {
-        "x": 140,
-        "y": 95
+        "x": 290,
+        "y": 205
       },
       "description": "Premier magic academy of the Yulan continent; where Linley trained in earth and wind magic alongside his brothers Yale, Reynolds, and George in Dorm 1987.",
       "provenance": {
@@ -351,8 +351,8 @@
       "name": "Mountain Range of Magical Beasts",
       "plane_id": "plane-yulan",
       "coordinates": {
-        "x": 190,
-        "y": 155
+        "x": 450,
+        "y": 290
       },
       "description": "Massive primeval wilderness dividing the kingdoms; teeming with fierce magical beasts where Linley survived brutal trials and formed his soul pact with Bebe.",
       "provenance": {
@@ -378,8 +378,8 @@
       "name": "O’Brien Imperial Capital (Channe City)",
       "plane_id": "plane-yulan",
       "coordinates": {
-        "x": 245,
-        "y": 105
+        "x": 640,
+        "y": 230
       },
       "description": "Mighty martial empire established by the God of War; home to God of War Mountain and the arena where Linley became famous as a stone sculpturing master.",
       "provenance": {
@@ -405,8 +405,8 @@
       "name": "Black Dirt Wasteland (Baruch Empire)",
       "plane_id": "plane-yulan",
       "coordinates": {
-        "x": 295,
-        "y": 160
+        "x": 750,
+        "y": 360
       },
       "description": "Lawless chaos region populated by refugees and warlords, conquered and unified by Linley and the Barker brothers to establish the Baruch Empire.",
       "provenance": {
@@ -432,8 +432,8 @@
       "name": "Forest of Darkness (Lord Beirut’s Domain)",
       "plane_id": "plane-yulan",
       "coordinates": {
-        "x": 335,
-        "y": 85
+        "x": 580,
+        "y": 130
       },
       "description": "Untouchable primeval territory ruled by King of Magical Beasts Beirut, harboring a metallic castle and serving as Bebe’s ancestral sanctuary.",
       "provenance": {
@@ -459,8 +459,8 @@
       "name": "Necropolis of the Gods",
       "plane_id": "plane-yulan",
       "coordinates": {
-        "x": 375,
-        "y": 130
+        "x": 510,
+        "y": 490
       },
       "description": "Gigantic 18-floor planar trial constructed by Lord Beirut, housing the corpses, divine sparks, and artifacts of ancient deities who fell during the planar war.",
       "provenance": {
@@ -486,8 +486,8 @@
       "name": "Nightstand City (Redbud Continent)",
       "plane_id": "plane-infernal",
       "coordinates": {
-        "x": 70,
-        "y": 120
+        "x": 160,
+        "y": 250
       },
       "description": "Massive teleportation fortress on the Redbud Continent where planar arrivals appear; site of the Demon / Fiend evaluation trials.",
       "provenance": {
@@ -513,8 +513,8 @@
       "name": "The Chaos Sea",
       "plane_id": "plane-infernal",
       "coordinates": {
-        "x": 160,
-        "y": 165
+        "x": 460,
+        "y": 330
       },
       "description": "Incalculably vast tempestuous black ocean covering much of the Infernal Realm, navigated via metallic lifeforms amidst constant pirate raids.",
       "provenance": {
@@ -540,8 +540,8 @@
       "name": "Miluo Island (Bagshaw Clan)",
       "plane_id": "plane-infernal",
       "coordinates": {
-        "x": 235,
-        "y": 135
+        "x": 610,
+        "y": 270
       },
       "description": "Mysterious island sanctuary in the Redbud sea containing the Inkstone and Redbud mist, governed by five elder tribes and the Bagshaw clan.",
       "provenance": {
@@ -567,8 +567,8 @@
       "name": "Skyrite Mountains (Four Divine Beasts Clan)",
       "plane_id": "plane-infernal",
       "coordinates": {
-        "x": 310,
-        "y": 85
+        "x": 780,
+        "y": 210
       },
       "description": "Canyon valley stronghold in the Bloodridge Continent where the Azure Dragon, White Tiger, Black Tortoise, and Vermilion Bird clans struggle under siege from the Eight Great Clans.",
       "provenance": {
@@ -594,8 +594,8 @@
       "name": "Indigo Prefecture & Beirut’s Palace",
       "plane_id": "plane-infernal",
       "coordinates": {
-        "x": 365,
-        "y": 140
+        "x": 850,
+        "y": 370
       },
       "description": "Prefecture of Bloodridge Continent overseen by Lord Beirut, where Linley becomes an Elder of the Azure Dragon Clan and Seven-Star Fiend.",
       "provenance": {

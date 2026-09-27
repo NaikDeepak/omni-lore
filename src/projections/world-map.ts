@@ -54,8 +54,8 @@ export function projectWorldMap(
     });
   });
 
-  const locations = Object.values(filtered.entities)
-    .filter((e): e is LocationEntity => e.type === 'location' && e.first_appearance <= userChapter)
+  const locations = Object.values(graph.entities)
+    .filter((e): e is LocationEntity => e.type === 'location')
     .sort((a, b) => a.first_appearance - b.first_appearance);
 
   const events = Object.values(filtered.entities)

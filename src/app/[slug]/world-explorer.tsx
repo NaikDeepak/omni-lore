@@ -352,9 +352,13 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
         {activeTab === 'map' && (
           <div className="space-y-4">
             <PixelMapCanvas
+              seriesSlug={graph.series.slug}
+              seriesTitle={graph.series.title}
               planes={worldMap.planes}
               userChapter={userChapter}
               totalChapters={totalChapters}
+              onChapterChange={setUserChapter}
+              graph={graph}
             />
           </div>
         )}
