@@ -44,8 +44,57 @@ describe('ConflictEngine & Canon Confidence', () => {
     expect(conflictingFacts[1].canon_status).toBe('conflicting');
   });
 
-  it('validates graph referential integrity', () => {
+  it('validates graph referential integrity on valid fixture', () => {
     const issues = ConflictEngine.detectIntegrityIssues(coilingDragonFixture);
     expect(issues.length).toBe(0);
+  });
+
+  it('detects orphaned locations and missing event references', () => {
+    const brokenGraph = JSON.parse(JSON.stringify(coilingDragonFixture));
+    // Introduce broken location pointing to nonexistent plane
+    brokenGraph.entities['broken-loc'] = {
+      id: 'broken-loc',
+      type: 'location',
+      name: 'Broken Landmark',
+      plane_id: 'nonexistent-plane',
+      description: 'Lost in the void',
+    };
+    // Introduce event with missing arc and missing character
+    brokenGraph.entities['broken-event'] = {
+      id: 'broken-event',
+      type: 'event',
+      name: 'Broken Event',
+      chapter: 50,
+      arc_id: 'nonexistent-arc',
+      description: 'Event without arc',
+      event_type: 'battle',
+      involved_character_ids: ['phantom-warrior'],
+    };
+
+    const issues = ConflictEngine.detectIntegrityIssues(brokenGraph);
+    expect(issues.some(i => i.includes('missing plane entity \'nonexistent-plane\''))).toBe(true);
+    expect(issues.some(i => i.includes('missing arc entity \'nonexistent-arc\''))).toBe(true);
+    expect(issues.some(i => i.includes('missing character \'phantom-warrior\''))).toBe(true);
+  });
+
+  it('detects temporal inversions in facts and arc bounds', () => {
+    const brokenGraph = JSON.parse(JSON.stringify(coilingDragonFixture));
+    brokenGraph.facts['broken-temporal-fact'] = {
+      id: 'broken-temporal-fact',
+      entity_id: 'linley-baruch',
+      predicate: 'title',
+      value: 'Dragonblood Warrior',
+      temporal: { valid_from: 200, valid_to: 100, revealed_at: 200 }, // Inverted!
+      provenance: {
+        source: { series: 'coiling-dragon', page: 'Linley', chapter: 200 },
+        extracted_by: 'manual',
+        confidence: 1.0,
+        created_at: '2026-09-27T00:00:00Z',
+      },
+      canon_status: 'canon',
+    };
+
+    const issues = ConflictEngine.detectIntegrityIssues(brokenGraph);
+    expect(issues.some(i => i.includes('inverted temporal bounds'))).toBe(true);
   });
 });
