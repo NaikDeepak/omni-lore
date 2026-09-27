@@ -289,7 +289,8 @@
       "aliases": [
         "Wushan",
         "Baruch Manor"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/coiling-dragon/locations/loc-wushan.svg"
     },
     "loc-fenlai-city": {
       "id": "loc-fenlai-city",
@@ -316,7 +317,8 @@
       "aliases": [
         "Fenlai City",
         "Holy Capital"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/coiling-dragon/locations/loc-fenlai-city.svg"
     },
     "loc-ernst-institute": {
       "id": "loc-ernst-institute",
@@ -343,7 +345,8 @@
       "aliases": [
         "Ernst Institute",
         "Dorm 1987"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/coiling-dragon/locations/loc-ernst-institute.svg"
     },
     "loc-magical-beast-mountain": {
       "id": "loc-magical-beast-mountain",
@@ -370,7 +373,8 @@
       "aliases": [
         "Magical Beast Mountain Range",
         "Foggy Valley"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/coiling-dragon/locations/loc-magical-beast-mountain.svg"
     },
     "loc-obrien-empire": {
       "id": "loc-obrien-empire",
@@ -397,7 +401,8 @@
       "aliases": [
         "Channe City",
         "God of War Mountain"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/coiling-dragon/locations/loc-obrien-empire.svg"
     },
     "loc-black-dirt-wasteland": {
       "id": "loc-black-dirt-wasteland",
@@ -424,7 +429,8 @@
       "aliases": [
         "Baruch Empire",
         "City of Baruch"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/coiling-dragon/locations/loc-black-dirt-wasteland.svg"
     },
     "loc-forest-of-darkness": {
       "id": "loc-forest-of-darkness",
@@ -451,7 +457,8 @@
       "aliases": [
         "Lord Beirut’s Castle",
         "Dark Forest"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/coiling-dragon/locations/loc-forest-of-darkness.svg"
     },
     "loc-necropolis-of-gods": {
       "id": "loc-necropolis-of-gods",
@@ -478,7 +485,8 @@
       "aliases": [
         "Necropolis of Gods",
         "Planar Trial"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/coiling-dragon/locations/loc-necropolis-of-gods.svg"
     },
     "loc-nightstand-city": {
       "id": "loc-nightstand-city",
@@ -505,7 +513,8 @@
       "aliases": [
         "Nightstand City",
         "Redbud Arrival"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/coiling-dragon/locations/loc-nightstand-city.svg"
     },
     "loc-chaos-sea": {
       "id": "loc-chaos-sea",
@@ -532,7 +541,8 @@
       "aliases": [
         "Chaos Sea",
         "Endless Black Ocean"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/coiling-dragon/locations/loc-chaos-sea.svg"
     },
     "loc-miluo-island": {
       "id": "loc-miluo-island",
@@ -559,7 +569,8 @@
       "aliases": [
         "Miluo Island",
         "Bagshaw Sanctuary"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/coiling-dragon/locations/loc-miluo-island.svg"
     },
     "loc-skyrite-mountains": {
       "id": "loc-skyrite-mountains",
@@ -586,7 +597,8 @@
       "aliases": [
         "Skyrite Mountains",
         "Azure Dragon Clan Gorge"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/coiling-dragon/locations/loc-skyrite-mountains.svg"
     },
     "loc-indigo-prefecture": {
       "id": "loc-indigo-prefecture",
@@ -613,7 +625,8 @@
       "aliases": [
         "Indigo Prefecture",
         "Beirut Prefecture"
-      ]
+      ],
+      "thumbnail_url": "/assets/pixels/coiling-dragon/locations/loc-indigo-prefecture.svg"
     },
     "arc-early-days": {
       "id": "arc-early-days",
@@ -901,9 +914,10 @@
       "type": "faction",
       "name": "Baruch Dragonblood Clan",
       "aliases": [
-        "Baruch Dragonblood Clan"
+        "Baruch Dragonblood Clan",
+        "Baruch Empire"
       ],
-      "description": "Ancient lineage of Supreme Supreme Dragonblood Warriors.",
+      "description": "Ancient lineage of Supreme Dragonblood Warriors, founders of the Baruch Empire.",
       "provenance": {
         "source": {
           "series": "coiling-dragon",
@@ -915,16 +929,18 @@
       },
       "canon_status": "canon",
       "first_appearance": 1,
-      "revealed_at": 1
+      "revealed_at": 1,
+      "emblem_url": "/assets/pixels/coiling-dragon/factions/faction-baruch.svg"
     },
     "faction-beirut": {
       "id": "faction-beirut",
       "type": "faction",
-      "name": "Beirut Domain",
+      "name": "Beirut Domain (Forest of Darkness)",
       "aliases": [
-        "Beirut Domain"
+        "Beirut Domain",
+        "Forest of Darkness"
       ],
-      "description": "Beirut’s forest realm and divine beasts sovereign lineage.",
+      "description": "Beirut’s forest realm and divine beasts sovereign lineage in the Yulan Plane.",
       "provenance": {
         "source": {
           "series": "coiling-dragon",
@@ -936,14 +952,16 @@
       },
       "canon_status": "canon",
       "first_appearance": 1,
-      "revealed_at": 1
+      "revealed_at": 1,
+      "emblem_url": "/assets/pixels/coiling-dragon/factions/faction-beirut.svg"
     },
     "faction-four-beasts": {
       "id": "faction-four-beasts",
       "type": "faction",
       "name": "Four Divine Beasts Clan",
       "aliases": [
-        "Four Divine Beasts Clan"
+        "Four Divine Beasts Clan",
+        "Indigo Prefecture Sovereigns"
       ],
       "description": "Infernal Realm mega-clan descended from Azure Dragon, White Tiger, Black Tortoise, and Vermilion Bird.",
       "provenance": {
@@ -957,16 +975,18 @@
       },
       "canon_status": "canon",
       "first_appearance": 1,
-      "revealed_at": 1
+      "revealed_at": 1,
+      "emblem_url": "/assets/pixels/coiling-dragon/factions/faction-four-beasts.svg"
     },
     "faction-radiant-church": {
       "id": "faction-radiant-church",
       "type": "faction",
       "name": "Holy Union (Radiant Church)",
       "aliases": [
-        "Holy Union (Radiant Church)"
+        "Holy Union",
+        "Radiant Church"
       ],
-      "description": "Dominant theocratic superpower of the Yulan Material Plane.",
+      "description": "Dominant theocratic superpower of the Yulan Material Plane serving the Sovereign of Light.",
       "provenance": {
         "source": {
           "series": "coiling-dragon",
@@ -980,6 +1000,370 @@
       "first_appearance": 1,
       "revealed_at": 1,
       "emblem_url": "/assets/pixels/coiling-dragon/factions/faction-radiant-church.svg"
+    },
+    "faction-obrien": {
+      "id": "faction-obrien",
+      "type": "faction",
+      "name": "O'Brien Empire & God of War College",
+      "aliases": [
+        "O'Brien Empire",
+        "God of War College"
+      ],
+      "description": "Mighty martial empire founded by God of War O'Brien, dominant power of the Yulan Continent.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 130
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 130,
+      "revealed_at": 130,
+      "emblem_url": "/assets/pixels/coiling-dragon/factions/faction-obrien.svg"
+    },
+    "hogg-baruch": {
+      "id": "hogg-baruch",
+      "type": "character",
+      "name": "Hogg Baruch",
+      "aliases": [
+        "Patriarch Hogg",
+        "Father Hogg"
+      ],
+      "description": "Linley's father, Dragonblood warrior lineage, patriarch of the impoverished Baruch clan in Wushan township.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1,
+      "avatar_url": "/assets/pixels/coiling-dragon/avatars/hogg-baruch.svg"
+    },
+    "wharton-baruch": {
+      "id": "wharton-baruch",
+      "type": "character",
+      "name": "Wharton Baruch",
+      "aliases": [
+        "Wharton the Dragonblood Warrior",
+        "Duke Wharton"
+      ],
+      "description": "Linley's younger brother, successfully underwent Dragonblood transformation at O'Brien Empire capital and married Princess Nina.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1,
+      "avatar_url": "/assets/pixels/coiling-dragon/avatars/wharton-baruch.svg"
+    },
+    "hillman": {
+      "id": "hillman",
+      "type": "character",
+      "name": "Hillman",
+      "aliases": [
+        "Instructor Hillman",
+        "Commander Hillman"
+      ],
+      "description": "Sixth-rank veteran warrior and devoted Baruch military instructor who trained young Linley and the guards of Wushan.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1,
+      "avatar_url": "/assets/pixels/coiling-dragon/avatars/hillman.svg"
+    },
+    "yale": {
+      "id": "yale",
+      "type": "character",
+      "name": "Yale",
+      "aliases": [
+        "Boss Yale",
+        "Heir of Dawson Conglomerate"
+      ],
+      "description": "Eldest brother of Ernst Institute Dorm 1987, heir to the Dawson Conglomerate, and Linley's most generous sworn brother.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 21
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 21,
+      "revealed_at": 21,
+      "avatar_url": "/assets/pixels/coiling-dragon/avatars/yale.svg"
+    },
+    "reynolds": {
+      "id": "reynolds",
+      "type": "character",
+      "name": "Reynolds",
+      "aliases": [
+        "Fourth Brother Reynolds"
+      ],
+      "description": "Fourth brother of Dorm 1987, prodigy of the O'Brien Empire and energetic Wind magus who fought heroically on the imperial frontiers.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 21
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 21,
+      "revealed_at": 21,
+      "avatar_url": "/assets/pixels/coiling-dragon/avatars/reynolds.svg"
+    },
+    "george": {
+      "id": "george",
+      "type": "character",
+      "name": "George",
+      "aliases": [
+        "Second Brother George"
+      ],
+      "description": "Second brother of Dorm 1987, brilliant scholarly Water and Light magus who served with great administrative wisdom.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 21
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 21,
+      "revealed_at": 21,
+      "avatar_url": "/assets/pixels/coiling-dragon/avatars/george.svg"
+    },
+    "alice": {
+      "id": "alice",
+      "type": "character",
+      "name": "Alice",
+      "aliases": [
+        "Alice of the Debs Clan"
+      ],
+      "description": "Linley's first love at Ernst Institute whose heartbreaking departure sparked the creation of the masterwork sculpture 'Dreaming'.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 35
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 35,
+      "revealed_at": 35,
+      "avatar_url": "/assets/pixels/coiling-dragon/avatars/alice.svg"
+    },
+    "heidens": {
+      "id": "heidens",
+      "type": "character",
+      "name": "Holy Emperor Heidens",
+      "aliases": [
+        "Sovereign Pontiff Heidens",
+        "Holy Emperor"
+      ],
+      "description": "Supreme Pontiff of the Radiant Church, master of angel descent rituals and arch-nemesis responsible for the sacrifice of Linley's mother.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 110
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 110,
+      "revealed_at": 110,
+      "avatar_url": "/assets/pixels/coiling-dragon/avatars/heidens.svg"
+    },
+    "obrien": {
+      "id": "obrien",
+      "type": "character",
+      "name": "God of War O'Brien",
+      "aliases": [
+        "God of War",
+        "O'Brien"
+      ],
+      "description": "Founder and patron deity of the O'Brien Empire, early martial deity disciple of Beirut who protected the human realms of Yulan for 5,000 years.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 130
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 130,
+      "revealed_at": 130,
+      "avatar_url": "/assets/pixels/coiling-dragon/avatars/obrien.svg"
+    },
+    "high-priest": {
+      "id": "high-priest",
+      "type": "character",
+      "name": "High Priest of Light",
+      "aliases": [
+        "Catherine",
+        "High Priestess of the Yulan Empire"
+      ],
+      "description": "Supreme Magus and Deity of the Yulan Empire, master of the Elemental Laws of Life and ancient guardian alongside the God of War.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 140
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 140,
+      "revealed_at": 140,
+      "avatar_url": "/assets/pixels/coiling-dragon/avatars/high-priest.svg"
+    },
+    "barker": {
+      "id": "barker",
+      "type": "character",
+      "name": "Barker",
+      "aliases": [
+        "Barker the Undying Warrior",
+        "General Barker"
+      ],
+      "description": "Eldest brother of the Five Undying Warriors, descendant of the Supreme Warrior lineages who swore eternal fealty to Linley and the Baruch Empire.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 165
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 165,
+      "revealed_at": 165,
+      "avatar_url": "/assets/pixels/coiling-dragon/avatars/barker.svg"
+    },
+    "haeru": {
+      "id": "haeru",
+      "type": "character",
+      "name": "Haeru the Black Panther",
+      "aliases": [
+        "Haeru",
+        "Shadow Panther Saint"
+      ],
+      "description": "Saint-level magical beast subjugated by Linley in the Mountain Range of Magical Beasts, faithful mount and battlefield guardian.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 95
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 95,
+      "revealed_at": 95,
+      "avatar_url": "/assets/pixels/coiling-dragon/avatars/haeru.svg"
+    },
+    "olivier": {
+      "id": "olivier",
+      "type": "character",
+      "name": "Olivier",
+      "aliases": [
+        "Prodigy of Light and Darkness",
+        "Sword Saint Olivier"
+      ],
+      "description": "Dual Elemental Prodigy of Light and Darkness who invented the Soul-Severing Sword and contested Linley at the O'Brien Empire capital.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 150
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 150,
+      "revealed_at": 150,
+      "avatar_url": "/assets/pixels/coiling-dragon/avatars/olivier.svg"
+    },
+    "desri": {
+      "id": "desri",
+      "type": "character",
+      "name": "Desri",
+      "aliases": [
+        "Prime Saint Grand Magus Desri"
+      ],
+      "description": "Prime Saint Grand Magus of Light of the Yulan Continent who lived in secluded cultivation at the Mountain Range of the Setting Sun.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 185
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 185,
+      "revealed_at": 185,
+      "avatar_url": "/assets/pixels/coiling-dragon/avatars/desri.svg"
+    },
+    "phusro": {
+      "id": "phusro",
+      "type": "character",
+      "name": "Phusro",
+      "aliases": [
+        "Purgatory Commander Phusro",
+        "Lava Beast Highgod"
+      ],
+      "description": "Asura-grade Purgatory Commander of the Infernal Realm, ancient Lava Beast Highgod and close companion to Beirut and Linley.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 520
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 520,
+      "revealed_at": 520,
+      "avatar_url": "/assets/pixels/coiling-dragon/avatars/phusro.svg"
     }
   },
   "facts": {
@@ -1150,6 +1534,657 @@
         "created_at": "2026-09-27T00:00:00Z"
       },
       "canon_status": "canon"
+    },
+    "fact-hogg-mortal": {
+      "id": "fact-hogg-mortal",
+      "entity_id": "hogg-baruch",
+      "predicate": "power_stage",
+      "value": "stage-mortal",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": 100,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-hogg-faction": {
+      "id": "fact-hogg-faction",
+      "entity_id": "hogg-baruch",
+      "predicate": "faction",
+      "value": "faction-baruch",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-wharton-mortal": {
+      "id": "fact-wharton-mortal",
+      "entity_id": "wharton-baruch",
+      "predicate": "power_stage",
+      "value": "stage-mortal",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": 140,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-wharton-saint": {
+      "id": "fact-wharton-saint",
+      "entity_id": "wharton-baruch",
+      "predicate": "power_stage",
+      "value": "stage-saint",
+      "temporal": {
+        "valid_from": 141,
+        "valid_to": 600,
+        "revealed_at": 141
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 141
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-wharton-god": {
+      "id": "fact-wharton-god",
+      "entity_id": "wharton-baruch",
+      "predicate": "power_stage",
+      "value": "stage-god",
+      "temporal": {
+        "valid_from": 601,
+        "valid_to": null,
+        "revealed_at": 601
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 601
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-wharton-faction": {
+      "id": "fact-wharton-faction",
+      "entity_id": "wharton-baruch",
+      "predicate": "faction",
+      "value": "faction-baruch",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-hillman-mortal": {
+      "id": "fact-hillman-mortal",
+      "entity_id": "hillman",
+      "predicate": "power_stage",
+      "value": "stage-mortal",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-hillman-faction": {
+      "id": "fact-hillman-faction",
+      "entity_id": "hillman",
+      "predicate": "faction",
+      "value": "faction-baruch",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-yale-mortal": {
+      "id": "fact-yale-mortal",
+      "entity_id": "yale",
+      "predicate": "power_stage",
+      "value": "stage-mortal",
+      "temporal": {
+        "valid_from": 21,
+        "valid_to": 350,
+        "revealed_at": 21
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 21
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-yale-saint": {
+      "id": "fact-yale-saint",
+      "entity_id": "yale",
+      "predicate": "power_stage",
+      "value": "stage-saint",
+      "temporal": {
+        "valid_from": 351,
+        "valid_to": null,
+        "revealed_at": 351
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 351
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-reynolds-mortal": {
+      "id": "fact-reynolds-mortal",
+      "entity_id": "reynolds",
+      "predicate": "power_stage",
+      "value": "stage-mortal",
+      "temporal": {
+        "valid_from": 21,
+        "valid_to": 350,
+        "revealed_at": 21
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 21
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-reynolds-saint": {
+      "id": "fact-reynolds-saint",
+      "entity_id": "reynolds",
+      "predicate": "power_stage",
+      "value": "stage-saint",
+      "temporal": {
+        "valid_from": 351,
+        "valid_to": null,
+        "revealed_at": 351
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 351
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-george-mortal": {
+      "id": "fact-george-mortal",
+      "entity_id": "george",
+      "predicate": "power_stage",
+      "value": "stage-mortal",
+      "temporal": {
+        "valid_from": 21,
+        "valid_to": 350,
+        "revealed_at": 21
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 21
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-george-saint": {
+      "id": "fact-george-saint",
+      "entity_id": "george",
+      "predicate": "power_stage",
+      "value": "stage-saint",
+      "temporal": {
+        "valid_from": 351,
+        "valid_to": null,
+        "revealed_at": 351
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 351
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-alice-mortal": {
+      "id": "fact-alice-mortal",
+      "entity_id": "alice",
+      "predicate": "power_stage",
+      "value": "stage-mortal",
+      "temporal": {
+        "valid_from": 35,
+        "valid_to": null,
+        "revealed_at": 35
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 35
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-heidens-saint": {
+      "id": "fact-heidens-saint",
+      "entity_id": "heidens",
+      "predicate": "power_stage",
+      "value": "stage-saint",
+      "temporal": {
+        "valid_from": 110,
+        "valid_to": 280,
+        "revealed_at": 110
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 110
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-heidens-god": {
+      "id": "fact-heidens-god",
+      "entity_id": "heidens",
+      "predicate": "power_stage",
+      "value": "stage-god",
+      "temporal": {
+        "valid_from": 281,
+        "valid_to": null,
+        "revealed_at": 281
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 281
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-heidens-faction": {
+      "id": "fact-heidens-faction",
+      "entity_id": "heidens",
+      "predicate": "faction",
+      "value": "faction-radiant-church",
+      "temporal": {
+        "valid_from": 110,
+        "valid_to": null,
+        "revealed_at": 110
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 110
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-obrien-god": {
+      "id": "fact-obrien-god",
+      "entity_id": "obrien",
+      "predicate": "power_stage",
+      "value": "stage-god",
+      "temporal": {
+        "valid_from": 130,
+        "valid_to": null,
+        "revealed_at": 130
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 130
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-obrien-faction": {
+      "id": "fact-obrien-faction",
+      "entity_id": "obrien",
+      "predicate": "faction",
+      "value": "faction-obrien",
+      "temporal": {
+        "valid_from": 130,
+        "valid_to": null,
+        "revealed_at": 130
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 130
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-highpriest-god": {
+      "id": "fact-highpriest-god",
+      "entity_id": "high-priest",
+      "predicate": "power_stage",
+      "value": "stage-god",
+      "temporal": {
+        "valid_from": 140,
+        "valid_to": null,
+        "revealed_at": 140
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 140
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-barker-saint": {
+      "id": "fact-barker-saint",
+      "entity_id": "barker",
+      "predicate": "power_stage",
+      "value": "stage-saint",
+      "temporal": {
+        "valid_from": 165,
+        "valid_to": 350,
+        "revealed_at": 165
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 165
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-barker-god": {
+      "id": "fact-barker-god",
+      "entity_id": "barker",
+      "predicate": "power_stage",
+      "value": "stage-god",
+      "temporal": {
+        "valid_from": 351,
+        "valid_to": null,
+        "revealed_at": 351
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 351
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-barker-faction": {
+      "id": "fact-barker-faction",
+      "entity_id": "barker",
+      "predicate": "faction",
+      "value": "faction-baruch",
+      "temporal": {
+        "valid_from": 165,
+        "valid_to": null,
+        "revealed_at": 165
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 165
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-haeru-saint": {
+      "id": "fact-haeru-saint",
+      "entity_id": "haeru",
+      "predicate": "power_stage",
+      "value": "stage-saint",
+      "temporal": {
+        "valid_from": 95,
+        "valid_to": null,
+        "revealed_at": 95
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 95
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-haeru-faction": {
+      "id": "fact-haeru-faction",
+      "entity_id": "haeru",
+      "predicate": "faction",
+      "value": "faction-baruch",
+      "temporal": {
+        "valid_from": 95,
+        "valid_to": null,
+        "revealed_at": 95
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 95
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-olivier-saint": {
+      "id": "fact-olivier-saint",
+      "entity_id": "olivier",
+      "predicate": "power_stage",
+      "value": "stage-saint",
+      "temporal": {
+        "valid_from": 150,
+        "valid_to": 280,
+        "revealed_at": 150
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 150
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-olivier-god": {
+      "id": "fact-olivier-god",
+      "entity_id": "olivier",
+      "predicate": "power_stage",
+      "value": "stage-god",
+      "temporal": {
+        "valid_from": 281,
+        "valid_to": null,
+        "revealed_at": 281
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 281
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-desri-saint": {
+      "id": "fact-desri-saint",
+      "entity_id": "desri",
+      "predicate": "power_stage",
+      "value": "stage-saint",
+      "temporal": {
+        "valid_from": 185,
+        "valid_to": 300,
+        "revealed_at": 185
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 185
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-desri-god": {
+      "id": "fact-desri-god",
+      "entity_id": "desri",
+      "predicate": "power_stage",
+      "value": "stage-god",
+      "temporal": {
+        "valid_from": 301,
+        "valid_to": null,
+        "revealed_at": 301
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 301
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-phusro-highgod": {
+      "id": "fact-phusro-highgod",
+      "entity_id": "phusro",
+      "predicate": "power_stage",
+      "value": "stage-highgod",
+      "temporal": {
+        "valid_from": 520,
+        "valid_to": null,
+        "revealed_at": 520
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 520
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
     }
   },
   "relationships": {
@@ -1234,6 +2269,380 @@
         "source": {
           "series": "coiling-dragon",
           "chapter": 25
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-hogg-linley": {
+      "id": "rel-hogg-linley",
+      "source_id": "hogg-baruch",
+      "target_id": "linley-baruch",
+      "predicate": "PARENT_OF",
+      "label": "Father & Baruch Heritage Guide",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-wharton-linley": {
+      "id": "rel-wharton-linley",
+      "source_id": "wharton-baruch",
+      "target_id": "linley-baruch",
+      "predicate": "BROTHER_OF",
+      "label": "Dragonblood Brothers & Clan Rebuilders",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-hillman-linley": {
+      "id": "rel-hillman-linley",
+      "source_id": "hillman",
+      "target_id": "linley-baruch",
+      "predicate": "MENTOR_OF",
+      "label": "Martial Foundation Instructor",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-yale-linley": {
+      "id": "rel-yale-linley",
+      "source_id": "yale",
+      "target_id": "linley-baruch",
+      "predicate": "ALLY_OF",
+      "label": "Dorm 1987 Eldest Brother & Lifelong Friend",
+      "temporal": {
+        "valid_from": 21,
+        "valid_to": null,
+        "revealed_at": 21
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 21
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-reynolds-linley": {
+      "id": "rel-reynolds-linley",
+      "source_id": "reynolds",
+      "target_id": "linley-baruch",
+      "predicate": "ALLY_OF",
+      "label": "Dorm 1987 Brother & Frontier Comrade",
+      "temporal": {
+        "valid_from": 21,
+        "valid_to": null,
+        "revealed_at": 21
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 21
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-george-linley": {
+      "id": "rel-george-linley",
+      "source_id": "george",
+      "target_id": "linley-baruch",
+      "predicate": "ALLY_OF",
+      "label": "Dorm 1987 Second Brother & Scholar",
+      "temporal": {
+        "valid_from": 21,
+        "valid_to": null,
+        "revealed_at": 21
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 21
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-alice-linley": {
+      "id": "rel-alice-linley",
+      "source_id": "alice",
+      "target_id": "linley-baruch",
+      "predicate": "RIVAL_OF",
+      "label": "First Love & Sculptor's Heartbreak",
+      "temporal": {
+        "valid_from": 35,
+        "valid_to": null,
+        "revealed_at": 35
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 35
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-heidens-linley": {
+      "id": "rel-heidens-linley",
+      "source_id": "heidens",
+      "target_id": "linley-baruch",
+      "predicate": "ENEMY_OF",
+      "label": "Holy Union Vengeance Nemesis",
+      "temporal": {
+        "valid_from": 110,
+        "valid_to": null,
+        "revealed_at": 110
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 110
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-obrien-beirut": {
+      "id": "rel-obrien-beirut",
+      "source_id": "obrien",
+      "target_id": "beirut",
+      "predicate": "SUBORDINATE_OF",
+      "label": "Deity Disciple of Lord Beirut",
+      "temporal": {
+        "valid_from": 130,
+        "valid_to": null,
+        "revealed_at": 130
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 130
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-obrien-linley": {
+      "id": "rel-obrien-linley",
+      "source_id": "obrien",
+      "target_id": "linley-baruch",
+      "predicate": "ALLY_OF",
+      "label": "Guardian of Yulan & Martial Benefactor",
+      "temporal": {
+        "valid_from": 130,
+        "valid_to": null,
+        "revealed_at": 130
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 130
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-highpriest-obrien": {
+      "id": "rel-highpriest-obrien",
+      "source_id": "high-priest",
+      "target_id": "obrien",
+      "predicate": "ALLY_OF",
+      "label": "Co-Guardians of the Yulan Continent",
+      "temporal": {
+        "valid_from": 140,
+        "valid_to": null,
+        "revealed_at": 140
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 140
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-barker-linley": {
+      "id": "rel-barker-linley",
+      "source_id": "barker",
+      "target_id": "linley-baruch",
+      "predicate": "SUBORDINATE_OF",
+      "label": "Undying Warrior Leader & Sworn Champion",
+      "temporal": {
+        "valid_from": 165,
+        "valid_to": null,
+        "revealed_at": 165
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 165
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-haeru-linley": {
+      "id": "rel-haeru-linley",
+      "source_id": "haeru",
+      "target_id": "linley-baruch",
+      "predicate": "ALLY_OF",
+      "label": "Soul-Tamed Saint Mount & Guardian",
+      "temporal": {
+        "valid_from": 95,
+        "valid_to": null,
+        "revealed_at": 95
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 95
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-olivier-linley": {
+      "id": "rel-olivier-linley",
+      "source_id": "olivier",
+      "target_id": "linley-baruch",
+      "predicate": "RIVAL_OF",
+      "label": "Continental Duel of Laws & Swordsmanship",
+      "temporal": {
+        "valid_from": 150,
+        "valid_to": null,
+        "revealed_at": 150
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 150
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-desri-linley": {
+      "id": "rel-desri-linley",
+      "source_id": "desri",
+      "target_id": "linley-baruch",
+      "predicate": "ALLY_OF",
+      "label": "Necropolis Expedition Fellow Saint",
+      "temporal": {
+        "valid_from": 185,
+        "valid_to": null,
+        "revealed_at": 185
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 185
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-phusro-beirut": {
+      "id": "rel-phusro-beirut",
+      "source_id": "phusro",
+      "target_id": "beirut",
+      "predicate": "ALLY_OF",
+      "label": "Infernal Realm Ancient Comrades",
+      "temporal": {
+        "valid_from": 520,
+        "valid_to": null,
+        "revealed_at": 520
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 520
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-phusro-linley": {
+      "id": "rel-phusro-linley",
+      "source_id": "phusro",
+      "target_id": "linley-baruch",
+      "predicate": "ALLY_OF",
+      "label": "Purgatory Battle Mentor & Sovereign Emissary",
+      "temporal": {
+        "valid_from": 520,
+        "valid_to": null,
+        "revealed_at": 520
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 520
         },
         "extracted_by": "deterministic",
         "confidence": 1,
