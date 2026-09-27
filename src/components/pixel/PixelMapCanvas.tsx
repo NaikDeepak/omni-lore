@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo, useRef } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { MapPlaneItem, MapLocationItem } from '../../projections/world-map';
 import { PixelGauge } from './PixelGauge';
 import { PixelAvatar } from './PixelAvatar';
@@ -37,6 +37,7 @@ export interface PixelMapCanvasProps {
   activePlaneId?: string;
   onChapterChange?: (chapter: number) => void;
   graph?: any;
+  selectedLocationId?: string | null;
 }
 
 // Landmark Category Classification
@@ -167,6 +168,7 @@ export function PixelMapCanvas({
   totalChapters,
   onChapterChange,
   graph,
+  selectedLocationId,
 }: PixelMapCanvasProps) {
   const [selectedPlaneIndex, setSelectedPlaneIndex] = useState(0);
   const [activeLocation, setActiveLocation] = useState<MapLocationItem | null>(null);
@@ -197,6 +199,19 @@ export function PixelMapCanvas({
     });
     return Array.from(locMap.values());
   }, [planes]);
+
+  useEffect(() => {
+    if (selectedLocationId) {
+      const loc = allCombinedLocations.find(l => l.id === selectedLocationId);
+      if (loc) {
+        const pIdx = planes.findIndex(p => p.locations.some(l => l.id === selectedLocationId));
+        if (pIdx !== -1) {
+          setSelectedPlaneIndex(pIdx);
+        }
+        setActiveLocation(loc);
+      }
+    }
+  }, [selectedLocationId, allCombinedLocations, planes]);
 
   const currentPlane = selectedPlaneIndex === -1 ? null : (planes[selectedPlaneIndex] ?? planes[0]);
   const allLocations = selectedPlaneIndex === -1 ? allCombinedLocations : (currentPlane?.locations ?? []);

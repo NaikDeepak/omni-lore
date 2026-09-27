@@ -10,7 +10,8 @@ import {
   projectRelationshipWeb, 
   projectTimeline, 
   projectWorldMap, 
-  projectCharacterJourney 
+  projectCharacterJourney,
+  PowerLadderTier,
 } from '../../projections';
 import { PixelAvatar } from '../../components/pixel/PixelAvatar';
 import { PixelGauge } from '../../components/pixel/PixelGauge';
@@ -19,6 +20,7 @@ import { PixelMapCanvas } from '../../components/pixel/PixelMapCanvas';
 import { PixelNetworkCanvas } from '../../components/pixel/PixelNetworkCanvas';
 import { NodeDossierDrawer } from '../../components/pixel/NodeDossierDrawer';
 import { RpgDuelSimulator } from '../../components/pixel/RpgDuelSimulator';
+import { RealmLoreModal } from '../../components/pixel/RealmLoreModal';
 import { 
   Flame, 
   Share2, 
@@ -75,6 +77,13 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
   const [webSearchQuery, setWebSearchQuery] = useState<string>('');
   const [webViewMode, setWebViewMode] = useState<'canvas' | 'grid'>('canvas');
   const [selectedWebNodeId, setSelectedWebNodeId] = useState<string | null>(null);
+
+  // Power Ladder Codex Modal
+  const [selectedRealmTier, setSelectedRealmTier] = useState<PowerLadderTier | null>(null);
+
+  // Map & Timeline Cross-linking
+  const [selectedLocationId, setSelectedLocationId] = useState<string | null>(null);
+  const [timelineFilter, setTimelineFilter] = useState<'all' | 'battle' | 'breakthrough' | 'political' | 'discovery' | 'tragedy'>('all');
 
   // Computed projections strictly driven by userChapter
   const powerLadder = useMemo(() => projectPowerLadder(graph, userChapter), [graph, userChapter]);
@@ -384,6 +393,7 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
               totalChapters={totalChapters}
               onChapterChange={setUserChapter}
               graph={graph}
+              selectedLocationId={selectedLocationId}
             />
           </div>
         )}
@@ -432,11 +442,25 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
                           </div>
                         </div>
 
-                        <span className={`text-[10px] font-pixel px-2 py-0.5 rounded ${
-                          hasCharacters ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-slate-800 text-slate-500'
-                        }`}>
-                          {tier.characters.length} OCCUPANT{tier.characters.length === 1 ? '' : 'S'}
-                        </span>
+                        <div className="flex items-center gap-2">
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setSelectedRealmTier(tier);
+                            }}
+                            className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-950/60 border border-amber-500/50 text-amber-300 hover:bg-amber-900/60 hover:text-amber-200 text-[10px] font-pixel transition shadow-sm"
+                            title="Open Canonical Realm Codex"
+                          >
+                            <Sparkles className="w-3 h-3 text-amber-400" />
+                            <span>REALM CODEX</span>
+                          </button>
+                          <span className={`text-[10px] font-pixel px-2 py-0.5 rounded ${
+                            hasCharacters ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-slate-800 text-slate-500'
+                          }`}>
+                            {tier.characters.length} OCCUPANT{tier.characters.length === 1 ? '' : 'S'}
+                          </span>
+                        </div>
                       </div>
 
                       {hasCharacters ? (
@@ -448,8 +472,17 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
                                 setSelectedCharacterId(char.id);
                                 setActiveTab('journey');
                               }}
-                              className="cursor-pointer flex items-center gap-3 p-2.5 rounded-lg bg-slate-900 border border-slate-700/80 hover:border-amber-400 transition"
+                              className={`cursor-pointer relative flex items-center gap-3 p-2.5 rounded-lg bg-slate-900 border transition ${
+                                char.isRecentBreakthrough
+                                  ? 'border-amber-400/90 shadow-[0_0_12px_rgba(245,158,11,0.25)] ring-1 ring-amber-400/50'
+                                  : 'border-slate-700/80 hover:border-amber-400'
+                              }`}
                             >
+                              {char.isRecentBreakthrough && (
+                                <span className="absolute -top-2 right-2 px-1.5 py-0.5 rounded bg-amber-500 text-slate-950 font-pixel text-[8px] font-bold shadow animate-pulse">
+                                  ★ RECENT ADVANCE
+                                </span>
+                              )}
                               <PixelAvatar id={char.id} name={char.displayName} size={36} avatarUrl={char.avatar_url} />
                               <div>
                                 <div className="font-pixel text-xs text-white hover:text-amber-300">
@@ -890,65 +923,175 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
         {/* VIEW 5: TIMELINE */}
         {activeTab === 'timeline' && (
           <div className="space-y-6">
-            <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
-              <div>
-                <h2 className="text-base font-pixel font-bold text-white flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-purple-400" />
-                  <span>STORY ARCS & EVENT CHRONOLOGY</span>
-                </h2>
-                <p className="text-xs text-slate-400 mt-1 font-mono">
-                  Events and breakthroughs occurring strictly prior to Chapter {userChapter}.
-                </p>
+            <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div>
+                  <h2 className="text-base font-pixel font-bold text-white flex items-center gap-2">
+                    <Clock className="w-4 h-4 text-purple-400" />
+                    <span>STORY ARCS & EVENT CHRONOLOGY</span>
+                  </h2>
+                  <p className="text-xs text-slate-400 mt-0.5 font-mono">
+                    Canonical events strictly prior to Chapter {userChapter}. Cross-linked to map locations and character dossiers.
+                  </p>
+                </div>
+                <div className="text-xs font-pixel text-purple-400/90 bg-purple-950/40 px-3 py-1 rounded-lg border border-purple-500/30">
+                  {timeline.arcs.reduce((acc, a) => acc + a.events.length, 0)} TOTAL EVENTS RECORDED
+                </div>
+              </div>
+
+              {/* Event Type Filter Pills */}
+              <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-800">
+                <span className="text-[10px] font-pixel text-slate-500 uppercase mr-1">FILTER:</span>
+                {[
+                  { id: 'all', label: 'ALL EVENTS', icon: '📜' },
+                  { id: 'battle', label: 'BATTLES', icon: '⚔️' },
+                  { id: 'breakthrough', label: 'BREAKTHROUGHS', icon: '⚡' },
+                  { id: 'political', label: 'POLITICS', icon: '👑' },
+                  { id: 'discovery', label: 'DISCOVERIES', icon: '🧭' },
+                  { id: 'tragedy', label: 'TRAGEDIES', icon: '💀' },
+                ].map((cat) => (
+                  <button
+                    key={cat.id}
+                    type="button"
+                    onClick={() => setTimelineFilter(cat.id as any)}
+                    className={`px-2.5 py-1 rounded-lg text-[11px] font-pixel transition flex items-center gap-1.5 ${
+                      timelineFilter === cat.id
+                        ? 'bg-purple-600 text-white shadow-md shadow-purple-600/30 font-bold border border-purple-400'
+                        : 'bg-slate-950 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700'
+                    }`}
+                  >
+                    <span>{cat.icon}</span>
+                    <span>{cat.label}</span>
+                  </button>
+                ))}
+              </div>
+
+              {/* Arc Quick Jump Scrubber Bar */}
+              <div className="p-2.5 rounded-lg bg-slate-950 border border-slate-800/80 flex items-center gap-2 overflow-x-auto text-xs font-pixel">
+                <span className="text-[10px] text-slate-500 shrink-0 uppercase">QUICK SCRUB:</span>
+                {timeline.arcs.map((arc) => (
+                  <button
+                    key={arc.id}
+                    type="button"
+                    onClick={() => setUserChapter(arc.chapter_start)}
+                    className={`px-2 py-0.5 rounded border shrink-0 transition text-[10px] ${
+                      userChapter >= arc.chapter_start && userChapter <= arc.chapter_end
+                        ? 'bg-purple-950/80 border-purple-500 text-purple-300 font-bold ring-1 ring-purple-400/30'
+                        : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'
+                    }`}
+                    title={`Jump scrubber to ${arc.name} start (Ch. ${arc.chapter_start})`}
+                  >
+                    {arc.name} (Ch {arc.chapter_start})
+                  </button>
+                ))}
               </div>
             </div>
 
             <div className="space-y-4 font-mono">
-              {timeline.arcs.map((arc) => (
-                <div
-                  key={arc.id}
-                  className="rounded-xl border border-slate-800 bg-slate-950 p-5 space-y-3"
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <span className="text-[10px] font-pixel text-purple-400 px-2 py-0.5 rounded bg-purple-500/10 border border-purple-500/20">
-                        ARC {arc.order}
-                      </span>
-                      <h3 className="font-pixel text-sm text-white mt-1">{arc.name}</h3>
-                      <p className="text-xs text-slate-400">
-                        Chapters {arc.chapter_start} – {arc.chapter_end}
-                      </p>
+              {timeline.arcs.map((arc) => {
+                const filteredEvents = arc.events.filter((ev) => {
+                  if (timelineFilter === 'all') return true;
+                  const et = ev.event_type.toLowerCase();
+                  if (timelineFilter === 'battle') return et === 'battle';
+                  if (timelineFilter === 'breakthrough') return et.includes('breakthrough') || et === 'ascension';
+                  if (timelineFilter === 'political') return et === 'political';
+                  if (timelineFilter === 'discovery') return et === 'discovery' || et === 'revelation';
+                  if (timelineFilter === 'tragedy') return et === 'tragedy';
+                  return true;
+                });
+
+                return (
+                  <div
+                    key={arc.id}
+                    className="rounded-xl border border-slate-800 bg-slate-950 p-5 space-y-3"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <span className="text-[10px] font-pixel text-purple-400 px-2 py-0.5 rounded bg-purple-500/10 border border-purple-500/20">
+                          ARC {arc.order}
+                        </span>
+                        <h3 className="font-pixel text-sm text-white mt-1">{arc.name}</h3>
+                        <p className="text-xs text-slate-400">
+                          Chapters {arc.chapter_start} – {arc.chapter_end}
+                        </p>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => setUserChapter(arc.chapter_start)}
+                        className="text-[10px] font-pixel text-purple-400 hover:text-purple-300 px-2 py-1 rounded bg-purple-950/40 border border-purple-800 hover:border-purple-600 transition"
+                      >
+                        SCRUB TO START ↗
+                      </button>
+                    </div>
+
+                    <div className="space-y-2 pt-2 border-t border-slate-800/80">
+                      {filteredEvents.length > 0 ? (
+                        filteredEvents.map((ev) => (
+                          <div
+                            key={ev.id}
+                            className="flex items-start gap-3 p-3 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 transition"
+                          >
+                            <div className="w-10 h-10 rounded-lg bg-purple-500/20 border border-purple-500/30 text-purple-300 flex items-center justify-center shrink-0 font-pixel text-[10px] font-bold">
+                              CH{ev.chapter}
+                            </div>
+                            <div className="space-y-1.5 flex-1 min-w-0">
+                              <div className="flex flex-wrap items-center gap-2">
+                                <span className="font-pixel text-xs text-slate-200">{ev.title}</span>
+                                <span className="text-[9px] uppercase font-pixel px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">
+                                  {ev.event_type}
+                                </span>
+
+                                {/* Show On Map Cross-Link */}
+                                {ev.location_id && (
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      setSelectedLocationId(ev.location_id!);
+                                      setActiveTab('map');
+                                    }}
+                                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-blue-950/60 border border-blue-500/40 text-[10px] text-blue-300 hover:text-blue-100 hover:border-blue-400 transition font-pixel"
+                                    title="View Landmark on World Map"
+                                  >
+                                    <MapIcon className="w-3 h-3 text-blue-400" />
+                                    <span>{ev.location_name || 'SHOW ON MAP'}</span>
+                                  </button>
+                                )}
+                              </div>
+                              <p className="text-xs text-slate-400 leading-relaxed">{ev.description}</p>
+
+                              {/* Involved Figures Cross-Links */}
+                              {ev.involved_characters.length > 0 && (
+                                <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                                  <span className="text-[10px] text-slate-500 font-pixel">KEY FIGURES:</span>
+                                  {ev.involved_characters.map((c) => (
+                                    <button
+                                      key={c.id}
+                                      type="button"
+                                      onClick={() => {
+                                        setSelectedCharacterId(c.id);
+                                        setActiveTab('journey');
+                                      }}
+                                      className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700 hover:border-amber-400 text-[10px] text-slate-300 hover:text-white transition font-mono"
+                                    >
+                                      <User className="w-2.5 h-2.5 text-amber-400" />
+                                      <span>{c.name}</span>
+                                    </button>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        ))
+                      ) : (
+                        <div className="text-xs font-pixel text-slate-600 py-1">
+                          ░░ NO EVENTS MATCHING '{timelineFilter.toUpperCase()}' FILTER IN THIS ARC ░░
+                        </div>
+                      )}
                     </div>
                   </div>
-
-                  <div className="space-y-2 pt-2 border-t border-slate-800/80">
-                    {arc.events.length > 0 ? (
-                      arc.events.map((ev) => (
-                        <div
-                          key={ev.id}
-                          className="flex items-start gap-3 p-3 rounded-lg bg-slate-900 border border-slate-800"
-                        >
-                          <div className="w-10 h-10 rounded bg-purple-500/20 text-purple-400 flex items-center justify-center shrink-0 font-pixel text-[10px]">
-                            CH{ev.chapter}
-                          </div>
-                          <div className="space-y-1">
-                            <div className="flex items-center gap-2">
-                              <span className="font-pixel text-xs text-slate-200">{ev.title}</span>
-                              <span className="text-[9px] uppercase font-pixel px-1.5 py-0.5 rounded bg-slate-800 text-slate-400">
-                                {ev.event_type}
-                              </span>
-                            </div>
-                            <p className="text-xs text-slate-400">{ev.description}</p>
-                          </div>
-                        </div>
-                      ))
-                    ) : (
-                      <div className="text-xs font-pixel text-slate-600 py-1">
-                        ░░ FUTURE EVENTS IN THIS ARC HIDDEN BY SPOILER FILTER ░░
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         )}
@@ -964,6 +1107,20 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
             onSelectCharacter={(cid) => {
               setSelectedCharacterId(cid);
               setActiveTab('journey');
+            }}
+          />
+        )}
+
+        {/* REALM CODEX MODAL */}
+        {selectedRealmTier && (
+          <RealmLoreModal
+            tier={selectedRealmTier}
+            userChapter={userChapter}
+            onClose={() => setSelectedRealmTier(null)}
+            onSelectCharacter={(id) => {
+              setSelectedCharacterId(id);
+              setActiveTab('journey');
+              setSelectedRealmTier(null);
             }}
           />
         )}
