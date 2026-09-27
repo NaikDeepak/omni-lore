@@ -1,0 +1,652 @@
+{
+  "series": {
+    "slug": "demonic-emperor",
+    "title": "Demonic Emperor",
+    "type": "cultivation",
+    "status": "completed",
+    "total_chapters": 1315,
+    "knowledge_boundary": {
+      "latest_processed_chapter": 1315,
+      "as_of": "2026-09-27T00:00:00Z"
+    }
+  },
+  "entities": {
+    "zhuo-fan": {
+      "id": "zhuo-fan",
+      "type": "character",
+      "name": "Zhuo Fan",
+      "aliases": ["Zhuo Yifan", "Grand Butler Zhuo", "Demon Emperor", "Steward Zhuo"],
+      "description": "Reincarnation of the 8th Demonic Emperor of the Sacred Domain, now the scheming Grand Butler of the Luo Clan.",
+      "provenance": {
+        "source": { "series": "demonic-emperor", "page": "Zhuo Fan", "chapter": 1 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1,
+      "reveals": [
+        {
+          "revealed_at": 180,
+          "masked_name": "Luo Clan Steward Zhuo",
+          "true_identity": "Demonic Emperor Zhuo Yifan"
+        }
+      ]
+    },
+    "luo-yunchang": {
+      "id": "luo-yunchang",
+      "type": "character",
+      "name": "Luo Yunchang",
+      "aliases": ["Young Miss Luo"],
+      "description": "The eldest daughter of the Luo Clan who appoints Zhuo Fan as the clan steward.",
+      "provenance": {
+        "source": { "series": "demonic-emperor", "page": "Luo Yunchang", "chapter": 1 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
+    },
+    "luo-yunhai": {
+      "id": "luo-yunhai",
+      "type": "character",
+      "name": "Luo Yunhai",
+      "aliases": ["Clan Head Luo", "Godbrother of Zhuo Fan"],
+      "description": "Young master and future Clan Head of the Luo Clan, trained ruthlessly by Zhuo Fan to become a formidable leader.",
+      "provenance": {
+        "source": { "series": "demonic-emperor", "page": "Luo Yunhai", "chapter": 1 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
+    },
+    "chu-qingcheng": {
+      "id": "chu-qingcheng",
+      "type": "character",
+      "name": "Chu Qingcheng",
+      "aliases": ["Edifice Lord Chu"],
+      "description": "Leader of Drifting Flowers Edifice and the true love of Zhuo Fan.",
+      "provenance": {
+        "source": { "series": "demonic-emperor", "page": "Chu Qingcheng", "chapter": 90 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 90,
+      "revealed_at": 90
+    },
+    "long-jiu": {
+      "id": "long-jiu",
+      "type": "character",
+      "name": "Long Jiu",
+      "aliases": ["Third Master Long"],
+      "description": "Elder of Veiled Dragon Pavilion with a purple lightning eye who forms the first noble house alliance with Zhuo Fan.",
+      "provenance": {
+        "source": { "series": "demonic-emperor", "page": "Long Jiu", "chapter": 20 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 20,
+      "revealed_at": 20
+    },
+    "you-guiqi": {
+      "id": "you-guiqi",
+      "type": "character",
+      "name": "You Guiqi",
+      "aliases": ["Insidious Demon", "Hell Valley Strategist"],
+      "description": "Hell Valley's cunning elder and mastermind strategist who is outmaneuvered and killed by Zhuo Fan.",
+      "provenance": {
+        "source": { "series": "demonic-emperor", "page": "You Guiqi", "chapter": 40 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 40,
+      "revealed_at": 40
+    },
+    "huangpu-qingtian": {
+      "id": "huangpu-qingtian",
+      "type": "character",
+      "name": "Huangpu Qingtian",
+      "aliases": ["Heaven-shaking Dragon", "Eldest Young Master of Regent Estate"],
+      "description": "The unrivaled prodigy of the Regent Estate possessing the Imperial Tyrant Dragon Body, Zhuo Fan's greatest mortal arch-nemesis.",
+      "provenance": {
+        "source": { "series": "demonic-emperor", "page": "Huangpu Qingtian", "chapter": 200 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 200,
+      "revealed_at": 200
+    },
+    "stage-qi-condensation": {
+      "id": "stage-qi-condensation",
+      "type": "power_stage",
+      "name": "Qi Condensation / Gathering",
+      "order": 1,
+      "system_name": "Mortal & Sacred Cultivation",
+      "description": "Opening meridians and condensing internal Yuan Qi.",
+      "provenance": {
+        "source": { "series": "demonic-emperor", "chapter": 1 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1,
+      "aliases": []
+    },
+    "stage-bone-tempering": {
+      "id": "stage-bone-tempering",
+      "type": "power_stage",
+      "name": "Bone Tempering",
+      "order": 2,
+      "system_name": "Mortal & Sacred Cultivation",
+      "description": "Refining marrow and bones for superhuman physical resilience.",
+      "provenance": {
+        "source": { "series": "demonic-emperor", "chapter": 15 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 15,
+      "revealed_at": 15,
+      "aliases": []
+    },
+    "stage-profound-heaven": {
+      "id": "stage-profound-heaven",
+      "type": "power_stage",
+      "name": "Tian Xuan / Profound Heaven",
+      "order": 3,
+      "system_name": "Mortal & Sacred Cultivation",
+      "description": "Condensing Yuan Qi wings to fly across the sky; domain of noble house elders.",
+      "provenance": {
+        "source": { "series": "demonic-emperor", "chapter": 30 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 30,
+      "revealed_at": 30,
+      "aliases": []
+    },
+    "stage-radiant": {
+      "id": "stage-radiant",
+      "type": "power_stage",
+      "name": "Shen Zhao / Radiant Stage",
+      "order": 4,
+      "system_name": "Mortal & Sacred Cultivation",
+      "description": "Manifesting Divine Consciousness and projecting soul aura over miles.",
+      "provenance": {
+        "source": { "series": "demonic-emperor", "chapter": 100 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 100,
+      "revealed_at": 100,
+      "aliases": []
+    },
+    "stage-ethereal": {
+      "id": "stage-ethereal",
+      "type": "power_stage",
+      "name": "Rong Hun / Ethereal Stage",
+      "order": 5,
+      "system_name": "Mortal & Sacred Cultivation",
+      "description": "Forming the soul avatar; pinnacle of mortal domain sect elders.",
+      "provenance": {
+        "source": { "series": "demonic-emperor", "chapter": 400 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 400,
+      "revealed_at": 400,
+      "aliases": []
+    },
+    "stage-emperor": {
+      "id": "stage-emperor",
+      "type": "power_stage",
+      "name": "Demonic Emperor / Sovereign Stage",
+      "order": 9,
+      "system_name": "Mortal & Sacred Cultivation",
+      "description": "Supreme apex of the Sacred Domain, wielding ancient Sovereign secrets.",
+      "provenance": {
+        "source": { "series": "demonic-emperor", "chapter": 1 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1,
+      "aliases": []
+    },
+    "plane-mortal-domain": {
+      "id": "plane-mortal-domain",
+      "type": "plane",
+      "name": "Mortal Domain (Tianyu Empire)",
+      "tier_order": 1,
+      "description": "Mortal continent governed by the Tianyu Empire and the Seven Noble Houses.",
+      "provenance": {
+        "source": { "series": "demonic-emperor", "chapter": 1 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1,
+      "aliases": []
+    },
+    "plane-sacred-domain": {
+      "id": "plane-sacred-domain",
+      "type": "plane",
+      "name": "Sacred Domain",
+      "tier_order": 2,
+      "description": "Higher dimensional realm of the Seven Sacred Mountains and ancient Emperor Legacies.",
+      "provenance": {
+        "source": { "series": "demonic-emperor", "chapter": 1 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1,
+      "aliases": []
+    },
+    "loc-windgale-city": {
+      "id": "loc-windgale-city",
+      "type": "location",
+      "name": "Windgale City & Black Wind Mountain",
+      "plane_id": "plane-mortal-domain",
+      "coordinates": { "x": 100, "y": 250 },
+      "description": "Initial stronghold where Zhuo Fan builds the Luo Clan array fortresses.",
+      "provenance": {
+        "source": { "series": "demonic-emperor", "chapter": 1 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1,
+      "aliases": []
+    },
+    "loc-drifting-flowers-city": {
+      "id": "loc-drifting-flowers-city",
+      "type": "location",
+      "name": "Drifting Flowers City",
+      "plane_id": "plane-mortal-domain",
+      "coordinates": { "x": 320, "y": 410 },
+      "description": "Seat of the Drifting Flowers Edifice and host city of the Hundred Pill Contest.",
+      "provenance": {
+        "source": { "series": "demonic-emperor", "chapter": 85 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 85,
+      "revealed_at": 85,
+      "aliases": []
+    },
+    "loc-dragon-cloud-city": {
+      "id": "loc-dragon-cloud-city",
+      "type": "location",
+      "name": "Dragon Cloud City",
+      "plane_id": "plane-mortal-domain",
+      "coordinates": { "x": 500, "y": 300 },
+      "description": "Imperial Capital where the Esoteric Debate and grand tournament of the Seven Noble Houses takes place.",
+      "provenance": {
+        "source": { "series": "demonic-emperor", "chapter": 220 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 220,
+      "revealed_at": 220,
+      "aliases": []
+    },
+    "arc-reincarnation": {
+      "id": "arc-reincarnation",
+      "type": "arc",
+      "name": "Reincarnation & Luo Clan Stewardship",
+      "order": 1,
+      "chapter_start": 1,
+      "chapter_end": 75,
+      "description": "Zhuo Yifan awakens as servant Zhuo Fan, refines the Blood Infant, and establishes Luo Clan mastery over Windgale City.",
+      "provenance": {
+        "source": { "series": "demonic-emperor", "chapter": 1 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1,
+      "aliases": []
+    },
+    "arc-drifting-flowers": {
+      "id": "arc-drifting-flowers",
+      "type": "arc",
+      "name": "Hundred Pill Contest & Drifting Flowers Edifice",
+      "order": 2,
+      "chapter_start": 76,
+      "chapter_end": 200,
+      "description": "Zhuo Fan enters the alchemy tournament, exposes Pill King Hall, slays Vicious Pill King Yan Song, and saves Chu Qingcheng.",
+      "provenance": {
+        "source": { "series": "demonic-emperor", "chapter": 76 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 76,
+      "revealed_at": 76,
+      "aliases": []
+    },
+    "arc-esoteric-debate": {
+      "id": "arc-esoteric-debate",
+      "type": "arc",
+      "name": "Esoteric Debate (Seven Noble Houses Battle)",
+      "order": 3,
+      "chapter_start": 201,
+      "chapter_end": 350,
+      "description": "The bloody clash at Hundred Crags Mountain where Zhuo Fan slaughters the Regent Estate alliance and slays Huangpu Qingtian.",
+      "provenance": {
+        "source": { "series": "demonic-emperor", "chapter": 201 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 201,
+      "revealed_at": 201,
+      "aliases": []
+    },
+    "event-refining-blood-infant": {
+      "id": "event-refining-blood-infant",
+      "type": "event",
+      "name": "Refining the Blood Infant Demon",
+      "chapter": 25,
+      "arc_id": "arc-reincarnation",
+      "event_type": "breakthrough",
+      "involved_character_ids": ["zhuo-fan"],
+      "location_id": "loc-windgale-city",
+      "description": "Zhuo Fan utilizes the Nine Serenities Secret Art to forge his life-bound Blood Infant avatar.",
+      "provenance": {
+        "source": { "series": "demonic-emperor", "chapter": 25 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 25,
+      "revealed_at": 25,
+      "aliases": []
+    },
+    "event-pill-king-slain": {
+      "id": "event-pill-king-slain",
+      "type": "event",
+      "name": "Alchemy Duel & Death of Yan Song",
+      "chapter": 140,
+      "arc_id": "arc-drifting-flowers",
+      "event_type": "battle",
+      "involved_character_ids": ["zhuo-fan", "chu-qingcheng"],
+      "location_id": "loc-drifting-flowers-city",
+      "description": "Zhuo Fan reveals supreme ancient refining arts, crushes Yan Song, and takes the Heaven-clearing Pill.",
+      "provenance": {
+        "source": { "series": "demonic-emperor", "chapter": 140 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 140,
+      "revealed_at": 140,
+      "aliases": []
+    },
+    "event-huangpu-qingtian-killed": {
+      "id": "event-huangpu-qingtian-killed",
+      "type": "event",
+      "name": "Decisive Slaying of Huangpu Qingtian",
+      "chapter": 315,
+      "arc_id": "arc-esoteric-debate",
+      "event_type": "battle",
+      "involved_character_ids": ["zhuo-fan", "huangpu-qingtian"],
+      "location_id": "loc-dragon-cloud-city",
+      "description": "Zhuo Fan breaks through to the Profound Heaven stage, consumes Dragon Qi, and rips apart the Regent Estate prodigy.",
+      "provenance": {
+        "source": { "series": "demonic-emperor", "chapter": 315 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 315,
+      "revealed_at": 315,
+      "aliases": []
+    }
+  },
+  "facts": {
+    "fact-zhuofan-qi": {
+      "id": "fact-zhuofan-qi",
+      "entity_id": "zhuo-fan",
+      "predicate": "power_stage",
+      "value": "stage-qi-condensation",
+      "temporal": { "valid_from": 1, "valid_to": 15, "revealed_at": 1 },
+      "provenance": {
+        "source": { "series": "demonic-emperor", "chapter": 1 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-zhuofan-bone": {
+      "id": "fact-zhuofan-bone",
+      "entity_id": "zhuo-fan",
+      "predicate": "power_stage",
+      "value": "stage-bone-tempering",
+      "temporal": { "valid_from": 16, "valid_to": 150, "revealed_at": 16 },
+      "provenance": {
+        "source": { "series": "demonic-emperor", "chapter": 16 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-zhuofan-profound": {
+      "id": "fact-zhuofan-profound",
+      "entity_id": "zhuo-fan",
+      "predicate": "power_stage",
+      "value": "stage-profound-heaven",
+      "temporal": { "valid_from": 151, "valid_to": 349, "revealed_at": 151 },
+      "provenance": {
+        "source": { "series": "demonic-emperor", "chapter": 151 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-zhuofan-radiant": {
+      "id": "fact-zhuofan-radiant",
+      "entity_id": "zhuo-fan",
+      "predicate": "power_stage",
+      "value": "stage-radiant",
+      "temporal": { "valid_from": 350, "valid_to": 600, "revealed_at": 350 },
+      "provenance": {
+        "source": { "series": "demonic-emperor", "chapter": 350 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-zhuofan-ethereal": {
+      "id": "fact-zhuofan-ethereal",
+      "entity_id": "zhuo-fan",
+      "predicate": "power_stage",
+      "value": "stage-ethereal",
+      "temporal": { "valid_from": 601, "valid_to": 1100, "revealed_at": 601 },
+      "provenance": {
+        "source": { "series": "demonic-emperor", "chapter": 601 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-zhuofan-emperor": {
+      "id": "fact-zhuofan-emperor",
+      "entity_id": "zhuo-fan",
+      "predicate": "power_stage",
+      "value": "stage-emperor",
+      "temporal": { "valid_from": 1101, "valid_to": null, "revealed_at": 1101 },
+      "provenance": {
+        "source": { "series": "demonic-emperor", "chapter": 1101 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    }
+  },
+  "relationships": {
+    "rel-zhuo-luo-steward": {
+      "id": "rel-zhuo-luo-steward",
+      "source_id": "zhuo-fan",
+      "target_id": "luo-yunchang",
+      "predicate": "ALLY_OF",
+      "label": "Grand Butler & Young Miss",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": { "series": "demonic-emperor", "chapter": 1 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-zhuo-yunhai-mentor": {
+      "id": "rel-zhuo-yunhai-mentor",
+      "source_id": "zhuo-fan",
+      "target_id": "luo-yunhai",
+      "predicate": "MASTER_OF",
+      "label": "Godbrother & Mentor",
+      "temporal": {
+        "valid_from": 5,
+        "valid_to": null,
+        "revealed_at": 5
+      },
+      "provenance": {
+        "source": { "series": "demonic-emperor", "chapter": 5 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-zhuo-longjiu-ally": {
+      "id": "rel-zhuo-longjiu-ally",
+      "source_id": "zhuo-fan",
+      "target_id": "long-jiu",
+      "predicate": "ALLY_OF",
+      "label": "Veiled Dragon Pavilion Alliance",
+      "temporal": {
+        "valid_from": 20,
+        "valid_to": null,
+        "revealed_at": 20
+      },
+      "provenance": {
+        "source": { "series": "demonic-emperor", "chapter": 20 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-zhuo-qingcheng-love": {
+      "id": "rel-zhuo-qingcheng-love",
+      "source_id": "zhuo-fan",
+      "target_id": "chu-qingcheng",
+      "predicate": "ALLY_OF",
+      "label": "Drifting Flowers Romance & Bond",
+      "temporal": {
+        "valid_from": 90,
+        "valid_to": null,
+        "revealed_at": 90
+      },
+      "provenance": {
+        "source": { "series": "demonic-emperor", "chapter": 90 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-zhuo-youguiqi-enemy": {
+      "id": "rel-zhuo-youguiqi-enemy",
+      "source_id": "zhuo-fan",
+      "target_id": "you-guiqi",
+      "predicate": "ENEMY_OF",
+      "label": "Hell Valley Blood Feud",
+      "temporal": {
+        "valid_from": 40,
+        "valid_to": 190,
+        "revealed_at": 40
+      },
+      "provenance": {
+        "source": { "series": "demonic-emperor", "chapter": 40 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-zhuo-huangpu-rival": {
+      "id": "rel-zhuo-huangpu-rival",
+      "source_id": "zhuo-fan",
+      "target_id": "huangpu-qingtian",
+      "predicate": "RIVAL_OF",
+      "label": "Esoteric Debate Arch-Rivalry",
+      "temporal": {
+        "valid_from": 200,
+        "valid_to": 315,
+        "revealed_at": 200
+      },
+      "provenance": {
+        "source": { "series": "demonic-emperor", "chapter": 200 },
+        "extracted_by": "deterministic",
+        "confidence": 1.0,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    }
+  }
+}

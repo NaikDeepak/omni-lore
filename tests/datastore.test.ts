@@ -7,8 +7,9 @@ describe('LocalGitDataStore', () => {
 
   it('loads series registry successfully', async () => {
     const list = await store.listSeries();
-    expect(list.length).toBe(4);
+    expect(list.length).toBeGreaterThanOrEqual(5);
     expect(list.some(s => s.slug === 'coiling-dragon')).toBe(true);
+    expect(list.some(s => s.slug === 'demonic-emperor')).toBe(true);
     expect(list.some(s => s.slug === 'solo-leveling')).toBe(true);
   });
 

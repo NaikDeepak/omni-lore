@@ -1,5 +1,17 @@
 [
   {
+    "slug": "demonic-emperor",
+    "title": "Demonic Emperor",
+    "type": "cultivation",
+    "status": "completed",
+    "wiki_api_endpoint": "https://demonic-emperor.fandom.com/api.php",
+    "total_chapters": 1315,
+    "knowledge_boundary": {
+      "latest_processed_chapter": 1315,
+      "as_of": "2026-09-27T00:00:00Z"
+    }
+  },
+  {
     "slug": "coiling-dragon",
     "title": "Coiling Dragon",
     "type": "cultivation",
