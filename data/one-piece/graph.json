@@ -2840,6 +2840,396 @@
       "first_appearance": 498,
       "revealed_at": 498,
       "emblem_url": "/assets/pixels/one-piece/factions/faction-heart.svg"
+    },
+    "vivi": {
+      "id": "vivi",
+      "type": "character",
+      "name": "Nefertari Vivi",
+      "aliases": [
+        "Princess Vivi",
+        "Miss Wednesday",
+        "Straw Hat Member #5.5"
+      ],
+      "description": "Princess of Arabasta who bravely infiltrated Baroque Works, journeyed across the Grand Line with the Straw Hats, and holds an eternal bond as an honorary crewmate.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "page": "Nefertari Vivi",
+          "chapter": 103
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 103,
+      "revealed_at": 103,
+      "avatar_url": "/assets/pixels/one-piece/avatars/vivi.svg"
+    },
+    "arlong": {
+      "id": "arlong",
+      "type": "character",
+      "name": "Arlong the Saw",
+      "aliases": [
+        "Saw-Tooth Arlong",
+        "Arlong the Saw"
+      ],
+      "description": "Captain of the Arlong Pirates, former Sun Pirates member, and saw-shark fish-man who terrorized the Conomi Islands and subjugated Nami's village Cocoyasi.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "page": "Arlong",
+          "chapter": 69
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 69,
+      "revealed_at": 69,
+      "avatar_url": "/assets/pixels/one-piece/avatars/arlong.svg"
+    },
+    "kuro": {
+      "id": "kuro",
+      "type": "character",
+      "name": "Captain Kuro",
+      "aliases": [
+        "Kuro of a Hundred Plans",
+        "Klahadore"
+      ],
+      "description": "Ruthless strategist and captain of the Black Cat Pirates who faked his death to live as the butler Klahadore and plot the assassination of Kaya.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "page": "Kuro",
+          "chapter": 23
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 23,
+      "revealed_at": 23,
+      "avatar_url": "/assets/pixels/one-piece/avatars/kuro.svg"
+    },
+    "krieg": {
+      "id": "krieg",
+      "type": "character",
+      "name": "Don Krieg",
+      "aliases": [
+        "Foul Play Krieg",
+        "Pirate Fleet Admiral"
+      ],
+      "description": "Supreme commander of the Krieg Armada with 50 galleons who was routed from the Grand Line by Dracule Mihawk and attacked the ocean restaurant Baratie.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "page": "Don Krieg",
+          "chapter": 44
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 44,
+      "revealed_at": 44,
+      "avatar_url": "/assets/pixels/one-piece/avatars/krieg.svg"
+    },
+    "tashigi": {
+      "id": "tashigi",
+      "type": "character",
+      "name": "Tashigi",
+      "aliases": [
+        "Master Chief Petty Officer Tashigi",
+        "Captain Tashigi"
+      ],
+      "description": "Skilled swordswoman and officer of Marine Branch G-5 under Smoker who collects Meito swords from pirates and bears an uncanny resemblance to Zoro's childhood friend Kuina.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "page": "Tashigi",
+          "chapter": 96
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 96,
+      "revealed_at": 96,
+      "avatar_url": "/assets/pixels/one-piece/avatars/tashigi.svg"
+    },
+    "bon-clay": {
+      "id": "bon-clay",
+      "type": "character",
+      "name": "Bentham (Mr. 2 Bon Clay)",
+      "aliases": [
+        "Mr. 2 Bon Clay",
+        "Bentham of the Wild"
+      ],
+      "description": "Okama master of Swan Lake Kenpo and the Clone-Clone Fruit (Mane Mane no Mi) who sacrificed himself at Arabasta and Impel Down to save Luffy and the Straw Hats.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "page": "Mr. 2 Bon Clay",
+          "chapter": 129
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 129,
+      "revealed_at": 129,
+      "avatar_url": "/assets/pixels/one-piece/avatars/bon-clay.svg"
+    },
+    "marco": {
+      "id": "marco",
+      "type": "character",
+      "name": "Marco the Phoenix",
+      "aliases": [
+        "Marco the Phoenix",
+        "First Division Commander"
+      ],
+      "description": "Former 1st division commander of the Whitebeard Pirates and Mythical Zoan user of the Phoenix fruit with regenerative blue flames, serving as doctor of Sphinx Island.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "page": "Marco",
+          "chapter": 234
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 234,
+      "revealed_at": 234,
+      "avatar_url": "/assets/pixels/one-piece/avatars/marco.svg"
+    },
+    "sengoku": {
+      "id": "sengoku",
+      "type": "character",
+      "name": "Sengoku the Buddha",
+      "aliases": [
+        "Fleet Admiral Sengoku",
+        "Sengoku the Buddha",
+        "The Resourceful General"
+      ],
+      "description": "Former Fleet Admiral of the Marines and Mythical Zoan Daibutsu user who commanded the Marine forces during the Summit War of Marineford alongside his peer Monkey D. Garp.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "page": "Sengoku",
+          "chapter": 234
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 234,
+      "revealed_at": 234,
+      "avatar_url": "/assets/pixels/one-piece/avatars/sengoku.svg"
+    },
+    "magellan": {
+      "id": "magellan",
+      "type": "character",
+      "name": "Magellan",
+      "aliases": [
+        "Chief Warden Magellan",
+        "Poison Dragon"
+      ],
+      "description": "Formidable former Chief Warden of the Great Underwater Prison Impel Down who wields the Paramecia Doku Doku no Mi (Venom-Venom Fruit), nearly killing Luffy and Blackbeard.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "page": "Magellan",
+          "chapter": 526
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 526,
+      "revealed_at": 526,
+      "avatar_url": "/assets/pixels/one-piece/avatars/magellan.svg"
+    },
+    "katakuri": {
+      "id": "katakuri",
+      "type": "character",
+      "name": "Charlotte Katakuri",
+      "aliases": [
+        "Minister of Flour",
+        "Sweet Commander Katakuri",
+        "The Unbeaten Man"
+      ],
+      "description": "Second son of Big Mom and strongest Sweet Commander, master of Advanced Observation Haki (Future Sight) and the Awakened Mochi Mochi no Mi.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "page": "Charlotte Katakuri",
+          "chapter": 860
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 860,
+      "revealed_at": 860,
+      "avatar_url": "/assets/pixels/one-piece/avatars/katakuri.svg"
+    },
+    "pudding": {
+      "id": "pudding",
+      "type": "character",
+      "name": "Charlotte Pudding",
+      "aliases": [
+        "Three-Eye Pudding",
+        "Chocolatier Pudding"
+      ],
+      "description": "35th daughter of Big Mom with the Three-Eye Tribe heritage and the Memo Memo no Mi (Memory Fruit), initially tasked to assassinate Sanji before falling deeply in love with him.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "page": "Charlotte Pudding",
+          "chapter": 827
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 827,
+      "revealed_at": 827,
+      "avatar_url": "/assets/pixels/one-piece/avatars/pudding.svg"
+    },
+    "vegapunk": {
+      "id": "vegapunk",
+      "type": "character",
+      "name": "Dr. Vegapunk Stella",
+      "aliases": [
+        "World's Greatest Genius",
+        "Stella",
+        "Scientist of the Future 500 Years Ahead"
+      ],
+      "description": "Supreme scientist of the Special Science Group (SSG) with the Brain-Brain Fruit (Nomi Nomi no Mi), discoverer of Lineage Factors, Devil Fruit duplication, and creator of the Seraphim.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "page": "Vegapunk",
+          "chapter": 1066
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1066,
+      "revealed_at": 1066,
+      "avatar_url": "/assets/pixels/one-piece/avatars/vegapunk.svg"
+    },
+    "bonney": {
+      "id": "bonney",
+      "type": "character",
+      "name": "Jewelry Bonney",
+      "aliases": [
+        "Big Eater Bonney",
+        "Child of Destiny"
+      ],
+      "description": "Captain of the Bonney Pirates, South Blue Supernova, daughter of Bartholomew Kuma and Ginny who wields the Age-Age Fruit (Toshi Toshi no Mi) and can manifest distorted futures.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "page": "Jewelry Bonney",
+          "chapter": 498
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 498,
+      "revealed_at": 498,
+      "avatar_url": "/assets/pixels/one-piece/avatars/bonney.svg"
+    },
+    "king": {
+      "id": "king",
+      "type": "character",
+      "name": "King the Conflagration",
+      "aliases": [
+        "King the Wildfire",
+        "Alber",
+        "Last of the Lunarians"
+      ],
+      "description": "Kaido's right-hand man and First All-Star of the Beasts Pirates, surviving member of the god-like Lunarian race from the Red Line who controls flame and Ancient Zoan Pteranodon power.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "page": "King",
+          "chapter": 920
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 920,
+      "revealed_at": 920,
+      "avatar_url": "/assets/pixels/one-piece/avatars/king.svg"
+    },
+    "queen": {
+      "id": "queen",
+      "type": "character",
+      "name": "Queen the Plague",
+      "aliases": [
+        "Queen the Plague",
+        "Mad Scientist of MADS"
+      ],
+      "description": "Second All-Star of the Beasts Pirates, cyborg Brachiosaurus user, and former colleague of Vegapunk and Judge in MADS who engineers lethal virus weapons like the Ice Oni.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "page": "Queen",
+          "chapter": 920
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 920,
+      "revealed_at": 920,
+      "avatar_url": "/assets/pixels/one-piece/avatars/queen.svg"
+    },
+    "momonosuke": {
+      "id": "momonosuke",
+      "type": "character",
+      "name": "Kozuki Momonosuke",
+      "aliases": [
+        "Lord Momonosuke",
+        "Shogun of Wano",
+        "Pink Dragon"
+      ],
+      "description": "Son of Kozuki Oden and legitimate Shogun of Wano who ate Vegapunk's artificial Azure Dragon fruit, aged 20 years through Shinobu's jutsu, and guided Onigashima to safe landing.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "page": "Kozuki Momonosuke",
+          "chapter": 684
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 684,
+      "revealed_at": 684,
+      "avatar_url": "/assets/pixels/one-piece/avatars/momonosuke.svg"
     }
   },
   "facts": {
@@ -4585,6 +4975,741 @@
         "created_at": "2026-09-27T00:00:00Z"
       },
       "canon_status": "canon"
+    },
+    "fact-vivi-rookie": {
+      "id": "fact-vivi-rookie",
+      "entity_id": "vivi",
+      "predicate": "power_stage",
+      "value": "tier-rookie",
+      "temporal": {
+        "valid_from": 103,
+        "valid_to": null,
+        "revealed_at": 103
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 103
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-vivi-faction": {
+      "id": "fact-vivi-faction",
+      "entity_id": "vivi",
+      "predicate": "faction",
+      "value": "faction-straw-hats",
+      "temporal": {
+        "valid_from": 114,
+        "valid_to": null,
+        "revealed_at": 114
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 114
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-arlong-rookie": {
+      "id": "fact-arlong-rookie",
+      "entity_id": "arlong",
+      "predicate": "power_stage",
+      "value": "tier-rookie",
+      "temporal": {
+        "valid_from": 69,
+        "valid_to": null,
+        "revealed_at": 69
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 69
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-arlong-bounty": {
+      "id": "fact-arlong-bounty",
+      "entity_id": "arlong",
+      "predicate": "bounty",
+      "value": 20000000,
+      "temporal": {
+        "valid_from": 69,
+        "valid_to": null,
+        "revealed_at": 69
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 69
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-kuro-rookie": {
+      "id": "fact-kuro-rookie",
+      "entity_id": "kuro",
+      "predicate": "power_stage",
+      "value": "tier-rookie",
+      "temporal": {
+        "valid_from": 23,
+        "valid_to": null,
+        "revealed_at": 23
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 23
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-kuro-bounty": {
+      "id": "fact-kuro-bounty",
+      "entity_id": "kuro",
+      "predicate": "bounty",
+      "value": 16000000,
+      "temporal": {
+        "valid_from": 23,
+        "valid_to": null,
+        "revealed_at": 23
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 23
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-krieg-rookie": {
+      "id": "fact-krieg-rookie",
+      "entity_id": "krieg",
+      "predicate": "power_stage",
+      "value": "tier-rookie",
+      "temporal": {
+        "valid_from": 44,
+        "valid_to": null,
+        "revealed_at": 44
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 44
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-krieg-bounty": {
+      "id": "fact-krieg-bounty",
+      "entity_id": "krieg",
+      "predicate": "bounty",
+      "value": 17000000,
+      "temporal": {
+        "valid_from": 44,
+        "valid_to": null,
+        "revealed_at": 44
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 44
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-tashigi-rookie": {
+      "id": "fact-tashigi-rookie",
+      "entity_id": "tashigi",
+      "predicate": "power_stage",
+      "value": "tier-rookie",
+      "temporal": {
+        "valid_from": 96,
+        "valid_to": null,
+        "revealed_at": 96
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 96
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-tashigi-faction": {
+      "id": "fact-tashigi-faction",
+      "entity_id": "tashigi",
+      "predicate": "faction",
+      "value": "faction-marines",
+      "temporal": {
+        "valid_from": 96,
+        "valid_to": null,
+        "revealed_at": 96
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 96
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-bonclay-rookie": {
+      "id": "fact-bonclay-rookie",
+      "entity_id": "bon-clay",
+      "predicate": "power_stage",
+      "value": "tier-rookie",
+      "temporal": {
+        "valid_from": 129,
+        "valid_to": 530,
+        "revealed_at": 129
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 129
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-bonclay-supernova": {
+      "id": "fact-bonclay-supernova",
+      "entity_id": "bon-clay",
+      "predicate": "power_stage",
+      "value": "tier-supernova",
+      "temporal": {
+        "valid_from": 531,
+        "valid_to": null,
+        "revealed_at": 531
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 531
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-marco-commander": {
+      "id": "fact-marco-commander",
+      "entity_id": "marco",
+      "predicate": "power_stage",
+      "value": "tier-commander",
+      "temporal": {
+        "valid_from": 234,
+        "valid_to": null,
+        "revealed_at": 234
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 234
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-marco-bounty": {
+      "id": "fact-marco-bounty",
+      "entity_id": "marco",
+      "predicate": "bounty",
+      "value": 1374000000,
+      "temporal": {
+        "valid_from": 234,
+        "valid_to": null,
+        "revealed_at": 234
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 234
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-marco-faction": {
+      "id": "fact-marco-faction",
+      "entity_id": "marco",
+      "predicate": "faction",
+      "value": "faction-whitebeard",
+      "temporal": {
+        "valid_from": 234,
+        "valid_to": null,
+        "revealed_at": 234
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 234
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-sengoku-emperor": {
+      "id": "fact-sengoku-emperor",
+      "entity_id": "sengoku",
+      "predicate": "power_stage",
+      "value": "tier-emperor-admiral",
+      "temporal": {
+        "valid_from": 234,
+        "valid_to": null,
+        "revealed_at": 234
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 234
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-sengoku-faction": {
+      "id": "fact-sengoku-faction",
+      "entity_id": "sengoku",
+      "predicate": "faction",
+      "value": "faction-marines",
+      "temporal": {
+        "valid_from": 234,
+        "valid_to": null,
+        "revealed_at": 234
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 234
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-magellan-commander": {
+      "id": "fact-magellan-commander",
+      "entity_id": "magellan",
+      "predicate": "power_stage",
+      "value": "tier-commander",
+      "temporal": {
+        "valid_from": 526,
+        "valid_to": null,
+        "revealed_at": 526
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 526
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-katakuri-commander": {
+      "id": "fact-katakuri-commander",
+      "entity_id": "katakuri",
+      "predicate": "power_stage",
+      "value": "tier-commander",
+      "temporal": {
+        "valid_from": 860,
+        "valid_to": null,
+        "revealed_at": 860
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 860
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-katakuri-bounty": {
+      "id": "fact-katakuri-bounty",
+      "entity_id": "katakuri",
+      "predicate": "bounty",
+      "value": 1057000000,
+      "temporal": {
+        "valid_from": 860,
+        "valid_to": null,
+        "revealed_at": 860
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 860
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-katakuri-faction": {
+      "id": "fact-katakuri-faction",
+      "entity_id": "katakuri",
+      "predicate": "faction",
+      "value": "faction-big-mom",
+      "temporal": {
+        "valid_from": 860,
+        "valid_to": null,
+        "revealed_at": 860
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 860
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-pudding-rookie": {
+      "id": "fact-pudding-rookie",
+      "entity_id": "pudding",
+      "predicate": "power_stage",
+      "value": "tier-rookie",
+      "temporal": {
+        "valid_from": 827,
+        "valid_to": null,
+        "revealed_at": 827
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 827
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-pudding-faction": {
+      "id": "fact-pudding-faction",
+      "entity_id": "pudding",
+      "predicate": "faction",
+      "value": "faction-big-mom",
+      "temporal": {
+        "valid_from": 827,
+        "valid_to": null,
+        "revealed_at": 827
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 827
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-vegapunk-commander": {
+      "id": "fact-vegapunk-commander",
+      "entity_id": "vegapunk",
+      "predicate": "power_stage",
+      "value": "tier-commander",
+      "temporal": {
+        "valid_from": 1066,
+        "valid_to": null,
+        "revealed_at": 1066
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1066
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-bonney-supernova": {
+      "id": "fact-bonney-supernova",
+      "entity_id": "bonney",
+      "predicate": "power_stage",
+      "value": "tier-supernova",
+      "temporal": {
+        "valid_from": 498,
+        "valid_to": 1059,
+        "revealed_at": 498
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 498
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-bonney-commander": {
+      "id": "fact-bonney-commander",
+      "entity_id": "bonney",
+      "predicate": "power_stage",
+      "value": "tier-commander",
+      "temporal": {
+        "valid_from": 1060,
+        "valid_to": null,
+        "revealed_at": 1060
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1060
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-bonney-bounty": {
+      "id": "fact-bonney-bounty",
+      "entity_id": "bonney",
+      "predicate": "bounty",
+      "value": 320000000,
+      "temporal": {
+        "valid_from": 1060,
+        "valid_to": null,
+        "revealed_at": 1060
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1060
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-king-commander": {
+      "id": "fact-king-commander",
+      "entity_id": "king",
+      "predicate": "power_stage",
+      "value": "tier-commander",
+      "temporal": {
+        "valid_from": 920,
+        "valid_to": null,
+        "revealed_at": 920
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 920
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-king-bounty": {
+      "id": "fact-king-bounty",
+      "entity_id": "king",
+      "predicate": "bounty",
+      "value": 1390000000,
+      "temporal": {
+        "valid_from": 920,
+        "valid_to": null,
+        "revealed_at": 920
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 920
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-king-faction": {
+      "id": "fact-king-faction",
+      "entity_id": "king",
+      "predicate": "faction",
+      "value": "faction-beast",
+      "temporal": {
+        "valid_from": 920,
+        "valid_to": null,
+        "revealed_at": 920
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 920
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-queen-commander": {
+      "id": "fact-queen-commander",
+      "entity_id": "queen",
+      "predicate": "power_stage",
+      "value": "tier-commander",
+      "temporal": {
+        "valid_from": 920,
+        "valid_to": null,
+        "revealed_at": 920
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 920
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-queen-bounty": {
+      "id": "fact-queen-bounty",
+      "entity_id": "queen",
+      "predicate": "bounty",
+      "value": 1320000000,
+      "temporal": {
+        "valid_from": 920,
+        "valid_to": null,
+        "revealed_at": 920
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 920
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-queen-faction": {
+      "id": "fact-queen-faction",
+      "entity_id": "queen",
+      "predicate": "faction",
+      "value": "faction-beast",
+      "temporal": {
+        "valid_from": 920,
+        "valid_to": null,
+        "revealed_at": 920
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 920
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-momo-rookie": {
+      "id": "fact-momo-rookie",
+      "entity_id": "momonosuke",
+      "predicate": "power_stage",
+      "value": "tier-rookie",
+      "temporal": {
+        "valid_from": 684,
+        "valid_to": 1022,
+        "revealed_at": 684
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 684
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-momo-commander": {
+      "id": "fact-momo-commander",
+      "entity_id": "momonosuke",
+      "predicate": "power_stage",
+      "value": "tier-commander",
+      "temporal": {
+        "valid_from": 1023,
+        "valid_to": null,
+        "revealed_at": 1023
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1023
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
     }
   },
   "relationships": {
@@ -5285,6 +6410,600 @@
         "source": {
           "series": "one-piece",
           "chapter": 528
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-vivi-luffy": {
+      "id": "rel-vivi-luffy",
+      "source_id": "vivi",
+      "target_id": "luffy",
+      "predicate": "ALLY_OF",
+      "label": "Honorary Straw Hat & Lifelong Friend",
+      "temporal": {
+        "valid_from": 114,
+        "valid_to": null,
+        "revealed_at": 114
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 114
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-vivi-crocodile": {
+      "id": "rel-vivi-crocodile",
+      "source_id": "vivi",
+      "target_id": "crocodile",
+      "predicate": "ENEMY_OF",
+      "label": "Resisting the Tyranny of Baroque Works",
+      "temporal": {
+        "valid_from": 110,
+        "valid_to": null,
+        "revealed_at": 110
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 110
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-arlong-nami": {
+      "id": "rel-arlong-nami",
+      "source_id": "arlong",
+      "target_id": "nami",
+      "predicate": "ENEMY_OF",
+      "label": "Extortion & Forcible Cartography Enslavement",
+      "temporal": {
+        "valid_from": 69,
+        "valid_to": null,
+        "revealed_at": 69
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 69
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-arlong-luffy": {
+      "id": "rel-arlong-luffy",
+      "source_id": "arlong",
+      "target_id": "luffy",
+      "predicate": "ENEMY_OF",
+      "label": "Arlong Park Decisive Showdown",
+      "temporal": {
+        "valid_from": 75,
+        "valid_to": null,
+        "revealed_at": 75
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 75
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-jinbe-arlong": {
+      "id": "rel-jinbe-arlong",
+      "source_id": "jinbe",
+      "target_id": "arlong",
+      "predicate": "RIVAL_OF",
+      "label": "Sun Pirates Ideological Divide",
+      "temporal": {
+        "valid_from": 69,
+        "valid_to": null,
+        "revealed_at": 69
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 69
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-kuro-usopp": {
+      "id": "rel-kuro-usopp",
+      "source_id": "kuro",
+      "target_id": "usopp",
+      "predicate": "ENEMY_OF",
+      "label": "Syrup Village Defense",
+      "temporal": {
+        "valid_from": 24,
+        "valid_to": null,
+        "revealed_at": 24
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 24
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-krieg-sanji": {
+      "id": "rel-krieg-sanji",
+      "source_id": "krieg",
+      "target_id": "sanji",
+      "predicate": "ENEMY_OF",
+      "label": "Baratie Galleon Invasion Battle",
+      "temporal": {
+        "valid_from": 46,
+        "valid_to": null,
+        "revealed_at": 46
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 46
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-tashigi-smoker": {
+      "id": "rel-tashigi-smoker",
+      "source_id": "tashigi",
+      "target_id": "smoker",
+      "predicate": "SUBORDINATE_OF",
+      "label": "Marine G-5 Trusted Lieutenant",
+      "temporal": {
+        "valid_from": 96,
+        "valid_to": null,
+        "revealed_at": 96
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 96
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-tashigi-zoro": {
+      "id": "rel-tashigi-zoro",
+      "source_id": "tashigi",
+      "target_id": "zoro",
+      "predicate": "RIVAL_OF",
+      "label": "Meito Swords & Kuina Resemblance",
+      "temporal": {
+        "valid_from": 96,
+        "valid_to": null,
+        "revealed_at": 96
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 96
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-bonclay-luffy": {
+      "id": "rel-bonclay-luffy",
+      "source_id": "bon-clay",
+      "target_id": "luffy",
+      "predicate": "ALLY_OF",
+      "label": "Unshakable Friendship & Impel Down Sacrifice",
+      "temporal": {
+        "valid_from": 129,
+        "valid_to": null,
+        "revealed_at": 129
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 129
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-marco-whitebeard": {
+      "id": "rel-marco-whitebeard",
+      "source_id": "marco",
+      "target_id": "whitebeard",
+      "predicate": "SUBORDINATE_OF",
+      "label": "First Division Commander & Beloved Son",
+      "temporal": {
+        "valid_from": 234,
+        "valid_to": null,
+        "revealed_at": 234
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 234
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-marco-luffy": {
+      "id": "rel-marco-luffy",
+      "source_id": "marco",
+      "target_id": "luffy",
+      "predicate": "ALLY_OF",
+      "label": "Marineford Protection & Wano Raid Ally",
+      "temporal": {
+        "valid_from": 552,
+        "valid_to": null,
+        "revealed_at": 552
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 552
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-sengoku-garp": {
+      "id": "rel-sengoku-garp",
+      "source_id": "sengoku",
+      "target_id": "garp",
+      "predicate": "ALLY_OF",
+      "label": "Marine Veteran Comrades-in-Arms",
+      "temporal": {
+        "valid_from": 234,
+        "valid_to": null,
+        "revealed_at": 234
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 234
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-magellan-luffy": {
+      "id": "rel-magellan-luffy",
+      "source_id": "magellan",
+      "target_id": "luffy",
+      "predicate": "ENEMY_OF",
+      "label": "Impel Down Level 4 Deadly Poison Duel",
+      "temporal": {
+        "valid_from": 535,
+        "valid_to": null,
+        "revealed_at": 535
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 535
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-katakuri-bigmom": {
+      "id": "rel-katakuri-bigmom",
+      "source_id": "katakuri",
+      "target_id": "big-mom",
+      "predicate": "SUBORDINATE_OF",
+      "label": "Sweet Commander & Family Pillar",
+      "temporal": {
+        "valid_from": 860,
+        "valid_to": null,
+        "revealed_at": 860
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 860
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-katakuri-luffy": {
+      "id": "rel-katakuri-luffy",
+      "source_id": "katakuri",
+      "target_id": "luffy",
+      "predicate": "RIVAL_OF",
+      "label": "Mirror World Clash of Advanced Observation",
+      "temporal": {
+        "valid_from": 878,
+        "valid_to": null,
+        "revealed_at": 878
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 878
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-pudding-sanji": {
+      "id": "rel-pudding-sanji",
+      "source_id": "pudding",
+      "target_id": "sanji",
+      "predicate": "ALLY_OF",
+      "label": "Affection & Bittersweet Memory Severance",
+      "temporal": {
+        "valid_from": 827,
+        "valid_to": null,
+        "revealed_at": 827
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 827
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-vegapunk-kuma": {
+      "id": "rel-vegapunk-kuma",
+      "source_id": "vegapunk",
+      "target_id": "kuma",
+      "predicate": "ALLY_OF",
+      "label": "Scientific Pact & Tragic Pacifista Conversion",
+      "temporal": {
+        "valid_from": 1066,
+        "valid_to": null,
+        "revealed_at": 1066
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1066
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-bonney-kuma": {
+      "id": "rel-bonney-kuma",
+      "source_id": "bonney",
+      "target_id": "kuma",
+      "predicate": "ALLY_OF",
+      "label": "Beloved Daughter & Buccaneer Heritage",
+      "temporal": {
+        "valid_from": 498,
+        "valid_to": null,
+        "revealed_at": 498
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 498
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-bonney-luffy": {
+      "id": "rel-bonney-luffy",
+      "source_id": "bonney",
+      "target_id": "luffy",
+      "predicate": "ALLY_OF",
+      "label": "Egghead Island Sun God Nika Inspiration",
+      "temporal": {
+        "valid_from": 1060,
+        "valid_to": null,
+        "revealed_at": 1060
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1060
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-king-kaido": {
+      "id": "rel-king-kaido",
+      "source_id": "king",
+      "target_id": "kaido",
+      "predicate": "SUBORDINATE_OF",
+      "label": "Right-Hand Lunarian All-Star",
+      "temporal": {
+        "valid_from": 920,
+        "valid_to": null,
+        "revealed_at": 920
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 920
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-queen-kaido": {
+      "id": "rel-queen-kaido",
+      "source_id": "queen",
+      "target_id": "kaido",
+      "predicate": "SUBORDINATE_OF",
+      "label": "All-Star Commander & Udon Prison Viceroy",
+      "temporal": {
+        "valid_from": 920,
+        "valid_to": null,
+        "revealed_at": 920
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 920
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-king-zoro": {
+      "id": "rel-king-zoro",
+      "source_id": "king",
+      "target_id": "zoro",
+      "predicate": "ENEMY_OF",
+      "label": "Onigashima King of Hell Duel",
+      "temporal": {
+        "valid_from": 1022,
+        "valid_to": null,
+        "revealed_at": 1022
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1022
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-queen-sanji": {
+      "id": "rel-queen-sanji",
+      "source_id": "queen",
+      "target_id": "sanji",
+      "predicate": "ENEMY_OF",
+      "label": "MADS Science vs Ifrit Jambe",
+      "temporal": {
+        "valid_from": 1028,
+        "valid_to": null,
+        "revealed_at": 1028
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1028
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-momo-oden": {
+      "id": "rel-momo-oden",
+      "source_id": "momonosuke",
+      "target_id": "oden",
+      "predicate": "ALLY_OF",
+      "label": "Heir to the Kozuki Bloodline",
+      "temporal": {
+        "valid_from": 684,
+        "valid_to": null,
+        "revealed_at": 684
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 684
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-momo-luffy": {
+      "id": "rel-momo-luffy",
+      "source_id": "momonosuke",
+      "target_id": "luffy",
+      "predicate": "ALLY_OF",
+      "label": "Wano Liberation Alliance",
+      "temporal": {
+        "valid_from": 684,
+        "valid_to": null,
+        "revealed_at": 684
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 684
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-momo-yamato": {
+      "id": "rel-momo-yamato",
+      "source_id": "momonosuke",
+      "target_id": "yamato",
+      "predicate": "ALLY_OF",
+      "label": "Protector of Wano & Oden's Will",
+      "temporal": {
+        "valid_from": 985,
+        "valid_to": null,
+        "revealed_at": 985
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 985
         },
         "extracted_by": "deterministic",
         "confidence": 1,

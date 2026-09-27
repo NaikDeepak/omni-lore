@@ -25,4 +25,27 @@ describe('LocalGitDataStore', () => {
     const nonexistent = await store.getSeriesGraph('nonexistent-series');
     expect(nonexistent).toBeNull();
   });
+
+  it('validates One Piece character roster expansion (>= 50 characters) and pixel avatars', async () => {
+    const graph = await store.getSeriesGraph('one-piece');
+    expect(graph).not.toBeNull();
+    const characters = Object.values(graph!.entities).filter(e => e.type === 'character');
+    expect(characters.length).toBeGreaterThanOrEqual(50);
+    for (const char of characters) {
+      expect(char.avatar_url).toBeDefined();
+      expect(char.avatar_url).toMatch(/^\/assets\/pixels\/one-piece\/avatars\/[a-z0-9-]+\.svg$/);
+    }
+  });
+
+  it('validates Coiling Dragon character roster and faction expansion', async () => {
+    const graph = await store.getSeriesGraph('coiling-dragon');
+    expect(graph).not.toBeNull();
+    const characters = Object.values(graph!.entities).filter(e => e.type === 'character');
+    expect(characters.length).toBeGreaterThanOrEqual(20);
+    const factions = Object.values(graph!.entities).filter(e => e.type === 'faction');
+    expect(factions.length).toBeGreaterThanOrEqual(5);
+    for (const char of characters) {
+      expect(char.avatar_url).toBeDefined();
+    }
+  });
 });
