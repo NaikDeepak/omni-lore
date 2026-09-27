@@ -16,6 +16,8 @@ import { PixelAvatar } from '../../components/pixel/PixelAvatar';
 import { PixelGauge } from '../../components/pixel/PixelGauge';
 import { RpgStatusScreen } from '../../components/pixel/RpgStatusScreen';
 import { PixelMapCanvas } from '../../components/pixel/PixelMapCanvas';
+import { PixelNetworkCanvas } from '../../components/pixel/PixelNetworkCanvas';
+import { NodeDossierDrawer } from '../../components/pixel/NodeDossierDrawer';
 import { 
   Flame, 
   Share2, 
@@ -63,10 +65,12 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
         : 'linley-baruch'
   );
 
-  // Faction Web Filters
+  // Faction Web Filters & Views
   const [webFilter, setWebFilter] = useState<'all' | 'faction' | 'character'>('all');
   const [selectedFactionId, setSelectedFactionId] = useState<string>('all');
   const [webSearchQuery, setWebSearchQuery] = useState<string>('');
+  const [webViewMode, setWebViewMode] = useState<'canvas' | 'grid'>('canvas');
+  const [selectedWebNodeId, setSelectedWebNodeId] = useState<string | null>(null);
 
   // Computed projections strictly driven by userChapter
   const powerLadder = useMemo(() => projectPowerLadder(graph, userChapter), [graph, userChapter]);
@@ -149,6 +153,11 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
       return true;
     });
   }, [relationshipWeb.nodes, webFilter, selectedFactionId, webSearchQuery]);
+
+  const selectedWebNode = useMemo(() => {
+    if (!selectedWebNodeId) return null;
+    return relationshipWeb.nodes.find((n) => n.id === selectedWebNodeId) ?? null;
+  }, [relationshipWeb.nodes, selectedWebNodeId]);
 
   // Milestones per series
   const milestones = useMemo(() => {
@@ -582,15 +591,39 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
                 </div>
 
                 <div className="flex items-center gap-2.5 text-xs font-mono">
-                  <span className="px-2.5 py-1 rounded bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 font-pixel text-[11px] flex items-center gap-1.5">
+                  {/* View Mode Switcher */}
+                  <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-lg border border-slate-800">
+                    <button
+                      onClick={() => setWebViewMode('canvas')}
+                      className={`px-2.5 py-1 rounded text-[11px] font-pixel transition ${
+                        webViewMode === 'canvas'
+                          ? 'bg-indigo-600 text-white shadow font-bold'
+                          : 'text-slate-400 hover:text-white'
+                      }`}
+                    >
+                      🛰 2D VISUAL WEB
+                    </button>
+                    <button
+                      onClick={() => setWebViewMode('grid')}
+                      className={`px-2.5 py-1 rounded text-[11px] font-pixel transition ${
+                        webViewMode === 'grid'
+                          ? 'bg-indigo-600 text-white shadow font-bold'
+                          : 'text-slate-400 hover:text-white'
+                      }`}
+                    >
+                      📋 DOSSIER CARDS
+                    </button>
+                  </div>
+
+                  <span className="hidden sm:inline-flex px-2.5 py-1 rounded bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 font-pixel text-[11px] items-center gap-1.5">
                     <Shield className="w-3.5 h-3.5" />
                     {factionsInWeb.length} FACTIONS
                   </span>
-                  <span className="px-2.5 py-1 rounded bg-amber-500/10 border border-amber-500/30 text-amber-300 font-pixel text-[11px] flex items-center gap-1.5">
+                  <span className="hidden sm:inline-flex px-2.5 py-1 rounded bg-amber-500/10 border border-amber-500/30 text-amber-300 font-pixel text-[11px] items-center gap-1.5">
                     <Users className="w-3.5 h-3.5" />
                     {relationshipWeb.nodes.length} NODES
                   </span>
-                  <span className="px-2.5 py-1 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 font-pixel text-[11px] flex items-center gap-1.5">
+                  <span className="hidden sm:inline-flex px-2.5 py-1 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 font-pixel text-[11px] items-center gap-1.5">
                     <Share2 className="w-3.5 h-3.5" />
                     {relationshipWeb.edges.length} TIES
                   </span>
@@ -681,8 +714,48 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
               )}
             </div>
 
-            {/* Network Nodes Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 font-mono">
+            {/* Web Viewport: 2D Visual Network Canvas vs Card Grid */}
+            {webViewMode === 'canvas' ? (
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+                <div className={selectedWebNode ? "lg:col-span-2 space-y-4" : "lg:col-span-3 space-y-4"}>
+                  <PixelNetworkCanvas
+                    nodes={filteredNodes}
+                    edges={relationshipWeb.edges}
+                    selectedNodeId={selectedWebNodeId}
+                    onSelectNode={setSelectedWebNodeId}
+                    onDoubleSelectCharacter={(cid) => {
+                      setSelectedCharacterId(cid);
+                      setActiveTab('journey');
+                    }}
+                    seriesSlug={graph.series.slug}
+                    userChapter={userChapter}
+                  />
+                </div>
+
+                {selectedWebNode && (
+                  <div className="lg:col-span-1">
+                    <NodeDossierDrawer
+                      node={selectedWebNode}
+                      allNodes={relationshipWeb.nodes}
+                      edges={relationshipWeb.edges}
+                      userChapter={userChapter}
+                      seriesSlug={graph.series.slug}
+                      onClose={() => setSelectedWebNodeId(null)}
+                      onSelectNode={(id) => setSelectedWebNodeId(id)}
+                      onJumpToJourney={(cid) => {
+                        setSelectedCharacterId(cid);
+                        setActiveTab('journey');
+                      }}
+                      onSelectForDuel={(cid) => {
+                        setSelectedCharacterId(cid);
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
+            ) : (
+              /* Network Nodes Grid */
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 font-mono">
               {filteredNodes.map((node) => {
                 const nodeEdges = relationshipWeb.edges.filter(
                   (e) => e.source === node.id || e.target === node.id
@@ -789,6 +862,7 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
                 );
               })}
             </div>
+            )}
           </div>
         )}
 
