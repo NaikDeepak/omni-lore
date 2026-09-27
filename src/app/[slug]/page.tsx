@@ -6,14 +6,15 @@ import { WorldExplorer } from './world-explorer';
 export const revalidate = 0;
 
 interface SeriesPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export default async function SeriesPage({ params }: SeriesPageProps) {
+  const { slug } = await params;
   const store = new LocalGitDataStore(path.resolve(process.cwd(), 'data'));
-  const graph = await store.getSeriesGraph(params.slug);
+  const graph = await store.getSeriesGraph(slug);
 
   if (!graph) {
     notFound();
@@ -21,3 +22,4 @@ export default async function SeriesPage({ params }: SeriesPageProps) {
 
   return <WorldExplorer graph={graph} />;
 }
+
