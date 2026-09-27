@@ -1,12 +1,21 @@
 import { CanonicalLoreGraph, LocationEntity, PlaneEntity } from '../domain/types';
 import { TemporalEngine } from '../engine/temporal-engine';
 
+export interface MapLocationEvent {
+  id: string;
+  name: string;
+  chapter: number;
+  event_type: string;
+}
+
 export interface MapLocationItem {
   id: string;
   name: string;
   description: string;
   coordinates?: { x: number; y: number };
   first_appearance: number;
+  aliases?: string[];
+  events?: MapLocationEvent[];
 }
 
 export interface MapPlaneItem {
@@ -45,16 +54,32 @@ export function projectWorldMap(
   });
 
   const locations = Object.values(filtered.entities)
-    .filter((e): e is LocationEntity => e.type === 'location' && e.first_appearance <= userChapter);
+    .filter((e): e is LocationEntity => e.type === 'location' && e.first_appearance <= userChapter)
+    .sort((a, b) => a.first_appearance - b.first_appearance);
+
+  const events = Object.values(filtered.entities)
+    .filter((e): e is import('../domain/types').EventEntity => e.type === 'event' && e.chapter <= userChapter);
 
   for (const loc of locations) {
     if (planeMap.has(loc.plane_id)) {
+      const locEvents = events
+        .filter(ev => ev.location_id === loc.id)
+        .map(ev => ({
+          id: ev.id,
+          name: ev.name,
+          chapter: ev.chapter,
+          event_type: ev.event_type,
+        }))
+        .sort((a, b) => a.chapter - b.chapter);
+
       planeMap.get(loc.plane_id)!.locations.push({
         id: loc.id,
         name: loc.name,
         description: loc.description,
         coordinates: loc.coordinates,
         first_appearance: loc.first_appearance,
+        aliases: loc.aliases,
+        events: locEvents,
       });
     }
   }

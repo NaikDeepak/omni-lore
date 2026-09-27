@@ -7,7 +7,7 @@
     "total_chapters": 842,
     "knowledge_boundary": {
       "latest_processed_chapter": 842,
-      "as_of": "2026-09-27T00:00:00Z"
+      "as_of": "2026-09-27T18:00:00.000Z"
     }
   },
   "entities": {
@@ -15,12 +15,19 @@
       "id": "linley-baruch",
       "type": "character",
       "name": "Linley Baruch",
-      "aliases": ["Dragonblood Warrior"],
-      "description": "The protagonist of Coiling Dragon.",
+      "aliases": [
+        "Dragonblood Warrior",
+        "Sovereign of the Universe"
+      ],
+      "description": "The protagonist of Coiling Dragon, descendant of the Supreme Dragonblood Warriors, master of Earth, Wind, Water, and Fire laws.",
       "provenance": {
-        "source": { "series": "coiling-dragon", "page": "Linley Baruch", "chapter": 1 },
+        "source": {
+          "series": "coiling-dragon",
+          "page": "Linley Baruch",
+          "chapter": 1
+        },
         "extracted_by": "deterministic",
-        "confidence": 1.0,
+        "confidence": 1,
         "created_at": "2026-09-27T00:00:00Z"
       },
       "canon_status": "canon",
@@ -38,12 +45,18 @@
       "id": "doehring-cowart",
       "type": "character",
       "name": "Doehring Cowart",
-      "aliases": ["Grandpa Doehring"],
-      "description": "Ancient Saint Grand Magus residing in the Coiling Dragon Ring.",
+      "aliases": [
+        "Grandpa Doehring"
+      ],
+      "description": "Ancient Saint Grand Magus of the Pouant Empire residing within the Coiling Dragon Ring, mentor and spiritual grandfather to Linley.",
       "provenance": {
-        "source": { "series": "coiling-dragon", "page": "Doehring Cowart", "chapter": 1 },
+        "source": {
+          "series": "coiling-dragon",
+          "page": "Doehring Cowart",
+          "chapter": 1
+        },
         "extracted_by": "deterministic",
-        "confidence": 1.0,
+        "confidence": 1,
         "created_at": "2026-09-27T00:00:00Z"
       },
       "canon_status": "canon",
@@ -54,29 +67,84 @@
       "id": "bebe",
       "type": "character",
       "name": "Bebe",
-      "aliases": ["Godeater Rat"],
-      "description": "Linley’s soul-bound magical beast companion.",
+      "aliases": [
+        "Godeater Rat",
+        "Little Shadow Mouse"
+      ],
+      "description": "Linley's soul-bound magical beast companion; descendant of the legendary Godeater Rat and grandson to Beirut.",
       "provenance": {
-        "source": { "series": "coiling-dragon", "page": "Bebe", "chapter": 8 },
+        "source": {
+          "series": "coiling-dragon",
+          "page": "Bebe",
+          "chapter": 8
+        },
         "extracted_by": "deterministic",
-        "confidence": 1.0,
+        "confidence": 1,
         "created_at": "2026-09-27T00:00:00Z"
       },
       "canon_status": "canon",
       "first_appearance": 8,
       "revealed_at": 8
     },
+    "beirut": {
+      "id": "beirut",
+      "type": "character",
+      "name": "Lord Beirut",
+      "aliases": [
+        "King of Magical Beasts",
+        "Sovereign of Darkness"
+      ],
+      "description": "The supreme powerhouse of the Yulan Continent and sovereign ruler of the Forest of Darkness; creator of the Necropolis of the Gods.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "page": "Beirut",
+          "chapter": 180
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 180,
+      "revealed_at": 180
+    },
+    "delia": {
+      "id": "delia",
+      "type": "character",
+      "name": "Delia Leon",
+      "aliases": [
+        "Lady Delia"
+      ],
+      "description": "Linley’s classmate at Ernst Institute, lifelong companion, and beloved wife who journeyed with him to the Infernal Realm.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "page": "Delia",
+          "chapter": 25
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 25,
+      "revealed_at": 25
+    },
     "stage-mortal": {
       "id": "stage-mortal",
       "type": "power_stage",
-      "name": "Mortal Warrior / Mage",
+      "name": "Mortal Warrior / Mage (Ranks 1-9)",
       "order": 1,
       "system_name": "Laws and Sovereign System",
-      "description": "Ranks 1 to 9 mortal cultivation.",
+      "description": "Ranks 1 to 9 mortal cultivation; foundational manipulation of battle-qi and elemental magic.",
       "provenance": {
-        "source": { "series": "coiling-dragon", "chapter": 1 },
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 1
+        },
         "extracted_by": "deterministic",
-        "confidence": 1.0,
+        "confidence": 1,
         "created_at": "2026-09-27T00:00:00Z"
       },
       "canon_status": "canon",
@@ -87,14 +155,17 @@
     "stage-saint": {
       "id": "stage-saint",
       "type": "power_stage",
-      "name": "Saint",
+      "name": "Saint Realm",
       "order": 10,
       "system_name": "Laws and Sovereign System",
-      "description": "Flight and foundational understanding of elemental laws.",
+      "description": "Inherent flight, immortal lifespan, and foundational mastery over elemental laws.",
       "provenance": {
-        "source": { "series": "coiling-dragon", "chapter": 1 },
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 1
+        },
         "extracted_by": "deterministic",
-        "confidence": 1.0,
+        "confidence": 1,
         "created_at": "2026-09-27T00:00:00Z"
       },
       "canon_status": "canon",
@@ -105,14 +176,17 @@
     "stage-god": {
       "id": "stage-god",
       "type": "power_stage",
-      "name": "God",
+      "name": "God / Demigod",
       "order": 11,
       "system_name": "Laws and Sovereign System",
-      "description": "Fuses profound truths of an elemental law.",
+      "description": "Condenses a Divine Spark, possesses divine domains, and fuses profound truths of elemental laws.",
       "provenance": {
-        "source": { "series": "coiling-dragon", "chapter": 150 },
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 150
+        },
         "extracted_by": "deterministic",
-        "confidence": 1.0,
+        "confidence": 1,
         "created_at": "2026-09-27T00:00:00Z"
       },
       "canon_status": "canon",
@@ -120,57 +194,421 @@
       "revealed_at": 150,
       "aliases": []
     },
+    "stage-highgod": {
+      "id": "stage-highgod",
+      "type": "power_stage",
+      "name": "Highgod (Seven-Star Fiend / Asura)",
+      "order": 12,
+      "system_name": "Laws and Sovereign System",
+      "description": "Fuses all profound mysteries of an elemental law; peak combatants of the Higher Planes.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 500
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 500,
+      "revealed_at": 500,
+      "aliases": []
+    },
     "plane-yulan": {
       "id": "plane-yulan",
       "type": "plane",
       "name": "Yulan Material Continent",
       "tier_order": 1,
-      "description": "Material realm where mortal kingdoms exist.",
+      "description": "Material realm governed by mortal kingdoms, the Holy Union, and the O’Brien Empire.",
       "provenance": {
-        "source": { "series": "coiling-dragon", "chapter": 1 },
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 1
+        },
         "extracted_by": "deterministic",
-        "confidence": 1.0,
+        "confidence": 1,
         "created_at": "2026-09-27T00:00:00Z"
       },
       "canon_status": "canon",
       "first_appearance": 1,
       "revealed_at": 1,
-      "aliases": []
+      "aliases": [
+        "Yulan Continent"
+      ]
     },
     "plane-infernal": {
       "id": "plane-infernal",
       "type": "plane",
       "name": "Infernal Realm",
       "tier_order": 2,
-      "description": "Higher plane of destruction and darkness governed by Sovereigns.",
+      "description": "Higher plane of destruction and darkness governed by the Sovereigns; battleground of Fiends and Asuras.",
       "provenance": {
-        "source": { "series": "coiling-dragon", "chapter": 200 },
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 200
+        },
         "extracted_by": "deterministic",
-        "confidence": 1.0,
+        "confidence": 1,
         "created_at": "2026-09-27T00:00:00Z"
       },
       "canon_status": "canon",
       "first_appearance": 200,
       "revealed_at": 200,
-      "aliases": []
+      "aliases": [
+        "Higher Plane of Destruction"
+      ]
     },
     "loc-wushan": {
       "id": "loc-wushan",
       "type": "location",
-      "name": "Wushan Township",
+      "name": "Wushan Township (Baruch Clan Manor)",
       "plane_id": "plane-yulan",
-      "coordinates": { "x": 120, "y": 340 },
-      "description": "The Baruch clan ancestral home.",
+      "coordinates": {
+        "x": 45,
+        "y": 165
+      },
+      "description": "Quiet countryside village in the Kingdom of Fenlai and ancestral home of the declining Baruch Dragonblood clan; where Linley discovered the Coiling Dragon ring.",
       "provenance": {
-        "source": { "series": "coiling-dragon", "chapter": 1 },
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 1
+        },
         "extracted_by": "deterministic",
-        "confidence": 1.0,
+        "confidence": 1,
         "created_at": "2026-09-27T00:00:00Z"
       },
       "canon_status": "canon",
       "first_appearance": 1,
       "revealed_at": 1,
-      "aliases": []
+      "aliases": [
+        "Wushan",
+        "Baruch Manor"
+      ]
+    },
+    "loc-fenlai-city": {
+      "id": "loc-fenlai-city",
+      "type": "location",
+      "name": "Fenlai City (Holy Capital)",
+      "plane_id": "plane-yulan",
+      "coordinates": {
+        "x": 95,
+        "y": 135
+      },
+      "description": "Capital of the Holy Union and seat of the Radiant Church; famed for Scented Leaf Avenue, Debs Clan auctions, and the Apocalypse of Daybreak.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 15
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 15,
+      "revealed_at": 15,
+      "aliases": [
+        "Fenlai City",
+        "Holy Capital"
+      ]
+    },
+    "loc-ernst-institute": {
+      "id": "loc-ernst-institute",
+      "type": "location",
+      "name": "Ernst Institute (Continental Magic Academy)",
+      "plane_id": "plane-yulan",
+      "coordinates": {
+        "x": 140,
+        "y": 95
+      },
+      "description": "Premier magic academy of the Yulan continent; where Linley trained in earth and wind magic alongside his brothers Yale, Reynolds, and George in Dorm 1987.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 20
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 20,
+      "revealed_at": 20,
+      "aliases": [
+        "Ernst Institute",
+        "Dorm 1987"
+      ]
+    },
+    "loc-magical-beast-mountain": {
+      "id": "loc-magical-beast-mountain",
+      "type": "location",
+      "name": "Mountain Range of Magical Beasts",
+      "plane_id": "plane-yulan",
+      "coordinates": {
+        "x": 190,
+        "y": 155
+      },
+      "description": "Massive primeval wilderness dividing the kingdoms; teeming with fierce magical beasts where Linley survived brutal trials and formed his soul pact with Bebe.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 45
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 45,
+      "revealed_at": 45,
+      "aliases": [
+        "Magical Beast Mountain Range",
+        "Foggy Valley"
+      ]
+    },
+    "loc-obrien-empire": {
+      "id": "loc-obrien-empire",
+      "type": "location",
+      "name": "O’Brien Imperial Capital (Channe City)",
+      "plane_id": "plane-yulan",
+      "coordinates": {
+        "x": 245,
+        "y": 105
+      },
+      "description": "Mighty martial empire established by the God of War; home to God of War Mountain and the arena where Linley became famous as a stone sculpturing master.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 130
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 130,
+      "revealed_at": 130,
+      "aliases": [
+        "Channe City",
+        "God of War Mountain"
+      ]
+    },
+    "loc-black-dirt-wasteland": {
+      "id": "loc-black-dirt-wasteland",
+      "type": "location",
+      "name": "Black Dirt Wasteland (Baruch Empire)",
+      "plane_id": "plane-yulan",
+      "coordinates": {
+        "x": 295,
+        "y": 160
+      },
+      "description": "Lawless chaos region populated by refugees and warlords, conquered and unified by Linley and the Barker brothers to establish the Baruch Empire.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 160
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 160,
+      "revealed_at": 160,
+      "aliases": [
+        "Baruch Empire",
+        "City of Baruch"
+      ]
+    },
+    "loc-forest-of-darkness": {
+      "id": "loc-forest-of-darkness",
+      "type": "location",
+      "name": "Forest of Darkness (Lord Beirut’s Domain)",
+      "plane_id": "plane-yulan",
+      "coordinates": {
+        "x": 335,
+        "y": 85
+      },
+      "description": "Untouchable primeval territory ruled by King of Magical Beasts Beirut, harboring a metallic castle and serving as Bebe’s ancestral sanctuary.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 180
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 180,
+      "revealed_at": 180,
+      "aliases": [
+        "Lord Beirut’s Castle",
+        "Dark Forest"
+      ]
+    },
+    "loc-necropolis-of-gods": {
+      "id": "loc-necropolis-of-gods",
+      "type": "location",
+      "name": "Necropolis of the Gods",
+      "plane_id": "plane-yulan",
+      "coordinates": {
+        "x": 375,
+        "y": 130
+      },
+      "description": "Gigantic 18-floor planar trial constructed by Lord Beirut, housing the corpses, divine sparks, and artifacts of ancient deities who fell during the planar war.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 210
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 210,
+      "revealed_at": 210,
+      "aliases": [
+        "Necropolis of Gods",
+        "Planar Trial"
+      ]
+    },
+    "loc-nightstand-city": {
+      "id": "loc-nightstand-city",
+      "type": "location",
+      "name": "Nightstand City (Redbud Continent)",
+      "plane_id": "plane-infernal",
+      "coordinates": {
+        "x": 70,
+        "y": 120
+      },
+      "description": "Massive teleportation fortress on the Redbud Continent where planar arrivals appear; site of the Demon / Fiend evaluation trials.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 470
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 470,
+      "revealed_at": 470,
+      "aliases": [
+        "Nightstand City",
+        "Redbud Arrival"
+      ]
+    },
+    "loc-chaos-sea": {
+      "id": "loc-chaos-sea",
+      "type": "location",
+      "name": "The Chaos Sea",
+      "plane_id": "plane-infernal",
+      "coordinates": {
+        "x": 160,
+        "y": 165
+      },
+      "description": "Incalculably vast tempestuous black ocean covering much of the Infernal Realm, navigated via metallic lifeforms amidst constant pirate raids.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 480
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 480,
+      "revealed_at": 480,
+      "aliases": [
+        "Chaos Sea",
+        "Endless Black Ocean"
+      ]
+    },
+    "loc-miluo-island": {
+      "id": "loc-miluo-island",
+      "type": "location",
+      "name": "Miluo Island (Bagshaw Clan)",
+      "plane_id": "plane-infernal",
+      "coordinates": {
+        "x": 235,
+        "y": 135
+      },
+      "description": "Mysterious island sanctuary in the Redbud sea containing the Inkstone and Redbud mist, governed by five elder tribes and the Bagshaw clan.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 510
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 510,
+      "revealed_at": 510,
+      "aliases": [
+        "Miluo Island",
+        "Bagshaw Sanctuary"
+      ]
+    },
+    "loc-skyrite-mountains": {
+      "id": "loc-skyrite-mountains",
+      "type": "location",
+      "name": "Skyrite Mountains (Four Divine Beasts Clan)",
+      "plane_id": "plane-infernal",
+      "coordinates": {
+        "x": 310,
+        "y": 85
+      },
+      "description": "Canyon valley stronghold in the Bloodridge Continent where the Azure Dragon, White Tiger, Black Tortoise, and Vermilion Bird clans struggle under siege from the Eight Great Clans.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 550
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 550,
+      "revealed_at": 550,
+      "aliases": [
+        "Skyrite Mountains",
+        "Azure Dragon Clan Gorge"
+      ]
+    },
+    "loc-indigo-prefecture": {
+      "id": "loc-indigo-prefecture",
+      "type": "location",
+      "name": "Indigo Prefecture & Beirut’s Palace",
+      "plane_id": "plane-infernal",
+      "coordinates": {
+        "x": 365,
+        "y": 140
+      },
+      "description": "Prefecture of Bloodridge Continent overseen by Lord Beirut, where Linley becomes an Elder of the Azure Dragon Clan and Seven-Star Fiend.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 580
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 580,
+      "revealed_at": 580,
+      "aliases": [
+        "Indigo Prefecture",
+        "Beirut Prefecture"
+      ]
     },
     "arc-early-days": {
       "id": "arc-early-days",
@@ -179,11 +617,14 @@
       "order": 1,
       "chapter_start": 1,
       "chapter_end": 114,
-      "description": "Linley finds the ring and trains in magic.",
+      "description": "Linley finds the Coiling Dragon ring, trains in magic, bonds with Bebe, and faces heartbreak.",
       "provenance": {
-        "source": { "series": "coiling-dragon", "chapter": 1 },
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 1
+        },
         "extracted_by": "deterministic",
-        "confidence": 1.0,
+        "confidence": 1,
         "created_at": "2026-09-27T00:00:00Z"
       },
       "canon_status": "canon",
@@ -194,20 +635,125 @@
     "arc-saint-journey": {
       "id": "arc-saint-journey",
       "type": "arc",
-      "name": "Rise of the Saint",
+      "name": "Rise of the Saint & Baruch Empire",
       "order": 2,
       "chapter_start": 115,
       "chapter_end": 449,
-      "description": "Linley battles the Radiant Church and achieves Saint rank.",
+      "description": "Linley slays the Radiant Church enemies, breaks through to Saint rank, establishes the Baruch Empire, and conquers the Necropolis of the Gods.",
       "provenance": {
-        "source": { "series": "coiling-dragon", "chapter": 115 },
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 115
+        },
         "extracted_by": "deterministic",
-        "confidence": 1.0,
+        "confidence": 1,
         "created_at": "2026-09-27T00:00:00Z"
       },
       "canon_status": "canon",
       "first_appearance": 115,
       "revealed_at": 115,
+      "aliases": []
+    },
+    "arc-infernal-realm": {
+      "id": "arc-infernal-realm",
+      "type": "arc",
+      "name": "Infernal Realm & Four Divine Beasts Clan",
+      "order": 3,
+      "chapter_start": 450,
+      "chapter_end": 842,
+      "description": "Ascending to the Infernal Realm, surviving the Chaos Sea, defending the Azure Dragon Clan, and fusing four elemental laws to become the Grandmaster of the Cosmos.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 450
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 450,
+      "revealed_at": 450,
+      "aliases": []
+    },
+    "event-coiling-dragon-discovery": {
+      "id": "event-coiling-dragon-discovery",
+      "type": "event",
+      "name": "Discovery of the Coiling Dragon Ring",
+      "chapter": 4,
+      "arc_id": "arc-early-days",
+      "event_type": "discovery",
+      "involved_character_ids": [
+        "linley-baruch",
+        "doehring-cowart"
+      ],
+      "location_id": "loc-wushan",
+      "description": "Young Linley pricks his finger on an unadorned black stone ring in the Baruch manor ruins, awakening the Saint Grand Magus Doehring Cowart.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 4
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 4,
+      "revealed_at": 4,
+      "aliases": []
+    },
+    "event-ernst-dorm1987": {
+      "id": "event-ernst-dorm1987",
+      "type": "event",
+      "name": "Dorm 1987 Brotherhood Formed",
+      "chapter": 21,
+      "arc_id": "arc-early-days",
+      "event_type": "revelation",
+      "involved_character_ids": [
+        "linley-baruch"
+      ],
+      "location_id": "loc-ernst-institute",
+      "description": "Linley enrolls in the Ernst Institute and establishes a sworn brotherhood with Yale, Reynolds, and George.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 21
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 21,
+      "revealed_at": 21,
+      "aliases": []
+    },
+    "event-magical-beast-survival": {
+      "id": "event-magical-beast-survival",
+      "type": "event",
+      "name": "Mountain Range of Magical Beasts Trial",
+      "chapter": 50,
+      "arc_id": "arc-early-days",
+      "event_type": "battle",
+      "involved_character_ids": [
+        "linley-baruch",
+        "bebe"
+      ],
+      "location_id": "loc-magical-beast-mountain",
+      "description": "Linley and Bebe engage in relentless survival combat against velocisaur and bloodviolet beast packs, forging their battle instincts.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 50
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 50,
+      "revealed_at": 50,
       "aliases": []
     },
     "event-breakthrough-saint": {
@@ -217,18 +763,132 @@
       "chapter": 115,
       "arc_id": "arc-saint-journey",
       "event_type": "breakthrough",
-      "involved_character_ids": ["linley-baruch"],
+      "involved_character_ids": [
+        "linley-baruch"
+      ],
       "location_id": "loc-wushan",
-      "description": "Linley slays his enemies and breaks through to Saint rank.",
+      "description": "Linley slays his enemies, vengeance fulfilled, breaking through the limits of mortality into Saint rank.",
       "provenance": {
-        "source": { "series": "coiling-dragon", "chapter": 115 },
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 115
+        },
         "extracted_by": "deterministic",
-        "confidence": 1.0,
+        "confidence": 1,
         "created_at": "2026-09-27T00:00:00Z"
       },
       "canon_status": "canon",
       "first_appearance": 115,
       "revealed_at": 115,
+      "aliases": []
+    },
+    "event-baruch-empire-founded": {
+      "id": "event-baruch-empire-founded",
+      "type": "event",
+      "name": "Founding of the Baruch Empire",
+      "chapter": 175,
+      "arc_id": "arc-saint-journey",
+      "event_type": "political",
+      "involved_character_ids": [
+        "linley-baruch",
+        "delia"
+      ],
+      "location_id": "loc-black-dirt-wasteland",
+      "description": "Linley and his five Supreme Warrior brothers sweep across the Black Dirt Wasteland, establishing the great Baruch Empire.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 175
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 175,
+      "revealed_at": 175,
+      "aliases": []
+    },
+    "event-necropolis-trial": {
+      "id": "event-necropolis-trial",
+      "type": "event",
+      "name": "Trial of the Necropolis of the Gods",
+      "chapter": 235,
+      "arc_id": "arc-saint-journey",
+      "event_type": "discovery",
+      "involved_character_ids": [
+        "linley-baruch",
+        "bebe",
+        "beirut"
+      ],
+      "location_id": "loc-necropolis-of-gods",
+      "description": "Linley ventures through the deadly floors of the Necropolis, securing divine sparks, divine artifacts, and achieving godhood.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 235
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 235,
+      "revealed_at": 235,
+      "aliases": []
+    },
+    "event-infernal-arrival": {
+      "id": "event-infernal-arrival",
+      "type": "event",
+      "name": "Arrival at Nightstand City in Infernal Realm",
+      "chapter": 470,
+      "arc_id": "arc-infernal-realm",
+      "event_type": "ascension",
+      "involved_character_ids": [
+        "linley-baruch",
+        "delia",
+        "bebe"
+      ],
+      "location_id": "loc-nightstand-city",
+      "description": "Linley, Delia, and Bebe step through the planar gateway into Nightstand City, beginning their perilous journey across the Redbud Continent.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 470
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 470,
+      "revealed_at": 470,
+      "aliases": []
+    },
+    "event-azure-dragon-elder": {
+      "id": "event-azure-dragon-elder",
+      "type": "event",
+      "name": "Ancestral Baptism & Clan Elder Inauguration",
+      "chapter": 570,
+      "arc_id": "arc-infernal-realm",
+      "event_type": "breakthrough",
+      "involved_character_ids": [
+        "linley-baruch"
+      ],
+      "location_id": "loc-skyrite-mountains",
+      "description": "Linley undergoes the Dragon Ancestral Baptism in the Skyrite Mountains, unlocking the complete Azure Dragon bloodline and becoming an Elder.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 570
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 570,
+      "revealed_at": 570,
       "aliases": []
     }
   },
@@ -244,9 +904,12 @@
         "revealed_at": 1
       },
       "provenance": {
-        "source": { "series": "coiling-dragon", "chapter": 1 },
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 1
+        },
         "extracted_by": "deterministic",
-        "confidence": 1.0,
+        "confidence": 1,
         "created_at": "2026-09-27T00:00:00Z"
       },
       "canon_status": "canon"
@@ -262,9 +925,12 @@
         "revealed_at": 115
       },
       "provenance": {
-        "source": { "series": "coiling-dragon", "chapter": 115 },
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 115
+        },
         "extracted_by": "deterministic",
-        "confidence": 1.0,
+        "confidence": 1,
         "created_at": "2026-09-27T00:00:00Z"
       },
       "canon_status": "canon"
@@ -276,13 +942,37 @@
       "value": "stage-god",
       "temporal": {
         "valid_from": 450,
-        "valid_to": null,
+        "valid_to": 499,
         "revealed_at": 450
       },
       "provenance": {
-        "source": { "series": "coiling-dragon", "chapter": 450 },
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 450
+        },
         "extracted_by": "deterministic",
-        "confidence": 1.0,
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-linley-highgod": {
+      "id": "fact-linley-highgod",
+      "entity_id": "linley-baruch",
+      "predicate": "power_stage",
+      "value": "stage-highgod",
+      "temporal": {
+        "valid_from": 500,
+        "valid_to": null,
+        "revealed_at": 500
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 500
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
         "created_at": "2026-09-27T00:00:00Z"
       },
       "canon_status": "canon"
@@ -301,9 +991,12 @@
         "revealed_at": 1
       },
       "provenance": {
-        "source": { "series": "coiling-dragon", "chapter": 1 },
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 1
+        },
         "extracted_by": "deterministic",
-        "confidence": 1.0,
+        "confidence": 1,
         "created_at": "2026-09-27T00:00:00Z"
       },
       "canon_status": "canon"
@@ -320,9 +1013,56 @@
         "revealed_at": 8
       },
       "provenance": {
-        "source": { "series": "coiling-dragon", "chapter": 8 },
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 8
+        },
         "extracted_by": "deterministic",
-        "confidence": 1.0,
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-beirut-bebe": {
+      "id": "rel-beirut-bebe",
+      "source_id": "beirut",
+      "target_id": "bebe",
+      "predicate": "RELATED_TO",
+      "label": "Godeater Ancestor & Grandfather",
+      "temporal": {
+        "valid_from": 180,
+        "valid_to": null,
+        "revealed_at": 180
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 180
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-delia-linley": {
+      "id": "rel-delia-linley",
+      "source_id": "delia",
+      "target_id": "linley-baruch",
+      "predicate": "ALLY_OF",
+      "label": "Beloved Wife & Planar Companion",
+      "temporal": {
+        "valid_from": 25,
+        "valid_to": null,
+        "revealed_at": 25
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 25
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
         "created_at": "2026-09-27T00:00:00Z"
       },
       "canon_status": "canon"

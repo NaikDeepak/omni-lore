@@ -144,3 +144,10 @@ export const SeriesMetadataSchema = z.object({
     as_of: z.string(),
   }),
 });
+
+export const CanonicalLoreGraphSchema = z.object({
+  series: SeriesMetadataSchema,
+  entities: z.record(z.string(), z.any()),
+  facts: z.record(z.string(), FactSchema),
+  relationships: z.record(z.string(), RelationshipSchema),
+});
