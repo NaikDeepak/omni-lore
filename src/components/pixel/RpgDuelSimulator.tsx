@@ -11,6 +11,7 @@ import {
   DuelPreset,
 } from '@/engine/duel-simulator';
 import { SoundEngine } from '@/lib/sound-effects';
+import { UserProgressService } from '@/lib/user-progress';
 import {
   Swords,
   Trophy,
@@ -21,6 +22,7 @@ import {
   Flame,
   ChevronRight,
   Shield,
+  Bookmark,
 } from 'lucide-react';
 
 interface RpgDuelSimulatorProps {
@@ -67,6 +69,21 @@ export function RpgDuelSimulator({
   const [fighterBId, setFighterBId] = useState<string>(defaultFighterB);
   const [activeRoundIndex, setActiveRoundIndex] = useState<number>(-1);
   const [isSimulating, setIsSimulating] = useState<boolean>(false);
+  const [savedDuelToast, setSavedDuelToast] = useState<boolean>(false);
+
+  const handleSaveDuel = () => {
+    UserProgressService.saveDuel(
+      graph.series.slug,
+      fighterAId,
+      fighterBId,
+      duelResult.fighterA.name,
+      duelResult.fighterB.name,
+      userChapter,
+      `${duelResult.winnerId === fighterAId ? duelResult.fighterA.name : duelResult.fighterB.name} Victory`
+    );
+    setSavedDuelToast(true);
+    setTimeout(() => setSavedDuelToast(false), 2000);
+  };
 
   // Universe Canon Showdowns
   const presets = useMemo(() => getCanonPresets(graph.series.slug), [graph.series.slug]);
@@ -436,15 +453,30 @@ export function RpgDuelSimulator({
                 </div>
               </div>
 
-              <button
-                onClick={() => {
-                  setActiveRoundIndex(-1);
-                  SoundEngine.playMenuSelect();
-                }}
-                className="py-1.5 px-3 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-white text-xs font-pixel flex items-center gap-1.5 transition"
-              >
-                <RotateCcw className="w-3.5 h-3.5" /> REPLAY
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handleSaveDuel}
+                  className={`py-1.5 px-3 rounded-lg border text-xs font-pixel flex items-center gap-1.5 transition cursor-pointer ${
+                    savedDuelToast
+                      ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/50'
+                      : 'bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border-amber-500/40'
+                  }`}
+                  title="Bookmark this matchup in your saga log"
+                >
+                  <Bookmark className="w-3.5 h-3.5" />
+                  <span>{savedDuelToast ? 'SAVED TO LOG!' : 'SAVE SHOWDOWN'}</span>
+                </button>
+
+                <button
+                  onClick={() => {
+                    setActiveRoundIndex(-1);
+                    SoundEngine.playMenuSelect();
+                  }}
+                  className="py-1.5 px-3 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-white text-xs font-pixel flex items-center gap-1.5 transition cursor-pointer"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" /> REPLAY
+                </button>
+              </div>
             </div>
           )}
         </div>

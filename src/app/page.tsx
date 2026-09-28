@@ -4,6 +4,7 @@ import { LocalGitDataStore } from '../datastore/local-git-store';
 import { getUniverseTheme } from '../domain/themes';
 import { PixelGauge } from '../components/pixel/PixelGauge';
 import { Sparkles, ArrowRight, Book, Flame, Shield, Map as MapIcon, Clock, Compass } from 'lucide-react';
+import { HomeShelfSection } from './home-shelf-section';
 
 export const revalidate = 0;
 
@@ -65,6 +66,9 @@ export default async function HomePage() {
           </div>
         </div>
       </div>
+
+      {/* Continue Reading Shelf (Personal User Bookmarks) */}
+      <HomeShelfSection />
 
       {/* Universe Portal Grid */}
       <div className="space-y-6">

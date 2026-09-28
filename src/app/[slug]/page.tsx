@@ -20,6 +20,6 @@ export default async function SeriesPage({ params }: SeriesPageProps) {
     notFound();
   }
 
-  return <WorldExplorer graph={graph} />;
+  return <WorldExplorer key={slug} graph={graph} />;
 }
 

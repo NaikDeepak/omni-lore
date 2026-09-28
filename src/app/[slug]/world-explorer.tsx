@@ -22,6 +22,8 @@ import { PixelNetworkCanvas } from '../../components/pixel/PixelNetworkCanvas';
 import { NodeDossierDrawer } from '../../components/pixel/NodeDossierDrawer';
 import { RpgDuelSimulator } from '../../components/pixel/RpgDuelSimulator';
 import { RealmLoreModal } from '../../components/pixel/RealmLoreModal';
+import { UserBookmarksModal } from '../../components/pixel/UserBookmarksModal';
+import { UserProgressService } from '../../lib/user-progress';
 import { 
   Flame, 
   Share2, 
@@ -34,13 +36,15 @@ import {
   Info, 
   EyeOff, 
   Sparkles, 
-  Compass,
-  Shield,
-  Users,
-  Search,
-  Volume2,
-  VolumeX,
-  Check
+  Compass, 
+  Shield, 
+  Users, 
+  Search, 
+  Volume2, 
+  VolumeX, 
+  Check,
+  Bookmark,
+  BookmarkCheck
 } from 'lucide-react';
 import { useSoundEffects } from '../../lib/sound-effects';
 
@@ -69,8 +73,8 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
   const [activeTab, setActiveTab] = useState<'ladder' | 'web' | 'map' | 'timeline' | 'journey' | 'duel'>('map');
   const [duelFighterA, setDuelFighterA] = useState<string | undefined>(undefined);
   const [duelFighterB, setDuelFighterB] = useState<string | undefined>(undefined);
-  const [selectedCharacterId, setSelectedCharacterId] = useState<string>(
-    graph.series.slug === 'demonic-emperor'
+  const defaultProtagonistId = useMemo(() => {
+    return graph.series.slug === 'demonic-emperor'
       ? 'zhuo-fan'
       : graph.series.slug === 'one-piece'
         ? 'luffy'
@@ -78,8 +82,10 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
           ? 'sung-jin-woo'
           : graph.series.slug === 'lord-of-the-mysteries'
             ? 'klein-moretti'
-            : 'linley-baruch'
-  );
+            : 'linley-baruch';
+  }, [graph.series.slug]);
+
+  const [selectedCharacterId, setSelectedCharacterId] = useState<string>(defaultProtagonistId);
 
   // Faction Web Filters & Views
   const [webFilter, setWebFilter] = useState<'all' | 'faction' | 'character'>('all');
@@ -99,7 +105,27 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
   const [copiedToast, setCopiedToast] = useState(false);
   const [hasInitializedUrl, setHasInitializedUrl] = useState(false);
 
-  // Initialize state from URL params on mount
+  // Guard against stale character or location IDs from previous universe
+  useEffect(() => {
+    if (!graph.entities[selectedCharacterId]) {
+      setSelectedCharacterId(defaultProtagonistId);
+    }
+    if (selectedLocationId && !graph.entities[selectedLocationId]) {
+      setSelectedLocationId(null);
+    }
+  }, [graph.entities, selectedCharacterId, selectedLocationId, defaultProtagonistId]);
+
+  // User Bookmarks and Reading Progress state
+  const [isBookmarksModalOpen, setIsBookmarksModalOpen] = useState(false);
+  const [bookmarkedToast, setBookmarkedToast] = useState(false);
+
+  const handleBookmarkCurrentChapter = () => {
+    UserProgressService.saveChapter(graph.series.slug, userChapter, activeTab);
+    setBookmarkedToast(true);
+    setTimeout(() => setBookmarkedToast(false), 2000);
+  };
+
+  // Initialize state from URL params or local reading progress on mount
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const params = new URLSearchParams(window.location.search);
@@ -108,21 +134,41 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
     const charParam = params.get('char');
     const locParam = params.get('loc');
 
+    // Check saved local progress fallback if URL does not specify
+    const saved = UserProgressService.getProgress(graph.series.slug);
+
     if (chParam && !isNaN(Number(chParam))) {
       const parsedCh = Math.max(1, Math.min(totalChapters, Number(chParam)));
       setUserChapter(parsedCh);
+    } else if (saved?.currentChapter) {
+      setUserChapter(Math.max(1, Math.min(totalChapters, saved.currentChapter)));
     }
+
     if (tabParam && ['ladder', 'web', 'map', 'timeline', 'journey', 'duel'].includes(tabParam)) {
       setActiveTab(tabParam as any);
+    } else if (!chParam && saved?.activeTab && ['ladder', 'web', 'map', 'timeline', 'journey', 'duel'].includes(saved.activeTab)) {
+      setActiveTab(saved.activeTab as any);
     }
+
     if (charParam && graph.entities[charParam]) {
       setSelectedCharacterId(charParam);
+    } else {
+      setSelectedCharacterId(defaultProtagonistId);
     }
     if (locParam && graph.entities[locParam]) {
       setSelectedLocationId(locParam);
     }
     setHasInitializedUrl(true);
-  }, [totalChapters, graph.entities]);
+  }, [totalChapters, graph.entities, graph.series.slug, defaultProtagonistId]);
+
+  // Debounced auto-save reading progress to local storage
+  useEffect(() => {
+    if (!hasInitializedUrl) return;
+    const timer = setTimeout(() => {
+      UserProgressService.saveChapter(graph.series.slug, userChapter, activeTab);
+    }, 800);
+    return () => clearTimeout(timer);
+  }, [userChapter, activeTab, graph.series.slug, hasInitializedUrl]);
 
   // Sync state back to URL query parameters on state changes
   useEffect(() => {
@@ -327,6 +373,15 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
 
         <div className="flex items-center gap-3">
           <button
+            onClick={() => setIsBookmarksModalOpen(true)}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border font-pixel text-xs transition cursor-pointer bg-slate-900 border-slate-700 text-slate-300 hover:text-amber-300 hover:border-amber-400/50 shadow-sm"
+            title="Open Saga Log, Pinned Figures, Saved Duels & Backups"
+          >
+            <Bookmark className="w-3.5 h-3.5 text-amber-400" />
+            <span>SAGA LOG</span>
+          </button>
+
+          <button
             onClick={handleShareSnapshot}
             className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border font-pixel text-xs transition cursor-pointer ${
               copiedToast
@@ -376,12 +431,31 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
             </div>
           </div>
 
-          <div className="text-xs font-mono text-slate-400">
-            {userChapter >= totalChapters ? (
-              <span className="text-emerald-400 font-pixel text-[11px]">✦ FULL LORE REVEALED ✦</span>
-            ) : (
-              <span className="text-amber-300 font-mono">░░ HIDING FUTURE EVENTS PAST CH {userChapter} ░░</span>
-            )}
+          <div className="flex items-center gap-3">
+            <button
+              onClick={handleBookmarkCurrentChapter}
+              className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded border text-[11px] font-pixel transition cursor-pointer ${
+                bookmarkedToast
+                  ? 'bg-emerald-500/20 border-emerald-400 text-emerald-300'
+                  : 'bg-slate-900 hover:bg-slate-800 text-slate-300 border-slate-700 hover:border-amber-400/50'
+              }`}
+              title="Pin this chapter as your reading bookmark in Saga Log"
+            >
+              {bookmarkedToast ? (
+                <BookmarkCheck className="w-3.5 h-3.5 text-emerald-400" />
+              ) : (
+                <Bookmark className="w-3.5 h-3.5 text-amber-400" />
+              )}
+              <span>{bookmarkedToast ? 'SAVED TO SAGA LOG' : 'BOOKMARK CH'}</span>
+            </button>
+
+            <div className="text-xs font-mono text-slate-400">
+              {userChapter >= totalChapters ? (
+                <span className="text-emerald-400 font-pixel text-[11px]">✦ FULL LORE REVEALED ✦</span>
+              ) : (
+                <span className="text-amber-300 font-mono">░░ HIDING FUTURE EVENTS PAST CH {userChapter} ░░</span>
+              )}
+            </div>
           </div>
         </div>
 
@@ -1180,6 +1254,12 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
             }}
           />
         )}
+
+        {/* USER SAGA LOG & BOOKMARKS MODAL */}
+        <UserBookmarksModal
+          isOpen={isBookmarksModalOpen}
+          onClose={() => setIsBookmarksModalOpen(false)}
+        />
       </div>
     </div>
   );

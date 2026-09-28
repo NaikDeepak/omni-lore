@@ -1,13 +1,15 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { CanonicalLoreGraph, CharacterEntity } from '../../domain/types';
 import { CharacterJourneyProjection } from '../../projections/character-journey';
+import { UserProgressService } from '../../lib/user-progress';
 import { PixelAvatar } from './PixelAvatar';
 import { PixelGauge } from './PixelGauge';
 import {
   Sparkles,
   Shield,
+  Star,
   MapPin,
   Swords,
   EyeOff,
@@ -41,6 +43,23 @@ export function CharacterExplorer({
 }: CharacterExplorerProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [relFilter, setRelFilter] = useState<'all' | 'ally' | 'master' | 'rival' | 'enemy' | 'family'>('all');
+  const [isPinned, setIsPinned] = useState(false);
+
+  useEffect(() => {
+    if (journey?.characterId) {
+      setIsPinned(UserProgressService.isCharacterPinned(graph.series.slug, journey.characterId));
+    }
+  }, [journey?.characterId, graph.series.slug]);
+
+  const handleTogglePin = () => {
+    if (!journey) return;
+    const nowPinned = UserProgressService.togglePinCharacter(
+      graph.series.slug,
+      journey.characterId,
+      journey.displayName
+    );
+    setIsPinned(nowPinned);
+  };
 
   // All characters sorted
   const characterList = useMemo(() => {
@@ -175,9 +194,23 @@ export function CharacterExplorer({
                 <span className="text-[10px] font-pixel text-amber-400 tracking-wider">
                   DOSSIER ARCHIVE
                 </span>
-                <span className="text-[10px] font-pixel px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">
-                  CH {userChapter}
-                </span>
+                <div className="flex items-center gap-1.5">
+                  <button
+                    onClick={handleTogglePin}
+                    className={`px-2 py-0.5 rounded text-[10px] font-pixel flex items-center gap-1 transition border cursor-pointer ${
+                      isPinned
+                        ? 'bg-amber-500/20 text-amber-300 border-amber-500/50'
+                        : 'bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white border-slate-700'
+                    }`}
+                    title={isPinned ? 'Unpin from personal saga log' : 'Pin to personal saga log'}
+                  >
+                    <Star className={`w-3 h-3 ${isPinned ? 'fill-amber-400 text-amber-400' : ''}`} />
+                    <span>{isPinned ? 'PINNED' : 'PIN'}</span>
+                  </button>
+                  <span className="text-[10px] font-pixel px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">
+                    CH {userChapter}
+                  </span>
+                </div>
               </div>
 
               <h2 className="text-xl font-pixel font-bold text-white tracking-tight">

@@ -1,0 +1,90 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #040814;
+  color: #e2e8f0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  line-height: 1.4;
+  overflow-x: hidden;
+  user-select: none;
+}
+
+/* CRT Scanline Overlay */
+body::before {
+  content: " ";
+  display: block;
+  position: fixed;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+  z-index: 999;
+  background-size: 100% 3px, 6px 100%;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.font-pixel {
+  font-family: 'Silkscreen', cursive, sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Custom Pixel Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #020617;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #f59e0b;
+}
+
+/* Retro Pixel Border */
+.pixel-border {
+  border: 1.5px solid #1e293b;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.pixel-border-amber {
+  border: 1.5px solid rgba(245, 158, 11, 0.6);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.15);
+}
+
+.pixel-border-cyan {
+  border: 1.5px solid rgba(6, 182, 212, 0.6);
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.15);
+}
+
+/* 8-bit Buttons */
+.pixel-btn {
+  font-family: 'Silkscreen', cursive;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  outline: none;
+}
+.pixel-btn:hover {
+  filter: brightness(1.15);
+}
+.pixel-btn:active {
+  transform: translateY(1px);
+}
+
+/* Text glow */
+.glow-amber {
+  text-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
+}
+.glow-cyan {
+  text-shadow: 0 0 8px rgba(6, 182, 212, 0.5);
+}

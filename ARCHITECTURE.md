@@ -187,13 +187,87 @@ To enable snapshot sharing, bookmarking, and instant state restoration:
 
 ---
 
-## 🧪 7. Quality & Verification Standards
+## 🧩 7. OmniLore Reader — Chrome Extension Architecture
+
+The OmniLore Reader Chrome Extension (`chrome-extension/`) operates as a lightweight, zero-latency reader companion directly inside modern manga, manhwa, and web novel reading platforms:
+
+```text
+                    ┌──────────────────────┐
+                    │     WEBTOON / NOVEL  │
+                    │     MANGA READER     │
+                    └──────────┬───────────┘
+                               │
+                       Chapter Detection (DOM & URL)
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │  OMNILORE EXTENSION  │
+                    │      SIDE PANEL      │
+                    └──────────┬───────────┘
+                               │
+                    series + chapter + context
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │ Extension Temporal   │
+                    │   Client (Offline)   │
+                    │                      │
+                    │  "What is known      │
+                    │   at Chapter 147?"   │
+                    └──────────┬───────────┘
+                               │
+                 ┌─────────────┼─────────────┐
+                 ▼             ▼             ▼
+             Character      Secrets       Power
+              Roster       / Events       Ranking
+                 │             │             │
+                 └─────────────┼─────────────┘
+                               ▼
+                    ┌──────────────────────┐
+                    │   GAME-HUD SIDEPANEL │
+                    ├──────────────────────┤
+                    │ Chapter 147          │
+                    │ 🛡️ Shield: SAFE      │
+                    │                      │
+                    │ 👤 Characters        │
+                    │ ⚡ Power Ladder      │
+                    │ 🔐 Secrets           │
+                    │ 🕸 Relationships     │
+                    │ ⚔ Duel (Simulated)   │
+                    │ 💬 Ask Chapter       │
+                    └──────────────────────┘
+```
+
+1. **Manifest V3 Ephemeral Background Worker (`background/service-worker.ts`):**
+   - Configured with `chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: true })` for native one-click side panel access.
+   - Preserves tab reading state in `chrome.storage.session`.
+   - Listens to context menu clicks (`"OmniLore: Who is '%s'?"`) to trigger instant zero-spoiler character lookups without switching tabs.
+2. **Active Chapter Detectors (`content/detectors/`):**
+   - Pluggable adapter architecture (`mangaplus.ts`, `webnovel.ts`, `wuxiaworld.ts`, `tapas.ts`, `generic.ts`).
+   - Evaluates page URL pathnames, title tags, and reader viewer headers to extract `{ seriesTitle, seriesSlug, chapterNumber, confidence }`.
+3. **100% Offline Temporal Engine Client (`temporal/temporal-client.ts`):**
+   - Bundles all 5 normalized universe lore graphs (~790 KB total) into the client bundle.
+   - Evaluates point-in-time entity debuts, power stage breakthroughs, active factions, and identity unmasking on the fly.
+4. **Retro Game-HUD Side Panel (`sidepanel/app.tsx`):**
+   - **Spoiler Shield Selector:** 3 selectable shield levels (`🛡️ SAFE`, `⚠️ CONTEXT`, `🔥 FULL`).
+   - **Mini RPG Duel Simulator:** Simulates turn-based battles at exact chapter parity with the mandatory disclaimer: *"Simulation — not canon"*.
+   - **Grounded Chapter Oracle:** Answers questions strictly grounded in temporal graph facts revealed up to the reader's current chapter.
+
+---
+
+## 🧪 8. Quality & Verification Standards
 
 1. **Automated Testing:**
-   All 7 test suites (37 unit tests) run in under 300ms using Vitest:
+   All 8 test suites (46 unit tests) run in under 300ms using Vitest:
    - `tests/temporal-engine.test.ts`: Fact intervals, masking, temporal boundary enforcement.
    - `tests/projections.test.ts`: Ladder, web, map, timeline, and journey transforms.
    - `tests/duel-simulator.test.ts`: Battle formula and scaling calculations.
    - `tests/sound-effects.test.ts`: Audio synthesizer safety and mute toggling.
-2. **Turbopack Build Integrity:**
-   `npm run build` must compile clean static and dynamic routes in under 600ms.
+   - `tests/conflict-engine.test.ts`: Tie-breaking and latest breakthrough prioritization.
+   - `tests/pixel-converter.test.ts`: Procedural SVG pixelation algorithms.
+   - `tests/datastore.test.ts`: Canonical graph schema validation across all 5 universes.
+   - `tests/extension.test.ts`: Reader detector adapters, title normalization, temporal snapshots, and mini-duels.
+2. **Build Integrity:**
+   - Web App: `npm run build` compiles clean static and dynamic routes with Next.js Turbopack.
+   - Chrome Extension: `npm run build:extension` compiles unpacked bundles into `chrome-extension/dist` with `esbuild`.
+

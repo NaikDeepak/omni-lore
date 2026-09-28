@@ -12,8 +12,9 @@ This document tracks all features, bug fixes, enhancements, and technical debt f
 | :--- | :--- | :---: | :---: |
 | 🔥 **P0** | Foundation & Core Explorers | **DONE** | **100% (4/4)** |
 | 🟠 **P1** | Rich World Engagement & Cartography | **DONE** | **100% (4/4)** |
-| 🟢 **P2** | AI Intelligence & Universe Expansion | **NEXT** | **0% (0/2)** |
-| 🟢 **P3** | User Profiles & Community Platform | **PLANNED** | **0% (0/2)** |
+| 🚀 **EXT** | OmniLore Reader Chrome Extension (MV3) | **DONE** | **100% (6/6)** |
+| 🟢 **P2** | AI Intelligence & Universe Expansion | **PLANNED** | **0% (0/2)** |
+| 🟢 **P3** | Retention & Local Bookmarks | **IN PROGRESS** | **50% (1/2)** |
 
 ---
 
@@ -79,7 +80,29 @@ This document tracks all features, bug fixes, enhancements, and technical debt f
 
 ---
 
-## 🟢 Priority P2: AI Layer & Universe Expansion (Next Up)
+## 🚀 Priority EXT: OmniLore Reader — Chrome Extension (100% Complete)
+
+- [x] **Manifest V3 Architecture & Side Panel Engine**
+  - [x] Ephemeral background service worker (`background/service-worker.ts`) using `chrome.storage.session`.
+  - [x] Automatic side panel opening via `chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: true })`.
+  - [x] Real-time chapter badge counter on extension icon.
+  - [x] Context menu integration: "OmniLore: Who is '%s'?" with zero-spoiler text selection lookup.
+- [x] **Active Chapter Detectors (Adapter Architecture)**
+  - [x] MangaPlus (`mangaplus.shueisha.co.jp`) with viewer path & DOM inspection.
+  - [x] Webnovel (`webnovel.com`) with book and chapter slug parsing.
+  - [x] Wuxiaworld (`wuxiaworld.com`) with novel chapter path extraction.
+  - [x] Tapas (`tapas.io`) episode parser.
+  - [x] Generic fallback regex detector for community scanlation sites (Asura, Reaper, Flame).
+- [x] **Retro Game-HUD Side Panel UI**
+  - [x] 3-tier Spoiler Shield selector: `🛡️ SAFE` (strict chapter limit), `⚠️ CONTEXT` (background lore), `🔥 FULL` (unrestricted).
+  - [x] 6-tab game HUD navigation: `👤 ROSTER`, `⚡ POWER`, `🔐 SECRETS`, `🕸 TIES`, `⚔ DUEL`, `💬 ASK`.
+  - [x] Mini RPG Duel Simulator with chapter parity stat balancing and "Simulation — not canon" verification disclaimer.
+  - [x] "Ask about this chapter" grounded Oracle Q&A computing answers strictly from temporal knowledge graph snapshots.
+  - [x] 100% offline capability with embedded lore data for all 5 universes (~790 KB).
+
+---
+
+## 🟢 Priority P2: AI Layer & Universe Expansion (In Progress)
 
 - [ ] **Ask OmniLore (Spoiler-Safe AI Lore Companion)**
   - [ ] Implement slide-out chat drawer or modal powered by Gemini API.
@@ -97,13 +120,15 @@ This document tracks all features, bug fixes, enhancements, and technical debt f
 
 ---
 
-## 🟢 Priority P3: Retention & Community Platform (Future)
+## 🟢 Priority P3: Retention & Local Bookmarks (50% Complete)
 
-- [ ] **User Profiles & Bookmarks**
-  - [ ] LocalStorage-backed progress saver remembering last read chapter per universe.
-  - [ ] "Continue Reading" shelf on homepage with quick jump buttons.
-  - [ ] Pinned favorite characters, custom duel bookmarks, and saved map snapshots.
-  - [ ] Optional account sync (Supabase / Firebase Auth).
+- [x] **User Profiles & Local Reading Tracker**
+  - [x] LocalStorage-backed progress saver remembering last read chapter per universe (`UserProgressService`).
+  - [x] "CONTINUE YOUR SAGA" shelf on homepage with live segmented progress meters and quick `[-1]`, `[+1]`, `[+10]` chapter nudges (`ContinueReadingShelf.tsx`).
+  - [x] Interactive character pinning directly from character dossiers in the Character Explorer (`★ PIN` / `★ PINNED`).
+  - [x] Head-to-head clash saving (`💾 SAVE SHOWDOWN`) in the 1v1 RPG Duel Simulator with replay links.
+  - [x] Dedicated retro **Saga Log Modal** (`UserBookmarksModal.tsx`) with 4 tabs: Expeditions, Pinned Figures, Saved Duels, and JSON Backup / Restore.
+  - [x] Cross-component real-time reactivity via `omnilore-progress-updated` custom events.
 - [ ] **Community Annotations & Theorycrafting**
   - [ ] Chapter-gated user comment threads on story events and breakthroughs.
   - [ ] Theorycrafting cards with spoiler tag warnings.
@@ -120,10 +145,13 @@ This document tracks all features, bug fixes, enhancements, and technical debt f
 ---
 
 ## 🧪 Verification Commands
-
+ 
 ```bash
-# Run Vitest test suite (Must pass 37/37 tests)
+# Run Vitest test suite (Must pass 53/53 tests across 9 suites)
 npm test
+
+# Build Chrome Extension (Manifest V3 unpacked bundle in chrome-extension/dist)
+npm run build:extension
 
 # Run Next.js production Turbopack build
 npm run build
