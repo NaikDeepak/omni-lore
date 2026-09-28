@@ -68,7 +68,9 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
       ? 'zhuo-fan'
       : graph.series.slug === 'one-piece'
         ? 'luffy'
-        : 'linley-baruch'
+        : graph.series.slug === 'solo-leveling'
+          ? 'sung-jin-woo'
+          : 'linley-baruch'
   );
 
   // Faction Web Filters & Views

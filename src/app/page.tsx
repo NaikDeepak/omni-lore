@@ -86,7 +86,7 @@ export default async function HomePage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {seriesList.map((series) => {
-            const isReady = series.slug === 'coiling-dragon' || series.slug === 'demonic-emperor' || series.slug === 'one-piece';
+            const isReady = series.slug === 'coiling-dragon' || series.slug === 'demonic-emperor' || series.slug === 'one-piece' || series.slug === 'solo-leveling';
             const theme = getUniverseTheme(series.slug);
 
             return (

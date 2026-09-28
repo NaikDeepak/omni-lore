@@ -133,6 +133,43 @@ export function getCanonPresets(seriesSlug: string): DuelPreset[] {
     ];
   }
 
+  if (seriesSlug === 'solo-leveling') {
+    return [
+      {
+        id: 'sl-jinwoo-igris',
+        title: 'Job Change Quest: The Red Knight',
+        chapter: 45,
+        fighterA: 'sung-jin-woo',
+        fighterB: 'igris',
+        synopsis: 'Jin-woo engages in life-or-death barehanded struggle against Blood-Red Commander Igris to complete the Necromancer class quest.',
+      },
+      {
+        id: 'sl-jinwoo-beru',
+        title: 'Jeju Island: King of the Ant Swarm',
+        chapter: 102,
+        fighterA: 'sung-jin-woo',
+        fighterB: 'beru',
+        synopsis: 'The Shadow Monarch descends via Shadow Exchange onto Jeju Island to avenge the S-Rank raid squad against the monstrous Ant King.',
+      },
+      {
+        id: 'sl-jinwoo-thomas',
+        title: 'Scavenger Clash: Goliath vs Monarch',
+        chapter: 146,
+        fighterA: 'sung-jin-woo',
+        fighterB: 'thomas-andre',
+        synopsis: 'National Level Hunter Thomas Andre confronts Jin-woo with the full might of the Scavenger Guild in an abandoned warehouse.',
+      },
+      {
+        id: 'sl-jinwoo-antares',
+        title: 'Apocalypse: Dragon King vs Shadow Monarch',
+        chapter: 175,
+        fighterA: 'sung-jin-woo',
+        fighterB: 'antares',
+        synopsis: 'The fate of Earth hangs in the balance as the Monarch of Destruction clashes with the True Shadow Monarch.',
+      },
+    ];
+  }
+
   return [
     {
       id: 'cd-linley-clayde',
@@ -195,6 +232,14 @@ function resolvePowerRank(stageId: string | undefined, seriesSlug: string): { ra
   if (s.includes('god')) return { rank: 7, name: 'Demigod / Full God' };
   if (s.includes('sovereign')) return { rank: 10, name: 'Sovereign of the Universe' };
 
+  // Solo Leveling ranks
+  if (s.includes('e-d-rank') || s.includes('e-rank') || s.includes('d-rank')) return { rank: 2, name: 'E / D-Rank Hunter' };
+  if (s.includes('c-b-rank') || s.includes('c-rank') || s.includes('b-rank')) return { rank: 4, name: 'C / B-Rank Hunter' };
+  if (s.includes('a-rank')) return { rank: 6, name: 'A-Rank Elite Hunter' };
+  if (s.includes('s-rank')) return { rank: 8, name: 'S-Rank National Asset' };
+  if (s.includes('national-level')) return { rank: 9, name: 'National Level Hunter' };
+  if (s.includes('monarch') || s.includes('ruler')) return { rank: 10, name: 'Monarch / Ruler Sovereign' };
+
   return { rank: 3, name: stageId.replace(/[-_]/g, ' ') };
 }
 
@@ -251,12 +296,41 @@ function getCharacterTechniques(charId: string, seriesSlug: string): string[] {
     return ['Holy Radiant Judgment', 'Divine Angel Descent Ritual', 'Sacred Light Spear of Annihilation'];
   }
 
+  // Solo Leveling characters
+  if (c.includes('jin-woo') || c.includes('jinwoo')) {
+    return ['Shadow Extraction: Arise', 'Dagger Rush: Violent Slash', 'Ruler\'s Authority (Psychokinesis)', 'Shadow Exchange Teleportation', 'Monarch\'s Domain Shadow Army Buff'];
+  }
+  if (c.includes('igris')) {
+    return ['Blood-Red Greatsword Cleave', 'Lightning Infused Twin Blade Rush', 'Dominator Greatsword Overhead Slam'];
+  }
+  if (c.includes('beru')) {
+    return ['Predator Gluttony Jaw Sting', 'Supersonic Venom Claw Flurry', 'Royal Ant King Screech', 'Healing Mana Transfer'];
+  }
+  if (c.includes('thomas')) {
+    return ['Reinforcement: Titan Armor', 'Black Hole Gravitational Pull', 'Capture & Smash Impact', 'Ruler\'s Authority Fist'];
+  }
+  if (c.includes('antares')) {
+    return ['Dragon\'s Breath of Total Extinction', 'Fear of the Dragon Roar', 'Spiritual Body Manifestation: Ancient Dragon King', 'Flame Claws of Decimation'];
+  }
+  if (c.includes('cha-hae') || c.includes('cha')) {
+    return ['Sword Dance: Radiant Blade', 'Flash Step Thrust', 'Sword of Light Sever'];
+  }
+  if (c.includes('choi')) {
+    return ['Flame Spear Incineration', 'Fire Dragon Burst', 'Inferno Vortex Pillar'];
+  }
+  if (c.includes('baek')) {
+    return ['White Tiger Beast Transformation', 'Divine White Fang Shred', 'Fierce Roar Intimidation'];
+  }
+
   // Generics
   if (seriesSlug === 'one-piece') {
     return ['Heavy Armament Haki Smash', 'High-Speed Soru Flash Strike', 'Decisive Conqueror Aura Clash'];
   }
   if (seriesSlug === 'demonic-emperor') {
     return ['Ghostly Demonic Palm', 'Soul Severing Blade Qi', 'Heavenly Miasma Explosive Array'];
+  }
+  if (seriesSlug === 'solo-leveling') {
+    return ['High-Velocity Mana Dagger Thrust', 'Ruler\'s Mana Pulse Shockwave', 'Shadow Domain Extraction Surge'];
   }
   return ['Elemental Domain Pressure', 'Profound Laws Sonic Burst', 'Divine Spark Cataclysmic Shock'];
 }

@@ -144,6 +144,51 @@ function getTierLoreManual(stageId: string, seriesSlug: string) {
     }
   }
 
+  if (seriesSlug === 'solo-leveling') {
+    if (s.includes('e-d-rank') || s.includes('e-rank') || s.includes('d-rank')) {
+      return {
+        criteria: 'Initial awakening with modest mana density; assigned to clear low-threat E/D-Rank Gates.',
+        risk: 'Fatal against beasts and dungeon bosses without careful strike squad coordination.',
+        phenomena: 'Barely discernible faint mana pulse, minor physical attribute amplification.',
+      };
+    }
+    if (s.includes('c-b-rank') || s.includes('c-rank') || s.includes('b-rank')) {
+      return {
+        criteria: 'Solid mana core awakening; serving as raid captains or assault vanguards in mid-tier guild raids.',
+        risk: 'High; dungeon breaks, red gates, and mutated boss monsters pose lethal danger.',
+        phenomena: 'Visible elemental weapon coating, mana shield barrier projections.',
+      };
+    }
+    if (s.includes('a-rank')) {
+      return {
+        criteria: 'Elite awakeners possessing immense mana reserves; capable of leading high-difficulty Red Gate incursions.',
+        risk: 'Critical; catastrophic dungeon breaks require multi-guild S-Rank emergency interventions.',
+        phenomena: 'Luminous blue mana aura radiating into surrounding air, wide-area magical artillery fire.',
+      };
+    }
+    if (s.includes('s-rank')) {
+      return {
+        criteria: 'Mana density exceeding standard measurement instruments (unmeasurable); treated as national defense pillars.',
+        risk: 'Disaster level; solitary engagement against catastrophic gate bosses.',
+        phenomena: 'Atmospheric pressure distortion, sonic shockwaves, blinding mana vortex flares.',
+      };
+    }
+    if (s.includes('national-level')) {
+      return {
+        criteria: 'Vessels blessed with the divine authority of the Rulers; conquerors of S-Rank calamity gates.',
+        risk: 'Planetary calamity; direct targets of Sovereign Monarch assassination plots.',
+        phenomena: 'Psychokinesis (Ruler\'s Authority), towering astral spiritual armor manifestation.',
+      };
+    }
+    if (s.includes('monarch') || s.includes('ruler')) {
+      return {
+        criteria: 'Primordial cosmic sovereigns born of absolute darkness or radiant light; masters of life, death, and annihilation.',
+        risk: 'Extinction event; total dimension collapse and eradication of planetary civilizations.',
+        phenomena: 'Monarch\'s Domain expanding into an abyss, Arise resurrection of hundreds of thousands of shadow soldiers.',
+      };
+    }
+  }
+
   return {
     criteria: 'Rigorous canonical training, epiphanies, and trial by combat.',
     risk: 'Moderate to high mortality under intense conflict.',
