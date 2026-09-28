@@ -72,16 +72,16 @@ function getLocationIcon(name: string, description: string): string {
 
 function getDangerRating(loc: MapLocationItem): { stars: number; label: string; color: string } {
   const text = `${loc.name} ${loc.description}`.toLowerCase();
-  if (text.includes('laugh tale') || text.includes('demonic emperor peak') || text.includes('seven sacred mountains') || text.includes('necropolis') || text.includes('chaos sea') || text.includes('marineford') || text.includes('onigashima') || text.includes('sword star')) {
+  if (text.includes('laugh tale') || text.includes('demonic emperor peak') || text.includes('seven sacred mountains') || text.includes('necropolis') || text.includes('chaos sea') || text.includes('marineford') || text.includes('onigashima') || text.includes('sword star') || text.includes('cartenon') || text.includes('demon castle') || text.includes('sefirah castle') || text.includes('giant king') || text.includes('calderon')) {
     return { stars: 5, label: 'EX-RANK FORBIDDEN APEX', color: 'text-rose-400 border-rose-500/40 bg-rose-950/40' };
   }
-  if (text.includes('wano') || text.includes('whole cake') || text.includes('enies lobby') || text.includes('impel down') || text.includes('hell valley') || text.includes('beast king') || text.includes('skyrite') || text.includes('thunder canyon') || text.includes('all dragon') || text.includes('ultimate clear') || text.includes('quanrong')) {
+  if (text.includes('wano') || text.includes('whole cake') || text.includes('enies lobby') || text.includes('impel down') || text.includes('hell valley') || text.includes('beast king') || text.includes('skyrite') || text.includes('thunder canyon') || text.includes('all dragon') || text.includes('ultimate clear') || text.includes('quanrong') || text.includes('ant queen') || text.includes('red gate') || text.includes('bansy') || text.includes('foggy town') || text.includes('vulcan') || text.includes('metus') || text.includes('jeju') || text.includes('forsaken land')) {
     return { stars: 4, label: 'S-RANK HIGH HAZARD', color: 'text-amber-400 border-amber-500/40 bg-amber-950/40' };
   }
-  if (text.includes('alabasta') || text.includes('skypiea') || text.includes('water 7') || text.includes('dressrosa') || text.includes('egghead') || text.includes('regent estate') || text.includes('demonic scheme') || text.includes('forest of darkness') || text.includes('sea bright') || text.includes('shangguan') || text.includes('mysterious heaven')) {
+  if (text.includes('alabasta') || text.includes('skypiea') || text.includes('water 7') || text.includes('dressrosa') || text.includes('egghead') || text.includes('regent estate') || text.includes('demonic scheme') || text.includes('forest of darkness') || text.includes('sea bright') || text.includes('shangguan') || text.includes('mysterious heaven') || text.includes('scavenger') || text.includes('draw sword') || text.includes('bayam') || text.includes('saint samuel') || text.includes('queen square') || text.includes('white tiger')) {
     return { stars: 3, label: 'A-RANK MAJOR SECTOR', color: 'text-indigo-400 border-indigo-500/40 bg-indigo-950/40' };
   }
-  if (text.includes('loguetown') || text.includes('little garden') || text.includes('drum island') || text.includes('drifting flowers') || text.includes('veiled dragon') || text.includes('fenlai') || text.includes('ernst') || text.includes('merry woods')) {
+  if (text.includes('loguetown') || text.includes('little garden') || text.includes('drum island') || text.includes('drifting flowers') || text.includes('veiled dragon') || text.includes('fenlai') || text.includes('ernst') || text.includes('merry woods') || text.includes('hunters association') || text.includes('ahjin') || text.includes('tingen') || text.includes('blackthorn') || text.includes('sherlock') || text.includes('moriarty')) {
     return { stars: 2, label: 'B-RANK REGIONAL HUB', color: 'text-cyan-400 border-cyan-500/40 bg-cyan-950/40' };
   }
   return { stars: 1, label: 'SAFE HAVEN / SETTLEMENT', color: 'text-emerald-400 border-emerald-500/40 bg-emerald-950/40' };
@@ -155,6 +155,54 @@ function getLocationControllingFaction(locId: string, seriesSlug?: string): { id
     }
     if (['loc-skyrite-mountains'].includes(locId)) {
       return { id: 'faction-four-beasts', name: 'Four Divine Beasts Clan', emblem: '/assets/pixels/coiling-dragon/factions/faction-four-beasts.svg', color: '#10b981' };
+    }
+  }
+
+  if (seriesSlug === 'solo-leveling') {
+    if (['loc-ahjin-office', 'loc-jeju-observatory'].includes(locId)) {
+      return { id: 'faction-ahjin', name: 'Ahjin Guild', emblem: '/assets/pixels/solo-leveling/factions/faction-ahjin.svg', color: '#8b5cf6' };
+    }
+    if (['loc-seoul-assoc', 'loc-jeju-coastline'].includes(locId)) {
+      return { id: 'faction-hunters-assoc', name: 'Korean Hunters Association', emblem: '/assets/pixels/solo-leveling/factions/faction-hunters-assoc.svg', color: '#38bdf8' };
+    }
+    if (['loc-hunters-guild-hq'].includes(locId)) {
+      return { id: 'faction-hunters-guild', name: 'Hunters Guild', emblem: '/assets/pixels/solo-leveling/factions/faction-hunters-guild.svg', color: '#f97316' };
+    }
+    if (['loc-white-tiger-gym'].includes(locId)) {
+      return { id: 'faction-white-tiger', name: 'White Tiger Guild', emblem: '/assets/pixels/solo-leveling/factions/faction-white-tiger.svg', color: '#fbbf24' };
+    }
+    if (['loc-scavenger-hq'].includes(locId)) {
+      return { id: 'faction-scavenger', name: 'Scavenger Guild (USA)', emblem: '/assets/pixels/solo-leveling/factions/faction-scavenger.svg', color: '#facc15' };
+    }
+    if (['loc-draw-sword-hq'].includes(locId)) {
+      return { id: 'faction-draw-sword', name: 'Draw Sword Guild (Japan)', emblem: '/assets/pixels/solo-leveling/factions/faction-draw-sword.svg', color: '#60a5fa' };
+    }
+    if (['loc-double-dungeon', 'loc-red-gate-forest', 'loc-ant-queen-nest', 'loc-demon-f1', 'loc-demon-f50', 'loc-demon-f75', 'loc-demon-f100'].includes(locId)) {
+      return { id: 'faction-monarchs', name: 'Monarchs & Dungeon Beasts', emblem: '/assets/pixels/solo-leveling/factions/faction-monarchs.svg', color: '#ef4444' };
+    }
+  }
+
+  if (seriesSlug === 'lord-of-the-mysteries') {
+    if (['loc-sefirah-castle', 'loc-backlund-borough', 'loc-backlund-bridge', 'loc-backlund-suburbs', 'loc-oavi-island'].includes(locId)) {
+      return { id: 'faction-tarot-club', name: 'The Tarot Club', emblem: '/assets/pixels/lord-of-the-mysteries/factions/faction-tarot-club.svg', color: '#c084fc' };
+    }
+    if (['loc-tingan-blackthorn', 'loc-saint-samuel', 'loc-queen-square'].includes(locId)) {
+      return { id: 'faction-nighthawks', name: 'Church of Evernight', emblem: '/assets/pixels/lord-of-the-mysteries/factions/faction-nighthawks.svg', color: '#818cf8' };
+    }
+    if (['loc-bayam-archipelago'].includes(locId)) {
+      return { id: 'faction-mandated-punishers', name: 'Church of Storms', emblem: '/assets/pixels/lord-of-the-mysteries/factions/faction-mandated-punishers.svg', color: '#0284c7' };
+    }
+    if (['loc-bansy-harbor', 'loc-giant-king-court'].includes(locId)) {
+      return { id: 'faction-aurora-order', name: 'The Aurora Order', emblem: '/assets/pixels/lord-of-the-mysteries/factions/faction-aurora-order.svg', color: '#ef4444' };
+    }
+    if (['loc-forsaken-silver', 'loc-forsaken-moon'].includes(locId)) {
+      return { id: 'faction-city-of-silver', name: 'City of Silver', emblem: '/assets/pixels/lord-of-the-mysteries/factions/faction-city-of-silver.svg', color: '#fbbf24' };
+    }
+    if (['loc-calderon-city'].includes(locId)) {
+      return { id: 'faction-rose-school', name: 'Rose School of Thought', emblem: '/assets/pixels/lord-of-the-mysteries/factions/faction-rose-school.svg', color: '#e879f9' };
+    }
+    if (['loc-foggy-town'].includes(locId)) {
+      return { id: 'faction-secret-order', name: 'The Secret Order', emblem: '/assets/pixels/lord-of-the-mysteries/factions/faction-secret-order.svg', color: '#a78bfa' };
     }
   }
 
@@ -877,6 +925,237 @@ export function PixelMapCanvas({
                           NECROPOLIS OF THE GODS
                         </text>
                       </g>
+                    </g>
+                  )}
+                </g>
+              )}
+
+              {/* ======================================================== */}
+              {/* UNIVERSE 4: SOLO LEVELING — HUNTER SECTORS & GATES ATLAS  */}
+              {/* ======================================================== */}
+              {seriesSlug === 'solo-leveling' && (
+                <g id="solo-leveling-cartography">
+                  {currentPlane?.id === 'plane-earth' && (
+                    <g id="earth-hunter-cartography">
+                      {/* Dark Cyber Radar Base */}
+                      <rect x="0" y="0" width="1000" height="580" fill="#050711" />
+
+                      {/* Hunter Association Satellite Grid Lines */}
+                      <path
+                        d="M 100,0 L 100,580 M 300,0 L 300,580 M 500,0 L 500,580 M 700,0 L 700,580 M 900,0 L 900,580
+                           M 0,100 L 1000,100 M 0,250 L 1000,250 M 0,400 L 1000,400 M 0,500 L 1000,500"
+                        stroke="#1e293b"
+                        strokeWidth="0.8"
+                        strokeDasharray="4,8"
+                        opacity="0.5"
+                      />
+
+                      {/* Seoul Metropolitan S-Rank Gate Defense Perimeter */}
+                      <circle cx="450" cy="360" r="110" fill="#1e1b4b" opacity="0.4" stroke="#8b5cf6" strokeWidth="1.5" strokeDasharray="6,4" />
+                      <text x="450" y="240" fontSize="10" fill="#c084fc" opacity="0.8" fontFamily="Silkscreen" fontWeight="bold" textAnchor="middle" letterSpacing="2">
+                        SEOUL METROPOLITAN DEFENSE SECTOR (S-RANK CONVERGENCE)
+                      </text>
+
+                      {/* Dimensional Gate Fissure Tears */}
+                      <path
+                        d="M 470,410 L 485,425 L 480,435 L 495,445 M 510,270 L 525,285 L 515,295"
+                        stroke="#a855f7"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        opacity="0.8"
+                      />
+
+                      {/* North American Scavenger Guild Command Perimeter */}
+                      <rect x="740" y="270" width="130" height="100" rx="8" fill="#451a03" opacity="0.3" stroke="#facc15" strokeWidth="1" strokeDasharray="4,4" />
+                      <text x="805" y="260" fontSize="8" fill="#facc15" fontFamily="Silkscreen" textAnchor="middle">
+                        NEW YORK SECTOR (SCAVENGER HQ)
+                      </text>
+
+                      {/* East Asia Draw Sword Guild Sector */}
+                      <circle cx="750" cy="400" r="45" fill="#172554" opacity="0.35" stroke="#60a5fa" strokeWidth="1" strokeDasharray="4,4" />
+                      <text x="750" y="460" fontSize="8" fill="#93c5fd" fontFamily="Silkscreen" textAnchor="middle">
+                        TOKYO METROPOLITAN SECTOR
+                      </text>
+                    </g>
+                  )}
+
+                  {currentPlane?.id === 'plane-jeju' && (
+                    <g id="jeju-island-cartography">
+                      {/* Deep Yellow Sea Base */}
+                      <rect x="0" y="0" width="1000" height="580" fill="#030712" />
+
+                      {/* Biohazard Red Warning Grid */}
+                      <circle cx="500" cy="420" r="180" fill="#450a0a" opacity="0.25" stroke="#ef4444" strokeWidth="2" strokeDasharray="8,6" />
+                      <text x="500" y="225" fontSize="11" fill="#ef4444" opacity="0.85" fontFamily="Silkscreen" fontWeight="bold" textAnchor="middle" letterSpacing="3">
+                        ⚠ JEJU EXCLUSION ZONE: S-RANK BIO-HAZARD COLONY
+                      </text>
+
+                      {/* Jeju Island Continental Silhouette */}
+                      <path
+                        d="M 280,540 Q 350,480 440,430 T 560,370 T 680,420 Q 720,500 620,550 T 400,560 Z"
+                        fill="#1c1917"
+                        stroke="#dc2626"
+                        strokeWidth="2.5"
+                      />
+
+                      {/* Mt. Halla Volcanic Crater Ring */}
+                      <ellipse cx="520" cy="380" rx="45" ry="30" fill="#451a03" stroke="#f97316" strokeWidth="1.8" />
+                      <ellipse cx="520" cy="380" rx="18" ry="12" fill="#ea580c" opacity="0.8" />
+                      <text x="520" y="340" fontSize="8" fill="#fdba74" fontFamily="Silkscreen" textAnchor="middle">
+                        MT. HALLA CRATER (ANT HIVE APEX)
+                      </text>
+
+                      {/* Landing Beachhead Perimeter */}
+                      <path d="M 270,530 L 330,560" stroke="#38bdf8" strokeWidth="3" strokeLinecap="round" />
+                      <text x="300" y="580" fontSize="7" fill="#7dd3fc" fontFamily="Silkscreen" textAnchor="middle">
+                        JOINT FLEET LANDING ZONE
+                      </text>
+                    </g>
+                  )}
+
+                  {currentPlane?.id === 'plane-demon-castle' && (
+                    <g id="demon-castle-cartography">
+                      {/* Burning Dimension Abyss */}
+                      <rect x="0" y="0" width="1000" height="580" fill="#0a0303" />
+
+                      {/* 100-Floor Tower Silhouette */}
+                      <path
+                        d="M 380,560 L 440,150 L 560,150 L 620,560 Z"
+                        fill="#180707"
+                        stroke="#f97316"
+                        strokeWidth="2"
+                        opacity="0.8"
+                      />
+
+                      {/* Floor Strata Division Lines */}
+                      <line x1="400" y1="500" x2="600" y2="500" stroke="#ea580c" strokeWidth="1.5" strokeDasharray="4,4" />
+                      <text x="640" y="505" fontSize="8" fill="#fb923c" fontFamily="Silkscreen">F-50: VULCAN FORGE</text>
+
+                      <line x1="420" y1="350" x2="580" y2="350" stroke="#c084fc" strokeWidth="1.5" strokeDasharray="4,4" />
+                      <text x="610" y="355" fontSize="8" fill="#c084fc" fontFamily="Silkscreen">F-75: METUS SPIRE</text>
+
+                      <line x1="435" y1="180" x2="565" y2="180" stroke="#facc15" strokeWidth="2" />
+                      <text x="500" y="140" fontSize="10" fill="#fde047" opacity="0.9" fontFamily="Silkscreen" fontWeight="bold" textAnchor="middle">
+                        ⚡ F-100: MONARCH BARAN THRONE ⚡
+                      </text>
+
+                      {/* Magma Lake at Base */}
+                      <rect x="250" y="540" width="500" height="40" fill="#431407" opacity="0.7" />
+                      <text x="500" y="565" fontSize="8" fill="#f97316" fontFamily="Silkscreen" textAnchor="middle">
+                        MOLTEN INFERNO ENTRY ABYSS
+                      </text>
+                    </g>
+                  )}
+                </g>
+              )}
+
+              {/* ======================================================== */}
+              {/* UNIVERSE 5: LORD OF THE MYSTERIES — OCCULT BEYONDER MAP */}
+              {/* ======================================================== */}
+              {seriesSlug === 'lord-of-the-mysteries' && (
+                <g id="lord-of-the-mysteries-cartography">
+                  {currentPlane?.id === 'plane-northern-continent' && (
+                    <g id="northern-continent-cartography">
+                      {/* Antique Loen Slate Base */}
+                      <rect x="0" y="0" width="1000" height="580" fill="#0b0914" />
+
+                      {/* Victorian Smog / Coal Smoke Mist */}
+                      <ellipse cx="500" cy="380" rx="140" ry="80" fill="#1e1833" opacity="0.6" />
+                      <text x="500" y="280" fontSize="12" fill="#c084fc" opacity="0.8" fontFamily="Silkscreen" fontWeight="bold" textAnchor="middle" letterSpacing="3">
+                        BACKLUND: THE CITY OF SMOG (LOEN KINGDOM)
+                      </text>
+
+                      {/* River Tasque Flowing Through Backlund */}
+                      <path
+                        d="M 320,520 Q 420,450 500,400 T 620,360 T 780,310"
+                        fill="none"
+                        stroke="#38bdf8"
+                        strokeWidth="3.5"
+                        strokeLinecap="round"
+                        opacity="0.35"
+                      />
+                      <text x="640" y="345" fontSize="7" fill="#7dd3fc" opacity="0.6" fontFamily="Silkscreen">
+                        RIVER TASQUE
+                      </text>
+
+                      {/* Tingen Town Railroad Link */}
+                      <line x1="420" y1="460" x2="490" y2="400" stroke="#64748b" strokeWidth="1.5" strokeDasharray="3,3" opacity="0.6" />
+                      <text x="390" y="490" fontSize="8" fill="#94a3b8" fontFamily="Silkscreen" textAnchor="middle">
+                        TINGEN RAILWAY LINE
+                      </text>
+
+                      {/* Orthodox Church Divine Influence Halo */}
+                      <circle cx="480" cy="350" r="35" fill="none" stroke="#818cf8" strokeWidth="1" strokeDasharray="4,4" opacity="0.5" />
+                      <text x="480" y="330" fontSize="7" fill="#a5b4fc" fontFamily="Silkscreen" textAnchor="middle">
+                        🌙 EVERNIGHT CATHEDRAL SEAT
+                      </text>
+                    </g>
+                  )}
+
+                  {currentPlane?.id === 'plane-mid-seas' && (
+                    <g id="mid-seas-cartography">
+                      {/* Deep Berserk Sea Ocean Base */}
+                      <rect x="0" y="0" width="1000" height="580" fill="#041226" />
+
+                      {/* Storm Currents & Sea Lanes */}
+                      <path
+                        d="M 100,200 Q 300,350 550,300 T 900,450 M 200,480 Q 500,520 850,560"
+                        fill="none"
+                        stroke="#0284c7"
+                        strokeWidth="1.5"
+                        strokeDasharray="6,8"
+                        opacity="0.4"
+                      />
+
+                      <text x="500" y="100" fontSize="12" fill="#38bdf8" opacity="0.75" fontFamily="Silkscreen" fontWeight="bold" textAnchor="middle" letterSpacing="4">
+                        ⚡ THE BERSERK SEA & FIVE SEAS PIRATE EXPEDITIONS ⚡
+                      </text>
+
+                      {/* Rorsted Archipelago Bayam Atolls */}
+                      <ellipse cx="620" cy="550" rx="65" ry="35" fill="#082f49" stroke="#38bdf8" strokeWidth="1.5" />
+                      <text x="620" y="510" fontSize="8" fill="#7dd3fc" fontFamily="Silkscreen" textAnchor="middle">
+                        RORSTED ARCHIPELAGO (BAYAM)
+                      </text>
+
+                      {/* Bansy Purged Island Hazard */}
+                      <circle cx="700" cy="620" r="25" fill="#450a0a" stroke="#ef4444" strokeWidth="1.5" strokeDasharray="3,3" />
+                      <text x="700" y="660" fontSize="7" fill="#f87171" fontFamily="Silkscreen" textAnchor="middle">
+                        ☠ BANSY LIGHTNING PURGE RUINS
+                      </text>
+                    </g>
+                  )}
+
+                  {currentPlane?.id === 'plane-divine-cursed' && (
+                    <g id="divine-cursed-cartography">
+                      {/* Mystical Gray Fog Realm Base */}
+                      <rect x="0" y="0" width="1000" height="580" fill="#0d0b17" />
+
+                      {/* Endless Gray Fog Cloud Deck */}
+                      <rect x="0" y="50" width="1000" height="220" fill="#181329" opacity="0.7" />
+                      <ellipse cx="500" cy="150" rx="200" ry="60" fill="#2e1065" opacity="0.4" stroke="#c084fc" strokeWidth="1.5" strokeDasharray="8,4" />
+                      <text x="500" y="80" fontSize="12" fill="#e9d5ff" opacity="0.9" fontFamily="Silkscreen" fontWeight="bold" textAnchor="middle" letterSpacing="3">
+                        ☁ ABOVE THE GRAY FOG: SEFIRAH CASTLE & TAROT PALACE ☁
+                      </text>
+
+                      {/* Boundary Curtain of the Divine Realm */}
+                      <line x1="0" y1="380" x2="1000" y2="380" stroke="#a855f7" strokeWidth="2" strokeDasharray="6,6" opacity="0.4" />
+                      <text x="500" y="370" fontSize="8" fill="#d8b4fe" fontFamily="Silkscreen" textAnchor="middle">
+                        DIVINE CURTAIN / BOUNDARY OF EPOCHS
+                      </text>
+
+                      {/* Forsaken Land of the Gods Deep Abyss */}
+                      <rect x="0" y="500" width="1000" height="80" fill="#050106" />
+                      <text x="500" y="530" fontSize="11" fill="#f43f5e" opacity="0.8" fontFamily="Silkscreen" fontWeight="bold" textAnchor="middle" letterSpacing="3">
+                        ⚡ FORSAKEN LAND OF THE GODS (2,500 YEARS OF DARKNESS) ⚡
+                      </text>
+
+                      {/* Jagged Dark Lightning Streaks */}
+                      <path
+                        d="M 280,680 L 300,710 L 290,730 M 400,690 L 415,720 L 405,745"
+                        stroke="#f43f5e"
+                        strokeWidth="1.5"
+                        opacity="0.7"
+                      />
                     </g>
                   )}
                 </g>

@@ -97,4 +97,19 @@ describe('ConflictEngine & Canon Confidence', () => {
     const issues = ConflictEngine.detectIntegrityIssues(brokenGraph);
     expect(issues.some(i => i.includes('inverted temporal bounds'))).toBe(true);
   });
+
+  it('validates 100% integrity across all 5 canonical universe graphs in data/', async () => {
+    const fs = await import('fs');
+    const path = await import('path');
+    const universes = ['one-piece', 'demonic-emperor', 'coiling-dragon', 'solo-leveling', 'lord-of-the-mysteries'];
+
+    for (const slug of universes) {
+      const filePath = path.resolve(process.cwd(), 'data', slug, 'graph.json');
+      expect(fs.existsSync(filePath)).toBe(true);
+      const graph = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+      const issues = ConflictEngine.detectIntegrityIssues(graph);
+      expect(issues, `Integrity issues in ${slug}: ${issues.join(', ')}`).toEqual([]);
+    }
+  });
 });
+

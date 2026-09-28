@@ -71,6 +71,9 @@ export class ConflictEngine {
 
     // 2. Fact entity references and temporal consistency
     for (const fact of Object.values(graph.facts)) {
+      if (!fact.predicate) {
+        issues.push(`Fact ${fact.id} is missing required 'predicate' property.`);
+      }
       if (!graph.entities[fact.entity_id]) {
         issues.push(`Fact ${fact.id} references missing entity '${fact.entity_id}'.`);
       }
@@ -81,6 +84,9 @@ export class ConflictEngine {
 
     // 3. Entity structural references and bounds
     for (const ent of Object.values(graph.entities)) {
+      if (typeof ent.first_appearance !== 'number' || typeof ent.revealed_at !== 'number') {
+        issues.push(`Entity '${ent.id}' (${ent.type}) is missing numeric 'first_appearance' or 'revealed_at'.`);
+      }
       if (ent.type === 'location' && (ent as any).plane_id) {
         const planeId = (ent as any).plane_id;
         if (!graph.entities[planeId]) {

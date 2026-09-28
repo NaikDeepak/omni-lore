@@ -36,7 +36,9 @@ export class TemporalEngine {
   }
 
   public static isEntityVisibleAt(entity: Entity, userChapter: number): boolean {
-    return entity.revealed_at <= userChapter || entity.first_appearance <= userChapter;
+    const revealedAt = typeof entity.revealed_at === 'number' ? entity.revealed_at : (typeof (entity as any).first_appearance === 'number' ? (entity as any).first_appearance : 1);
+    const firstApp = typeof entity.first_appearance === 'number' ? entity.first_appearance : revealedAt;
+    return revealedAt <= userChapter || firstApp <= userChapter;
   }
 
   public static resolveDisplayName(entity: Entity, userChapter: number): { name: string; isMasked: boolean } {

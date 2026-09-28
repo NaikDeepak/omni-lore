@@ -3,6 +3,7 @@
     "slug": "solo-leveling",
     "title": "Solo Leveling",
     "type": "litrpg",
+    "status": "completed",
     "total_chapters": 270,
     "knowledge_boundary": {
       "latest_processed_chapter": 270,
@@ -14,199 +15,454 @@
       "id": "plane-earth",
       "type": "plane",
       "name": "Earth (Human World)",
-      "description": "Modern civilization, national capitals, and hunter guilds defending against gate breaks."
+      "tier_order": 1,
+      "aliases": [],
+      "description": "Modern civilization, national capitals, and hunter guilds defending against gate breaks.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Earth (Human World)",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "plane-jeju": {
       "id": "plane-jeju",
       "type": "plane",
       "name": "Jeju Island Exclusion Zone",
-      "description": "Overrun island province completely quarantined after catastrophic gate failures."
+      "tier_order": 2,
+      "aliases": [],
+      "description": "Overrun island province completely quarantined after catastrophic gate failures.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Jeju Island Exclusion Zone",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "plane-demon-castle": {
       "id": "plane-demon-castle",
       "type": "plane",
       "name": "Demon Castle Dimension",
-      "description": "100-floor trial tower created by the Architect containing ingredients for the Holy Water of Life."
+      "tier_order": 3,
+      "aliases": [],
+      "description": "100-floor trial tower created by the Architect containing ingredients for the Holy Water of Life.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Demon Castle Dimension",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "loc-seoul-assoc": {
       "id": "loc-seoul-assoc",
       "type": "location",
       "name": "Seoul Hunters Association HQ",
       "plane_id": "plane-earth",
-      "description": "Central command tower overseeing South Korea’s gate alerts and Hunter evaluations.",
-      "thumbnail_url": "/assets/pixels/solo-leveling/locations/loc-seoul-assoc.svg",
       "coordinates": {
         "x": 450,
         "y": 350
-      }
+      },
+      "thumbnail_url": "/assets/pixels/solo-leveling/locations/loc-seoul-assoc.svg",
+      "aliases": [],
+      "description": "Central command tower overseeing South Korea’s gate alerts and Hunter evaluations.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Seoul Hunters Association HQ",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "loc-double-dungeon": {
       "id": "loc-double-dungeon",
       "type": "location",
       "name": "Cartenon Temple (Double Dungeon)",
       "plane_id": "plane-earth",
-      "description": "Subterranean sanctuary of God Statues where Sung Jin-woo received the System re-awakening.",
-      "thumbnail_url": "/assets/pixels/solo-leveling/locations/loc-double-dungeon.svg",
       "coordinates": {
         "x": 480,
         "y": 420
-      }
+      },
+      "thumbnail_url": "/assets/pixels/solo-leveling/locations/loc-double-dungeon.svg",
+      "aliases": [],
+      "description": "Subterranean sanctuary of God Statues where Sung Jin-woo received the System re-awakening.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Cartenon Temple (Double Dungeon)",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "loc-ahjin-office": {
       "id": "loc-ahjin-office",
       "type": "location",
       "name": "Ahjin Guild Headquarters",
       "plane_id": "plane-earth",
-      "description": "Streamlined guild headquarters managed by Yoo Jin-ho solely supporting Sung Jin-woo’s solo raids.",
-      "thumbnail_url": "/assets/pixels/solo-leveling/locations/loc-ahjin-office.svg",
       "coordinates": {
         "x": 440,
         "y": 330
-      }
+      },
+      "thumbnail_url": "/assets/pixels/solo-leveling/locations/loc-ahjin-office.svg",
+      "aliases": [],
+      "description": "Streamlined guild headquarters managed by Yoo Jin-ho solely supporting Sung Jin-woo’s solo raids.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Ahjin Guild Headquarters",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "loc-hunters-guild-hq": {
       "id": "loc-hunters-guild-hq",
       "type": "location",
       "name": "Hunters Guild Sky Tower",
       "plane_id": "plane-earth",
-      "description": "High-rise skyscraper complex hosting Korea’s premier raid teams led by Choi Jong-in and Cha Hae-in.",
-      "thumbnail_url": "/assets/pixels/solo-leveling/locations/loc-hunters-guild-hq.svg",
       "coordinates": {
         "x": 460,
         "y": 360
-      }
+      },
+      "thumbnail_url": "/assets/pixels/solo-leveling/locations/loc-hunters-guild-hq.svg",
+      "aliases": [],
+      "description": "High-rise skyscraper complex hosting Korea’s premier raid teams led by Choi Jong-in and Cha Hae-in.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Hunters Guild Sky Tower",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "loc-white-tiger-gym": {
       "id": "loc-white-tiger-gym",
       "type": "location",
       "name": "White Tiger Martial Dojo",
       "plane_id": "plane-earth",
-      "description": "Elite combat training center for Baek Yoon-ho’s frontline melee strikers.",
-      "thumbnail_url": "/assets/pixels/solo-leveling/locations/loc-white-tiger-gym.svg",
       "coordinates": {
         "x": 430,
         "y": 380
-      }
+      },
+      "thumbnail_url": "/assets/pixels/solo-leveling/locations/loc-white-tiger-gym.svg",
+      "aliases": [],
+      "description": "Elite combat training center for Baek Yoon-ho’s frontline melee strikers.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "White Tiger Martial Dojo",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "loc-red-gate-forest": {
       "id": "loc-red-gate-forest",
       "type": "location",
       "name": "Red Gate Sub-Zero Forest",
       "plane_id": "plane-earth",
-      "description": "Quarantined dimension filled with deadly blizzards, Ice Bears, and White Walkers.",
-      "thumbnail_url": "/assets/pixels/solo-leveling/locations/loc-red-gate-forest.svg",
       "coordinates": {
         "x": 520,
         "y": 280
-      }
+      },
+      "thumbnail_url": "/assets/pixels/solo-leveling/locations/loc-red-gate-forest.svg",
+      "aliases": [],
+      "description": "Quarantined dimension filled with deadly blizzards, Ice Bears, and White Walkers.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Red Gate Sub-Zero Forest",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "loc-scavenger-hq": {
       "id": "loc-scavenger-hq",
       "type": "location",
       "name": "Scavenger Guild Citadel (New York)",
       "plane_id": "plane-earth",
-      "description": "Massive American headquarters housing National Level Hunter Thomas Andre’s elite force.",
-      "thumbnail_url": "/assets/pixels/solo-leveling/locations/loc-scavenger-hq.svg",
       "coordinates": {
         "x": 800,
         "y": 320
-      }
+      },
+      "thumbnail_url": "/assets/pixels/solo-leveling/locations/loc-scavenger-hq.svg",
+      "aliases": [],
+      "description": "Massive American headquarters housing National Level Hunter Thomas Andre’s elite force.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Scavenger Guild Citadel (New York)",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "loc-draw-sword-hq": {
       "id": "loc-draw-sword-hq",
       "type": "location",
       "name": "Draw Sword Guild Fortress (Tokyo)",
       "plane_id": "plane-earth",
-      "description": "Seat of power for Goto Ryuji’s 21 S-Rank Japanese hunters.",
-      "thumbnail_url": "/assets/pixels/solo-leveling/locations/loc-draw-sword-hq.svg",
       "coordinates": {
         "x": 750,
         "y": 400
-      }
+      },
+      "thumbnail_url": "/assets/pixels/solo-leveling/locations/loc-draw-sword-hq.svg",
+      "aliases": [],
+      "description": "Seat of power for Goto Ryuji’s 21 S-Rank Japanese hunters.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Draw Sword Guild Fortress (Tokyo)",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "loc-jeju-coastline": {
       "id": "loc-jeju-coastline",
       "type": "location",
       "name": "Jeju Shoreline Landing Zone",
       "plane_id": "plane-jeju",
-      "description": "Amphibious invasion staging area for the combined Korea-Japan Joint S-Rank raid.",
-      "thumbnail_url": "/assets/pixels/solo-leveling/locations/loc-jeju-coastline.svg",
       "coordinates": {
         "x": 300,
         "y": 550
-      }
+      },
+      "thumbnail_url": "/assets/pixels/solo-leveling/locations/loc-jeju-coastline.svg",
+      "aliases": [],
+      "description": "Amphibious invasion staging area for the combined Korea-Japan Joint S-Rank raid.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Jeju Shoreline Landing Zone",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "loc-ant-queen-nest": {
       "id": "loc-ant-queen-nest",
       "type": "location",
       "name": "Ant Queen’s Underground Hatchery",
       "plane_id": "plane-jeju",
-      "description": "Bioluminescent hive subterranean network where the mutant Ant King was born.",
-      "thumbnail_url": "/assets/pixels/solo-leveling/locations/loc-ant-queen-nest.svg",
       "coordinates": {
         "x": 500,
         "y": 450
-      }
+      },
+      "thumbnail_url": "/assets/pixels/solo-leveling/locations/loc-ant-queen-nest.svg",
+      "aliases": [],
+      "description": "Bioluminescent hive subterranean network where the mutant Ant King was born.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Ant Queen’s Underground Hatchery",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "loc-jeju-observatory": {
       "id": "loc-jeju-observatory",
       "type": "location",
       "name": "Mt. Halla Peak Observatory",
       "plane_id": "plane-jeju",
-      "description": "Highest volcanic peak on Jeju Island where Jin-woo arrived via Shadow Exchange.",
-      "thumbnail_url": "/assets/pixels/solo-leveling/locations/loc-jeju-observatory.svg",
       "coordinates": {
         "x": 520,
         "y": 380
-      }
+      },
+      "thumbnail_url": "/assets/pixels/solo-leveling/locations/loc-jeju-observatory.svg",
+      "aliases": [],
+      "description": "Highest volcanic peak on Jeju Island where Jin-woo arrived via Shadow Exchange.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Mt. Halla Peak Observatory",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "loc-demon-f1": {
       "id": "loc-demon-f1",
       "type": "location",
       "name": "Demon Castle Gates (Floor 1)",
       "plane_id": "plane-demon-castle",
-      "description": "Entry gate to the 100-floor dimensional trial leading to the Elixir of Life ingredients.",
-      "thumbnail_url": "/assets/pixels/solo-leveling/locations/loc-demon-f1.svg",
       "coordinates": {
         "x": 500,
         "y": 700
-      }
+      },
+      "thumbnail_url": "/assets/pixels/solo-leveling/locations/loc-demon-f1.svg",
+      "aliases": [],
+      "description": "Entry gate to the 100-floor dimensional trial leading to the Elixir of Life ingredients.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Demon Castle Gates (Floor 1)",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "loc-demon-f50": {
       "id": "loc-demon-f50",
       "type": "location",
       "name": "Vulcan’s Scorched Forge (Floor 50)",
       "plane_id": "plane-demon-castle",
-      "description": "Lava-submerged fortress guarded by the colossal club-wielding Demon Vulcan.",
-      "thumbnail_url": "/assets/pixels/solo-leveling/locations/loc-demon-f50.svg",
       "coordinates": {
         "x": 500,
         "y": 500
-      }
+      },
+      "thumbnail_url": "/assets/pixels/solo-leveling/locations/loc-demon-f50.svg",
+      "aliases": [],
+      "description": "Lava-submerged fortress guarded by the colossal club-wielding Demon Vulcan.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Vulcan’s Scorched Forge (Floor 50)",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "loc-demon-f75": {
       "id": "loc-demon-f75",
       "type": "location",
       "name": "Metus’s Necromantic Spire (Floor 75)",
       "plane_id": "plane-demon-castle",
-      "description": "Haunted cemetery tower defended by Arch-lich Metus and legions of undead.",
-      "thumbnail_url": "/assets/pixels/solo-leveling/locations/loc-demon-f75.svg",
       "coordinates": {
         "x": 500,
         "y": 350
-      }
+      },
+      "thumbnail_url": "/assets/pixels/solo-leveling/locations/loc-demon-f75.svg",
+      "aliases": [],
+      "description": "Haunted cemetery tower defended by Arch-lich Metus and legions of undead.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Metus’s Necromantic Spire (Floor 75)",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "loc-demon-f100": {
       "id": "loc-demon-f100",
       "type": "location",
       "name": "Monarch Baran’s Sky Palace (Floor 100)",
       "plane_id": "plane-demon-castle",
-      "description": "Throne room in the clouds where Monarch of White Flames Baran commands lightning wyverns.",
-      "thumbnail_url": "/assets/pixels/solo-leveling/locations/loc-demon-f100.svg",
       "coordinates": {
         "x": 500,
         "y": 180
-      }
+      },
+      "thumbnail_url": "/assets/pixels/solo-leveling/locations/loc-demon-f100.svg",
+      "aliases": [],
+      "description": "Throne room in the clouds where Monarch of White Flames Baran commands lightning wyverns.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Monarch Baran’s Sky Palace (Floor 100)",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "faction-ahjin": {
       "id": "faction-ahjin",
@@ -214,7 +470,21 @@
       "name": "Ahjin Guild",
       "leader_id": "sung-jin-woo",
       "emblem_url": "/assets/pixels/solo-leveling/factions/faction-ahjin.svg",
-      "description": "Leading guild or primordial faction operating in the Hunter universe."
+      "aliases": [],
+      "description": "Leading guild or primordial faction operating in the Hunter universe.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Ahjin Guild",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "faction-hunters-assoc": {
       "id": "faction-hunters-assoc",
@@ -222,7 +492,21 @@
       "name": "Korean Hunters Association",
       "leader_id": "go-gun-hee",
       "emblem_url": "/assets/pixels/solo-leveling/factions/faction-hunters-assoc.svg",
-      "description": "Leading guild or primordial faction operating in the Hunter universe."
+      "aliases": [],
+      "description": "Leading guild or primordial faction operating in the Hunter universe.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Korean Hunters Association",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "faction-hunters-guild": {
       "id": "faction-hunters-guild",
@@ -230,7 +514,21 @@
       "name": "Hunters Guild",
       "leader_id": "choi-jong-in",
       "emblem_url": "/assets/pixels/solo-leveling/factions/faction-hunters-guild.svg",
-      "description": "Leading guild or primordial faction operating in the Hunter universe."
+      "aliases": [],
+      "description": "Leading guild or primordial faction operating in the Hunter universe.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Hunters Guild",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "faction-white-tiger": {
       "id": "faction-white-tiger",
@@ -238,7 +536,21 @@
       "name": "White Tiger Guild",
       "leader_id": "baek-yoon-ho",
       "emblem_url": "/assets/pixels/solo-leveling/factions/faction-white-tiger.svg",
-      "description": "Leading guild or primordial faction operating in the Hunter universe."
+      "aliases": [],
+      "description": "Leading guild or primordial faction operating in the Hunter universe.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "White Tiger Guild",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "faction-scavenger": {
       "id": "faction-scavenger",
@@ -246,7 +558,21 @@
       "name": "Scavenger Guild (USA)",
       "leader_id": "thomas-andre",
       "emblem_url": "/assets/pixels/solo-leveling/factions/faction-scavenger.svg",
-      "description": "Leading guild or primordial faction operating in the Hunter universe."
+      "aliases": [],
+      "description": "Leading guild or primordial faction operating in the Hunter universe.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Scavenger Guild (USA)",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "faction-draw-sword": {
       "id": "faction-draw-sword",
@@ -254,7 +580,21 @@
       "name": "Draw Sword Guild (Japan)",
       "leader_id": "goto-ryuji",
       "emblem_url": "/assets/pixels/solo-leveling/factions/faction-draw-sword.svg",
-      "description": "Leading guild or primordial faction operating in the Hunter universe."
+      "aliases": [],
+      "description": "Leading guild or primordial faction operating in the Hunter universe.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Draw Sword Guild (Japan)",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "faction-monarchs": {
       "id": "faction-monarchs",
@@ -262,7 +602,21 @@
       "name": "The Sovereign Monarchs",
       "leader_id": "antares",
       "emblem_url": "/assets/pixels/solo-leveling/factions/faction-monarchs.svg",
-      "description": "Leading guild or primordial faction operating in the Hunter universe."
+      "aliases": [],
+      "description": "Leading guild or primordial faction operating in the Hunter universe.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "The Sovereign Monarchs",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "faction-rulers": {
       "id": "faction-rulers",
@@ -270,7 +624,21 @@
       "name": "The Rulers of Light",
       "leader_id": "ashborn",
       "emblem_url": "/assets/pixels/solo-leveling/factions/faction-rulers.svg",
-      "description": "Leading guild or primordial faction operating in the Hunter universe."
+      "aliases": [],
+      "description": "Leading guild or primordial faction operating in the Hunter universe.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "The Rulers of Light",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "arc-double-dungeon": {
       "id": "arc-double-dungeon",
@@ -279,7 +647,21 @@
       "order": 1,
       "chapter_start": 1,
       "chapter_end": 10,
-      "description": "Jin-woo survives Cartenon Temple and is chosen by the System."
+      "aliases": [],
+      "description": "Jin-woo survives Cartenon Temple and is chosen by the System.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Double Dungeon Incident",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "arc-reawakening": {
       "id": "arc-reawakening",
@@ -288,7 +670,21 @@
       "order": 2,
       "chapter_start": 11,
       "chapter_end": 35,
-      "description": "Jin-woo tests his daily leveling quests and clears low-rank dungeons with Yoo Jin-ho."
+      "aliases": [],
+      "description": "Jin-woo tests his daily leveling quests and clears low-rank dungeons with Yoo Jin-ho.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Re-Awakening & Solo Raids",
+          "chapter": 11
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 11,
+      "revealed_at": 11
     },
     "arc-job-change": {
       "id": "arc-job-change",
@@ -297,7 +693,21 @@
       "order": 3,
       "chapter_start": 36,
       "chapter_end": 55,
-      "description": "Jin-woo conquers the class advancement dungeon and extracts his first shadow knight, Igris."
+      "aliases": [],
+      "description": "Jin-woo conquers the class advancement dungeon and extracts his first shadow knight, Igris.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Job Change & Blood-Red Igris",
+          "chapter": 36
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 36,
+      "revealed_at": 36
     },
     "arc-red-gate": {
       "id": "arc-red-gate",
@@ -305,44 +715,137 @@
       "name": "Red Gate & High Orcs",
       "order": 4,
       "chapter_start": 56,
+      "chapter_end": 75,
+      "aliases": [],
+      "description": "Jin-woo rescues White Tiger recruits inside the Red Gate and clears the High Orc dungeon.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Red Gate & High Orcs",
+          "chapter": 56
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 56,
+      "revealed_at": 56
+    },
+    "arc-demon-castle": {
+      "id": "arc-demon-castle",
+      "type": "arc",
+      "name": "Demon Castle Infiltration",
+      "order": 5,
+      "chapter_start": 76,
       "chapter_end": 85,
-      "description": "Jin-woo rescues White Tiger recruits inside the Red Gate and clears the High Orc dungeon."
+      "aliases": [],
+      "description": "Jin-woo climbs the 100 floors of the Demon Castle and slays Demon King Baran.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Demon Castle Infiltration",
+          "chapter": 76
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 76,
+      "revealed_at": 76
     },
     "arc-jeju-raid": {
       "id": "arc-jeju-raid",
       "type": "arc",
       "name": "Jeju Island S-Rank Raid",
-      "order": 5,
+      "order": 6,
       "chapter_start": 86,
       "chapter_end": 115,
-      "description": "Korea and Japan launch the 4th raid; Jin-woo slays the Ant King and extracts Beru."
+      "aliases": [],
+      "description": "Korea and Japan launch the 4th raid; Jin-woo slays the Ant King and extracts Beru.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Jeju Island S-Rank Raid",
+          "chapter": 86
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 86,
+      "revealed_at": 86
     },
     "arc-conference": {
       "id": "arc-conference",
       "type": "arc",
       "name": "Ahjin Guild & International Conference",
-      "order": 6,
+      "order": 7,
       "chapter_start": 116,
       "chapter_end": 145,
-      "description": "Jin-woo establishes Ahjin Guild and clashes with Thomas Andre in Maryland."
+      "aliases": [],
+      "description": "Jin-woo establishes Ahjin Guild and clashes with Thomas Andre in Maryland.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Ahjin Guild & International Conference",
+          "chapter": 116
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 116,
+      "revealed_at": 116
     },
     "arc-monarch-war": {
       "id": "arc-monarch-war",
       "type": "arc",
       "name": "Monarchs War & Death of Presidents",
-      "order": 7,
+      "order": 8,
       "chapter_start": 146,
       "chapter_end": 180,
-      "description": "Sovereign Monarchs invade Seoul; Ashborn passes full authority to Jin-woo."
+      "aliases": [],
+      "description": "Sovereign Monarchs invade Seoul; Ashborn passes full authority to Jin-woo.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Monarchs War & Death of Presidents",
+          "chapter": 146
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 146,
+      "revealed_at": 146
     },
     "arc-final-battle": {
       "id": "arc-final-battle",
       "type": "arc",
       "name": "Final Battle of Destruction & Epilogue",
-      "order": 8,
+      "order": 9,
       "chapter_start": 181,
       "chapter_end": 270,
-      "description": "The Shadow Army faces Antares and the Dragon Legion; the Cup of Reincarnation resets time."
+      "aliases": [],
+      "description": "The Shadow Army faces Antares and the Dragon Legion; the Cup of Reincarnation resets time.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Final Battle of Destruction & Epilogue",
+          "chapter": 181
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 181,
+      "revealed_at": 181
     },
     "stage-e-d-rank": {
       "id": "stage-e-d-rank",
@@ -351,7 +854,21 @@
       "order": 1,
       "sub_level": "Awakened",
       "system_name": "Hunter Ranking System",
-      "description": "Entry-level awakened humans capable of dealing with low-tier beasts with standard weapons."
+      "aliases": [],
+      "description": "Entry-level awakened humans capable of dealing with low-tier beasts with standard weapons.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "E-Rank & D-Rank Awakened",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "stage-c-b-rank": {
       "id": "stage-c-b-rank",
@@ -360,7 +877,21 @@
       "order": 2,
       "sub_level": "Raid Core",
       "system_name": "Hunter Ranking System",
-      "description": "Competent strike party members who handle standard city gate defense."
+      "aliases": [],
+      "description": "Competent strike party members who handle standard city gate defense.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "C-Rank & B-Rank Vanguard",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "stage-a-rank": {
       "id": "stage-a-rank",
@@ -369,7 +900,21 @@
       "order": 3,
       "sub_level": "High-Rank",
       "system_name": "Hunter Ranking System",
-      "description": "Top 1% guild captains with destructive spellcraft and superhuman physical strength."
+      "aliases": [],
+      "description": "Top 1% guild captains with destructive spellcraft and superhuman physical strength.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "A-Rank Elite Hunter",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "stage-s-rank": {
       "id": "stage-s-rank",
@@ -378,7 +923,21 @@
       "order": 4,
       "sub_level": "Strategic Weapon",
       "system_name": "Hunter Ranking System",
-      "description": "Hunters whose mana overflows standard gauges; capable of leveling entire city wards."
+      "aliases": [],
+      "description": "Hunters whose mana overflows standard gauges; capable of leveling entire city wards.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "S-Rank National Asset",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "stage-national-level": {
       "id": "stage-national-level",
@@ -387,7 +946,21 @@
       "order": 5,
       "sub_level": "Ruler's Vessel",
       "system_name": "Hunter Ranking System",
-      "description": "Superpowers who survived S-Rank gates and wield Ruler’s Telekinesis (Dominator’s Touch)."
+      "aliases": [],
+      "description": "Superpowers who survived S-Rank gates and wield Ruler’s Telekinesis (Dominator’s Touch).",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "National Level Hunter",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "stage-monarch-vessel": {
       "id": "stage-monarch-vessel",
@@ -396,7 +969,21 @@
       "order": 6,
       "sub_level": "Primordial Avatar",
       "system_name": "Hunter Ranking System",
-      "description": "Avatars of primordial darkness and chaos commanding world-ending elemental armies."
+      "aliases": [],
+      "description": "Avatars of primordial darkness and chaos commanding world-ending elemental armies.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Monarch Sovereign Contender",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "stage-shadow-monarch": {
       "id": "stage-shadow-monarch",
@@ -405,307 +992,711 @@
       "order": 7,
       "sub_level": "Sovereign of Death",
       "system_name": "Hunter Ranking System",
-      "description": "Master of eternal death with infinite shadow extraction and dimensional dominion."
+      "aliases": [],
+      "description": "Master of eternal death with infinite shadow extraction and dimensional dominion.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "True Shadow Monarch",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "sung-jin-woo": {
       "id": "sung-jin-woo",
       "type": "character",
       "name": "Sung Jin-woo",
       "avatar_url": "/assets/pixels/solo-leveling/avatars/sung-jin-woo.svg",
-      "description": "World’s Weakest E-Rank Hunter who re-awakened as the Player and inheritor of Ashborn.",
       "aliases": [
         "The Shadow Monarch"
-      ]
+      ],
+      "description": "World’s Weakest E-Rank Hunter who re-awakened as the Player and inheritor of Ashborn.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Sung Jin-woo",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "cha-hae-in": {
       "id": "cha-hae-in",
       "type": "character",
       "name": "Cha Hae-in",
       "avatar_url": "/assets/pixels/solo-leveling/avatars/cha-hae-in.svg",
-      "description": "Korea’s ninth S-Rank hunter and master swordswoman with heightened mana olfactory perception.",
       "aliases": [
         "The Dancer / Vice-Guildmaster"
-      ]
+      ],
+      "description": "Korea’s ninth S-Rank hunter and master swordswoman with heightened mana olfactory perception.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Cha Hae-in",
+          "chapter": 65
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 65,
+      "revealed_at": 65
     },
     "choi-jong-in": {
       "id": "choi-jong-in",
       "type": "character",
       "name": "Choi Jong-in",
       "avatar_url": "/assets/pixels/solo-leveling/avatars/choi-jong-in.svg",
-      "description": "Master fire mage and Guildmaster of Hunters Guild, renowned for continental flame incantations.",
       "aliases": [
         "The Ultimate Soldier"
-      ]
+      ],
+      "description": "Master fire mage and Guildmaster of Hunters Guild, renowned for continental flame incantations.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Choi Jong-in",
+          "chapter": 60
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 60,
+      "revealed_at": 60
     },
     "baek-yoon-ho": {
       "id": "baek-yoon-ho",
       "type": "character",
       "name": "Baek Yoon-ho",
       "avatar_url": "/assets/pixels/solo-leveling/avatars/baek-yoon-ho.svg",
-      "description": "Guildmaster of White Tiger Guild possessing divine white tiger transformation ability.",
       "aliases": [
         "White Tiger Beastmaster"
-      ]
+      ],
+      "description": "Guildmaster of White Tiger Guild possessing divine white tiger transformation ability.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Baek Yoon-ho",
+          "chapter": 48
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 48,
+      "revealed_at": 48
     },
     "go-gun-hee": {
       "id": "go-gun-hee",
       "type": "character",
       "name": "Go Gun-hee",
       "avatar_url": "/assets/pixels/solo-leveling/avatars/go-gun-hee.svg",
-      "description": "President of the Korean Hunters Association and vessel for the Brightest Fragment of Brilliant Light.",
       "aliases": [
         "The Sky Above the Sky / Association President"
-      ]
+      ],
+      "description": "President of the Korean Hunters Association and vessel for the Brightest Fragment of Brilliant Light.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Go Gun-hee",
+          "chapter": 60
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 60,
+      "revealed_at": 60
     },
     "woo-jin-chul": {
       "id": "woo-jin-chul",
       "type": "character",
       "name": "Woo Jin-chul",
       "avatar_url": "/assets/pixels/solo-leveling/avatars/woo-jin-chul.svg",
-      "description": "Chief of the Surveillance Team who later succeeds Go Gun-hee as Association Chairman.",
       "aliases": [
         "Chief Inspector / Later Chairman"
-      ]
+      ],
+      "description": "Chief of the Surveillance Team who later succeeds Go Gun-hee as Association Chairman.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Woo Jin-chul",
+          "chapter": 15
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 15,
+      "revealed_at": 15
     },
     "min-byung-gu": {
       "id": "min-byung-gu",
       "type": "character",
       "name": "Min Byung-gu",
       "avatar_url": "/assets/pixels/solo-leveling/avatars/min-byung-gu.svg",
-      "description": "Legendary S-Rank healer who sacrificed his life during the fourth Jeju Island extermination raid.",
       "aliases": [
         "The Retired S-Rank Healer"
-      ]
+      ],
+      "description": "Legendary S-Rank healer who sacrificed his life during the fourth Jeju Island extermination raid.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Min Byung-gu",
+          "chapter": 90
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 90,
+      "revealed_at": 90
     },
     "lim-tae-gyu": {
       "id": "lim-tae-gyu",
       "type": "character",
       "name": "Lim Tae-gyu",
       "avatar_url": "/assets/pixels/solo-leveling/avatars/lim-tae-gyu.svg",
-      "description": "Master archer and S-Rank Guildmaster specialized in long-range mana projectile strikes.",
       "aliases": [
         "Fiend Guildmaster"
-      ]
+      ],
+      "description": "Master archer and S-Rank Guildmaster specialized in long-range mana projectile strikes.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Lim Tae-gyu",
+          "chapter": 65
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 65,
+      "revealed_at": 65
     },
     "ma-dong-wook": {
       "id": "ma-dong-wook",
       "type": "character",
       "name": "Ma Dong-wook",
       "avatar_url": "/assets/pixels/solo-leveling/avatars/ma-dong-wook.svg",
-      "description": "Impenetrable shield tank Guildmaster who held the line against the mutant ant swarm on Jeju.",
       "aliases": [
         "Fame Guildmaster"
-      ]
+      ],
+      "description": "Impenetrable shield tank Guildmaster who held the line against the mutant ant swarm on Jeju.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Ma Dong-wook",
+          "chapter": 90
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 90,
+      "revealed_at": 90
     },
     "hwang-dong-soo": {
       "id": "hwang-dong-soo",
       "type": "character",
       "name": "Hwang Dong-soo",
       "avatar_url": "/assets/pixels/solo-leveling/avatars/hwang-dong-soo.svg",
-      "description": "Vengeful Korean-American S-Rank hunter whose brother Hwang Dong-suk was slain by Jin-woo.",
       "aliases": [
         "Scavenger Guild S-Rank"
-      ]
+      ],
+      "description": "Vengeful Korean-American S-Rank hunter whose brother Hwang Dong-suk was slain by Jin-woo.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Hwang Dong-soo",
+          "chapter": 25
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 25,
+      "revealed_at": 25
     },
     "thomas-andre": {
       "id": "thomas-andre",
       "type": "character",
       "name": "Thomas Andre",
       "avatar_url": "/assets/pixels/solo-leveling/avatars/thomas-andre.svg",
-      "description": "World #1 National Level Hunter, vessel of the Ruler, wields Reinforcement and Black Hole gravity.",
       "aliases": [
         "Goliath / National Level Hunter"
-      ]
+      ],
+      "description": "World #1 National Level Hunter, vessel of the Ruler, wields Reinforcement and Black Hole gravity.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Thomas Andre",
+          "chapter": 120
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 120,
+      "revealed_at": 120
     },
     "liu-zhigang": {
       "id": "liu-zhigang",
       "type": "character",
       "name": "Liu Zhigang",
       "avatar_url": "/assets/pixels/solo-leveling/avatars/liu-zhigang.svg",
-      "description": "China’s supreme 7-Star Hunter who obliterated giant ants attempting to cross the Yellow Sea.",
       "aliases": [
         "Hero of China / 7-Star Hunter"
-      ]
+      ],
+      "description": "China’s supreme 7-Star Hunter who obliterated giant ants attempting to cross the Yellow Sea.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Liu Zhigang",
+          "chapter": 115
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 115,
+      "revealed_at": 115
     },
     "christopher-reed": {
       "id": "christopher-reed",
       "type": "character",
       "name": "Christopher Reed",
       "avatar_url": "/assets/pixels/solo-leveling/avatars/christopher-reed.svg",
-      "description": "American National Level Hunter who fell in tragic battle against the Sovereign Monarchs.",
       "aliases": [
         "Ruler’s Vessel (USA)"
-      ]
+      ],
+      "description": "American National Level Hunter who fell in tragic battle against the Sovereign Monarchs.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Christopher Reed",
+          "chapter": 140
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 140,
+      "revealed_at": 140
     },
     "goto-ryuji": {
       "id": "goto-ryuji",
       "type": "character",
       "name": "Goto Ryuji",
       "avatar_url": "/assets/pixels/solo-leveling/avatars/goto-ryuji.svg",
-      "description": "Japan’s premier swordsman and Guildmaster who sought National Level status before facing the Ant King.",
       "aliases": [
         "Draw Sword Guildmaster (Japan)"
-      ]
+      ],
+      "description": "Japan’s premier swordsman and Guildmaster who sought National Level status before facing the Ant King.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Goto Ryuji",
+          "chapter": 90
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 90,
+      "revealed_at": 90
     },
     "igris": {
       "id": "igris",
       "type": "character",
       "name": "Blood-Red Commander Igris",
       "avatar_url": "/assets/pixels/solo-leveling/avatars/igris.svg",
-      "description": "First loyal knight extracted in the Job Change quest; wields the Longsword of the Demon King.",
       "aliases": [
         "Knight of the Red Robe / Marshal"
-      ]
+      ],
+      "description": "First loyal knight extracted in the Job Change quest; wields the Longsword of the Demon King.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Blood-Red Commander Igris",
+          "chapter": 45
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 45,
+      "revealed_at": 45
     },
     "beru": {
       "id": "beru",
       "type": "character",
       "name": "Ant King Beru",
       "avatar_url": "/assets/pixels/solo-leveling/avatars/beru.svg",
-      "description": "Mutant Ant King extracted at Jeju Island; devout worshipper of his liege Sung Jin-woo.",
       "aliases": [
         "Shadow Marshal / Loyal Ant Swarm Leader"
-      ]
+      ],
+      "description": "Mutant Ant King extracted at Jeju Island; devout worshipper of his liege Sung Jin-woo.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Ant King Beru",
+          "chapter": 105
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 105,
+      "revealed_at": 105
     },
     "bellion": {
       "id": "bellion",
       "type": "character",
       "name": "Grand Marshal Bellion",
       "avatar_url": "/assets/pixels/solo-leveling/avatars/bellion.svg",
-      "description": "Ashborn’s ancient Grand Marshal who emerged from the colossal Gate above Seoul with dual-bladed wings.",
       "aliases": [
         "Original Shadow Marshal"
-      ]
+      ],
+      "description": "Ashborn’s ancient Grand Marshal who emerged from the colossal Gate above Seoul with dual-bladed wings.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Grand Marshal Bellion",
+          "chapter": 165
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 165,
+      "revealed_at": 165
     },
     "tank": {
       "id": "tank",
       "type": "character",
       "name": "Iron-Fanged Tank",
       "avatar_url": "/assets/pixels/solo-leveling/avatars/tank.svg",
-      "description": "Alpha Ice Bear extracted inside the Red Gate; frontline armored beast of the Shadow Army.",
       "aliases": [
         "Shadow Alpha Bear"
-      ]
+      ],
+      "description": "Alpha Ice Bear extracted inside the Red Gate; frontline armored beast of the Shadow Army.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Iron-Fanged Tank",
+          "chapter": 55
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 55,
+      "revealed_at": 55
     },
     "iron": {
       "id": "iron",
       "type": "character",
       "name": "Shield Knight Iron",
       "avatar_url": "/assets/pixels/solo-leveling/avatars/iron.svg",
-      "description": "Resurrected shadow of A-Rank shield-bearer Kim Chul; taunts enemies with earth-shaking war cries.",
       "aliases": [
         "Former Hunter Kim Chul"
-      ]
+      ],
+      "description": "Resurrected shadow of A-Rank shield-bearer Kim Chul; taunts enemies with earth-shaking war cries.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Shield Knight Iron",
+          "chapter": 55
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 55,
+      "revealed_at": 55
     },
     "tusk": {
       "id": "tusk",
       "type": "character",
       "name": "High Shaman Tusk",
       "avatar_url": "/assets/pixels/solo-leveling/avatars/tusk.svg",
-      "description": "High Orc Great Shaman Kargalgan extracted in the Hunter Guild A-Rank dungeon, wields the Orb of Avarice.",
       "aliases": [
         "Shadow Elite Magus"
-      ]
+      ],
+      "description": "High Orc Great Shaman Kargalgan extracted in the Hunter Guild A-Rank dungeon, wields the Orb of Avarice.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "High Shaman Tusk",
+          "chapter": 75
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 75,
+      "revealed_at": 75
     },
     "kaisel": {
       "id": "kaisel",
       "type": "character",
       "name": "Sky Sovereign Kaisel",
       "avatar_url": "/assets/pixels/solo-leveling/avatars/kaisel.svg",
-      "description": "Wyvern mount extracted on the 100th floor of the Demon Castle following Baran’s defeat.",
       "aliases": [
         "Shadow Wyvern Mount"
-      ]
+      ],
+      "description": "Wyvern mount extracted on the 100th floor of the Demon Castle following Baran’s defeat.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Sky Sovereign Kaisel",
+          "chapter": 80
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 80,
+      "revealed_at": 80
     },
     "antares": {
       "id": "antares",
       "type": "character",
       "name": "Antares",
       "avatar_url": "/assets/pixels/solo-leveling/avatars/antares.svg",
-      "description": "Leader of the Sovereign Monarchs; incarnation of cosmic chaos wielding Breath of Destruction.",
       "aliases": [
         "Monarch of Destruction / King of Dragons"
-      ]
+      ],
+      "description": "Leader of the Sovereign Monarchs; incarnation of cosmic chaos wielding Breath of Destruction.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Antares",
+          "chapter": 170
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 170,
+      "revealed_at": 170
     },
     "ashborn": {
       "id": "ashborn",
       "type": "character",
       "name": "Ashborn",
       "avatar_url": "/assets/pixels/solo-leveling/avatars/ashborn.svg",
-      "description": "Original Shadow Monarch who defected from the Rulers to defend absolute cosmic equilibrium.",
       "aliases": [
         "Greatest Fragment of Brilliant Light / Previous Shadow Monarch"
-      ]
+      ],
+      "description": "Original Shadow Monarch who defected from the Rulers to defend absolute cosmic equilibrium.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Ashborn",
+          "chapter": 160
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 160,
+      "revealed_at": 160
     },
     "baran": {
       "id": "baran",
       "type": "character",
       "name": "Demon King Baran",
       "avatar_url": "/assets/pixels/solo-leveling/avatars/baran.svg",
-      "description": "Sovereign of White Flames ruler of the Demon Castle 100th floor; summoned thunder and blue lightning.",
       "aliases": [
         "Monarch of White Flames"
-      ]
+      ],
+      "description": "Sovereign of White Flames ruler of the Demon Castle 100th floor; summoned thunder and blue lightning.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Demon King Baran",
+          "chapter": 80
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 80,
+      "revealed_at": 80
     },
     "rakan": {
       "id": "rakan",
       "type": "character",
       "name": "Beast Monarch Rakan",
       "avatar_url": "/assets/pixels/solo-leveling/avatars/rakan.svg",
-      "description": "Cruel Monarch of Fangs who ambushed Go Gun-hee and Sung Jin-woo in Seoul.",
       "aliases": [
         "King of Beasts"
-      ]
+      ],
+      "description": "Cruel Monarch of Fangs who ambushed Go Gun-hee and Sung Jin-woo in Seoul.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Beast Monarch Rakan",
+          "chapter": 155
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 155,
+      "revealed_at": 155
     },
     "sillad": {
       "id": "sillad",
       "type": "character",
       "name": "Frost Monarch Sillad",
       "avatar_url": "/assets/pixels/solo-leveling/avatars/sillad.svg",
-      "description": "Monarch of Frost capable of freezing continental cities in temporal stasis.",
       "aliases": [
         "King of Snow Folk"
-      ]
+      ],
+      "description": "Monarch of Frost capable of freezing continental cities in temporal stasis.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Frost Monarch Sillad",
+          "chapter": 155
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 155,
+      "revealed_at": 155
     },
     "sung-il-hwan": {
       "id": "sung-il-hwan",
       "type": "character",
       "name": "Sung Il-hwan",
       "avatar_url": "/assets/pixels/solo-leveling/avatars/sung-il-hwan.svg",
-      "description": "Trapped in a dungeon for a decade, granted divine Ruler power to protect his son from the Monarchs.",
       "aliases": [
         "Jin-woo’s Father / Ruler’s Emissary"
-      ]
+      ],
+      "description": "Trapped in a dungeon for a decade, granted divine Ruler power to protect his son from the Monarchs.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Sung Il-hwan",
+          "chapter": 10
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 10,
+      "revealed_at": 10
     },
     "yoo-jin-ho": {
       "id": "yoo-jin-ho",
       "type": "character",
       "name": "Yoo Jin-ho",
       "avatar_url": "/assets/pixels/solo-leveling/avatars/yoo-jin-ho.svg",
-      "description": "Yoojin Construction heir who pledged unyielding loyalty to Jin-woo across 20 dungeon raids.",
       "aliases": [
         "Vice-Guildmaster / Jin-woo’s Brother in Arms"
-      ]
+      ],
+      "description": "Yoojin Construction heir who pledged unyielding loyalty to Jin-woo across 20 dungeon raids.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Yoo Jin-ho",
+          "chapter": 18
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 18,
+      "revealed_at": 18
     },
     "lee-joo-hee": {
       "id": "lee-joo-hee",
       "type": "character",
       "name": "Lee Joo-hee",
       "avatar_url": "/assets/pixels/solo-leveling/avatars/lee-joo-hee.svg",
-      "description": "Compassionate B-Rank healer who patched up Jin-woo in the early days before the Cartenon Temple.",
       "aliases": [
         "B-Rank Healer"
-      ]
+      ],
+      "description": "Compassionate B-Rank healer who patched up Jin-woo in the early days before the Cartenon Temple.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Lee Joo-hee",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
     "sung-jin-ah": {
       "id": "sung-jin-ah",
       "type": "character",
       "name": "Sung Jin-ah",
       "avatar_url": "/assets/pixels/solo-leveling/avatars/sung-jin-ah.svg",
-      "description": "High school student protected by Jin-woo’s high orc shadows during the Orc Gate break.",
       "aliases": [
         "Jin-woo’s Younger Sister"
-      ]
+      ],
+      "description": "High school student protected by Jin-woo’s high orc shadows during the Orc Gate break.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Sung Jin-ah",
+          "chapter": 5
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 5,
+      "revealed_at": 5
     },
     "ev-double-dungeon": {
       "id": "ev-double-dungeon",
@@ -714,12 +1705,26 @@
       "arc_id": "arc-double-dungeon",
       "location_id": "loc-double-dungeon",
       "chapter": 2,
-      "event_type": "tragedy",
+      "event_type": "death",
       "involved_character_ids": [
         "sung-jin-woo",
         "lee-joo-hee"
       ],
-      "description": "The hunter party is massacred by colossal God Statues; Jin-woo is chosen by the System."
+      "aliases": [],
+      "description": "The hunter party is massacred by colossal God Statues; Jin-woo is chosen by the System.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Cartenon Temple Bloodbath",
+          "chapter": 2
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 2,
+      "revealed_at": 2
     },
     "ev-awakening": {
       "id": "ev-awakening",
@@ -732,7 +1737,21 @@
       "involved_character_ids": [
         "sung-jin-woo"
       ],
-      "description": "Jin-woo wakes in a hospital bed with a floating quest window visible only to him."
+      "aliases": [],
+      "description": "Jin-woo wakes in a hospital bed with a floating quest window visible only to him.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Courage of the Weak Awakening",
+          "chapter": 10
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 10,
+      "revealed_at": 10
     },
     "ev-igris-duel": {
       "id": "ev-igris-duel",
@@ -746,7 +1765,21 @@
         "sung-jin-woo",
         "igris"
       ],
-      "description": "Jin-woo defeats Blood-Red Commander Igris in hand-to-hand combat and receives the Shadow Lord title."
+      "aliases": [],
+      "description": "Jin-woo defeats Blood-Red Commander Igris in hand-to-hand combat and receives the Shadow Lord title.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Job Change Trial: Blood-Red Igris",
+          "chapter": 45
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 45,
+      "revealed_at": 45
     },
     "ev-igris-extracted": {
       "id": "ev-igris-extracted",
@@ -760,7 +1793,21 @@
         "sung-jin-woo",
         "igris"
       ],
-      "description": "Jin-woo utters \"ARISE\" to extract Igris and his royal knight shadow army."
+      "aliases": [],
+      "description": "Jin-woo utters \"ARISE\" to extract Igris and his royal knight shadow army.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "First Shadow Extraction: Arise",
+          "chapter": 46
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 46,
+      "revealed_at": 46
     },
     "ev-red-gate-break": {
       "id": "ev-red-gate-break",
@@ -775,7 +1822,21 @@
         "tank",
         "iron"
       ],
-      "description": "Jin-woo slays the White Walker leader Baruka and extracts Iron and Tank."
+      "aliases": [],
+      "description": "Jin-woo slays the White Walker leader Baruka and extracts Iron and Tank.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Red Gate Ice Domain Conquest",
+          "chapter": 55
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 55,
+      "revealed_at": 55
     },
     "ev-re-evaluation": {
       "id": "ev-re-evaluation",
@@ -790,7 +1851,21 @@
         "go-gun-hee",
         "woo-jin-chul"
       ],
-      "description": "The Association’s mana sensor shatters; Jin-woo is officially registered as Korea’s 10th S-Rank."
+      "aliases": [],
+      "description": "The Association’s mana sensor shatters; Jin-woo is officially registered as Korea’s 10th S-Rank.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Official S-Rank Re-Evaluation",
+          "chapter": 62
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 62,
+      "revealed_at": 62
     },
     "ev-baran-slain": {
       "id": "ev-baran-slain",
@@ -805,7 +1880,21 @@
         "baran",
         "kaisel"
       ],
-      "description": "Jin-woo executes Demon King Baran, claims the Holy Water of Life, and extracts Wyvern Kaisel."
+      "aliases": [],
+      "description": "Jin-woo executes Demon King Baran, claims the Holy Water of Life, and extracts Wyvern Kaisel.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Monarch Baran Overthrown",
+          "chapter": 80
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 80,
+      "revealed_at": 80
     },
     "ev-jeju-landing": {
       "id": "ev-jeju-landing",
@@ -821,7 +1910,21 @@
         "baek-yoon-ho",
         "goto-ryuji"
       ],
-      "description": "Korean and Japanese S-Rank strike teams launch an amphibious raid into the ant hive."
+      "aliases": [],
+      "description": "Korean and Japanese S-Rank strike teams launch an amphibious raid into the ant hive.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Fourth Jeju Island Raid Commences",
+          "chapter": 95
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 95,
+      "revealed_at": 95
     },
     "ev-min-sacrifice": {
       "id": "ev-min-sacrifice",
@@ -830,12 +1933,26 @@
       "arc_id": "arc-jeju-raid",
       "location_id": "loc-ant-queen-nest",
       "chapter": 100,
-      "event_type": "tragedy",
+      "event_type": "death",
       "involved_character_ids": [
         "min-byung-gu",
         "goto-ryuji"
       ],
-      "description": "The mutant Ant King decapitates Goto Ryuji and mortally wounds healer Min Byung-gu."
+      "aliases": [],
+      "description": "The mutant Ant King decapitates Goto Ryuji and mortally wounds healer Min Byung-gu.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Min Byung-gu Slain by Ant King",
+          "chapter": 100
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 100,
+      "revealed_at": 100
     },
     "ev-jinwoo-arrival": {
       "id": "ev-jinwoo-arrival",
@@ -849,7 +1966,21 @@
         "sung-jin-woo",
         "cha-hae-in"
       ],
-      "description": "Jin-woo teleports directly to Cha Hae-in’s shadow and confronts the Ant King."
+      "aliases": [],
+      "description": "Jin-woo teleports directly to Cha Hae-in’s shadow and confronts the Ant King.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Shadow Exchange into Halla Crater",
+          "chapter": 102
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 102,
+      "revealed_at": 102
     },
     "ev-beru-extracted": {
       "id": "ev-beru-extracted",
@@ -863,7 +1994,21 @@
         "sung-jin-woo",
         "beru"
       ],
-      "description": "Jin-woo extracts the Ant King, naming him Beru; Beru kneels with tears of absolute loyalty."
+      "aliases": [],
+      "description": "Jin-woo extracts the Ant King, naming him Beru; Beru kneels with tears of absolute loyalty.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Birth of Shadow Marshal Beru",
+          "chapter": 105
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 105,
+      "revealed_at": 105
     },
     "ev-ahjin-founded": {
       "id": "ev-ahjin-founded",
@@ -877,7 +2022,21 @@
         "sung-jin-woo",
         "yoo-jin-ho"
       ],
-      "description": "Jin-woo and Yoo Jin-ho establish Ahjin Guild, bypassing the major corporate conglomerates."
+      "aliases": [],
+      "description": "Jin-woo and Yoo Jin-ho establish Ahjin Guild, bypassing the major corporate conglomerates.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Ahjin Guild Founded",
+          "chapter": 118
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 118,
+      "revealed_at": 118
     },
     "ev-thomas-clash": {
       "id": "ev-thomas-clash",
@@ -891,7 +2050,21 @@
         "sung-jin-woo",
         "thomas-andre"
       ],
-      "description": "Thomas Andre intervenes to protect Hwang Dong-soo; Jin-woo dismantles the Goliath with bare fists."
+      "aliases": [],
+      "description": "Thomas Andre intervenes to protect Hwang Dong-soo; Jin-woo dismantles the Goliath with bare fists.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Maryland Showdown: Jin-woo vs Goliath",
+          "chapter": 145
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 145,
+      "revealed_at": 145
     },
     "ev-gogunhee-death": {
       "id": "ev-gogunhee-death",
@@ -900,12 +2073,26 @@
       "arc_id": "arc-monarch-war",
       "location_id": "loc-seoul-assoc",
       "chapter": 152,
-      "event_type": "tragedy",
+      "event_type": "death",
       "involved_character_ids": [
         "go-gun-hee",
         "rakan"
       ],
-      "description": "Beast Monarch Rakan pierces Go Gun-hee’s heart before Jin-woo can arrive."
+      "aliases": [],
+      "description": "Beast Monarch Rakan pierces Go Gun-hee’s heart before Jin-woo can arrive.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Assassination of Go Gun-hee",
+          "chapter": 152
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 152,
+      "revealed_at": 152
     },
     "ev-ashborn-heritage": {
       "id": "ev-ashborn-heritage",
@@ -919,7 +2106,21 @@
         "sung-jin-woo",
         "ashborn"
       ],
-      "description": "In the territory of eternal rest, Ashborn relinquishes his Black Heart completely to Jin-woo."
+      "aliases": [],
+      "description": "In the territory of eternal rest, Ashborn relinquishes his Black Heart completely to Jin-woo.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Ashborn Passes the Crown of Death",
+          "chapter": 162
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 162,
+      "revealed_at": 162
     },
     "ev-bellion-arrival": {
       "id": "ev-bellion-arrival",
@@ -934,7 +2135,21 @@
         "bellion",
         "beru"
       ],
-      "description": "Grand Marshal Bellion and hundreds of thousands of ancient shadows arrive to serve their master."
+      "aliases": [],
+      "description": "Grand Marshal Bellion and hundreds of thousands of ancient shadows arrive to serve their master.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Colossal Gate Opens in Seoul Skies",
+          "chapter": 165
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 165,
+      "revealed_at": 165
     },
     "ev-antares-showdown": {
       "id": "ev-antares-showdown",
@@ -948,7 +2163,21 @@
         "sung-jin-woo",
         "antares"
       ],
-      "description": "The Shadow Army and the Destruction Dragon Legion collide in a planetary duel of extinction."
+      "aliases": [],
+      "description": "The Shadow Army and the Destruction Dragon Legion collide in a planetary duel of extinction.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Clash of the Primordial Sovereigns",
+          "chapter": 175
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 175,
+      "revealed_at": 175
     },
     "ev-time-reset": {
       "id": "ev-time-reset",
@@ -961,7 +2190,21 @@
       "involved_character_ids": [
         "sung-jin-woo"
       ],
-      "description": "Jin-woo resets time by 10 years, choosing to fight the Monarchs alone inside the Dimensional Rift."
+      "aliases": [],
+      "description": "Jin-woo resets time by 10 years, choosing to fight the Monarchs alone inside the Dimensional Rift.",
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Cup of Reincarnation Reset",
+          "chapter": 185
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 185,
+      "revealed_at": 185
     }
   },
   "facts": {
@@ -2284,6 +3527,116 @@
         "created_at": "2026-09-28T00:00:00Z"
       },
       "canon_status": "canon"
+    },
+    "fact-sung-jin-woo-stage-1": {
+      "id": "fact-sung-jin-woo-stage-1",
+      "entity_id": "sung-jin-woo",
+      "predicate": "power_stage",
+      "value": "stage-e-d-rank",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": 35,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Sung Jin-woo",
+          "chapter": 1
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-sung-jin-woo-stage-2": {
+      "id": "fact-sung-jin-woo-stage-2",
+      "entity_id": "sung-jin-woo",
+      "predicate": "power_stage",
+      "value": "stage-c-b-rank",
+      "temporal": {
+        "valid_from": 36,
+        "valid_to": 61,
+        "revealed_at": 36
+      },
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Sung Jin-woo",
+          "chapter": 36
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-sung-jin-woo-stage-3": {
+      "id": "fact-sung-jin-woo-stage-3",
+      "entity_id": "sung-jin-woo",
+      "predicate": "power_stage",
+      "value": "stage-s-rank",
+      "temporal": {
+        "valid_from": 62,
+        "valid_to": 119,
+        "revealed_at": 62
+      },
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Sung Jin-woo",
+          "chapter": 62
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-sung-jin-woo-stage-4": {
+      "id": "fact-sung-jin-woo-stage-4",
+      "entity_id": "sung-jin-woo",
+      "predicate": "power_stage",
+      "value": "stage-national-level",
+      "temporal": {
+        "valid_from": 120,
+        "valid_to": 161,
+        "revealed_at": 120
+      },
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Sung Jin-woo",
+          "chapter": 120
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-sung-jin-woo-stage-5": {
+      "id": "fact-sung-jin-woo-stage-5",
+      "entity_id": "sung-jin-woo",
+      "predicate": "power_stage",
+      "value": "stage-shadow-monarch",
+      "temporal": {
+        "valid_from": 162,
+        "valid_to": null,
+        "revealed_at": 162
+      },
+      "provenance": {
+        "source": {
+          "series": "solo-leveling",
+          "page": "Sung Jin-woo",
+          "chapter": 162
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
     }
   },
   "relationships": {
@@ -2291,7 +3644,7 @@
       "id": "rel-jinwoo-igris",
       "source_id": "sung-jin-woo",
       "target_id": "igris",
-      "relationship_type": "master_shadow",
+      "predicate": "MASTER_OF",
       "label": "Shadow Commander",
       "temporal": {
         "valid_from": 1,
@@ -2301,7 +3654,8 @@
       "provenance": {
         "source": {
           "series": "solo-leveling",
-          "page": "Relationships"
+          "page": "Relationships",
+          "chapter": 1
         },
         "extracted_by": "manual",
         "confidence": 1,
@@ -2313,7 +3667,7 @@
       "id": "rel-jinwoo-beru",
       "source_id": "sung-jin-woo",
       "target_id": "beru",
-      "relationship_type": "master_shadow",
+      "predicate": "MASTER_OF",
       "label": "Shadow Marshal",
       "temporal": {
         "valid_from": 1,
@@ -2323,7 +3677,8 @@
       "provenance": {
         "source": {
           "series": "solo-leveling",
-          "page": "Relationships"
+          "page": "Relationships",
+          "chapter": 1
         },
         "extracted_by": "manual",
         "confidence": 1,
@@ -2335,7 +3690,7 @@
       "id": "rel-jinwoo-bellion",
       "source_id": "sung-jin-woo",
       "target_id": "bellion",
-      "relationship_type": "master_shadow",
+      "predicate": "MASTER_OF",
       "label": "Grand Marshal",
       "temporal": {
         "valid_from": 1,
@@ -2345,7 +3700,8 @@
       "provenance": {
         "source": {
           "series": "solo-leveling",
-          "page": "Relationships"
+          "page": "Relationships",
+          "chapter": 1
         },
         "extracted_by": "manual",
         "confidence": 1,
@@ -2357,7 +3713,7 @@
       "id": "rel-jinwoo-tank",
       "source_id": "sung-jin-woo",
       "target_id": "tank",
-      "relationship_type": "master_shadow",
+      "predicate": "MASTER_OF",
       "label": "Shadow Alpha Beast",
       "temporal": {
         "valid_from": 1,
@@ -2367,7 +3723,8 @@
       "provenance": {
         "source": {
           "series": "solo-leveling",
-          "page": "Relationships"
+          "page": "Relationships",
+          "chapter": 1
         },
         "extracted_by": "manual",
         "confidence": 1,
@@ -2379,7 +3736,7 @@
       "id": "rel-jinwoo-iron",
       "source_id": "sung-jin-woo",
       "target_id": "iron",
-      "relationship_type": "master_shadow",
+      "predicate": "MASTER_OF",
       "label": "Shadow Vanguard Knight",
       "temporal": {
         "valid_from": 1,
@@ -2389,7 +3746,8 @@
       "provenance": {
         "source": {
           "series": "solo-leveling",
-          "page": "Relationships"
+          "page": "Relationships",
+          "chapter": 1
         },
         "extracted_by": "manual",
         "confidence": 1,
@@ -2401,7 +3759,7 @@
       "id": "rel-jinwoo-tusk",
       "source_id": "sung-jin-woo",
       "target_id": "tusk",
-      "relationship_type": "master_shadow",
+      "predicate": "MASTER_OF",
       "label": "Shadow Elite Magus",
       "temporal": {
         "valid_from": 1,
@@ -2411,7 +3769,8 @@
       "provenance": {
         "source": {
           "series": "solo-leveling",
-          "page": "Relationships"
+          "page": "Relationships",
+          "chapter": 1
         },
         "extracted_by": "manual",
         "confidence": 1,
@@ -2423,7 +3782,7 @@
       "id": "rel-jinwoo-kaisel",
       "source_id": "sung-jin-woo",
       "target_id": "kaisel",
-      "relationship_type": "master_shadow",
+      "predicate": "MASTER_OF",
       "label": "Shadow Wyvern Steed",
       "temporal": {
         "valid_from": 1,
@@ -2433,7 +3792,8 @@
       "provenance": {
         "source": {
           "series": "solo-leveling",
-          "page": "Relationships"
+          "page": "Relationships",
+          "chapter": 1
         },
         "extracted_by": "manual",
         "confidence": 1,
@@ -2445,7 +3805,7 @@
       "id": "rel-jinwoo-jinho",
       "source_id": "sung-jin-woo",
       "target_id": "yoo-jin-ho",
-      "relationship_type": "sworn_brother",
+      "predicate": "ALLY_OF",
       "label": "Vice-Guildmaster & Sworn Ally",
       "temporal": {
         "valid_from": 1,
@@ -2455,7 +3815,8 @@
       "provenance": {
         "source": {
           "series": "solo-leveling",
-          "page": "Relationships"
+          "page": "Relationships",
+          "chapter": 1
         },
         "extracted_by": "manual",
         "confidence": 1,
@@ -2467,7 +3828,7 @@
       "id": "rel-jinwoo-chae",
       "source_id": "sung-jin-woo",
       "target_id": "cha-hae-in",
-      "relationship_type": "romantic_partner",
+      "predicate": "ALLY_OF",
       "label": "Romantic Partner & Vice-Guildmaster",
       "temporal": {
         "valid_from": 1,
@@ -2477,7 +3838,8 @@
       "provenance": {
         "source": {
           "series": "solo-leveling",
-          "page": "Relationships"
+          "page": "Relationships",
+          "chapter": 1
         },
         "extracted_by": "manual",
         "confidence": 1,
@@ -2489,7 +3851,7 @@
       "id": "rel-jinwoo-gogunhee",
       "source_id": "sung-jin-woo",
       "target_id": "go-gun-hee",
-      "relationship_type": "mentor",
+      "predicate": "ALLY_OF",
       "label": "Honored Mentor & Association President",
       "temporal": {
         "valid_from": 1,
@@ -2499,7 +3861,8 @@
       "provenance": {
         "source": {
           "series": "solo-leveling",
-          "page": "Relationships"
+          "page": "Relationships",
+          "chapter": 1
         },
         "extracted_by": "manual",
         "confidence": 1,
@@ -2511,7 +3874,7 @@
       "id": "rel-jinwoo-woojinchul",
       "source_id": "sung-jin-woo",
       "target_id": "woo-jin-chul",
-      "relationship_type": "alliance",
+      "predicate": "ALLY_OF",
       "label": "Trusted Liaison & Chairman",
       "temporal": {
         "valid_from": 1,
@@ -2521,7 +3884,8 @@
       "provenance": {
         "source": {
           "series": "solo-leveling",
-          "page": "Relationships"
+          "page": "Relationships",
+          "chapter": 1
         },
         "extracted_by": "manual",
         "confidence": 1,
@@ -2533,8 +3897,8 @@
       "id": "rel-jinwoo-thomas",
       "source_id": "sung-jin-woo",
       "target_id": "thomas-andre",
-      "relationship_type": "adversary_to_ally",
-      "label": "Respected Rival & Brother Sovereign",
+      "predicate": "RIVAL_OF",
+      "label": "Respected Rival & Fellow Sovereign",
       "temporal": {
         "valid_from": 1,
         "valid_to": null,
@@ -2543,7 +3907,8 @@
       "provenance": {
         "source": {
           "series": "solo-leveling",
-          "page": "Relationships"
+          "page": "Relationships",
+          "chapter": 1
         },
         "extracted_by": "manual",
         "confidence": 1,
@@ -2555,7 +3920,7 @@
       "id": "rel-jinwoo-antares",
       "source_id": "sung-jin-woo",
       "target_id": "antares",
-      "relationship_type": "nemesis",
+      "predicate": "ENEMY_OF",
       "label": "Arch-Nemesis / Cosmic Clash",
       "temporal": {
         "valid_from": 1,
@@ -2565,7 +3930,8 @@
       "provenance": {
         "source": {
           "series": "solo-leveling",
-          "page": "Relationships"
+          "page": "Relationships",
+          "chapter": 1
         },
         "extracted_by": "manual",
         "confidence": 1,
@@ -2577,7 +3943,7 @@
       "id": "rel-jinwoo-ashborn",
       "source_id": "sung-jin-woo",
       "target_id": "ashborn",
-      "relationship_type": "predecessor",
+      "predicate": "RELATED_TO",
       "label": "Predecessor Sovereign of Death",
       "temporal": {
         "valid_from": 1,
@@ -2587,7 +3953,8 @@
       "provenance": {
         "source": {
           "series": "solo-leveling",
-          "page": "Relationships"
+          "page": "Relationships",
+          "chapter": 1
         },
         "extracted_by": "manual",
         "confidence": 1,
@@ -2599,7 +3966,7 @@
       "id": "rel-jinwoo-father",
       "source_id": "sung-jin-woo",
       "target_id": "sung-il-hwan",
-      "relationship_type": "father_son",
+      "predicate": "RELATED_TO",
       "label": "Father / Ruler’s Guardian",
       "temporal": {
         "valid_from": 1,
@@ -2609,7 +3976,8 @@
       "provenance": {
         "source": {
           "series": "solo-leveling",
-          "page": "Relationships"
+          "page": "Relationships",
+          "chapter": 1
         },
         "extracted_by": "manual",
         "confidence": 1,
@@ -2621,7 +3989,7 @@
       "id": "rel-jinwoo-sister",
       "source_id": "sung-jin-woo",
       "target_id": "sung-jin-ah",
-      "relationship_type": "sibling",
+      "predicate": "RELATED_TO",
       "label": "Beloved Younger Sister",
       "temporal": {
         "valid_from": 1,
@@ -2631,7 +3999,8 @@
       "provenance": {
         "source": {
           "series": "solo-leveling",
-          "page": "Relationships"
+          "page": "Relationships",
+          "chapter": 1
         },
         "extracted_by": "manual",
         "confidence": 1,
@@ -2643,7 +4012,7 @@
       "id": "rel-cha-choi",
       "source_id": "cha-hae-in",
       "target_id": "choi-jong-in",
-      "relationship_type": "guildmate",
+      "predicate": "ALLY_OF",
       "label": "Hunters Guild Officers",
       "temporal": {
         "valid_from": 1,
@@ -2653,7 +4022,8 @@
       "provenance": {
         "source": {
           "series": "solo-leveling",
-          "page": "Relationships"
+          "page": "Relationships",
+          "chapter": 1
         },
         "extracted_by": "manual",
         "confidence": 1,
@@ -2665,7 +4035,7 @@
       "id": "rel-baek-jinwoo",
       "source_id": "baek-yoon-ho",
       "target_id": "sung-jin-woo",
-      "relationship_type": "alliance",
+      "predicate": "ALLY_OF",
       "label": "White Tiger Ally",
       "temporal": {
         "valid_from": 1,
@@ -2675,7 +4045,8 @@
       "provenance": {
         "source": {
           "series": "solo-leveling",
-          "page": "Relationships"
+          "page": "Relationships",
+          "chapter": 1
         },
         "extracted_by": "manual",
         "confidence": 1,
@@ -2687,7 +4058,7 @@
       "id": "rel-thomas-hwang",
       "source_id": "thomas-andre",
       "target_id": "hwang-dong-soo",
-      "relationship_type": "guildmaster",
+      "predicate": "MASTER_OF",
       "label": "Scavenger Guild Member",
       "temporal": {
         "valid_from": 1,
@@ -2697,7 +4068,8 @@
       "provenance": {
         "source": {
           "series": "solo-leveling",
-          "page": "Relationships"
+          "page": "Relationships",
+          "chapter": 1
         },
         "extracted_by": "manual",
         "confidence": 1,
@@ -2709,8 +4081,8 @@
       "id": "rel-antares-baran",
       "source_id": "antares",
       "target_id": "baran",
-      "relationship_type": "monarch_alliance",
-      "label": "Allied Monarch of Chaos",
+      "predicate": "ALLY_OF",
+      "label": "Allied Monarch of White Flames",
       "temporal": {
         "valid_from": 1,
         "valid_to": null,
@@ -2719,7 +4091,8 @@
       "provenance": {
         "source": {
           "series": "solo-leveling",
-          "page": "Relationships"
+          "page": "Relationships",
+          "chapter": 1
         },
         "extracted_by": "manual",
         "confidence": 1,
@@ -2731,7 +4104,7 @@
       "id": "rel-antares-rakan",
       "source_id": "antares",
       "target_id": "rakan",
-      "relationship_type": "monarch_alliance",
+      "predicate": "ALLY_OF",
       "label": "Allied Monarch of Fangs",
       "temporal": {
         "valid_from": 1,
@@ -2741,7 +4114,8 @@
       "provenance": {
         "source": {
           "series": "solo-leveling",
-          "page": "Relationships"
+          "page": "Relationships",
+          "chapter": 1
         },
         "extracted_by": "manual",
         "confidence": 1,
@@ -2753,7 +4127,7 @@
       "id": "rel-antares-sillad",
       "source_id": "antares",
       "target_id": "sillad",
-      "relationship_type": "monarch_alliance",
+      "predicate": "ALLY_OF",
       "label": "Allied Monarch of Frost",
       "temporal": {
         "valid_from": 1,
@@ -2763,7 +4137,8 @@
       "provenance": {
         "source": {
           "series": "solo-leveling",
-          "page": "Relationships"
+          "page": "Relationships",
+          "chapter": 1
         },
         "extracted_by": "manual",
         "confidence": 1,
