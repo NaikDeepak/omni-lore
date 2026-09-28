@@ -83,6 +83,9 @@ export function RpgWorldAtlas({
     return projectTemporalMap(mapDefinition, userChapter, { activeCharacterId });
   }, [mapDefinition, userChapter, activeCharacterId]);
 
+  const snapshotRef = useRef(snapshot);
+  snapshotRef.current = snapshot;
+
   // Selection Handlers
   const handleSelectLocation = useCallback(
     (id: string | null) => {
@@ -92,13 +95,13 @@ export function RpgWorldAtlas({
       onSelectLocationProp?.(id);
 
       if (id && rendererRef.current) {
-        const loc = snapshot.locations.find((l) => l.id === id);
+        const loc = snapshotRef.current.locations.find((l) => l.id === id);
         if (loc) {
           rendererRef.current.flyTo(loc.x, loc.y, 1.8, 450);
         }
       }
     },
-    [onSelectLocationProp, snapshot.locations]
+    [onSelectLocationProp]
   );
 
   const handleSelectRegion = useCallback(
