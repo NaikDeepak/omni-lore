@@ -1103,12 +1103,14 @@
     "fang-yuan": {
       "id": "fang-yuan",
       "type": "character",
-      "name": "Fang Yuan",
+      "name": "Great Love Demon Venerable",
       "aliases": [
+        "Fang Yuan",
         "Gu Yue Fang Yuan",
         "Gu Yue Yi Shan",
         "Wolf King Chang Shan Yin",
         "Immortal Zombie Zhi Zhi",
+        "Immortal Zombie Fang Yuan",
         "Chu Ying",
         "Liu Guan Yi",
         "Great Love Demon Venerable",
@@ -1119,33 +1121,33 @@
       "reveals": [
         {
           "revealed_at": 210,
-          "masked_name": "Gu Yue Yi Shan",
-          "true_identity": "Fang Yuan"
+          "masked_name": "Gu Yue Fang Yuan",
+          "true_identity": "Gu Yue Yi Shan"
         },
         {
           "revealed_at": 410,
-          "masked_name": "Chang Shan Yin",
-          "true_identity": "Fang Yuan"
+          "masked_name": "Gu Yue Yi Shan",
+          "true_identity": "Wolf King Chang Shan Yin"
         },
         {
           "revealed_at": 650,
-          "masked_name": "Immortal Zombie Zhi Zhi",
-          "true_identity": "Fang Yuan"
+          "masked_name": "Wolf King Chang Shan Yin",
+          "true_identity": "Immortal Zombie Fang Yuan"
         },
         {
           "revealed_at": 1050,
-          "masked_name": "Chu Ying",
-          "true_identity": "Fang Yuan"
+          "masked_name": "Immortal Zombie Fang Yuan",
+          "true_identity": "Chu Ying"
         },
         {
           "revealed_at": 1150,
-          "masked_name": "Liu Guan Yi",
-          "true_identity": "Fang Yuan"
+          "masked_name": "Chu Ying",
+          "true_identity": "Liu Guan Yi"
         },
         {
           "revealed_at": 2200,
-          "masked_name": "Great Love Demon Venerable",
-          "true_identity": "Fang Yuan"
+          "masked_name": "Liu Guan Yi",
+          "true_identity": "Great Love Demon Venerable"
         }
       ],
       "provenance": {

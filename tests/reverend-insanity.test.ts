@@ -3,9 +3,10 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { LocalGitDataStore } from '../src/datastore/local-git-store';
 import { projectPowerLadder, projectTimeline } from '../src/projections';
-import { getCanonPresets } from '../src/engine/duel-simulator';
+import { getCanonPresets, simulateDuel } from '../src/engine/duel-simulator';
 import { validateWorldMap } from '../src/domain/map-schema';
 import { UNIVERSE_THEMES } from '../src/domain/themes';
+import { TemporalEngine } from '../src/engine/temporal-engine';
 
 describe('Reverend Insanity Universe Integration', () => {
   const store = new LocalGitDataStore();
@@ -44,6 +45,18 @@ describe('Reverend Insanity Universe Integration', () => {
     expect(validated.universeId).toBe('reverend-insanity');
   });
 
+  it('aligns loc-river-of-time firstAppearanceChapter between map.json and graph.json', async () => {
+    const graph = await store.getSeriesGraph('reverend-insanity');
+    const raw = fs.readFileSync(path.resolve(process.cwd(), 'data/reverend-insanity/map.json'), 'utf-8');
+    const mapData = JSON.parse(raw);
+
+    const graphRot = graph?.entities['loc-river-of-time'];
+    const mapRot = mapData.locations.find((l: any) => l.id === 'loc-river-of-time');
+
+    expect(graphRot?.first_appearance).toBe(600);
+    expect(mapRot?.firstAppearanceChapter).toBe(600);
+  });
+
   it('verifies theme is defined in UNIVERSE_THEMES', () => {
     const theme = UNIVERSE_THEMES['reverend-insanity'];
     expect(theme).toBeDefined();
@@ -64,12 +77,59 @@ describe('Reverend Insanity Universe Integration', () => {
     expect(timeline.arcs[0].name).toContain('Qing Mao');
   });
 
+  it('correctly resolves Fang Yuan temporal persona reveals across all key chapter boundaries', async () => {
+    const graph = await store.getSeriesGraph('reverend-insanity');
+    const fangYuan = graph!.entities['fang-yuan'];
+    expect(fangYuan).toBeDefined();
+
+    // Ch. 100 -> "Gu Yue Fang Yuan" (Early Qing Mao Mountain)
+    expect(TemporalEngine.resolveDisplayName(fangYuan, 100)).toEqual({
+      name: 'Gu Yue Fang Yuan',
+      isMasked: true,
+    });
+
+    // Ch. 300 -> "Gu Yue Yi Shan" (Caravan & Shang Clan City)
+    expect(TemporalEngine.resolveDisplayName(fangYuan, 300)).toEqual({
+      name: 'Gu Yue Yi Shan',
+      isMasked: true,
+    });
+
+    // Ch. 500 -> "Wolf King Chang Shan Yin" (Northern Plains Heroes Assembly)
+    expect(TemporalEngine.resolveDisplayName(fangYuan, 500)).toEqual({
+      name: 'Wolf King Chang Shan Yin',
+      isMasked: true,
+    });
+
+    // Ch. 800 -> "Immortal Zombie Fang Yuan" (Immortal Zombie Era)
+    expect(TemporalEngine.resolveDisplayName(fangYuan, 800)).toEqual({
+      name: 'Immortal Zombie Fang Yuan',
+      isMasked: true,
+    });
+
+    // Ch. 1100 -> "Chu Ying" (Eastern Sea Disguise)
+    expect(TemporalEngine.resolveDisplayName(fangYuan, 1100)).toEqual({
+      name: 'Chu Ying',
+      isMasked: true,
+    });
+
+    // Ch. 1500 -> "Liu Guan Yi" (Reverse Flow River Lord & Northern Plains Disguise)
+    expect(TemporalEngine.resolveDisplayName(fangYuan, 1500)).toEqual({
+      name: 'Liu Guan Yi',
+      isMasked: true,
+    });
+
+    // Ch. 2250 -> "Great Love Demon Venerable" (Venerable Era)
+    expect(TemporalEngine.resolveDisplayName(fangYuan, 2250)).toEqual({
+      name: 'Great Love Demon Venerable',
+      isMasked: false,
+    });
+  });
+
   it('simulates a canonical duel between Fang Yuan and Duke Long', async () => {
     const graph = await store.getSeriesGraph('reverend-insanity');
-    const { simulateDuel } = await import('../src/engine/duel-simulator');
     const duel = simulateDuel('fang-yuan', 'duke-long', 1750, graph!);
     expect(duel).toBeDefined();
-    expect(duel.fighterA.name).toBe('Fang Yuan');
+    expect(duel.fighterA.name).toBe('Great Love Demon Venerable');
     expect(duel.fighterB.name).toBe('Duke Long');
     expect(duel.rounds.length).toBeGreaterThan(0);
   });
