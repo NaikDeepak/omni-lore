@@ -36,8 +36,11 @@ import {
   Compass,
   Shield,
   Users,
-  Search
+  Search,
+  Volume2,
+  VolumeX
 } from 'lucide-react';
+import { useSoundEffects } from '../../lib/sound-effects';
 
 function getRelBadgeColor(label: string): string {
   const l = label.toLowerCase();
@@ -57,6 +60,7 @@ interface WorldExplorerProps {
 export function WorldExplorer({ graph }: WorldExplorerProps) {
   const totalChapters = graph.series.total_chapters;
   const theme = getUniverseTheme(graph.series.slug);
+  const { isMuted, toggleMute, playScrubberTick, playMenuSelect, playBreakthroughFanfare } = useSoundEffects();
 
   // Scrubber state
   const [userChapter, setUserChapter] = useState<number>(150);
@@ -143,6 +147,12 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
     if (graph.series.slug === 'demonic-emperor') {
       return ['zhuo-fan', 'luo-yunchang', 'chu-qingcheng', 'long-jiu', 'huangpu-qingtian', 'xie-tianshang'];
     }
+    if (graph.series.slug === 'solo-leveling') {
+      return ['sung-jin-woo', 'cha-hae-in', 'choi-jong-in', 'baek-yoon-ho', 'go-gun-hee', 'thomas-andre', 'igris', 'beru', 'antares'];
+    }
+    if (graph.series.slug === 'lord-of-the-mysteries') {
+      return ['klein-moretti', 'audrey-hall', 'alger-wilson', 'derrick-berg', 'fors-wall', 'leonard-mitchell', 'amon', 'adam', 'azik-eggers'];
+    }
     return ['linley-baruch', 'bebe', 'doehring-cowart', 'beirut', 'delia'];
   }, [graph.series.slug]);
 
@@ -199,6 +209,30 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
         { label: 'Ch 1315: Emperor Peak', chapter: 1315 },
       ];
     }
+    if (graph.series.slug === 'solo-leveling') {
+      return [
+        { label: 'Ch 1: Double Dungeon', chapter: 1 },
+        { label: 'Ch 45: Job Change (Igris)', chapter: 45 },
+        { label: 'Ch 55: Red Gate Incursion', chapter: 55 },
+        { label: 'Ch 80: Demon Castle F100', chapter: 80 },
+        { label: 'Ch 105: Jeju Island Raid', chapter: 105 },
+        { label: 'Ch 146: Scavenger Clash', chapter: 146 },
+        { label: 'Ch 175: Monarch War Finale', chapter: 175 },
+        { label: 'Ch 270: Epilogue Finale', chapter: 270 },
+      ];
+    }
+    if (graph.series.slug === 'lord-of-the-mysteries') {
+      return [
+        { label: 'Ch 1: Clown Transmigration', chapter: 1 },
+        { label: 'Ch 214: Faceless Sherlock', chapter: 214 },
+        { label: 'Ch 483: Crazy Gehrman', chapter: 483 },
+        { label: 'Ch 733: Dwayne Dantès', chapter: 733 },
+        { label: 'Ch 947: Red Priest War', chapter: 947 },
+        { label: 'Ch 1153: City of Silver', chapter: 1153 },
+        { label: 'Ch 1267: Miracle Invoker', chapter: 1267 },
+        { label: 'Ch 1395: Fool\'s Gambit', chapter: 1395 },
+      ];
+    }
     return [
       { label: 'Ch 1: Genesis', chapter: 1 },
       { label: 'Ch 8: Bebe Enters', chapter: 8 },
@@ -233,9 +267,24 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
           <p className="text-xs text-slate-400 mt-1 italic font-mono">{theme.tagline}</p>
         </div>
 
-        <div className="flex items-center gap-2 text-xs font-mono text-slate-400 bg-slate-900/90 px-3 py-1.5 rounded-lg border border-slate-700">
-          <Info className="w-4 h-4 text-amber-400" />
-          <span>Knowledge Boundary: Ch {graph.series.knowledge_boundary.latest_processed_chapter}</span>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={toggleMute}
+            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border font-pixel text-xs transition cursor-pointer ${
+              isMuted
+                ? 'bg-slate-900 border-slate-700 text-slate-500 hover:text-slate-400'
+                : 'bg-amber-500/10 border-amber-500/30 text-amber-300 hover:bg-amber-500/20 shadow-sm'
+            }`}
+            title={isMuted ? 'Unmute 8-Bit Audio' : 'Mute 8-Bit Audio'}
+          >
+            {isMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
+            <span>{isMuted ? 'SFX: OFF' : 'SFX: ON'}</span>
+          </button>
+
+          <div className="flex items-center gap-2 text-xs font-mono text-slate-400 bg-slate-900/90 px-3 py-1.5 rounded-lg border border-slate-700">
+            <Info className="w-4 h-4 text-amber-400" />
+            <span>Knowledge Boundary: Ch {graph.series.knowledge_boundary.latest_processed_chapter}</span>
+          </div>
         </div>
       </div>
 
@@ -272,7 +321,10 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
             min={1}
             max={totalChapters}
             value={userChapter}
-            onChange={(e) => setUserChapter(Number(e.target.value))}
+            onChange={(e) => {
+              setUserChapter(Number(e.target.value));
+              playScrubberTick();
+            }}
             className="w-full h-3 bg-slate-800 rounded-lg appearance-none cursor-pointer border border-slate-700"
           />
           <div className="flex justify-between text-[10px] font-pixel text-slate-500">
@@ -288,7 +340,10 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
           {milestones.map((m) => (
             <button
               key={m.chapter}
-              onClick={() => setUserChapter(m.chapter)}
+              onClick={() => {
+                setUserChapter(m.chapter);
+                playScrubberTick();
+              }}
               className={`text-[11px] font-pixel px-2.5 py-1 rounded transition border ${
                 userChapter === m.chapter
                   ? 'bg-amber-500 text-slate-950 font-bold border-amber-400 shadow'
@@ -304,7 +359,10 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
       {/* Retro Navigation Tabs */}
       <div className="flex flex-wrap gap-2 border-b border-slate-800 pb-3">
         <button
-          onClick={() => setActiveTab('map')}
+          onClick={() => {
+            setActiveTab('map');
+            playMenuSelect();
+          }}
           className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-pixel text-xs transition border ${
             activeTab === 'map'
               ? 'bg-cyan-500 text-slate-950 font-bold border-cyan-400 shadow-lg'
@@ -316,7 +374,10 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
         </button>
 
         <button
-          onClick={() => setActiveTab('ladder')}
+          onClick={() => {
+            setActiveTab('ladder');
+            playMenuSelect();
+          }}
           className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-pixel text-xs transition border ${
             activeTab === 'ladder'
               ? 'bg-amber-500 text-slate-950 font-bold border-amber-400 shadow-lg'
@@ -328,7 +389,10 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
         </button>
 
         <button
-          onClick={() => setActiveTab('journey')}
+          onClick={() => {
+            setActiveTab('journey');
+            playMenuSelect();
+          }}
           className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-pixel text-xs transition border ${
             activeTab === 'journey'
               ? 'bg-amber-500 text-slate-950 font-bold border-amber-400 shadow-lg'
@@ -340,7 +404,10 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
         </button>
 
         <button
-          onClick={() => setActiveTab('web')}
+          onClick={() => {
+            setActiveTab('web');
+            playMenuSelect();
+          }}
           className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-pixel text-xs transition border ${
             activeTab === 'web'
               ? 'bg-indigo-500 text-white font-bold border-indigo-400 shadow-lg'
@@ -352,7 +419,10 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
         </button>
 
         <button
-          onClick={() => setActiveTab('timeline')}
+          onClick={() => {
+            setActiveTab('timeline');
+            playMenuSelect();
+          }}
           className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-pixel text-xs transition border ${
             activeTab === 'timeline'
               ? 'bg-purple-500 text-white font-bold border-purple-400 shadow-lg'
@@ -364,7 +434,10 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
         </button>
 
         <button
-          onClick={() => setActiveTab('duel')}
+          onClick={() => {
+            setActiveTab('duel');
+            playMenuSelect();
+          }}
           className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-pixel text-xs transition border ${
             activeTab === 'duel'
               ? 'bg-rose-600 text-white font-bold border-rose-400 shadow-lg'
@@ -452,6 +525,7 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
                             onClick={(e) => {
                               e.stopPropagation();
                               setSelectedRealmTier(tier);
+                              playBreakthroughFanfare();
                             }}
                             className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-950/60 border border-amber-500/50 text-amber-300 hover:bg-amber-900/60 hover:text-amber-200 text-[10px] font-pixel transition shadow-sm"
                             title="Open Canonical Realm Codex"

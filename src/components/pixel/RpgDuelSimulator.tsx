@@ -10,6 +10,7 @@ import {
   DuelResult,
   DuelPreset,
 } from '@/engine/duel-simulator';
+import { SoundEngine } from '@/lib/sound-effects';
 import {
   Swords,
   Trophy,
@@ -86,19 +87,34 @@ export function RpgDuelSimulator({
     setIsSimulating(true);
     setActiveRoundIndex(0);
 
+    // Initial strike sound
+    if (duelResult.rounds[0]?.isCritical) {
+      SoundEngine.playCombatCrit();
+    } else {
+      SoundEngine.playCombatHit();
+    }
+
     let round = 0;
     const interval = setInterval(() => {
       round++;
       if (round < duelResult.rounds.length) {
         setActiveRoundIndex(round);
+        const r = duelResult.rounds[round];
+        if (r?.isCritical) {
+          SoundEngine.playCombatCrit();
+        } else {
+          SoundEngine.playCombatHit();
+        }
       } else {
         clearInterval(interval);
         setIsSimulating(false);
+        SoundEngine.playVictoryJingle();
       }
     }, 1100);
   };
 
   const handleApplyPreset = (preset: DuelPreset) => {
+    SoundEngine.playMenuSelect();
     setFighterAId(preset.fighterA);
     setFighterBId(preset.fighterB);
     if (onChapterChange) {
@@ -202,7 +218,10 @@ export function RpgDuelSimulator({
             <div className="flex-1 min-w-0">
               <select
                 value={fighterAId}
-                onChange={(e) => setFighterAId(e.target.value)}
+                onChange={(e) => {
+                  setFighterAId(e.target.value);
+                  SoundEngine.playMenuSelect();
+                }}
                 className="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs font-pixel text-white focus:outline-none focus:border-cyan-400"
               >
                 {characters.map((c) => (
@@ -293,7 +312,10 @@ export function RpgDuelSimulator({
             <div className="flex-1 min-w-0">
               <select
                 value={fighterBId}
-                onChange={(e) => setFighterBId(e.target.value)}
+                onChange={(e) => {
+                  setFighterBId(e.target.value);
+                  SoundEngine.playMenuSelect();
+                }}
                 className="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs font-pixel text-white focus:outline-none focus:border-rose-400"
               >
                 {characters.map((c) => (
@@ -415,7 +437,10 @@ export function RpgDuelSimulator({
               </div>
 
               <button
-                onClick={() => setActiveRoundIndex(-1)}
+                onClick={() => {
+                  setActiveRoundIndex(-1);
+                  SoundEngine.playMenuSelect();
+                }}
                 className="py-1.5 px-3 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-white text-xs font-pixel flex items-center gap-1.5 transition"
               >
                 <RotateCcw className="w-3.5 h-3.5" /> REPLAY

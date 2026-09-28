@@ -4,6 +4,7 @@ import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { MapPlaneItem, MapLocationItem } from '../../projections/world-map';
 import { PixelGauge } from './PixelGauge';
 import { PixelAvatar } from './PixelAvatar';
+import { SoundEngine } from '../../lib/sound-effects';
 import { 
   Compass, 
   MapPin, 
@@ -316,6 +317,7 @@ export function PixelMapCanvas({
                   setSelectedPlaneIndex(-1);
                   setActiveLocation(null);
                   handleResetView();
+                  SoundEngine.playPlaneWarp();
                 }}
                 className={`text-xs px-3 py-1 rounded transition font-pixel flex items-center gap-1.5 ${
                   selectedPlaneIndex === -1
@@ -334,6 +336,7 @@ export function PixelMapCanvas({
                   setSelectedPlaneIndex(idx);
                   setActiveLocation(null);
                   handleResetView();
+                  SoundEngine.playPlaneWarp();
                 }}
                 className={`text-xs px-3 py-1 rounded transition font-pixel flex items-center gap-1.5 ${
                   selectedPlaneIndex === idx
