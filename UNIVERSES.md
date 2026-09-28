@@ -6,9 +6,9 @@
 
 ---
 
-## 🌌 1. The 5 Benchmark Universes
+## 🌌 1. The 6 Benchmark Universes
 
-OmniLore models five diverse fictional cosmologies to stress-test the temporal knowledge graph engine across cultivation, litRPG, steampunk occult, and epic manga.
+OmniLore models six diverse fictional cosmologies to stress-test the temporal knowledge graph engine across cultivation, litRPG, steampunk occult, epic manga, and ruthless GuDao xianxia.
 
 ```mermaid
 flowchart TD
@@ -17,6 +17,7 @@ flowchart TD
     SL["⚔ Solo Leveling<br/>Modern LitRPG / Gates<br/>270 Chapters (Completed)"]
     LOTM["👁 Lord of the Mysteries<br/>Victorian Occult / Potions<br/>1432 Chapters Indexed"]
     OP["☠ One Piece<br/>Epic Nautical Manga<br/>1110+ Chapters Indexed"]
+    RI["🦗 Reverend Insanity<br/>Gu Cultivation / Xianxia<br/>2334 Chapters (Completed)"]
 ```
 
 ---
@@ -111,6 +112,46 @@ flowchart TD
   * T5: Yonko / Fleet Admiral (Bounties 2B–4B)
   * T6: Pirate King & World Government Apex (Roger, Joy Boy, Imu)
 * **Protagonist Journey:** Monkey D. Luffy (East Blue $\rightarrow$ Gear 2nd Ch. 390 $\rightarrow$ Marineford Ch. 574 $\rightarrow$ Gear 4th Ch. 784 $\rightarrow$ Gear 5th Sun God Nika Ch. 1044).
+
+---
+
+### 2.6 Reverend Insanity (`reverend-insanity`)
+* **Status:** Completed (2334 Chapters)
+* **Author:** Gu Zhen Ren (Gu Dao Zhen Ren / 蛊真人)
+* **Cosmology & Planes:**
+  * **Mortal Five Regions:** The mortal realm split by turbulent Regional Walls: Southern Border (Karst mountains, clan strongholds), Central Continent (Vast fertile plains ruled by Heavenly Court sects), Northern Plains (Grasslands and sacred Imperial Court blessed land), Western Desert (Oasis merchant leagues), and Eastern Sea (Maritime archipelagos).
+  * **Immemorial Two Heavens:** Surviving celestial realms (White Heaven and Black Heaven) encircling the five regions, remnants of the ancient shattered Nine Heavens.
+  * **Cosmic River of Time:** Transcendent temporal current connecting the past, present, and future of the Gu world, housing Red Lotus's Stone Lotus Islands and secluded time path inheritances.
+* **Power System (Gu Master & Gu Immortal Ranks 1–9):**
+  * T1: Rank 1 Gu Master (Bronze Relic Sea / Green Copper Essence / Opening Aperture)
+  * T2: Rank 2 Gu Master (Iron Relic Sea / Red Steel Essence)
+  * T3: Rank 3 Gu Master (Silver Relic Sea / White Silver Essence)
+  * T4: Rank 4 Gu Master (Gold Relic Sea / Yellow Gold Essence)
+  * T5: Rank 5 Gu Master (Purple Crystal Sea / Mortal Apex)
+  * T6: Rank 6 Gu Immortal (Green Grape Immortal Essence / Tribulations & Calamities)
+  * T7: Rank 7 Gu Immortal (Red Date Immortal Essence / Immortal Battlefield Killers)
+  * T8: Rank 8 Gu Immortal (White Litchi Immortal Essence / Grotto-Heaven Master / Great Expert)
+  * T9: Rank 9 Venerable (Yellow Apricot Immortal Essence / Supreme Grandmaster of Dao / Unchallenged Hegemon)
+* **Major Factions:**
+  * **Southern Border Clans:** Gu Yue Clan, Bai Clan, Shang Clan, Tie Clan, Wu Clan.
+  * **Central Continent:** Heavenly Court (Oldest human power founded by Primordial Origin 3 million years ago), Spirit Affinity House, 10 Great Ancient Sects.
+  * **Northern Plains:** Longevity Heaven, Huang Jin Bloodline Tribes.
+  * **Other Major Powers:** Shadow Sect (Spectral Soul remnants), Lang Ya Sect (Refinement Path Grotto-Heaven), Zombie Alliance.
+* **Protagonist Journey:** Fang Yuan (Gu Yue Fang Yuan)
+  * *Rebirth via Spring Autumn Cicada:* Returns 500 years into the past as a C-grade talent youth on Qing Mao Mountain (Ch. 1).
+  * *Mortal Ascendance:* Qing Mao blood sacrifice (Rank 3) $\rightarrow$ Shang Clan City battle arena (Rank 4) $\rightarrow$ San Cha Mountain Three Kings inheritance rebirth (Rank 5).
+  * *Imperial Court Collapse:* Destroys Eighty-Eight True Yang Building and ascends to Rank 6 Immortal Zombie in Northern Plains (Ch. 640–650).
+  * *Yi Tian Mountain & Fetus Snatch:* Thwarts Spectral Soul and seizes the Rank 9 Sovereign Immortal Fetus Gu (Ch. 1021).
+  * *Reverse Flow River Breakthrough:* Persists against all odds through Reverse Flow River, establishing the Reverse Flow Protection Seal and defying Rank 8 immortals (Ch. 1285).
+  * *Destruction of Fate Gu:* Leads the allied rebellion to destroy Fate Gu in Heavenly Court during the Great Fate War (Ch. 1968).
+  * *Rank 9 Hegemony:* Ascends to Rank 9 Heaven Refining Demon Venerable / "Great Love Demon Venerable", fighting Star Constellation and Giant Sun in Crazed Demon Cave and across the five regions (Ch. 2210+).
+* **Temporal Personas & Masked Aliases:**
+  * *Gu Yue Yi Shan* (Ch. 201–210: Caravan merchant disguise)
+  * *Chang Shan Yin* (Ch. 406–649: Wolf King identity in Northern Plains)
+  * *Immortal Zombie Zhi Zhi* (Ch. 650–950: Hu Immortal blessed land master)
+  * *Chu Ying* (Ch. 1050–1150: Eastern Sea immortal disguise)
+  * *Liu Guan Yi* (Ch. 1285–1400: Reverse Flow River conqueror identity)
+  * *Great Love Demon Venerable* (Ch. 2210+: Venerable unmasking to the world)
 
 ---
 

@@ -13,7 +13,8 @@ This document tracks all features, bug fixes, enhancements, and technical debt f
 | 🔥 **P0** | Foundation & Core Explorers | **DONE** | **100% (4/4)** |
 | 🟠 **P1** | Rich World Engagement & Cartography | **DONE** | **100% (4/4)** |
 | 🚀 **EXT** | OmniLore Reader Chrome Extension (MV3) | **DONE** | **100% (6/6)** |
-| 🟢 **P2** | AI Intelligence & Universe Expansion | **PLANNED** | **0% (0/2)** |
+| 🟢 **P2** | Map Engine v2 & 6th Universe Expansion | **DONE** | **100% (2/2)** |
+| 🟣 **P2.1** | AI Intelligence & Cosmic Arena | **PLANNED** | **0% (0/2)** |
 | 🟢 **P3** | Retention & Local Bookmarks | **IN PROGRESS** | **50% (1/2)** |
 
 ---
@@ -102,7 +103,27 @@ This document tracks all features, bug fixes, enhancements, and technical debt f
 
 ---
 
-## 🟢 Priority P2: AI Layer & Universe Expansion (In Progress)
+## 🟢 Priority P2: Map Engine v2 & 6th Universe Expansion (100% Complete)
+
+- [x] **Map Engine v2 & Interactive RPG Atlas**
+  - [x] 9-layer PixiJS 8 WebGL cartographic scene graph (`PixiWorldRenderer`).
+  - [x] Smooth camera controller (`CameraController`) with inertial pan, boundary clamping, and animated `flyTo`.
+  - [x] Multi-plane cartography, vector terrain polygons, dynamic travel routes, and waypoint character journey paths.
+  - [x] Faction spheres of influence with thematic border strokes and fills.
+  - [x] Zero-spoiler temporal map projection (`projectTemporalMap()`) and fog of war clearing.
+  - [x] Universal graph fallback adapter (`adaptGraphToWorldMap()`) synthesizing full map definitions for all universes.
+  - [x] Retro HUD controls with layer toggles, plane selector, minimap, and location dossier cards (`RpgWorldAtlas.tsx`).
+- [x] **Flagship 6th Universe: Reverend Insanity (`reverend-insanity`)**
+  - [x] 2,334 chapters indexed with complete 9-rank Gu cultivation hierarchy.
+  - [x] 3 spatial planes: Mortal Five Regions, Immemorial Two Heavens, Cosmic River of Time.
+  - [x] 81 entities: 26 figures, 10 factions, 18 locations, 6 canonical books/arcs, 9 historical milestones.
+  - [x] Multi-persona temporal identity unmasking for Fang Yuan across 6 distinct aliases (*Chang Shan Yin*, *Liu Guan Yi*, etc.).
+  - [x] 54 custom Xianxia retro pixel SVGs (avatars, faction crests, landmark pins).
+  - [x] 6 canonical duel presets in RPG Duel Simulator with signature moves.
+
+---
+
+## 🟣 Priority P2.1: AI Layer & Cosmic Arena (Next Milestone)
 
 - [ ] **Ask OmniLore (Spoiler-Safe AI Lore Companion)**
   - [ ] Implement slide-out chat drawer or modal powered by Gemini API.
@@ -116,7 +137,8 @@ This document tracks all features, bug fixes, enhancements, and technical debt f
     - Linley Baruch (Sovereign) vs. Sung Jin-Woo (Shadow Monarch)
     - Monkey D. Luffy (Gear 5) vs. Klein Moretti (Lord of Mysteries)
     - Zhuo Fan (Demonic Emperor) vs. Beirut (Lord of Darkness)
-  - [ ] Power system ontology comparison (Qi vs. Haki vs. Mana vs. Beyonder Potions).
+    - Fang Yuan (Demon Venerable) vs. Linley Baruch (Grand Mist Sovereign)
+  - [ ] Power system ontology comparison (Qi vs. Haki vs. Mana vs. Beyonder Potions vs. Gu Dao).
 
 ---
 
@@ -140,14 +162,14 @@ This document tracks all features, bug fixes, enhancements, and technical debt f
 
 - [ ] **Mobile Touch Optimization:** Ensure pinch-to-zoom on `PixelMapCanvas.tsx` handles multi-touch gestures smoothly on mobile Safari/Chrome.
 - [ ] **Audio Policy Fallback:** Add graceful fallback for iOS Safari audio autoplay policy when SFX are unmuted.
-- [ ] **Universe Data Expansion:** Add pilot universe 6 (*Reverend Insanity* or *Omniscient Reader's Viewpoint*) to test another distinct cultivation / webnovel system.
+- [x] **Universe Data Expansion:** Add pilot universe 6 (*Reverend Insanity* complete with 2,334 chapters, 3 planes, 81 entities, and 54 pixel assets).
 
 ---
 
 ## 🧪 Verification Commands
  
 ```bash
-# Run Vitest test suite (Must pass 53/53 tests across 9 suites)
+# Run complete Vitest suite (Must pass 115/115 tests across 16 test files)
 npm test
 
 # Build Chrome Extension (Manifest V3 unpacked bundle in chrome-extension/dist)
