@@ -1,6 +1,7 @@
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import { CanonicalLoreGraph, SeriesMetadata } from '../domain/types';
+import { WorldMapDefinition } from '../domain/map-types';
 import { LoreDataStore } from './interface';
 
 export class LocalGitDataStore implements LoreDataStore {
@@ -20,6 +21,23 @@ export class LocalGitDataStore implements LoreDataStore {
 
   private getGraphPath(slug: string): string {
     return path.join(this.getSeriesDir(slug), 'graph.json');
+  }
+
+  private getMapPath(slug: string): string {
+    return path.join(this.getSeriesDir(slug), 'map.json');
+  }
+
+  public async getSeriesMap(slug: string): Promise<WorldMapDefinition | null> {
+    try {
+      const filePath = this.getMapPath(slug);
+      const raw = await fs.readFile(filePath, 'utf-8');
+      return JSON.parse(raw) as WorldMapDefinition;
+    } catch (err: any) {
+      if (err.code === 'ENOENT') {
+        return null;
+      }
+      throw err;
+    }
   }
 
   public async getSeriesGraph(slug: string): Promise<CanonicalLoreGraph | null> {

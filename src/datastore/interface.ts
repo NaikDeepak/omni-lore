@@ -1,4 +1,5 @@
 import { CanonicalLoreGraph, SeriesMetadata } from '../domain/types.js';
+import { WorldMapDefinition } from '../domain/map-types.js';
 
 export interface LoreDataStore {
   /**
@@ -20,4 +21,9 @@ export interface LoreDataStore {
    * Updates or registers series metadata.
    */
   saveSeriesRegistry(registry: SeriesMetadata[]): Promise<void>;
+
+  /**
+   * Retrieves the map definition for a series if one exists.
+   */
+  getSeriesMap?(slug: string): Promise<WorldMapDefinition | null>;
 }

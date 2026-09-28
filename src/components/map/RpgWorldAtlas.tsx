@@ -19,6 +19,7 @@ export interface RpgWorldAtlasProps {
   onSelectLocation?: (locationId: string | null) => void;
   onSelectRegion?: (regionId: string | null) => void;
   onSelectEvent?: (eventId: string | null) => void;
+  selectedLocationId?: string | null;
   activePlaneId?: string;
   planes?: PlaneOption[];
   onSelectPlane?: (planeId: string) => void;
@@ -53,6 +54,7 @@ export function RpgWorldAtlas({
   onSelectLocation: onSelectLocationProp,
   onSelectRegion: onSelectRegionProp,
   onSelectEvent: onSelectEventProp,
+  selectedLocationId: selectedLocationIdProp,
   activePlaneId: activePlaneIdProp,
   planes = [],
   onSelectPlane,
@@ -73,10 +75,23 @@ export function RpgWorldAtlas({
 
   const [mode, setMode] = useState<MapMode>(initialMode);
   const [visibleLayers, setVisibleLayers] = useState<MapVisibleLayers>(DEFAULT_VISIBLE_LAYERS);
-  const [selectedLocationId, setSelectedLocationId] = useState<string | null>(null);
+  const [selectedLocationId, setSelectedLocationId] = useState<string | null>(selectedLocationIdProp || null);
   const [selectedRegionId, setSelectedRegionId] = useState<string | null>(null);
   const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
   const [activePlaneId, setActivePlaneId] = useState<string>(activePlaneIdProp || planes[0]?.id || 'main');
+
+  // Synchronize controlled selectedLocationId prop changes
+  useEffect(() => {
+    if (selectedLocationIdProp !== undefined && selectedLocationIdProp !== selectedLocationId) {
+      setSelectedLocationId(selectedLocationIdProp);
+      if (selectedLocationIdProp && rendererRef.current) {
+        const loc = snapshotRef.current.locations.find((l) => l.id === selectedLocationIdProp);
+        if (loc) {
+          rendererRef.current.flyTo(loc.x, loc.y, 1.8, 450);
+        }
+      }
+    }
+  }, [selectedLocationIdProp]);
 
   // Compute Zero-Spoiler Projected Snapshot bounded strictly by userChapter
   const snapshot: ProjectedWorldMapSnapshot = useMemo(() => {

@@ -20,6 +20,8 @@ export default async function SeriesPage({ params }: SeriesPageProps) {
     notFound();
   }
 
-  return <WorldExplorer key={slug} graph={graph} />;
+  const mapDefinition = await store.getSeriesMap(slug);
+
+  return <WorldExplorer key={slug} graph={graph} mapDefinition={mapDefinition} />;
 }
 

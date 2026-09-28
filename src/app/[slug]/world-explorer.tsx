@@ -17,7 +17,10 @@ import { PixelAvatar } from '../../components/pixel/PixelAvatar';
 import { PixelGauge } from '../../components/pixel/PixelGauge';
 import { RpgStatusScreen } from '../../components/pixel/RpgStatusScreen';
 import { CharacterExplorer } from '../../components/pixel/CharacterExplorer';
-import { PixelMapCanvas } from '../../components/pixel/PixelMapCanvas';
+import { RpgWorldAtlas } from '../../components/map/RpgWorldAtlas';
+import { PlaneOption } from '../../components/map/MapHudControls';
+import { WorldMapDefinition } from '../../domain/map-types';
+import { adaptGraphToWorldMap } from '../../projections/map-adapter';
 import { PixelNetworkCanvas } from '../../components/pixel/PixelNetworkCanvas';
 import { NodeDossierDrawer } from '../../components/pixel/NodeDossierDrawer';
 import { RpgDuelSimulator } from '../../components/pixel/RpgDuelSimulator';
@@ -61,12 +64,28 @@ function getRelBadgeColor(label: string): string {
 
 interface WorldExplorerProps {
   graph: CanonicalLoreGraph;
+  mapDefinition?: WorldMapDefinition | null;
 }
 
-export function WorldExplorer({ graph }: WorldExplorerProps) {
+export function WorldExplorer({ graph, mapDefinition }: WorldExplorerProps) {
   const totalChapters = graph.series.total_chapters;
   const theme = getUniverseTheme(graph.series.slug);
   const { isMuted, toggleMute, playScrubberTick, playMenuSelect, playBreakthroughFanfare } = useSoundEffects();
+
+  const activeMapDefinition = useMemo(() => {
+    return adaptGraphToWorldMap(graph, mapDefinition);
+  }, [graph, mapDefinition]);
+
+  const mapPlanes: PlaneOption[] = useMemo(() => {
+    return Object.values(graph.entities)
+      .filter((e): e is import('../../domain/types').PlaneEntity => e.type === 'plane')
+      .sort((a, b) => a.tier_order - b.tier_order)
+      .map((p) => ({
+        id: p.id,
+        name: p.name,
+        description: p.description,
+      }));
+  }, [graph.entities]);
 
   // Scrubber state
   const [userChapter, setUserChapter] = useState<number>(150);
@@ -110,10 +129,14 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
     if (!graph.entities[selectedCharacterId]) {
       setSelectedCharacterId(defaultProtagonistId);
     }
-    if (selectedLocationId && !graph.entities[selectedLocationId]) {
+    if (
+      selectedLocationId &&
+      !graph.entities[selectedLocationId] &&
+      !activeMapDefinition.locations.some((l) => l.id === selectedLocationId)
+    ) {
       setSelectedLocationId(null);
     }
-  }, [graph.entities, selectedCharacterId, selectedLocationId, defaultProtagonistId]);
+  }, [graph.entities, selectedCharacterId, selectedLocationId, defaultProtagonistId, activeMapDefinition]);
 
   // User Bookmarks and Reading Progress state
   const [isBookmarksModalOpen, setIsBookmarksModalOpen] = useState(false);
@@ -155,11 +178,14 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
     } else {
       setSelectedCharacterId(defaultProtagonistId);
     }
-    if (locParam && graph.entities[locParam]) {
+    if (
+      locParam &&
+      (graph.entities[locParam] || activeMapDefinition.locations.some((l) => l.id === locParam))
+    ) {
       setSelectedLocationId(locParam);
     }
     setHasInitializedUrl(true);
-  }, [totalChapters, graph.entities, graph.series.slug, defaultProtagonistId]);
+  }, [totalChapters, graph.entities, graph.series.slug, defaultProtagonistId, activeMapDefinition]);
 
   // Debounced auto-save reading progress to local storage
   useEffect(() => {
@@ -607,15 +633,31 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
         {/* VIEW 1: PIXEL WORLD MAP (SHOWSTOPPER) */}
         {activeTab === 'map' && (
           <div className="space-y-4">
-            <PixelMapCanvas
-              seriesSlug={graph.series.slug}
-              seriesTitle={graph.series.title}
-              planes={worldMap.planes}
+            <RpgWorldAtlas
+              mapDefinition={activeMapDefinition}
               userChapter={userChapter}
               totalChapters={totalChapters}
-              onChapterChange={setUserChapter}
-              graph={graph}
+              universeSlug={graph.series.slug}
+              onChapterChange={(ch) => {
+                setUserChapter(ch);
+                playScrubberTick();
+              }}
               selectedLocationId={selectedLocationId}
+              onSelectLocation={(locId) => {
+                setSelectedLocationId(locId);
+              }}
+              planes={mapPlanes}
+              activeCharacterId={selectedCharacterId}
+              onJumpToJourney={(charId) => {
+                setSelectedCharacterId(charId);
+                setActiveTab('journey');
+                playMenuSelect();
+              }}
+              onSelectForDuel={(charId) => {
+                setDuelFighterA(charId);
+                setActiveTab('duel');
+                playMenuSelect();
+              }}
             />
           </div>
         )}
