@@ -255,6 +255,72 @@ function getTierLoreManual(stageId: string, seriesSlug: string) {
     }
   }
 
+  if (seriesSlug === 'reverend-insanity') {
+    if (s.includes('rank-1') || s.includes('rank 1')) {
+      return {
+        criteria: 'Awakening the aperture during the Hope Gu ceremony; refining first vital Gu with green copper primeval essence.',
+        risk: 'Low; mortality risk from wild beasts or backfiring Gu worms.',
+        phenomena: 'Green copper sea light radiating within the aperture walls.',
+      };
+    }
+    if (s.includes('rank-2') || s.includes('rank 2')) {
+      return {
+        criteria: 'Condensing aperture walls into stone; producing red iron primeval essence for sustained combat.',
+        risk: 'Moderate; aperture exhaustion during clan clan defense battles and beast tides.',
+        phenomena: 'Red iron essence ripples and solidifying stone membrane.',
+      };
+    }
+    if (s.includes('rank-3') || s.includes('rank 3')) {
+      return {
+        criteria: 'Condensing aperture walls into crystal; attaining white silver primeval essence and clan elder authority.',
+        risk: 'High; lethal clan skirmishes and intense aperture pressure.',
+        phenomena: 'Bright silver light illuminating the sea of consciousness.',
+      };
+    }
+    if (s.includes('rank-4') || s.includes('rank 4')) {
+      return {
+        criteria: 'Transmuting aperture walls into gold; producing yellow gold primeval essence; clan leader / stronghold master.',
+        risk: 'Very High; mortal faction wars and assassination by demonic cultivators.',
+        phenomena: 'Dazzling golden essence radiance and heavy physical aura suppression.',
+      };
+    }
+    if (s.includes('rank-5') || s.includes('rank 5')) {
+      return {
+        criteria: 'Refining purple crystal primeval essence; pinnacle of mortal cultivation across the Five Regions.',
+        risk: 'Severe; peak mortal tribulations and impending lifespan limitations.',
+        phenomena: 'Imperial purple aura crushing all lower-rank Gu Master apertures.',
+      };
+    }
+    if (s.includes('rank-6') || s.includes('rank 6')) {
+      return {
+        criteria: 'Gu Immortal Ascension: balancing Heaven Qi, Earth Qi, and Human Qi to create an immortal aperture (Blessed Land); refining green grape immortal essence.',
+        risk: 'Near-certain death; Earthly Calamities strike every 10 years without fail.',
+        phenomena: 'Birth of an independent miniature world; boundless Dao Marks manifest in flesh.',
+      };
+    }
+    if (s.includes('rank-7') || s.includes('rank 7')) {
+      return {
+        criteria: 'Enduring multiple Heavenly Tribulations; producing red date immortal essence; dominating regional politics.',
+        risk: 'Extreme; Heavenly Tribulations can obliterate entire blessed lands.',
+        phenomena: 'Sky-filling red clouds and immortal battlefield killer moves.',
+      };
+    }
+    if (s.includes('rank-8') || s.includes('rank 8')) {
+      return {
+        criteria: 'Surviving Grand Tribulations and Myriad Tribulations; producing white litchi immortal essence; living legends.',
+        risk: 'Catastrophic; Myriad Tribulations warp the laws of nature across thousands of miles.',
+        phenomena: 'Grotto-Heaven self-containment, white litchi radiance, absolute regional supremacy.',
+      };
+    }
+    if (s.includes('rank-9') || s.includes('rank 9') || s.includes('venerable')) {
+      return {
+        criteria: 'Refining all natural Dao Marks of a path; surviving Chaos Tribulations; attaining yellow apricot immortal essence; invincible throughout history.',
+        risk: 'Cosmic chaos; constant confrontation against Heaven’s Will and eternal lifespan exhaustion.',
+        phenomena: 'Supreme Grandmaster Dao Mark resonance, unmasking the secrets of eternal life.',
+      };
+    }
+  }
+
   return {
     criteria: 'Rigorous canonical training, epiphanies, and trial by combat.',
     risk: 'Moderate to high mortality under intense conflict.',

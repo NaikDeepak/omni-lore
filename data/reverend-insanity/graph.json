@@ -1,0 +1,3745 @@
+{
+  "series": {
+    "slug": "reverend-insanity",
+    "title": "Reverend Insanity",
+    "type": "cultivation",
+    "status": "completed",
+    "wiki_api_endpoint": "https://reverend-insanity.fandom.com/api.php",
+    "total_chapters": 2334,
+    "knowledge_boundary": {
+      "latest_processed_chapter": 2334,
+      "as_of": "2026-09-28T00:00:00.000Z"
+    }
+  },
+  "entities": {
+    "stage-rank-1": {
+      "id": "stage-rank-1",
+      "type": "power_stage",
+      "name": "Rank 1 Gu Master",
+      "order": 1,
+      "sub_level": "Initial / Middle / Upper / Peak",
+      "system_name": "Gu Cultivation System",
+      "description": "Awakening primeval sea; green copper essence.",
+      "aliases": [
+        "Rank 1 Gu Master"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Power Stages",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
+    },
+    "stage-rank-2": {
+      "id": "stage-rank-2",
+      "type": "power_stage",
+      "name": "Rank 2 Gu Master",
+      "order": 2,
+      "sub_level": "Initial / Middle / Upper / Peak",
+      "system_name": "Gu Cultivation System",
+      "description": "Stone aperture membrane; red iron essence.",
+      "aliases": [
+        "Rank 2 Gu Master"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Power Stages",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
+    },
+    "stage-rank-3": {
+      "id": "stage-rank-3",
+      "type": "power_stage",
+      "name": "Rank 3 Gu Master",
+      "order": 3,
+      "sub_level": "Initial / Middle / Upper / Peak",
+      "system_name": "Gu Cultivation System",
+      "description": "Crystal aperture membrane; white silver essence; elder status.",
+      "aliases": [
+        "Rank 3 Gu Master"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Power Stages",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
+    },
+    "stage-rank-4": {
+      "id": "stage-rank-4",
+      "type": "power_stage",
+      "name": "Rank 4 Gu Master",
+      "order": 4,
+      "sub_level": "Initial / Middle / Upper / Peak",
+      "system_name": "Gu Cultivation System",
+      "description": "Golden aperture membrane; yellow gold essence; clan leader / stronghold lord.",
+      "aliases": [
+        "Rank 4 Gu Master"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Power Stages",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
+    },
+    "stage-rank-5": {
+      "id": "stage-rank-5",
+      "type": "power_stage",
+      "name": "Rank 5 Gu Master",
+      "order": 5,
+      "sub_level": "Initial / Middle / Upper / Peak",
+      "system_name": "Gu Cultivation System",
+      "description": "Purple crystal aperture membrane; purple crystal essence; mortal peak.",
+      "aliases": [
+        "Rank 5 Gu Master"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Power Stages",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
+    },
+    "stage-rank-6": {
+      "id": "stage-rank-6",
+      "type": "power_stage",
+      "name": "Rank 6 Gu Immortal",
+      "order": 6,
+      "sub_level": "Earthly Calamities",
+      "system_name": "Gu Cultivation System",
+      "description": "Gu Immortal ascension with balanced heaven, earth, human qi; green grape immortal essence.",
+      "aliases": [
+        "Rank 6 Gu Immortal"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Power Stages",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
+    },
+    "stage-rank-7": {
+      "id": "stage-rank-7",
+      "type": "power_stage",
+      "name": "Rank 7 Gu Immortal",
+      "order": 7,
+      "sub_level": "Heavenly Tribulations",
+      "system_name": "Gu Cultivation System",
+      "description": "Red date immortal essence; dominating regional warfare.",
+      "aliases": [
+        "Rank 7 Gu Immortal"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Power Stages",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
+    },
+    "stage-rank-8": {
+      "id": "stage-rank-8",
+      "type": "power_stage",
+      "name": "Rank 8 Gu Immortal",
+      "order": 8,
+      "sub_level": "Grand & Myriad Tribulations",
+      "system_name": "Gu Cultivation System",
+      "description": "White litchi immortal essence; living legends and grotto-heaven rulers.",
+      "aliases": [
+        "Rank 8 Gu Immortal"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Power Stages",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
+    },
+    "stage-rank-9": {
+      "id": "stage-rank-9",
+      "type": "power_stage",
+      "name": "Rank 9 Venerable",
+      "order": 9,
+      "sub_level": "Chaos Tribulations",
+      "system_name": "Gu Cultivation System",
+      "description": "Yellow apricot immortal essence; invincible throughout history across heaven and earth.",
+      "aliases": [
+        "Rank 9 Venerable"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Power Stages",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
+    },
+    "plane-mortal-five-regions": {
+      "id": "plane-mortal-five-regions",
+      "type": "plane",
+      "name": "Mortal Five Regions",
+      "tier_order": 1,
+      "description": "Southern Border, Central Continent, Northern Plains, Western Desert, and Eastern Sea separated by regional walls.",
+      "aliases": [
+        "Mortal Five Regions"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Cosmology",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
+    },
+    "plane-two-heavens": {
+      "id": "plane-two-heavens",
+      "type": "plane",
+      "name": "Immemorial Two Heavens",
+      "tier_order": 2,
+      "description": "Remnants of the ancient Nine Heavens: White Heaven and Black Heaven.",
+      "aliases": [
+        "Immemorial Two Heavens"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Cosmology",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
+    },
+    "plane-river-of-time": {
+      "id": "plane-river-of-time",
+      "type": "plane",
+      "name": "Cosmic River of Time",
+      "tier_order": 3,
+      "description": "The universal temporal dimension carrying past, present, and future.",
+      "aliases": [
+        "Cosmic River of Time"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Cosmology",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
+    },
+    "arc-1-qing-mao": {
+      "id": "arc-1-qing-mao",
+      "type": "arc",
+      "name": "Book 1: Qing Mao Mountain",
+      "chapter_start": 1,
+      "chapter_end": 200,
+      "order": 1,
+      "description": "Fang Yuan’s rebirth, academy struggle, aperture cultivation, and blood sacrifice during the wolf tide.",
+      "aliases": [
+        "Book 1: Qing Mao Mountain"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Book 1: Qing Mao Mountain",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
+    },
+    "arc-2-caravan-shang": {
+      "id": "arc-2-caravan-shang",
+      "type": "arc",
+      "name": "Book 2: Caravan & Shang Clan",
+      "chapter_start": 201,
+      "chapter_end": 405,
+      "order": 2,
+      "description": "Journey with Shang Xin Ci, ascent through Shang Clan’s battle stages, and Three Kings Blessed Land reversal.",
+      "aliases": [
+        "Book 2: Caravan & Shang Clan"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Book 2: Caravan & Shang Clan",
+          "chapter": 201
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 201,
+      "revealed_at": 201
+    },
+    "arc-3-northern-plains": {
+      "id": "arc-3-northern-plains",
+      "type": "arc",
+      "name": "Book 3: Northern Plains & Imperial Court",
+      "chapter_start": 406,
+      "chapter_end": 649,
+      "order": 3,
+      "description": "Assumption of Chang Shan Yin persona, Imperial Court struggle, Eighty-Eight True Yang Building destruction, and zombie ascension.",
+      "aliases": [
+        "Book 3: Northern Plains & Imperial Court"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Book 3: Northern Plains & Imperial Court",
+          "chapter": 406
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 406,
+      "revealed_at": 406
+    },
+    "arc-4-immortal-zombie": {
+      "id": "arc-4-immortal-zombie",
+      "type": "arc",
+      "name": "Book 4: Immortal Zombie & Yi Tian Mountain",
+      "chapter_start": 650,
+      "chapter_end": 1025,
+      "order": 4,
+      "description": "Struggle for revival as an immortal zombie, management of Hu Immortal blessed land, and snagging Sovereign Immortal Fetus at Yi Tian Mountain.",
+      "aliases": [
+        "Book 4: Immortal Zombie & Yi Tian Mountain"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Book 4: Immortal Zombie & Yi Tian Mountain",
+          "chapter": 650
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 650,
+      "revealed_at": 650
+    },
+    "arc-5-reverse-flow": {
+      "id": "arc-5-reverse-flow",
+      "type": "arc",
+      "name": "Book 5: Reverse Flow River & Fate War",
+      "chapter_start": 1026,
+      "chapter_end": 1968,
+      "order": 5,
+      "description": "Reverse Flow River conquest, annexation of Lang Ya, and coalition assault shattering Fate Gu at Heavenly Court.",
+      "aliases": [
+        "Book 5: Reverse Flow River & Fate War"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Book 5: Reverse Flow River & Fate War",
+          "chapter": 1026
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1026,
+      "revealed_at": 1026
+    },
+    "arc-6-three-venerables": {
+      "id": "arc-6-three-venerables",
+      "type": "arc",
+      "name": "Book 6: Three Venerables War & Eternal Life",
+      "chapter_start": 1969,
+      "chapter_end": 2334,
+      "order": 6,
+      "description": "Great Love / Heaven Refining Demon Venerable openly wars against Star Constellation and Giant Sun in Crazed Demon Cave.",
+      "aliases": [
+        "Book 6: Three Venerables War & Eternal Life"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Book 6: Three Venerables War & Eternal Life",
+          "chapter": 1969
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1969,
+      "revealed_at": 1969
+    },
+    "faction-gu-yue": {
+      "id": "faction-gu-yue",
+      "type": "faction",
+      "name": "Gu Yue Clan",
+      "description": "Mortal clan on Qing Mao Mountain; venerates moon blade arts and first ancestor.",
+      "emblem_url": "/assets/pixels/reverend-insanity/factions/gu-yue-clan.svg",
+      "aliases": [
+        "Gu Yue Clan"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Gu Yue Clan",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
+    },
+    "faction-bai": {
+      "id": "faction-bai",
+      "type": "faction",
+      "name": "Bai Clan",
+      "description": "Rival mortal clan on Qing Mao Mountain; home of Bai Ning Bing.",
+      "emblem_url": "/assets/pixels/reverend-insanity/factions/bai-clan.svg",
+      "aliases": [
+        "Bai Clan"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Bai Clan",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
+    },
+    "faction-tie": {
+      "id": "faction-tie",
+      "type": "faction",
+      "name": "Tie Clan",
+      "description": "Righteous super clan renowned for Divine Investigators and Iron Mask justice.",
+      "emblem_url": "/assets/pixels/reverend-insanity/factions/tie-clan.svg",
+      "aliases": [
+        "Tie Clan"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Tie Clan",
+          "chapter": 100
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 100,
+      "revealed_at": 100
+    },
+    "faction-shang": {
+      "id": "faction-shang",
+      "type": "faction",
+      "name": "Shang Clan",
+      "description": "Commercial superpower of Southern Border governing Shang Clan City and trade caravans.",
+      "emblem_url": "/assets/pixels/reverend-insanity/factions/shang-clan.svg",
+      "aliases": [
+        "Shang Clan"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Shang Clan",
+          "chapter": 200
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 200,
+      "revealed_at": 200
+    },
+    "faction-wu": {
+      "id": "faction-wu",
+      "type": "faction",
+      "name": "Wu Clan",
+      "description": "Dominant super clan of Southern Border founded on Wind Path supremacy.",
+      "emblem_url": "/assets/pixels/reverend-insanity/factions/wu-clan.svg",
+      "aliases": [
+        "Wu Clan"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Wu Clan",
+          "chapter": 400
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 400,
+      "revealed_at": 400
+    },
+    "faction-heavenly-court": {
+      "id": "faction-heavenly-court",
+      "type": "faction",
+      "name": "Heavenly Court",
+      "description": "Supreme bastion of humanity founded 3 million years ago by Primordial Origin Immortal Venerable.",
+      "emblem_url": "/assets/pixels/reverend-insanity/factions/heavenly-court.svg",
+      "aliases": [
+        "Heavenly Court"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Heavenly Court",
+          "chapter": 400
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 400,
+      "revealed_at": 400
+    },
+    "faction-shadow-sect": {
+      "id": "faction-shadow-sect",
+      "type": "faction",
+      "name": "Shadow Sect",
+      "description": "Clandestine organization created by Spectral Soul Demon Venerable to defy Fate Gu.",
+      "emblem_url": "/assets/pixels/reverend-insanity/factions/shadow-sect.svg",
+      "aliases": [
+        "Shadow Sect"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Shadow Sect",
+          "chapter": 600
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 600,
+      "revealed_at": 600
+    },
+    "faction-longevity-heaven": {
+      "id": "faction-longevity-heaven",
+      "type": "faction",
+      "name": "Longevity Heaven",
+      "description": "Northern Plains righteous faction founded by Giant Sun Immortal Venerable.",
+      "emblem_url": "/assets/pixels/reverend-insanity/factions/longevity-heaven.svg",
+      "aliases": [
+        "Longevity Heaven"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Longevity Heaven",
+          "chapter": 500
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 500,
+      "revealed_at": 500
+    },
+    "faction-spirit-affinity-house": {
+      "id": "faction-spirit-affinity-house",
+      "type": "faction",
+      "name": "Spirit Affinity House",
+      "description": "One of Central Continent’s 10 Great Ancient Sects; sect of Feng Jiu Ge.",
+      "emblem_url": "/assets/pixels/reverend-insanity/factions/spirit-affinity-house.svg",
+      "aliases": [
+        "Spirit Affinity House"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Spirit Affinity House",
+          "chapter": 350
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 350,
+      "revealed_at": 350
+    },
+    "faction-lang-ya": {
+      "id": "faction-lang-ya",
+      "type": "faction",
+      "name": "Lang Ya Sect",
+      "description": "Refinement path sect composed of hairy men inheriting Long Hair Ancestor’s legacy.",
+      "emblem_url": "/assets/pixels/reverend-insanity/factions/lang-ya-sect.svg",
+      "aliases": [
+        "Lang Ya Sect"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Lang Ya Sect",
+          "chapter": 460
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 460,
+      "revealed_at": 460
+    },
+    "loc-qing-mao-mountain": {
+      "id": "loc-qing-mao-mountain",
+      "type": "location",
+      "name": "Qing Mao Mountain",
+      "plane_id": "plane-mortal-five-regions",
+      "description": "Mountain sheltering Gu Yue, Bai, and Xiong clan villages.",
+      "aliases": [
+        "Qing Mao Mountain"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Qing Mao Mountain",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
+    },
+    "loc-gu-yue-village": {
+      "id": "loc-gu-yue-village",
+      "type": "location",
+      "name": "Gu Yue Village",
+      "plane_id": "plane-mortal-five-regions",
+      "description": "Ancestral stronghold and Academy of Gu Yue Clan.",
+      "aliases": [
+        "Gu Yue Village"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Gu Yue Village",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
+    },
+    "loc-bai-gu-mountain": {
+      "id": "loc-bai-gu-mountain",
+      "type": "location",
+      "name": "Bai Gu Mountain",
+      "plane_id": "plane-mortal-five-regions",
+      "description": "Bone mountain sheltering Grey Bone Scholar’s inheritance.",
+      "aliases": [
+        "Bai Gu Mountain"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Bai Gu Mountain",
+          "chapter": 210
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 210,
+      "revealed_at": 210
+    },
+    "loc-shang-city": {
+      "id": "loc-shang-city",
+      "type": "location",
+      "name": "Shang Clan City",
+      "plane_id": "plane-mortal-five-regions",
+      "description": "Great commerce capital of Southern Border.",
+      "aliases": [
+        "Shang Clan City"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Shang Clan City",
+          "chapter": 260
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 260,
+      "revealed_at": 260
+    },
+    "loc-san-cha-mountain": {
+      "id": "loc-san-cha-mountain",
+      "type": "location",
+      "name": "San Cha Mountain",
+      "plane_id": "plane-mortal-five-regions",
+      "description": "Site of Three Kings Blessed Land and Spring Autumn Cicada detonation.",
+      "aliases": [
+        "San Cha Mountain"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "San Cha Mountain",
+          "chapter": 350
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 350,
+      "revealed_at": 350
+    },
+    "loc-yi-tian-mountain": {
+      "id": "loc-yi-tian-mountain",
+      "type": "location",
+      "name": "Yi Tian Mountain",
+      "plane_id": "plane-mortal-five-regions",
+      "description": "Climactic refinement site of Sovereign Immortal Fetus Gu.",
+      "aliases": [
+        "Yi Tian Mountain"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Yi Tian Mountain",
+          "chapter": 950
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 950,
+      "revealed_at": 950
+    },
+    "loc-wu-mountain": {
+      "id": "loc-wu-mountain",
+      "type": "location",
+      "name": "Wu Mountain",
+      "plane_id": "plane-mortal-five-regions",
+      "description": "Ancestral fortress of Wu Clan in Southern Border.",
+      "aliases": [
+        "Wu Mountain"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Wu Mountain",
+          "chapter": 1100
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1100,
+      "revealed_at": 1100
+    },
+    "loc-crescent-lake": {
+      "id": "loc-crescent-lake",
+      "type": "location",
+      "name": "Crescent Lake",
+      "plane_id": "plane-mortal-five-regions",
+      "description": "Meeting site for Northern Plains Heroes Assembly.",
+      "aliases": [
+        "Crescent Lake"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Crescent Lake",
+          "chapter": 410
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 410,
+      "revealed_at": 410
+    },
+    "loc-eighty-eight-true-yang": {
+      "id": "loc-eighty-eight-true-yang",
+      "type": "location",
+      "name": "Eighty-Eight True Yang Building",
+      "plane_id": "plane-mortal-five-regions",
+      "description": "Giant Sun’s Rank 8 Immortal Gu House.",
+      "aliases": [
+        "Eighty-Eight True Yang Building"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Eighty-Eight True Yang Building",
+          "chapter": 540
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 540,
+      "revealed_at": 540
+    },
+    "loc-imperial-court-blessed-land": {
+      "id": "loc-imperial-court-blessed-land",
+      "type": "location",
+      "name": "Imperial Court Blessed Land",
+      "plane_id": "plane-mortal-five-regions",
+      "description": "Sacred blessed land sanctuary in Northern Plains.",
+      "aliases": [
+        "Imperial Court Blessed Land"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Imperial Court Blessed Land",
+          "chapter": 500
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 500,
+      "revealed_at": 500
+    },
+    "loc-lang-ya-blessed-land": {
+      "id": "loc-lang-ya-blessed-land",
+      "type": "location",
+      "name": "Lang Ya Blessed Land",
+      "plane_id": "plane-mortal-five-regions",
+      "description": "Refinement sanctuary of Long Hair Ancestor.",
+      "aliases": [
+        "Lang Ya Blessed Land"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Lang Ya Blessed Land",
+          "chapter": 460
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 460,
+      "revealed_at": 460
+    },
+    "loc-crazed-demon-cave": {
+      "id": "loc-crazed-demon-cave",
+      "type": "location",
+      "name": "Crazed Demon Cave",
+      "plane_id": "plane-mortal-five-regions",
+      "description": "Nine-floor deduction cavern built by Limitless Demon Venerable.",
+      "aliases": [
+        "Crazed Demon Cave"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Crazed Demon Cave",
+          "chapter": 1200
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1200,
+      "revealed_at": 1200
+    },
+    "loc-heavenly-court": {
+      "id": "loc-heavenly-court",
+      "type": "location",
+      "name": "Heavenly Court",
+      "plane_id": "plane-mortal-five-regions",
+      "description": "Humanity’s 3-million-year sacred holy land.",
+      "aliases": [
+        "Heavenly Court"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Heavenly Court",
+          "chapter": 700
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 700,
+      "revealed_at": 700
+    },
+    "loc-hu-immortal-blessed-land": {
+      "id": "loc-hu-immortal-blessed-land",
+      "type": "location",
+      "name": "Hu Immortal Blessed Land",
+      "plane_id": "plane-mortal-five-regions",
+      "description": "Blessed land on Tian Ti Mountain holding Dang Hun Mountain.",
+      "aliases": [
+        "Hu Immortal Blessed Land"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Hu Immortal Blessed Land",
+          "chapter": 400
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 400,
+      "revealed_at": 400
+    },
+    "loc-spirit-affinity-house": {
+      "id": "loc-spirit-affinity-house",
+      "type": "location",
+      "name": "Spirit Affinity House",
+      "plane_id": "plane-mortal-five-regions",
+      "description": "Headquarters of Central Continent’s Spirit Affinity House.",
+      "aliases": [
+        "Spirit Affinity House"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Spirit Affinity House",
+          "chapter": 350
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 350,
+      "revealed_at": 350
+    },
+    "loc-reverse-flow-river": {
+      "id": "loc-reverse-flow-river",
+      "type": "location",
+      "name": "Reverse Flow River",
+      "plane_id": "plane-mortal-five-regions",
+      "description": "Secluded Domain of Heaven and Earth rewarding unyielding perseverance.",
+      "aliases": [
+        "Reverse Flow River"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Reverse Flow River",
+          "chapter": 1280
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1280,
+      "revealed_at": 1280
+    },
+    "loc-river-of-time": {
+      "id": "loc-river-of-time",
+      "type": "location",
+      "name": "River of Time",
+      "plane_id": "plane-river-of-time",
+      "description": "Cosmic temporal flow regulating world history.",
+      "aliases": [
+        "River of Time"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "River of Time",
+          "chapter": 600
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 600,
+      "revealed_at": 600
+    },
+    "loc-stone-lotus-island": {
+      "id": "loc-stone-lotus-island",
+      "type": "location",
+      "name": "Stone Lotus Island",
+      "plane_id": "plane-river-of-time",
+      "description": "Red Lotus Demon Venerable’s temporal sanctuary.",
+      "aliases": [
+        "Stone Lotus Island"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Stone Lotus Island",
+          "chapter": 1350
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1350,
+      "revealed_at": 1350
+    },
+    "fang-yuan": {
+      "id": "fang-yuan",
+      "type": "character",
+      "name": "Fang Yuan",
+      "aliases": [
+        "Gu Yue Fang Yuan",
+        "Gu Yue Yi Shan",
+        "Wolf King Chang Shan Yin",
+        "Immortal Zombie Zhi Zhi",
+        "Chu Ying",
+        "Liu Guan Yi",
+        "Great Love Demon Venerable",
+        "Heaven Refining Demon Venerable"
+      ],
+      "description": "Protagonist of Reverend Insanity. Ruthless demonic cultivator driven by an absolute determination to achieve eternal life at any cost.",
+      "avatar_url": "/assets/pixels/reverend-insanity/avatars/fang-yuan.svg",
+      "reveals": [
+        {
+          "revealed_at": 210,
+          "masked_name": "Gu Yue Yi Shan",
+          "true_identity": "Fang Yuan"
+        },
+        {
+          "revealed_at": 410,
+          "masked_name": "Chang Shan Yin",
+          "true_identity": "Fang Yuan"
+        },
+        {
+          "revealed_at": 650,
+          "masked_name": "Immortal Zombie Zhi Zhi",
+          "true_identity": "Fang Yuan"
+        },
+        {
+          "revealed_at": 1050,
+          "masked_name": "Chu Ying",
+          "true_identity": "Fang Yuan"
+        },
+        {
+          "revealed_at": 1150,
+          "masked_name": "Liu Guan Yi",
+          "true_identity": "Fang Yuan"
+        },
+        {
+          "revealed_at": 2200,
+          "masked_name": "Great Love Demon Venerable",
+          "true_identity": "Fang Yuan"
+        }
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Fang Yuan",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
+    },
+    "fang-zheng": {
+      "id": "fang-zheng",
+      "type": "character",
+      "name": "Gu Yue Fang Zheng",
+      "aliases": [
+        "Fang Zheng"
+      ],
+      "description": "Fang Yuan’s younger twin brother with A-grade aptitude; later captured by Heavenly Court.",
+      "avatar_url": "/assets/pixels/reverend-insanity/avatars/fang-zheng.svg",
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Gu Yue Fang Zheng",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
+    },
+    "bai-ning-bing": {
+      "id": "bai-ning-bing",
+      "type": "character",
+      "name": "Bai Ning Bing",
+      "aliases": [
+        "White Demon"
+      ],
+      "description": "Northern Dark Ice Soul genius who allies and battles with Fang Yuan.",
+      "avatar_url": "/assets/pixels/reverend-insanity/avatars/bai-ning-bing.svg",
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Bai Ning Bing",
+          "chapter": 15
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 15,
+      "revealed_at": 15
+    },
+    "tie-ruo-nan": {
+      "id": "tie-ruo-nan",
+      "type": "character",
+      "name": "Tie Ruo Nan",
+      "aliases": [
+        "Divine Investigator Tie"
+      ],
+      "description": "Righteous genius of Tie Clan determined to uphold the law and capture Fang Yuan.",
+      "avatar_url": "/assets/pixels/reverend-insanity/avatars/tie-ruo-nan.svg",
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Tie Ruo Nan",
+          "chapter": 110
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 110,
+      "revealed_at": 110
+    },
+    "tie-xue-leng": {
+      "id": "tie-xue-leng",
+      "type": "character",
+      "name": "Tie Xue Leng",
+      "aliases": [
+        "Divine Investigator Tie Senior"
+      ],
+      "description": "Legendary Rank 5 investigator of Southern Border.",
+      "avatar_url": "/assets/pixels/reverend-insanity/avatars/tie-xue-leng.svg",
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Tie Xue Leng",
+          "chapter": 110
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 110,
+      "revealed_at": 110
+    },
+    "shang-xin-ci": {
+      "id": "shang-xin-ci",
+      "type": "character",
+      "name": "Shang Xin Ci",
+      "aliases": [
+        "Clan Leader Shang"
+      ],
+      "description": "Kind-hearted mortal saved by Fang Yuan; later clan leader of Shang Clan.",
+      "avatar_url": "/assets/pixels/reverend-insanity/avatars/shang-xin-ci.svg",
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Shang Xin Ci",
+          "chapter": 210
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 210,
+      "revealed_at": 210
+    },
+    "shang-yan-fei": {
+      "id": "shang-yan-fei",
+      "type": "character",
+      "name": "Shang Yan Fei",
+      "aliases": [
+        "Lord Shang Yan Fei"
+      ],
+      "description": "Rank 5 peak clan leader of Shang Clan.",
+      "avatar_url": "/assets/pixels/reverend-insanity/avatars/shang-yan-fei.svg",
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Shang Yan Fei",
+          "chapter": 260
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 260,
+      "revealed_at": 260
+    },
+    "feng-jiu-ge": {
+      "id": "feng-jiu-ge",
+      "type": "character",
+      "name": "Feng Jiu Ge",
+      "aliases": [
+        "Sound Path Supreme"
+      ],
+      "description": "Pinnacle Rank 8 sound path genius of Spirit Affinity House and creator of the Seven Songs.",
+      "avatar_url": "/assets/pixels/reverend-insanity/avatars/feng-jiu-ge.svg",
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Feng Jiu Ge",
+          "chapter": 350
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 350,
+      "revealed_at": 350
+    },
+    "feng-jin-huang": {
+      "id": "feng-jin-huang",
+      "type": "character",
+      "name": "Feng Jin Huang",
+      "aliases": [
+        "Future Great Dream Venerable"
+      ],
+      "description": "Daughter of Feng Jiu Ge; prophesied Great Dream Immortal Venerable.",
+      "avatar_url": "/assets/pixels/reverend-insanity/avatars/feng-jin-huang.svg",
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Feng Jin Huang",
+          "chapter": 350
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 350,
+      "revealed_at": 350
+    },
+    "hei-lou-lan": {
+      "id": "hei-lou-lan",
+      "type": "character",
+      "name": "Hei Lou Lan",
+      "aliases": [
+        "Black Tyrant"
+      ],
+      "description": "Bearer of Great Strength True Martial Physique and ambitious Northern Plains warlord.",
+      "avatar_url": "/assets/pixels/reverend-insanity/avatars/hei-lou-lan.svg",
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Hei Lou Lan",
+          "chapter": 420
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 420,
+      "revealed_at": 420
+    },
+    "tai-bai-yun-sheng": {
+      "id": "tai-bai-yun-sheng",
+      "type": "character",
+      "name": "Tai Bai Yun Sheng",
+      "aliases": [
+        "Old Man Tai Bai"
+      ],
+      "description": "Northern Plains time path healer possessing Man as Before and Landscape as Before Gu.",
+      "avatar_url": "/assets/pixels/reverend-insanity/avatars/tai-bai-yun-sheng.svg",
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Tai Bai Yun Sheng",
+          "chapter": 440
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 440,
+      "revealed_at": 440
+    },
+    "duke-long": {
+      "id": "duke-long",
+      "type": "character",
+      "name": "Duke Long",
+      "aliases": [
+        "Dragon Ancestor Long Gong"
+      ],
+      "description": "Ancient dragonman powerhouse, pillar of Heavenly Court, master of Qi and Transformation paths.",
+      "avatar_url": "/assets/pixels/reverend-insanity/avatars/duke-long.svg",
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Duke Long",
+          "chapter": 700
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 700,
+      "revealed_at": 700
+    },
+    "star-constellation": {
+      "id": "star-constellation",
+      "type": "character",
+      "name": "Star Constellation Immortal Venerable",
+      "aliases": [
+        "Star Constellation"
+      ],
+      "description": "Second Venerable of Heavenly Court; Wisdom Path creator who merged with Heaven’s Will.",
+      "avatar_url": "/assets/pixels/reverend-insanity/avatars/star-constellation.svg",
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Star Constellation Immortal Venerable",
+          "chapter": 700
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 700,
+      "revealed_at": 700
+    },
+    "giant-sun": {
+      "id": "giant-sun",
+      "type": "character",
+      "name": "Giant Sun Immortal Venerable",
+      "aliases": [
+        "Giant Sun"
+      ],
+      "description": "Eighth Venerable, founder of Luck Path and Longevity Heaven.",
+      "avatar_url": "/assets/pixels/reverend-insanity/avatars/giant-sun.svg",
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Giant Sun Immortal Venerable",
+          "chapter": 500
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 500,
+      "revealed_at": 500
+    },
+    "spectral-soul": {
+      "id": "spectral-soul",
+      "type": "character",
+      "name": "Spectral Soul Demon Venerable",
+      "aliases": [
+        "Spectral Soul"
+      ],
+      "description": "Ninth Venerable, founder of Soul Path and creator of Sovereign Immortal Fetus Gu.",
+      "avatar_url": "/assets/pixels/reverend-insanity/avatars/spectral-soul.svg",
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Spectral Soul Demon Venerable",
+          "chapter": 600
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 600,
+      "revealed_at": 600
+    },
+    "red-lotus": {
+      "id": "red-lotus",
+      "type": "character",
+      "name": "Red Lotus Demon Venerable",
+      "aliases": [
+        "Red Lotus"
+      ],
+      "description": "Seventh Venerable, master of Time Path and creator of Spring Autumn Cicada.",
+      "avatar_url": "/assets/pixels/reverend-insanity/avatars/red-lotus.svg",
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Red Lotus Demon Venerable",
+          "chapter": 600
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 600,
+      "revealed_at": 600
+    },
+    "paradise-earth": {
+      "id": "paradise-earth",
+      "type": "character",
+      "name": "Paradise Earth Immortal Venerable",
+      "aliases": [
+        "Paradise Earth"
+      ],
+      "description": "Tenth Venerable, pacifist Earth Path sovereign who established Whale Blessed Land.",
+      "avatar_url": "/assets/pixels/reverend-insanity/avatars/paradise-earth.svg",
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Paradise Earth Immortal Venerable",
+          "chapter": 700
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 700,
+      "revealed_at": 700
+    },
+    "wu-yong": {
+      "id": "wu-yong",
+      "type": "character",
+      "name": "Wu Yong",
+      "aliases": [
+        "Lord Wu Yong"
+      ],
+      "description": "Rank 8 leader of Wu Clan; Southern Border Alliance leader.",
+      "avatar_url": "/assets/pixels/reverend-insanity/avatars/wu-yong.svg",
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Wu Yong",
+          "chapter": 1100
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1100,
+      "revealed_at": 1100
+    },
+    "wu-du-xiu": {
+      "id": "wu-du-xiu",
+      "type": "character",
+      "name": "Wu Du Xiu",
+      "aliases": [
+        "Old Matriarch Wu"
+      ],
+      "description": "Former matriarch of Wu Clan and legendary Southern Border ruler.",
+      "avatar_url": "/assets/pixels/reverend-insanity/avatars/wu-du-xiu.svg",
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Wu Du Xiu",
+          "chapter": 1100
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1100,
+      "revealed_at": 1100
+    },
+    "fairy-zi-wei": {
+      "id": "fairy-zi-wei",
+      "type": "character",
+      "name": "Fairy Zi Wei",
+      "aliases": [
+        "Zi Wei"
+      ],
+      "description": "Chief Wisdom Path strategist for Heavenly Court during the Fate War.",
+      "avatar_url": "/assets/pixels/reverend-insanity/avatars/fairy-zi-wei.svg",
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Fairy Zi Wei",
+          "chapter": 1200
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1200,
+      "revealed_at": 1200
+    },
+    "bo-qing": {
+      "id": "bo-qing",
+      "type": "character",
+      "name": "Bo Qing",
+      "aliases": [
+        "Sword Immortal Bo Qing"
+      ],
+      "description": "Pseudo-Venerable Sword Path powerhouse of Spirit Affinity House.",
+      "avatar_url": "/assets/pixels/reverend-insanity/avatars/bo-qing.svg",
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Bo Qing",
+          "chapter": 800
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 800,
+      "revealed_at": 800
+    },
+    "lang-ya-spirit": {
+      "id": "lang-ya-spirit",
+      "type": "character",
+      "name": "Lang Ya Land Spirit",
+      "aliases": [
+        "Lang Ya Spirit"
+      ],
+      "description": "Refinement land spirit inheriting Long Hair Ancestor’s immortal aperture.",
+      "avatar_url": "/assets/pixels/reverend-insanity/avatars/lang-ya-spirit.svg",
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Lang Ya Land Spirit",
+          "chapter": 460
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 460,
+      "revealed_at": 460
+    },
+    "gu-yue-bo": {
+      "id": "gu-yue-bo",
+      "type": "character",
+      "name": "Gu Yue Bo",
+      "aliases": [
+        "Clan Leader Gu Yue"
+      ],
+      "description": "Fourth generation leader of Gu Yue Clan on Qing Mao Mountain.",
+      "avatar_url": "/assets/pixels/reverend-insanity/avatars/gu-yue-bo.svg",
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Gu Yue Bo",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
+    },
+    "gu-yue-ancestor": {
+      "id": "gu-yue-ancestor",
+      "type": "character",
+      "name": "First Ancestor Gu Yue",
+      "aliases": [
+        "Blood Ancestor Gu Yue"
+      ],
+      "description": "Rank 5 blood path founder of Gu Yue Clan sealed within the ancestral tomb.",
+      "avatar_url": "/assets/pixels/reverend-insanity/avatars/gu-yue-ancestor.svg",
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "First Ancestor Gu Yue",
+          "chapter": 180
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 180,
+      "revealed_at": 180
+    },
+    "bai-sheng": {
+      "id": "bai-sheng",
+      "type": "character",
+      "name": "Bai Sheng",
+      "aliases": [
+        "Bai Sheng"
+      ],
+      "description": "Notable elder of Bai Clan.",
+      "avatar_url": "/assets/pixels/reverend-insanity/avatars/bai-sheng.svg",
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Bai Sheng",
+          "chapter": 250
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 250,
+      "revealed_at": 250
+    },
+    "mo-tan-sang": {
+      "id": "mo-tan-sang",
+      "type": "character",
+      "name": "Mo Tan Sang",
+      "aliases": [
+        "Inkman King"
+      ],
+      "description": "King of the Inkmen tribes in Northern Plains and shrewd survivalist.",
+      "avatar_url": "/assets/pixels/reverend-insanity/avatars/mo-tan-sang.svg",
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Mo Tan Sang",
+          "chapter": 500
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 500,
+      "revealed_at": 500
+    },
+    "event-clan-awakening": {
+      "id": "event-clan-awakening",
+      "type": "event",
+      "name": "Aperture Awakening Ceremony",
+      "arc_id": "arc-1-qing-mao",
+      "chapter": 2,
+      "event_type": "discovery",
+      "involved_character_ids": [
+        "fang-yuan",
+        "fang-zheng",
+        "gu-yue-bo"
+      ],
+      "description": "Fang Yuan awakens a C-grade aperture while Fang Zheng awakens an A-grade.",
+      "aliases": [
+        "Aperture Awakening Ceremony"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Aperture Awakening Ceremony",
+          "chapter": 2
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 2,
+      "revealed_at": 2
+    },
+    "event-blood-slaughter": {
+      "id": "event-blood-slaughter",
+      "type": "event",
+      "name": "Qing Mao Blood Sacrifice",
+      "arc_id": "arc-1-qing-mao",
+      "chapter": 195,
+      "event_type": "battle",
+      "involved_character_ids": [
+        "fang-yuan",
+        "bai-ning-bing",
+        "gu-yue-bo",
+        "gu-yue-ancestor"
+      ],
+      "description": "Fang Yuan consumes the clan with Blood Skull Gu to elevate his aptitude and breaks through.",
+      "aliases": [
+        "Qing Mao Blood Sacrifice"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Qing Mao Blood Sacrifice",
+          "chapter": 195
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 195,
+      "revealed_at": 195
+    },
+    "event-shang-arena-clash": {
+      "id": "event-shang-arena-clash",
+      "type": "event",
+      "name": "Shang City Battle Arena Final",
+      "arc_id": "arc-2-caravan-shang",
+      "chapter": 390,
+      "event_type": "battle",
+      "involved_character_ids": [
+        "fang-yuan",
+        "tie-ruo-nan"
+      ],
+      "description": "Fang Yuan defeats Tie Ruo Nan in the 5th inner city battle stage.",
+      "aliases": [
+        "Shang City Battle Arena Final"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Shang City Battle Arena Final",
+          "chapter": 390
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 390,
+      "revealed_at": 390
+    },
+    "event-san-cha-reversal": {
+      "id": "event-san-cha-reversal",
+      "type": "event",
+      "name": "Three Kings Blessed Land Rebirth",
+      "arc_id": "arc-2-caravan-shang",
+      "chapter": 405,
+      "event_type": "battle",
+      "involved_character_ids": [
+        "fang-yuan",
+        "bai-ning-bing"
+      ],
+      "description": "Bai Ning Bing betrays Fang Yuan; Spring Autumn Cicada is detonated to rewind time.",
+      "aliases": [
+        "Three Kings Blessed Land Rebirth"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Three Kings Blessed Land Rebirth",
+          "chapter": 405
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 405,
+      "revealed_at": 405
+    },
+    "event-true-yang-collapse": {
+      "id": "event-true-yang-collapse",
+      "type": "event",
+      "name": "Eighty-Eight True Yang Building Destruction",
+      "arc_id": "arc-3-northern-plains",
+      "chapter": 640,
+      "event_type": "battle",
+      "involved_character_ids": [
+        "fang-yuan",
+        "giant-sun",
+        "tai-bai-yun-sheng"
+      ],
+      "description": "Fang Yuan destroys Eighty-Eight True Yang Building and transforms into an Immortal Zombie.",
+      "aliases": [
+        "Eighty-Eight True Yang Building Destruction"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Eighty-Eight True Yang Building Destruction",
+          "chapter": 640
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 640,
+      "revealed_at": 640
+    },
+    "event-yi-tian-snatch": {
+      "id": "event-yi-tian-snatch",
+      "type": "event",
+      "name": "Sovereign Immortal Fetus Snatch",
+      "arc_id": "arc-4-immortal-zombie",
+      "chapter": 1020,
+      "event_type": "ascension",
+      "involved_character_ids": [
+        "fang-yuan",
+        "spectral-soul"
+      ],
+      "description": "Fang Yuan seizes the Sovereign Immortal Fetus Gu, gaining a sovereign human body.",
+      "aliases": [
+        "Sovereign Immortal Fetus Snatch"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Sovereign Immortal Fetus Snatch",
+          "chapter": 1020
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1020,
+      "revealed_at": 1020
+    },
+    "event-reverse-flow-walk": {
+      "id": "event-reverse-flow-walk",
+      "type": "event",
+      "name": "Reverse Flow River Breakthrough",
+      "arc_id": "arc-5-reverse-flow",
+      "chapter": 1285,
+      "event_type": "breakthrough",
+      "involved_character_ids": [
+        "fang-yuan",
+        "feng-jiu-ge"
+      ],
+      "description": "Fang Yuan walks upstream through Reverse Flow River, establishing Reverse Flow Protection Seal.",
+      "aliases": [
+        "Reverse Flow River Breakthrough"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Reverse Flow River Breakthrough",
+          "chapter": 1285
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1285,
+      "revealed_at": 1285
+    },
+    "event-fate-gu-destruction": {
+      "id": "event-fate-gu-destruction",
+      "type": "event",
+      "name": "Destruction of Fate Gu",
+      "arc_id": "arc-5-reverse-flow",
+      "chapter": 1960,
+      "event_type": "battle",
+      "involved_character_ids": [
+        "fang-yuan",
+        "duke-long",
+        "star-constellation",
+        "feng-jiu-ge"
+      ],
+      "description": "Fang Yuan obliterates Fate Gu, liberating destiny for all living beings.",
+      "aliases": [
+        "Destruction of Fate Gu"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Destruction of Fate Gu",
+          "chapter": 1960
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1960,
+      "revealed_at": 1960
+    },
+    "event-venerable-ascension": {
+      "id": "event-venerable-ascension",
+      "type": "event",
+      "name": "Ascension of Heaven Refining Demon Venerable",
+      "arc_id": "arc-6-three-venerables",
+      "chapter": 2205,
+      "event_type": "ascension",
+      "involved_character_ids": [
+        "fang-yuan",
+        "star-constellation",
+        "giant-sun"
+      ],
+      "description": "Fang Yuan refines refinement path dao marks and becomes the Great Love / Heaven Refining Demon Venerable.",
+      "aliases": [
+        "Ascension of Heaven Refining Demon Venerable"
+      ],
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "Ascension of Heaven Refining Demon Venerable",
+          "chapter": 2205
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 2205,
+      "revealed_at": 2205
+    }
+  },
+  "facts": {
+    "fact-ri-1": {
+      "id": "fact-ri-1",
+      "entity_id": "fang-yuan",
+      "predicate": "power_stage",
+      "value": "stage-rank-1",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": 15,
+        "revealed_at": 1,
+        "first_appearance": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "power_stage fact",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-2": {
+      "id": "fact-ri-2",
+      "entity_id": "fang-yuan",
+      "predicate": "power_stage",
+      "value": "stage-rank-2",
+      "temporal": {
+        "valid_from": 16,
+        "valid_to": 198,
+        "revealed_at": 16,
+        "first_appearance": 16
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "power_stage fact",
+          "chapter": 16
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-3": {
+      "id": "fact-ri-3",
+      "entity_id": "fang-yuan",
+      "predicate": "power_stage",
+      "value": "stage-rank-3",
+      "temporal": {
+        "valid_from": 199,
+        "valid_to": 380,
+        "revealed_at": 199,
+        "first_appearance": 199
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "power_stage fact",
+          "chapter": 199
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-4": {
+      "id": "fact-ri-4",
+      "entity_id": "fang-yuan",
+      "predicate": "power_stage",
+      "value": "stage-rank-4",
+      "temporal": {
+        "valid_from": 381,
+        "valid_to": 600,
+        "revealed_at": 381,
+        "first_appearance": 381
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "power_stage fact",
+          "chapter": 381
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-5": {
+      "id": "fact-ri-5",
+      "entity_id": "fang-yuan",
+      "predicate": "power_stage",
+      "value": "stage-rank-5",
+      "temporal": {
+        "valid_from": 601,
+        "valid_to": 645,
+        "revealed_at": 601,
+        "first_appearance": 601
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "power_stage fact",
+          "chapter": 601
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-6": {
+      "id": "fact-ri-6",
+      "entity_id": "fang-yuan",
+      "predicate": "power_stage",
+      "value": "stage-rank-6",
+      "temporal": {
+        "valid_from": 646,
+        "valid_to": 1100,
+        "revealed_at": 646,
+        "first_appearance": 646
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "power_stage fact",
+          "chapter": 646
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-7": {
+      "id": "fact-ri-7",
+      "entity_id": "fang-yuan",
+      "predicate": "power_stage",
+      "value": "stage-rank-7",
+      "temporal": {
+        "valid_from": 1101,
+        "valid_to": 1960,
+        "revealed_at": 1101,
+        "first_appearance": 1101
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "power_stage fact",
+          "chapter": 1101
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-8": {
+      "id": "fact-ri-8",
+      "entity_id": "fang-yuan",
+      "predicate": "power_stage",
+      "value": "stage-rank-8",
+      "temporal": {
+        "valid_from": 1961,
+        "valid_to": 2204,
+        "revealed_at": 1961,
+        "first_appearance": 1961
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "power_stage fact",
+          "chapter": 1961
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-9": {
+      "id": "fact-ri-9",
+      "entity_id": "fang-yuan",
+      "predicate": "power_stage",
+      "value": "stage-rank-9",
+      "temporal": {
+        "valid_from": 2205,
+        "valid_to": null,
+        "revealed_at": 2205,
+        "first_appearance": 2205
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "power_stage fact",
+          "chapter": 2205
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-10": {
+      "id": "fact-ri-10",
+      "entity_id": "fang-yuan",
+      "predicate": "location",
+      "value": "loc-qing-mao-mountain",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": 200,
+        "revealed_at": 1,
+        "first_appearance": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "location fact",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-11": {
+      "id": "fact-ri-11",
+      "entity_id": "fang-yuan",
+      "predicate": "location",
+      "value": "loc-shang-city",
+      "temporal": {
+        "valid_from": 260,
+        "valid_to": 400,
+        "revealed_at": 260,
+        "first_appearance": 260
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "location fact",
+          "chapter": 260
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-12": {
+      "id": "fact-ri-12",
+      "entity_id": "fang-yuan",
+      "predicate": "location",
+      "value": "loc-san-cha-mountain",
+      "temporal": {
+        "valid_from": 401,
+        "valid_to": 405,
+        "revealed_at": 401,
+        "first_appearance": 401
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "location fact",
+          "chapter": 401
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-13": {
+      "id": "fact-ri-13",
+      "entity_id": "fang-yuan",
+      "predicate": "location",
+      "value": "loc-crescent-lake",
+      "temporal": {
+        "valid_from": 406,
+        "valid_to": 500,
+        "revealed_at": 406,
+        "first_appearance": 406
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "location fact",
+          "chapter": 406
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-14": {
+      "id": "fact-ri-14",
+      "entity_id": "fang-yuan",
+      "predicate": "location",
+      "value": "loc-eighty-eight-true-yang",
+      "temporal": {
+        "valid_from": 501,
+        "valid_to": 645,
+        "revealed_at": 501,
+        "first_appearance": 501
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "location fact",
+          "chapter": 501
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-15": {
+      "id": "fact-ri-15",
+      "entity_id": "fang-yuan",
+      "predicate": "location",
+      "value": "loc-hu-immortal-blessed-land",
+      "temporal": {
+        "valid_from": 646,
+        "valid_to": 950,
+        "revealed_at": 646,
+        "first_appearance": 646
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "location fact",
+          "chapter": 646
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-16": {
+      "id": "fact-ri-16",
+      "entity_id": "fang-yuan",
+      "predicate": "location",
+      "value": "loc-yi-tian-mountain",
+      "temporal": {
+        "valid_from": 951,
+        "valid_to": 1025,
+        "revealed_at": 951,
+        "first_appearance": 951
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "location fact",
+          "chapter": 951
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-17": {
+      "id": "fact-ri-17",
+      "entity_id": "fang-yuan",
+      "predicate": "location",
+      "value": "loc-reverse-flow-river",
+      "temporal": {
+        "valid_from": 1280,
+        "valid_to": 1300,
+        "revealed_at": 1280,
+        "first_appearance": 1280
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "location fact",
+          "chapter": 1280
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-18": {
+      "id": "fact-ri-18",
+      "entity_id": "fang-yuan",
+      "predicate": "location",
+      "value": "loc-heavenly-court",
+      "temporal": {
+        "valid_from": 1700,
+        "valid_to": 1968,
+        "revealed_at": 1700,
+        "first_appearance": 1700
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "location fact",
+          "chapter": 1700
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-19": {
+      "id": "fact-ri-19",
+      "entity_id": "fang-yuan",
+      "predicate": "location",
+      "value": "loc-crazed-demon-cave",
+      "temporal": {
+        "valid_from": 2200,
+        "valid_to": null,
+        "revealed_at": 2200,
+        "first_appearance": 2200
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "location fact",
+          "chapter": 2200
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-20": {
+      "id": "fact-ri-20",
+      "entity_id": "fang-yuan",
+      "predicate": "faction",
+      "value": "faction-gu-yue",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": 198,
+        "revealed_at": 1,
+        "first_appearance": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "faction fact",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-21": {
+      "id": "fact-ri-21",
+      "entity_id": "fang-yuan",
+      "predicate": "faction",
+      "value": "faction-shang",
+      "temporal": {
+        "valid_from": 260,
+        "valid_to": 400,
+        "revealed_at": 260,
+        "first_appearance": 260
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "faction fact",
+          "chapter": 260
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-22": {
+      "id": "fact-ri-22",
+      "entity_id": "fang-yuan",
+      "predicate": "faction",
+      "value": "faction-lang-ya",
+      "temporal": {
+        "valid_from": 1000,
+        "valid_to": 1700,
+        "revealed_at": 1000,
+        "first_appearance": 1000
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "faction fact",
+          "chapter": 1000
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-23": {
+      "id": "fact-ri-23",
+      "entity_id": "duke-long",
+      "predicate": "power_stage",
+      "value": "stage-rank-8",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 700,
+        "first_appearance": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "power_stage fact",
+          "chapter": 700
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-24": {
+      "id": "fact-ri-24",
+      "entity_id": "star-constellation",
+      "predicate": "power_stage",
+      "value": "stage-rank-9",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 700,
+        "first_appearance": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "power_stage fact",
+          "chapter": 700
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-25": {
+      "id": "fact-ri-25",
+      "entity_id": "giant-sun",
+      "predicate": "power_stage",
+      "value": "stage-rank-9",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 500,
+        "first_appearance": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "power_stage fact",
+          "chapter": 500
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-26": {
+      "id": "fact-ri-26",
+      "entity_id": "spectral-soul",
+      "predicate": "power_stage",
+      "value": "stage-rank-9",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 600,
+        "first_appearance": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "power_stage fact",
+          "chapter": 600
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-27": {
+      "id": "fact-ri-27",
+      "entity_id": "red-lotus",
+      "predicate": "power_stage",
+      "value": "stage-rank-9",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 600,
+        "first_appearance": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "power_stage fact",
+          "chapter": 600
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-28": {
+      "id": "fact-ri-28",
+      "entity_id": "paradise-earth",
+      "predicate": "power_stage",
+      "value": "stage-rank-9",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 700,
+        "first_appearance": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "power_stage fact",
+          "chapter": 700
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-29": {
+      "id": "fact-ri-29",
+      "entity_id": "feng-jiu-ge",
+      "predicate": "power_stage",
+      "value": "stage-rank-7",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": 1000,
+        "revealed_at": 350,
+        "first_appearance": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "power_stage fact",
+          "chapter": 350
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-30": {
+      "id": "fact-ri-30",
+      "entity_id": "feng-jiu-ge",
+      "predicate": "power_stage",
+      "value": "stage-rank-8",
+      "temporal": {
+        "valid_from": 1001,
+        "valid_to": null,
+        "revealed_at": 1001,
+        "first_appearance": 1001
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "power_stage fact",
+          "chapter": 1001
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-31": {
+      "id": "fact-ri-31",
+      "entity_id": "wu-yong",
+      "predicate": "power_stage",
+      "value": "stage-rank-8",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1100,
+        "first_appearance": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "power_stage fact",
+          "chapter": 1100
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-32": {
+      "id": "fact-ri-32",
+      "entity_id": "fairy-zi-wei",
+      "predicate": "power_stage",
+      "value": "stage-rank-8",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1200,
+        "first_appearance": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "power_stage fact",
+          "chapter": 1200
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-33": {
+      "id": "fact-ri-33",
+      "entity_id": "bai-ning-bing",
+      "predicate": "power_stage",
+      "value": "stage-rank-2",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": 100,
+        "revealed_at": 15,
+        "first_appearance": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "power_stage fact",
+          "chapter": 15
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-34": {
+      "id": "fact-ri-34",
+      "entity_id": "bai-ning-bing",
+      "predicate": "power_stage",
+      "value": "stage-rank-3",
+      "temporal": {
+        "valid_from": 101,
+        "valid_to": 350,
+        "revealed_at": 101,
+        "first_appearance": 101
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "power_stage fact",
+          "chapter": 101
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-35": {
+      "id": "fact-ri-35",
+      "entity_id": "bai-ning-bing",
+      "predicate": "power_stage",
+      "value": "stage-rank-5",
+      "temporal": {
+        "valid_from": 351,
+        "valid_to": 640,
+        "revealed_at": 351,
+        "first_appearance": 351
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "power_stage fact",
+          "chapter": 351
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-36": {
+      "id": "fact-ri-36",
+      "entity_id": "bai-ning-bing",
+      "predicate": "power_stage",
+      "value": "stage-rank-6",
+      "temporal": {
+        "valid_from": 641,
+        "valid_to": null,
+        "revealed_at": 641,
+        "first_appearance": 641
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "power_stage fact",
+          "chapter": 641
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-37": {
+      "id": "fact-ri-37",
+      "entity_id": "tie-ruo-nan",
+      "predicate": "power_stage",
+      "value": "stage-rank-2",
+      "temporal": {
+        "valid_from": 110,
+        "valid_to": 200,
+        "revealed_at": 110,
+        "first_appearance": 110
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "power_stage fact",
+          "chapter": 110
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-38": {
+      "id": "fact-ri-38",
+      "entity_id": "tie-ruo-nan",
+      "predicate": "power_stage",
+      "value": "stage-rank-3",
+      "temporal": {
+        "valid_from": 201,
+        "valid_to": 400,
+        "revealed_at": 201,
+        "first_appearance": 201
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "power_stage fact",
+          "chapter": 201
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-39": {
+      "id": "fact-ri-39",
+      "entity_id": "tie-ruo-nan",
+      "predicate": "power_stage",
+      "value": "stage-rank-5",
+      "temporal": {
+        "valid_from": 401,
+        "valid_to": 1200,
+        "revealed_at": 401,
+        "first_appearance": 401
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "power_stage fact",
+          "chapter": 401
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-40": {
+      "id": "fact-ri-40",
+      "entity_id": "tie-ruo-nan",
+      "predicate": "power_stage",
+      "value": "stage-rank-6",
+      "temporal": {
+        "valid_from": 1201,
+        "valid_to": null,
+        "revealed_at": 1201,
+        "first_appearance": 1201
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "power_stage fact",
+          "chapter": 1201
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-41": {
+      "id": "fact-ri-41",
+      "entity_id": "gu-yue-bo",
+      "predicate": "power_stage",
+      "value": "stage-rank-4",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": 198,
+        "revealed_at": 1,
+        "first_appearance": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "power_stage fact",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-42": {
+      "id": "fact-ri-42",
+      "entity_id": "shang-xin-ci",
+      "predicate": "power_stage",
+      "value": "stage-rank-1",
+      "temporal": {
+        "valid_from": 210,
+        "valid_to": 300,
+        "revealed_at": 210,
+        "first_appearance": 210
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "power_stage fact",
+          "chapter": 210
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-43": {
+      "id": "fact-ri-43",
+      "entity_id": "shang-xin-ci",
+      "predicate": "power_stage",
+      "value": "stage-rank-3",
+      "temporal": {
+        "valid_from": 301,
+        "valid_to": 600,
+        "revealed_at": 301,
+        "first_appearance": 301
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "power_stage fact",
+          "chapter": 301
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-ri-44": {
+      "id": "fact-ri-44",
+      "entity_id": "shang-xin-ci",
+      "predicate": "power_stage",
+      "value": "stage-rank-5",
+      "temporal": {
+        "valid_from": 601,
+        "valid_to": null,
+        "revealed_at": 601,
+        "first_appearance": 601
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "power_stage fact",
+          "chapter": 601
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    }
+  },
+  "relationships": {
+    "rel-ri-1": {
+      "id": "rel-ri-1",
+      "source_id": "fang-yuan",
+      "target_id": "faction-gu-yue",
+      "predicate": "MEMBER_OF",
+      "label": "Clan Clansman",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": 198,
+        "revealed_at": 1,
+        "first_appearance": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "MEMBER_OF relationship",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-ri-2": {
+      "id": "rel-ri-2",
+      "source_id": "fang-zheng",
+      "target_id": "faction-gu-yue",
+      "predicate": "MEMBER_OF",
+      "label": "Gu Yue Clan Prodigy",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": 198,
+        "revealed_at": 1,
+        "first_appearance": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "MEMBER_OF relationship",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-ri-3": {
+      "id": "rel-ri-3",
+      "source_id": "gu-yue-bo",
+      "target_id": "faction-gu-yue",
+      "predicate": "LEADER_OF",
+      "label": "Clan Leader",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": 198,
+        "revealed_at": 1,
+        "first_appearance": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "LEADER_OF relationship",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-ri-4": {
+      "id": "rel-ri-4",
+      "source_id": "fang-yuan",
+      "target_id": "bai-ning-bing",
+      "predicate": "RIVAL_OF",
+      "label": "Qing Mao Peak Geniuses",
+      "temporal": {
+        "valid_from": 15,
+        "valid_to": 200,
+        "revealed_at": 15,
+        "first_appearance": 15
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "RIVAL_OF relationship",
+          "chapter": 15
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-ri-5": {
+      "id": "rel-ri-5",
+      "source_id": "fang-yuan",
+      "target_id": "bai-ning-bing",
+      "predicate": "ALLY_OF",
+      "label": "Twin Demons of Southern Border",
+      "temporal": {
+        "valid_from": 201,
+        "valid_to": 404,
+        "revealed_at": 201,
+        "first_appearance": 201
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "ALLY_OF relationship",
+          "chapter": 201
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-ri-6": {
+      "id": "rel-ri-6",
+      "source_id": "fang-yuan",
+      "target_id": "bai-ning-bing",
+      "predicate": "ENEMY_OF",
+      "label": "Three Kings Betrayal",
+      "temporal": {
+        "valid_from": 405,
+        "valid_to": 640,
+        "revealed_at": 405,
+        "first_appearance": 405
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "ENEMY_OF relationship",
+          "chapter": 405
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-ri-7": {
+      "id": "rel-ri-7",
+      "source_id": "fang-yuan",
+      "target_id": "tie-ruo-nan",
+      "predicate": "ENEMY_OF",
+      "label": "Righteous Justice Pursuit",
+      "temporal": {
+        "valid_from": 110,
+        "valid_to": null,
+        "revealed_at": 110,
+        "first_appearance": 110
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "ENEMY_OF relationship",
+          "chapter": 110
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-ri-8": {
+      "id": "rel-ri-8",
+      "source_id": "tie-xue-leng",
+      "target_id": "tie-ruo-nan",
+      "predicate": "MASTER_OF",
+      "label": "Father & Mentor",
+      "temporal": {
+        "valid_from": 110,
+        "valid_to": 195,
+        "revealed_at": 110,
+        "first_appearance": 110
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "MASTER_OF relationship",
+          "chapter": 110
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-ri-9": {
+      "id": "rel-ri-9",
+      "source_id": "tie-ruo-nan",
+      "target_id": "faction-tie",
+      "predicate": "MEMBER_OF",
+      "label": "Tie Clan Investigator",
+      "temporal": {
+        "valid_from": 110,
+        "valid_to": null,
+        "revealed_at": 110,
+        "first_appearance": 110
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "MEMBER_OF relationship",
+          "chapter": 110
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-ri-10": {
+      "id": "rel-ri-10",
+      "source_id": "shang-xin-ci",
+      "target_id": "faction-shang",
+      "predicate": "LEADER_OF",
+      "label": "Shang Clan Leader",
+      "temporal": {
+        "valid_from": 600,
+        "valid_to": null,
+        "revealed_at": 600,
+        "first_appearance": 600
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "LEADER_OF relationship",
+          "chapter": 600
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-ri-11": {
+      "id": "rel-ri-11",
+      "source_id": "shang-yan-fei",
+      "target_id": "faction-shang",
+      "predicate": "LEADER_OF",
+      "label": "Clan Leader",
+      "temporal": {
+        "valid_from": 200,
+        "valid_to": 600,
+        "revealed_at": 200,
+        "first_appearance": 200
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "LEADER_OF relationship",
+          "chapter": 200
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-ri-12": {
+      "id": "rel-ri-12",
+      "source_id": "fang-yuan",
+      "target_id": "shang-xin-ci",
+      "predicate": "ALLY_OF",
+      "label": "Lifelong Benefactor",
+      "temporal": {
+        "valid_from": 210,
+        "valid_to": null,
+        "revealed_at": 210,
+        "first_appearance": 210
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "ALLY_OF relationship",
+          "chapter": 210
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-ri-13": {
+      "id": "rel-ri-13",
+      "source_id": "feng-jiu-ge",
+      "target_id": "faction-spirit-affinity-house",
+      "predicate": "MEMBER_OF",
+      "label": "Supreme Pillar",
+      "temporal": {
+        "valid_from": 350,
+        "valid_to": null,
+        "revealed_at": 350,
+        "first_appearance": 350
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "MEMBER_OF relationship",
+          "chapter": 350
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-ri-14": {
+      "id": "rel-ri-14",
+      "source_id": "feng-jin-huang",
+      "target_id": "feng-jiu-ge",
+      "predicate": "RELATED_TO",
+      "label": "Father and Daughter",
+      "temporal": {
+        "valid_from": 350,
+        "valid_to": null,
+        "revealed_at": 350,
+        "first_appearance": 350
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "RELATED_TO relationship",
+          "chapter": 350
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-ri-15": {
+      "id": "rel-ri-15",
+      "source_id": "duke-long",
+      "target_id": "feng-jin-huang",
+      "predicate": "MASTER_OF",
+      "label": "Master of Future Venerable",
+      "temporal": {
+        "valid_from": 1000,
+        "valid_to": 1960,
+        "revealed_at": 1000,
+        "first_appearance": 1000
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "MASTER_OF relationship",
+          "chapter": 1000
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-ri-16": {
+      "id": "rel-ri-16",
+      "source_id": "duke-long",
+      "target_id": "faction-heavenly-court",
+      "predicate": "LEADER_OF",
+      "label": "Supreme Commander",
+      "temporal": {
+        "valid_from": 700,
+        "valid_to": 1960,
+        "revealed_at": 700,
+        "first_appearance": 700
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "LEADER_OF relationship",
+          "chapter": 700
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-ri-17": {
+      "id": "rel-ri-17",
+      "source_id": "star-constellation",
+      "target_id": "faction-heavenly-court",
+      "predicate": "LEADER_OF",
+      "label": "Second Generation Founder",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 700,
+        "first_appearance": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "LEADER_OF relationship",
+          "chapter": 700
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-ri-18": {
+      "id": "rel-ri-18",
+      "source_id": "fairy-zi-wei",
+      "target_id": "faction-heavenly-court",
+      "predicate": "MEMBER_OF",
+      "label": "Wisdom Path Leader",
+      "temporal": {
+        "valid_from": 1200,
+        "valid_to": null,
+        "revealed_at": 1200,
+        "first_appearance": 1200
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "MEMBER_OF relationship",
+          "chapter": 1200
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-ri-19": {
+      "id": "rel-ri-19",
+      "source_id": "giant-sun",
+      "target_id": "faction-longevity-heaven",
+      "predicate": "LEADER_OF",
+      "label": "Progenitor Ancestor",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 500,
+        "first_appearance": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "LEADER_OF relationship",
+          "chapter": 500
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-ri-20": {
+      "id": "rel-ri-20",
+      "source_id": "spectral-soul",
+      "target_id": "faction-shadow-sect",
+      "predicate": "LEADER_OF",
+      "label": "Supreme Mastermind",
+      "temporal": {
+        "valid_from": 600,
+        "valid_to": null,
+        "revealed_at": 600,
+        "first_appearance": 600
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "LEADER_OF relationship",
+          "chapter": 600
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-ri-21": {
+      "id": "rel-ri-21",
+      "source_id": "lang-ya-spirit",
+      "target_id": "faction-lang-ya",
+      "predicate": "LEADER_OF",
+      "label": "Sanctuary Land Spirit",
+      "temporal": {
+        "valid_from": 460,
+        "valid_to": null,
+        "revealed_at": 460,
+        "first_appearance": 460
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "LEADER_OF relationship",
+          "chapter": 460
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-ri-22": {
+      "id": "rel-ri-22",
+      "source_id": "fang-yuan",
+      "target_id": "faction-lang-ya",
+      "predicate": "MEMBER_OF",
+      "label": "Supreme Elder",
+      "temporal": {
+        "valid_from": 1000,
+        "valid_to": 1700,
+        "revealed_at": 1000,
+        "first_appearance": 1000
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "MEMBER_OF relationship",
+          "chapter": 1000
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-ri-23": {
+      "id": "rel-ri-23",
+      "source_id": "fang-yuan",
+      "target_id": "duke-long",
+      "predicate": "ENEMY_OF",
+      "label": "Fate War Nemesis",
+      "temporal": {
+        "valid_from": 1020,
+        "valid_to": 1960,
+        "revealed_at": 1020,
+        "first_appearance": 1020
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "ENEMY_OF relationship",
+          "chapter": 1020
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-ri-24": {
+      "id": "rel-ri-24",
+      "source_id": "fang-yuan",
+      "target_id": "star-constellation",
+      "predicate": "ENEMY_OF",
+      "label": "Venerable Hegemony Rivals",
+      "temporal": {
+        "valid_from": 1960,
+        "valid_to": null,
+        "revealed_at": 1960,
+        "first_appearance": 1960
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "ENEMY_OF relationship",
+          "chapter": 1960
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-ri-25": {
+      "id": "rel-ri-25",
+      "source_id": "fang-yuan",
+      "target_id": "giant-sun",
+      "predicate": "ENEMY_OF",
+      "label": "True Yang Building Nemesis",
+      "temporal": {
+        "valid_from": 640,
+        "valid_to": null,
+        "revealed_at": 640,
+        "first_appearance": 640
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "ENEMY_OF relationship",
+          "chapter": 640
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-ri-26": {
+      "id": "rel-ri-26",
+      "source_id": "wu-yong",
+      "target_id": "faction-wu",
+      "predicate": "LEADER_OF",
+      "label": "Wu Clan Lord",
+      "temporal": {
+        "valid_from": 1100,
+        "valid_to": null,
+        "revealed_at": 1100,
+        "first_appearance": 1100
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "LEADER_OF relationship",
+          "chapter": 1100
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-ri-27": {
+      "id": "rel-ri-27",
+      "source_id": "wu-du-xiu",
+      "target_id": "wu-yong",
+      "predicate": "RELATED_TO",
+      "label": "Mother and Son",
+      "temporal": {
+        "valid_from": 1100,
+        "valid_to": 1100,
+        "revealed_at": 1100,
+        "first_appearance": 1100
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "RELATED_TO relationship",
+          "chapter": 1100
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-ri-28": {
+      "id": "rel-ri-28",
+      "source_id": "fang-yuan",
+      "target_id": "wu-yong",
+      "predicate": "RIVAL_OF",
+      "label": "Southern Border Supremacy",
+      "temporal": {
+        "valid_from": 1100,
+        "valid_to": null,
+        "revealed_at": 1100,
+        "first_appearance": 1100
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "RIVAL_OF relationship",
+          "chapter": 1100
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-ri-29": {
+      "id": "rel-ri-29",
+      "source_id": "tai-bai-yun-sheng",
+      "target_id": "fang-yuan",
+      "predicate": "ALLY_OF",
+      "label": "Loyal Companion",
+      "temporal": {
+        "valid_from": 440,
+        "valid_to": 1000,
+        "revealed_at": 440,
+        "first_appearance": 440
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "ALLY_OF relationship",
+          "chapter": 440
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-ri-30": {
+      "id": "rel-ri-30",
+      "source_id": "hei-lou-lan",
+      "target_id": "fang-yuan",
+      "predicate": "ALLY_OF",
+      "label": "Snow Mountain Alliance",
+      "temporal": {
+        "valid_from": 500,
+        "valid_to": 1000,
+        "revealed_at": 500,
+        "first_appearance": 500
+      },
+      "provenance": {
+        "source": {
+          "series": "reverend-insanity",
+          "page": "ALLY_OF relationship",
+          "chapter": 500
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    }
+  }
+}

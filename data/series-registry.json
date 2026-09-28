@@ -58,5 +58,17 @@
       "latest_processed_chapter": 1130,
       "as_of": "2026-09-27T00:00:00Z"
     }
+  },
+  {
+    "slug": "reverend-insanity",
+    "title": "Reverend Insanity",
+    "type": "cultivation",
+    "status": "completed",
+    "wiki_api_endpoint": "https://reverend-insanity.fandom.com/api.php",
+    "total_chapters": 2334,
+    "knowledge_boundary": {
+      "latest_processed_chapter": 2334,
+      "as_of": "2026-09-28T00:00:00Z"
+    }
   }
 ]

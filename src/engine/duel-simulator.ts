@@ -223,6 +223,59 @@ export function getCanonPresets(seriesSlug: string): DuelPreset[] {
     ];
   }
 
+  if (seriesSlug === 'reverend-insanity') {
+    return [
+      {
+        id: 'ri-fangyuan-guyue-elders',
+        title: 'Qing Mao Bloodbath: Extinction of Gu Yue',
+        chapter: 195,
+        fighterA: 'fang-yuan',
+        fighterB: 'gu-yue-bo',
+        synopsis: 'Fang Yuan sacrifices the clan, consumes blood skulls, and slaughters elders to break through Rank 3.',
+      },
+      {
+        id: 'ri-fangyuan-tieruonan',
+        title: 'Shang Clan Arena: Chains vs All-Out Effort',
+        chapter: 390,
+        fighterA: 'fang-yuan',
+        fighterB: 'tie-ruo-nan',
+        synopsis: 'Fang Yuan unleashes beast phantom strength against Tie Ruo Nan’s iron mask justice inside Shang City battle arena.',
+      },
+      {
+        id: 'ri-fangyuan-bainingbing',
+        title: 'San Cha Mountain: Twin Demon Betrayal',
+        chapter: 405,
+        fighterA: 'fang-yuan',
+        fighterB: 'bai-ning-bing',
+        synopsis: 'Bai Ning Bing betrays Fang Yuan at King Bao Blessed Land; Spring Autumn Cicada reverses time at the brink of death.',
+      },
+      {
+        id: 'ri-fangyuan-giantsun-will',
+        title: 'Eighty-Eight True Yang Building Collapse',
+        chapter: 640,
+        fighterA: 'fang-yuan',
+        fighterB: 'giant-sun',
+        synopsis: 'Fang Yuan gambles life and soul, turning into an Immortal Zombie to snatch Sovereign Immortal Gu and shatter Giant Sun’s Will.',
+      },
+      {
+        id: 'ri-fangyuan-dukelong',
+        title: 'Fate War: Dragon Heavenly Might vs Complete Freedom',
+        chapter: 1750,
+        fighterA: 'fang-yuan',
+        fighterB: 'duke-long',
+        synopsis: 'Duke Long activates Heavenly Dragon Last Stand to guard Fate Gu against Great Love Demon Venerable’s myriad phantom clones.',
+      },
+      {
+        id: 'ri-three-venerables-chaos',
+        title: 'Crazed Demon Cave: Three Venerables Chaos Battle',
+        chapter: 2210,
+        fighterA: 'fang-yuan',
+        fighterB: 'star-constellation',
+        synopsis: 'Heaven Refining Demon Venerable Fang Yuan battles Star Constellation Immortal Venerable and Giant Sun Immortal Venerable for eternal life.',
+      },
+    ];
+  }
+
   return [
     {
       id: 'cd-linley-clayde',
@@ -310,6 +363,17 @@ function resolvePowerRank(stageId: string | undefined, seriesSlug: string): { ra
   if (s.includes('angel-archangel')) return { rank: 9, name: 'Angel / Ground Deity (Seq 2-1)' };
   if (s.includes('true-deity')) return { rank: 10, name: 'True Deity (Seq 0)' };
   if (s.includes('above-sequence') || s.includes('lord-of-mysteries')) return { rank: 10, name: 'Pillar / Great Old One' };
+
+  // Reverend Insanity Gu Cultivation ranks
+  if (s.includes('stage-rank-1') || s.includes('rank-1') || s.includes('rank 1')) return { rank: 1, name: 'Rank 1 Gu Master' };
+  if (s.includes('stage-rank-2') || s.includes('rank-2') || s.includes('rank 2')) return { rank: 2, name: 'Rank 2 Gu Master' };
+  if (s.includes('stage-rank-3') || s.includes('rank-3') || s.includes('rank 3')) return { rank: 3, name: 'Rank 3 Gu Master' };
+  if (s.includes('stage-rank-4') || s.includes('rank-4') || s.includes('rank 4')) return { rank: 4, name: 'Rank 4 Gu Master' };
+  if (s.includes('stage-rank-5') || s.includes('rank-5') || s.includes('rank 5')) return { rank: 5, name: 'Rank 5 Gu Master' };
+  if (s.includes('stage-rank-6') || s.includes('rank-6') || s.includes('rank 6')) return { rank: 7, name: 'Rank 6 Gu Immortal' };
+  if (s.includes('stage-rank-7') || s.includes('rank-7') || s.includes('rank 7')) return { rank: 8, name: 'Rank 7 Gu Immortal' };
+  if (s.includes('stage-rank-8') || s.includes('rank-8') || s.includes('rank 8')) return { rank: 9, name: 'Rank 8 Gu Immortal' };
+  if (s.includes('stage-rank-9') || s.includes('rank-9') || s.includes('rank 9') || s.includes('venerable')) return { rank: 10, name: 'Rank 9 Venerable' };
 
   return { rank: 3, name: stageId.replace(/[-_]/g, ' ') };
 }
@@ -446,6 +510,90 @@ function getCharacterTechniques(charId: string, seriesSlug: string): string[] {
     return ['Pure White Light of Purification', 'Unshadowed Spear of the Sun', 'Divine Holy Oath Blessing'];
   }
 
+  // Reverend Insanity characters
+  if (c.includes('fang-yuan') || c.includes('fangyuan')) {
+    return [
+      'Spring Autumn Cicada Rebirth',
+      'Blood Skull Aptitude Sacrifice',
+      'Myriad Self Giant Strength Phantom',
+      'Reverse Flow Protection Seal',
+      'Lead Soul Into Dream',
+      'Luo Po Soul Cleaving Seal',
+      'Compound Killer Move: Steal Heavenly Secret',
+      'Heaven Refining Cauldron Cosmic Refinement'
+    ];
+  }
+  if (c.includes('duke-long')) {
+    return [
+      'Heavenly Dragon Last Stand',
+      'Qi Breath Mountain Suppression',
+      'Dragon Claws Void Fissure',
+      'Primary Origin Immortal Realm Barrier'
+    ];
+  }
+  if (c.includes('star-constellation')) {
+    return [
+      'Wisdom Dao Star Chessboard',
+      'Star Cloud Endless Flurry',
+      'Emotional Will Distraction Array',
+      'Heaven’s Will Conceptual Subjugation'
+    ];
+  }
+  if (c.includes('giant-sun')) {
+    return [
+      'Dog Shit Luck Gu Divination',
+      'All Living Beings Luck Manifestation',
+      'Blood Curse Tribulation Cloud',
+      'Luck Dao Golden Bell Protection'
+    ];
+  }
+  if (c.includes('spectral-soul')) {
+    return [
+      'Soul Devour Abyssal Maw',
+      'Sovereign Fetus Creation Art',
+      'Ten Extreme Formations Cataclysm',
+      'Ghost Face Soul Sever'
+    ];
+  }
+  if (c.includes('bai-ning-bing')) {
+    return [
+      'Northern Dark Ice Soul Explosion',
+      'Frost Arrow Piercing Blitz',
+      'Glacier Freezing Domain',
+      'White Dragon Ice Body Transformation'
+    ];
+  }
+  if (c.includes('tie-ruo-nan')) {
+    return [
+      'Iron Mask Truth Insight',
+      'Iron Chains Imprisonment Net',
+      'Golden Needle Divine Search',
+      'Tie Clan Five Phantoms Array'
+    ];
+  }
+  if (c.includes('gu-yue-bo')) {
+    return [
+      'Moonblade Rapid Barrage',
+      'Moonglow Gu Amplification',
+      'Gu Yue Ancestral Shield Defense'
+    ];
+  }
+  if (c.includes('feng-jiu-ge')) {
+    return [
+      'Song of Life and Death',
+      'Subjugation Song Resonance',
+      'Destiny Song Dimensional Shock',
+      'Yang Sound Piercing Note'
+    ];
+  }
+  if (c.includes('shang-xin-ci')) {
+    return [
+      'Benevolence Gu Luminous Halo',
+      'Kind Heart Soul Pacification',
+      'Shang Clan Commercial Token Ward'
+    ];
+  }
+
   // Generics
   if (seriesSlug === 'one-piece') {
     return ['Heavy Armament Haki Smash', 'High-Speed Soru Flash Strike', 'Decisive Conqueror Aura Clash'];
@@ -458,6 +606,9 @@ function getCharacterTechniques(charId: string, seriesSlug: string): string[] {
   }
   if (seriesSlug === 'lord-of-the-mysteries') {
     return ['Mystical Spell Circle Burst', 'Spirit Vision Soul Gaze', 'Ritualistic Incantation Ward'];
+  }
+  if (seriesSlug === 'reverend-insanity') {
+    return ['Primeval Essence Blast', 'Immortal Killer Move Activation', 'Gu Worm Resonance Burst', 'Dao Mark Elemental Shock'];
   }
   return ['Elemental Domain Pressure', 'Profound Laws Sonic Burst', 'Divine Spark Cataclysmic Shock'];
 }

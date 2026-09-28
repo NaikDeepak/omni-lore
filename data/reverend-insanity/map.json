@@ -1,0 +1,541 @@
+{
+  "id": "map-reverend-insanity-gu-world",
+  "universeId": "reverend-insanity",
+  "coordinateSystem": "world",
+  "width": 1000,
+  "height": 1000,
+  "terrain": [
+    {
+      "id": "terrain-southern-border",
+      "type": "mountain",
+      "name": "Southern Border Karst Spire Ranges",
+      "polygon": [[50, 700], [500, 700], [500, 950], [50, 950]],
+      "elevation": 3,
+      "colorOverride": "#154231"
+    },
+    {
+      "id": "terrain-central-continent",
+      "type": "plains",
+      "name": "Central Continent Vast Basin",
+      "polygon": [[350, 350], [650, 350], [650, 650], [350, 650]],
+      "elevation": 2,
+      "colorOverride": "#0b251b"
+    },
+    {
+      "id": "terrain-northern-plains",
+      "type": "plains",
+      "name": "Northern Plains Grassland Expanses",
+      "polygon": [[250, 50], [750, 50], [750, 320], [250, 320]],
+      "elevation": 1,
+      "colorOverride": "#123824"
+    },
+    {
+      "id": "terrain-western-desert",
+      "type": "desert",
+      "name": "Western Desert Endless Dunes",
+      "polygon": [[50, 320], [320, 320], [320, 680], [50, 680]],
+      "elevation": 1,
+      "colorOverride": "#3d3214"
+    },
+    {
+      "id": "terrain-eastern-sea",
+      "type": "ocean",
+      "name": "Eastern Sea Infinite Waters",
+      "polygon": [[680, 320], [950, 320], [950, 680], [680, 680]],
+      "elevation": 0,
+      "colorOverride": "#04100c"
+    },
+    {
+      "id": "terrain-river-of-time",
+      "type": "river",
+      "name": "Cosmic River of Time Temporal Flow",
+      "polygon": [[100, 960], [900, 960], [900, 990], [100, 990]],
+      "elevation": 4,
+      "colorOverride": "#059669"
+    }
+  ],
+  "regions": [
+    {
+      "id": "region-southern-border",
+      "name": "Southern Border",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[50, 700], [500, 700], [500, 950], [50, 950]]]
+      },
+      "terrainType": "mountain",
+      "visibleFromChapter": 1,
+      "revealedAtChapter": 1,
+      "factionIds": ["faction-gu-yue", "faction-bai", "faction-tie", "faction-shang", "faction-wu"],
+      "notes": "Home of karst spires, dense vegetation, and fiercely independent clan strongholds."
+    },
+    {
+      "id": "region-central-continent",
+      "name": "Central Continent",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[350, 350], [650, 350], [650, 650], [350, 650]]]
+      },
+      "terrainType": "plains",
+      "visibleFromChapter": 1,
+      "revealedAtChapter": 200,
+      "factionIds": ["faction-heavenly-court", "faction-spirit-affinity-house"],
+      "notes": "Dominant sect-based heartland governed under Heavenly Court's supreme 3-million-year authority."
+    },
+    {
+      "id": "region-northern-plains",
+      "name": "Northern Plains",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[250, 50], [750, 50], [750, 320], [250, 320]]]
+      },
+      "terrainType": "plains",
+      "visibleFromChapter": 1,
+      "revealedAtChapter": 400,
+      "factionIds": ["faction-longevity-heaven", "faction-lang-ya"],
+      "notes": "Nomadic plains dominated by Huang Jin bloodline tribes and the legacy of Giant Sun Immortal Venerable."
+    },
+    {
+      "id": "region-western-desert",
+      "name": "Western Desert",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[50, 320], [320, 320], [320, 680], [50, 680]]]
+      },
+      "terrainType": "desert",
+      "visibleFromChapter": 1,
+      "revealedAtChapter": 500,
+      "notes": "Vast desert expanse dotted with oases and merchant clans governed by ancient fire and sand paths."
+    },
+    {
+      "id": "region-eastern-sea",
+      "name": "Eastern Sea",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[680, 320], [950, 320], [950, 680], [680, 680]]]
+      },
+      "terrainType": "ocean",
+      "visibleFromChapter": 1,
+      "revealedAtChapter": 500,
+      "notes": "Abundant maritime realm with the richest natural immortal materials and decentralized super forces."
+    },
+    {
+      "id": "region-two-heavens",
+      "name": "Immemorial Two Heavens",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[50, 10], [950, 10], [950, 45], [50, 45]]]
+      },
+      "terrainType": "void",
+      "visibleFromChapter": 400,
+      "revealedAtChapter": 800,
+      "notes": "Remnants of the ancient Nine Heavens: White Heaven and Black Heaven sheltering immemorial desolate beasts."
+    },
+    {
+      "id": "region-river-of-time",
+      "name": "Cosmic River of Time",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[100, 960], [900, 960], [900, 990], [100, 990]]]
+      },
+      "terrainType": "river",
+      "visibleFromChapter": 1,
+      "revealedAtChapter": 600,
+      "notes": "The metaphysical river regulating past, present, and future, navigable via Spring Autumn Cicada."
+    }
+  ],
+  "locations": [
+    {
+      "id": "loc-qing-mao-mountain",
+      "name": "Qing Mao Mountain",
+      "x": 180,
+      "y": 740,
+      "type": "mountain",
+      "regionId": "region-southern-border",
+      "importance": "critical",
+      "firstAppearanceChapter": 1,
+      "revealedAtChapter": 1,
+      "description": "Cradle of Gu Yue Village, Xiong Clan, and Bai Clan; scene of Spring Autumn Cicada rebirth.",
+      "controllingFactionId": "faction-gu-yue"
+    },
+    {
+      "id": "loc-gu-yue-village",
+      "name": "Gu Yue Village",
+      "x": 190,
+      "y": 750,
+      "type": "village",
+      "regionId": "region-southern-border",
+      "importance": "major",
+      "firstAppearanceChapter": 1,
+      "revealedAtChapter": 1,
+      "description": "The ancestral moonlight pavilion and academy where Fang Yuan awakened his Rank 1 C-grade aperture.",
+      "controllingFactionId": "faction-gu-yue"
+    },
+    {
+      "id": "loc-bai-gu-mountain",
+      "name": "Bai Gu Mountain",
+      "x": 230,
+      "y": 770,
+      "type": "mountain",
+      "regionId": "region-southern-border",
+      "importance": "major",
+      "firstAppearanceChapter": 210,
+      "revealedAtChapter": 210,
+      "description": "Bone-laden mountain range holding Grey Bone Scholar's inheritance and Flesh-Bone Unity Gu."
+    },
+    {
+      "id": "loc-shang-city",
+      "name": "Shang Clan City",
+      "x": 280,
+      "y": 810,
+      "type": "city",
+      "regionId": "region-southern-border",
+      "importance": "critical",
+      "firstAppearanceChapter": 260,
+      "revealedAtChapter": 260,
+      "description": "Grand trading capital of Southern Border, fortified with ancient earth path formations and 5 battle arenas.",
+      "controllingFactionId": "faction-shang"
+    },
+    {
+      "id": "loc-san-cha-mountain",
+      "name": "San Cha Mountain",
+      "x": 330,
+      "y": 780,
+      "type": "mountain",
+      "regionId": "region-southern-border",
+      "importance": "critical",
+      "firstAppearanceChapter": 350,
+      "revealedAtChapter": 350,
+      "description": "Site of Three Kings Blessed Land (King Bao, King Kuang, King Xin) and the rebirth of Fixed Immortal Travel."
+    },
+    {
+      "id": "loc-yi-tian-mountain",
+      "name": "Yi Tian Mountain",
+      "x": 380,
+      "y": 830,
+      "type": "mountain",
+      "regionId": "region-southern-border",
+      "importance": "critical",
+      "firstAppearanceChapter": 950,
+      "revealedAtChapter": 950,
+      "description": "Epic battleground of the Righteous vs Demonic war; refinement crucible of Sovereign Immortal Fetus Gu.",
+      "controllingFactionId": "faction-shadow-sect"
+    },
+    {
+      "id": "loc-wu-mountain",
+      "name": "Wu Mountain",
+      "x": 420,
+      "y": 800,
+      "type": "mountain",
+      "regionId": "region-southern-border",
+      "importance": "major",
+      "firstAppearanceChapter": 1100,
+      "revealedAtChapter": 1100,
+      "description": "Headquarters of Wu Clan, the preeminent super clan of Southern Border led by Wu Du Xiu and Wu Yong.",
+      "controllingFactionId": "faction-wu"
+    },
+    {
+      "id": "loc-crescent-lake",
+      "name": "Crescent Lake",
+      "x": 450,
+      "y": 230,
+      "type": "lake",
+      "regionId": "region-northern-plains",
+      "importance": "major",
+      "firstAppearanceChapter": 410,
+      "revealedAtChapter": 410,
+      "description": "Gathering ground for the Heroes Assembly where Wolf King Chang Shan Yin re-emerged into mortal politics."
+    },
+    {
+      "id": "loc-eighty-eight-true-yang",
+      "name": "Eighty-Eight True Yang Building",
+      "x": 510,
+      "y": 180,
+      "type": "castle",
+      "regionId": "region-northern-plains",
+      "importance": "critical",
+      "firstAppearanceChapter": 540,
+      "revealedAtChapter": 540,
+      "description": "Giant Sun Immortal Venerable's Rank 8 Immortal Gu House, looting Northern Plains resources for millennia.",
+      "controllingFactionId": "faction-longevity-heaven"
+    },
+    {
+      "id": "loc-imperial-court-blessed-land",
+      "name": "Imperial Court Blessed Land",
+      "x": 520,
+      "y": 170,
+      "type": "landmark",
+      "regionId": "region-northern-plains",
+      "importance": "critical",
+      "firstAppearanceChapter": 500,
+      "revealedAtChapter": 500,
+      "description": "Sanctuary blessed land opened every ten years for the victors of the Northern Plains war.",
+      "controllingFactionId": "faction-longevity-heaven"
+    },
+    {
+      "id": "loc-lang-ya-blessed-land",
+      "name": "Lang Ya Blessed Land",
+      "x": 590,
+      "y": 210,
+      "type": "sect",
+      "regionId": "region-northern-plains",
+      "importance": "critical",
+      "firstAppearanceChapter": 460,
+      "revealedAtChapter": 460,
+      "description": "Refinement path blessed land of Long Hair Ancestor, home of the hairy men and countless Immortal Gu recipes.",
+      "controllingFactionId": "faction-lang-ya"
+    },
+    {
+      "id": "loc-crazed-demon-cave",
+      "name": "Crazed Demon Cave",
+      "x": 480,
+      "y": 120,
+      "type": "dungeon",
+      "regionId": "region-northern-plains",
+      "importance": "critical",
+      "firstAppearanceChapter": 1200,
+      "revealedAtChapter": 1200,
+      "description": "Nine-layered subterranean rift created by Limitless Demon Venerable to deduce eternal life."
+    },
+    {
+      "id": "loc-heavenly-court",
+      "name": "Heavenly Court",
+      "x": 500,
+      "y": 420,
+      "type": "sect",
+      "regionId": "region-central-continent",
+      "importance": "critical",
+      "firstAppearanceChapter": 700,
+      "revealedAtChapter": 700,
+      "description": "The supreme holy land of humanity, housing Fate Gu, Primordial Origin's legacy, and Duke Long.",
+      "controllingFactionId": "faction-heavenly-court"
+    },
+    {
+      "id": "loc-hu-immortal-blessed-land",
+      "name": "Hu Immortal Blessed Land",
+      "x": 560,
+      "y": 490,
+      "type": "landmark",
+      "regionId": "region-central-continent",
+      "importance": "critical",
+      "firstAppearanceChapter": 400,
+      "revealedAtChapter": 400,
+      "description": "Blessed land anchored on Tian Ti Mountain; home to Dang Hun Mountain and guts Gu production."
+    },
+    {
+      "id": "loc-spirit-affinity-house",
+      "name": "Spirit Affinity House",
+      "x": 440,
+      "y": 510,
+      "type": "sect",
+      "regionId": "region-central-continent",
+      "importance": "major",
+      "firstAppearanceChapter": 350,
+      "revealedAtChapter": 350,
+      "description": "One of Central Continent's Ten Great Ancient Sects, sect of Feng Jiu Ge and Feng Jin Huang.",
+      "controllingFactionId": "faction-spirit-affinity-house"
+    },
+    {
+      "id": "loc-reverse-flow-river",
+      "name": "Reverse Flow River",
+      "x": 420,
+      "y": 260,
+      "type": "landmark",
+      "regionId": "region-northern-plains",
+      "importance": "critical",
+      "firstAppearanceChapter": 1280,
+      "revealedAtChapter": 1280,
+      "description": "Secluded Domain of Heaven and Earth where perseverance overcomes all; birthplace of Reverse Flow Protection Seal."
+    },
+    {
+      "id": "loc-river-of-time",
+      "name": "River of Time Nexus",
+      "x": 500,
+      "y": 975,
+      "type": "portal",
+      "regionId": "region-river-of-time",
+      "importance": "critical",
+      "firstAppearanceChapter": 1,
+      "revealedAtChapter": 600,
+      "description": "Universal torrent of time carrying past, present, and future, protected by Time Dao killer moves."
+    },
+    {
+      "id": "loc-stone-lotus-island",
+      "name": "Stone Lotus Island",
+      "x": 700,
+      "y": 975,
+      "type": "island",
+      "regionId": "region-river-of-time",
+      "importance": "critical",
+      "firstAppearanceChapter": 1350,
+      "revealedAtChapter": 1350,
+      "description": "Time-suspended island sanctuary left behind by Red Lotus Demon Venerable to shatter Fate Gu."
+    }
+  ],
+  "routes": [
+    {
+      "id": "route-southern-caravan",
+      "name": "Shang Clan Caravan Trade Path",
+      "points": [[180, 740], [230, 770], [280, 810]],
+      "routeType": "road",
+      "visibleFromChapter": 200,
+      "revealedAtChapter": 200
+    },
+    {
+      "id": "route-three-kings-conquest",
+      "name": "San Cha Expedition Route",
+      "points": [[280, 810], [310, 795], [330, 780]],
+      "routeType": "road",
+      "visibleFromChapter": 350,
+      "revealedAtChapter": 350
+    },
+    {
+      "id": "route-plains-conquest",
+      "name": "Northern Plains Imperial War Trail",
+      "points": [[450, 230], [480, 205], [510, 180]],
+      "routeType": "road",
+      "visibleFromChapter": 420,
+      "revealedAtChapter": 420
+    },
+    {
+      "id": "route-temporal-reversal",
+      "name": "Spring Autumn Cicada Temporal Traversal",
+      "points": [[500, 975], [600, 975], [700, 975]],
+      "routeType": "secret",
+      "visibleFromChapter": 1,
+      "revealedAtChapter": 600
+    }
+  ],
+  "territories": [
+    {
+      "factionId": "faction-gu-yue",
+      "name": "Gu Yue Clan Village Perimeter",
+      "boundary": [[160, 720], [210, 720], [210, 760], [160, 760]],
+      "controlPeriods": [
+        { "fromChapter": 1, "toChapter": 200, "influencePct": 95 }
+      ]
+    },
+    {
+      "factionId": "faction-shang",
+      "name": "Shang Clan Sovereign Commerce Realm",
+      "boundary": [[250, 780], [310, 780], [310, 840], [250, 840]],
+      "controlPeriods": [
+        { "fromChapter": 1, "toChapter": null, "influencePct": 90 }
+      ]
+    },
+    {
+      "factionId": "faction-wu",
+      "name": "Wu Clan Southern Hegemony",
+      "boundary": [[390, 770], [460, 770], [460, 830], [390, 830]],
+      "controlPeriods": [
+        { "fromChapter": 1, "toChapter": null, "influencePct": 95 }
+      ]
+    },
+    {
+      "factionId": "faction-heavenly-court",
+      "name": "Heavenly Court Core Authority Domain",
+      "boundary": [[460, 380], [540, 380], [540, 460], [460, 460]],
+      "controlPeriods": [
+        { "fromChapter": 1, "toChapter": null, "influencePct": 100 }
+      ]
+    },
+    {
+      "factionId": "faction-longevity-heaven",
+      "name": "Longevity Heaven Huang Jin Supremacy",
+      "boundary": [[470, 140], [550, 140], [550, 210], [470, 210]],
+      "controlPeriods": [
+        { "fromChapter": 1, "toChapter": null, "influencePct": 90 }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "event-qing-mao-slaughter",
+      "name": "Qing Mao Mountain Bloodbath",
+      "chapter": 195,
+      "locationId": "loc-qing-mao-mountain",
+      "eventType": "battle",
+      "importance": "critical",
+      "involvedCharacterIds": ["fang-yuan", "bai-ning-bing", "gu-yue-bo"],
+      "description": "Fang Yuan sacrifices the Gu Yue clan with Blood Skull Gu and consumes ancestors to ascend to Rank 3."
+    },
+    {
+      "id": "event-san-cha-time-reversal",
+      "name": "Three Kings Blessed Land Reversal",
+      "chapter": 405,
+      "locationId": "loc-san-cha-mountain",
+      "eventType": "battle",
+      "importance": "critical",
+      "involvedCharacterIds": ["fang-yuan", "bai-ning-bing", "tie-ruo-nan"],
+      "description": "Betrayed by Bai Ning Bing at the brink of death, Fang Yuan detonates Spring Autumn Cicada to rewind time."
+    },
+    {
+      "id": "event-eighty-eight-collapse",
+      "name": "Collapse of Eighty-Eight True Yang Building",
+      "chapter": 640,
+      "locationId": "loc-eighty-eight-true-yang",
+      "eventType": "war",
+      "importance": "critical",
+      "involvedCharacterIds": ["fang-yuan", "giant-sun", "tai-bai-yun-sheng"],
+      "description": "Fang Yuan shatters the Rank 8 Immortal Gu House, becoming an Immortal Zombie and escaping Heavenly Court's encirclement."
+    },
+    {
+      "id": "event-yi-tian-fetus",
+      "name": "Battle of Yi Tian Mountain",
+      "chapter": 1020,
+      "locationId": "loc-yi-tian-mountain",
+      "eventType": "ascension",
+      "importance": "critical",
+      "involvedCharacterIds": ["fang-yuan", "spectral-soul", "duke-long"],
+      "description": "Spectral Soul refines Sovereign Immortal Fetus Gu; Fang Yuan intercepts fate and snatches the Rank 9 body."
+    },
+    {
+      "id": "event-reverse-flow-stand",
+      "name": "Reverse Flow River Perseverance",
+      "chapter": 1285,
+      "locationId": "loc-reverse-flow-river",
+      "eventType": "breakthrough",
+      "importance": "critical",
+      "involvedCharacterIds": ["fang-yuan", "feng-jiu-ge"],
+      "description": "Fang Yuan marches upstream through Reverse Flow River, stunning both immortals and creating Reverse Flow Protection Seal."
+    },
+    {
+      "id": "event-fate-war",
+      "name": "Destruction of Fate Gu",
+      "chapter": 1960,
+      "locationId": "loc-heavenly-court",
+      "eventType": "war",
+      "importance": "critical",
+      "involvedCharacterIds": ["fang-yuan", "duke-long", "star-constellation", "feng-jiu-ge"],
+      "description": "Fang Yuan and three regions allies breach Heavenly Court, culminating in the permanent destruction of Fate Gu."
+    },
+    {
+      "id": "event-crazed-demon-clash",
+      "name": "Crazed Demon Cave Three Venerables War",
+      "chapter": 2210,
+      "locationId": "loc-crazed-demon-cave",
+      "eventType": "war",
+      "importance": "critical",
+      "involvedCharacterIds": ["fang-yuan", "star-constellation", "giant-sun"],
+      "description": "Great Love / Heaven Refining Demon Venerable battles Star Constellation and Giant Sun for the primordial truth of eternal life."
+    }
+  ],
+  "characterPaths": [
+    {
+      "characterId": "fang-yuan",
+      "characterName": "Fang Yuan",
+      "waypoints": [
+        { "chapter": 1, "locationId": "loc-qing-mao-mountain", "x": 180, "y": 740, "note": "Rebirth with Spring Autumn Cicada" },
+        { "chapter": 210, "locationId": "loc-bai-gu-mountain", "x": 230, "y": 770, "note": "Acquires Bone Flesh Unity Gu" },
+        { "chapter": 260, "locationId": "loc-shang-city", "x": 280, "y": 810, "note": "Shang Clan city battle stage ascent" },
+        { "chapter": 350, "locationId": "loc-san-cha-mountain", "x": 330, "y": 780, "note": "Refines Fixed Immortal Travel Gu" },
+        { "chapter": 410, "locationId": "loc-crescent-lake", "x": 450, "y": 230, "note": "Assumes identity of Wolf King Chang Shan Yin" },
+        { "chapter": 540, "locationId": "loc-eighty-eight-true-yang", "x": 510, "y": 180, "note": "Destroys Eighty-Eight True Yang Building" },
+        { "chapter": 650, "locationId": "loc-hu-immortal-blessed-land", "x": 560, "y": 490, "note": "Immortal Zombie management of Dang Hun Mountain" },
+        { "chapter": 1020, "locationId": "loc-yi-tian-mountain", "x": 380, "y": 830, "note": "Obtains Sovereign Immortal Body" },
+        { "chapter": 1285, "locationId": "loc-reverse-flow-river", "x": 420, "y": 260, "note": "Conquers Reverse Flow River" },
+        { "chapter": 1960, "locationId": "loc-heavenly-court", "x": 500, "y": 420, "note": "Shatters Fate Gu" },
+        { "chapter": 2210, "locationId": "loc-crazed-demon-cave", "x": 480, "y": 120, "note": "Clashes as Heaven Refining Demon Venerable" }
+      ]
+    }
+  ]
+}

@@ -126,6 +126,27 @@ export const UNIVERSE_THEMES: Record<string, UniverseTheme> = {
       gridLine: 'rgba(250, 204, 21, 0.15)',
     },
   },
+  'reverend-insanity': {
+    id: 'reverend-insanity',
+    name: 'Reverend Insanity',
+    tagline: 'Gu worm refinement, demonic perseverance, and the relentless pursuit of eternal life',
+    accentColor: '#10b981',
+    accentBorder: 'border-emerald-500/60',
+    badgeBg: 'bg-emerald-500/20',
+    badgeText: 'text-emerald-300',
+    cardBg: 'bg-[#07130e]',
+    crtTint: 'rgba(16, 185, 129, 0.03)',
+    runeSymbol: '🦗',
+    primaryStat: '⚔ Gu Rank & Essence',
+    secondaryStat: '✦ Dao Marks & Attainment',
+    mapTerrain: {
+      seaColor: '#04100c',
+      landColor: '#0b251b',
+      mountainColor: '#154231',
+      fogColor: '#020705',
+      gridLine: 'rgba(16, 185, 129, 0.12)',
+    },
+  },
 };
 
 export function getUniverseTheme(slug: string): UniverseTheme {
