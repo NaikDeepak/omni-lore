@@ -861,7 +861,7 @@ export class PixiWorldRenderer {
 
     if (this.app) {
       try {
-        this.app.destroy(removeView, { children: true });
+        this.app.destroy(removeView, { children: true, texture: true, textureSource: true } as any);
       } catch (e) {
         // Safe destroy fallback
       }

@@ -17,10 +17,23 @@ import { PixelAvatar } from '../../components/pixel/PixelAvatar';
 import { PixelGauge } from '../../components/pixel/PixelGauge';
 import { RpgStatusScreen } from '../../components/pixel/RpgStatusScreen';
 import { CharacterExplorer } from '../../components/pixel/CharacterExplorer';
-import { RpgWorldAtlas } from '../../components/map/RpgWorldAtlas';
+import dynamic from 'next/dynamic';
 import { PlaneOption } from '../../components/map/MapHudControls';
 import { WorldMapDefinition } from '../../domain/map-types';
 import { adaptGraphToWorldMap } from '../../projections/map-adapter';
+
+// Dynamically import RpgWorldAtlas to guarantee pure client-side WebGL canvas execution
+const RpgWorldAtlas = dynamic(
+  () => import('../../components/map/RpgWorldAtlas').then((mod) => mod.RpgWorldAtlas),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-[650px] bg-[#060a14] border border-slate-800 rounded-lg flex items-center justify-center font-pixel text-xs text-amber-400">
+        <span className="animate-pulse">░░ INITIALIZING RPG WORLD ATLAS (WEBGL) ░░</span>
+      </div>
+    ),
+  }
+);
 import { PixelNetworkCanvas } from '../../components/pixel/PixelNetworkCanvas';
 import { NodeDossierDrawer } from '../../components/pixel/NodeDossierDrawer';
 import { RpgDuelSimulator } from '../../components/pixel/RpgDuelSimulator';
