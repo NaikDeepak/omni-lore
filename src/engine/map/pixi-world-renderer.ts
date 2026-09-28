@@ -294,16 +294,27 @@ export class PixiWorldRenderer {
     this.syncCameraTransform();
   }
 
+  private clearContainerAndDestroyChildren(container: Container): void {
+    const children = container.removeChildren();
+    for (const child of children) {
+      try {
+        child.destroy({ children: true });
+      } catch {
+        // Fallback for mock environments
+      }
+    }
+  }
+
   private clearAllContainers(): void {
-    this.backgroundContainer.removeChildren();
-    this.terrainContainer.removeChildren();
-    this.regionsContainer.removeChildren();
-    this.routesContainer.removeChildren();
-    this.characterPathContainer.removeChildren();
-    this.markersContainer.removeChildren();
-    this.fogContainer.removeChildren();
-    this.atmosphereContainer.removeChildren();
-    this.labelsContainer.removeChildren();
+    this.clearContainerAndDestroyChildren(this.backgroundContainer);
+    this.clearContainerAndDestroyChildren(this.terrainContainer);
+    this.clearContainerAndDestroyChildren(this.regionsContainer);
+    this.clearContainerAndDestroyChildren(this.routesContainer);
+    this.clearContainerAndDestroyChildren(this.characterPathContainer);
+    this.clearContainerAndDestroyChildren(this.markersContainer);
+    this.clearContainerAndDestroyChildren(this.fogContainer);
+    this.clearContainerAndDestroyChildren(this.atmosphereContainer);
+    this.clearContainerAndDestroyChildren(this.labelsContainer);
   }
 
   private applyActiveLayers(activeLayers: Set<string> | MapVisibleLayers | Record<string, boolean>): void {
@@ -318,8 +329,9 @@ export class PixiWorldRenderer {
     this.regionsContainer.visible = isVisible('regions') || isVisible('territories');
     this.routesContainer.visible = isVisible('routes');
     this.characterPathContainer.visible = isVisible('characterPaths');
-    this.markersContainer.visible = isVisible('markers') || isVisible('events');
-    this.fogContainer.visible = isVisible('fogOfWar') || isVisible('fog');
+    this.markersContainer.visible = isVisible('markers') || isVisible('locations');
+    this.fogContainer.visible = isVisible('fog') || isVisible('fogOfWar');
+    this.atmosphereContainer.visible = isVisible('atmosphere') || isVisible('particles');
     this.labelsContainer.visible = isVisible('labels');
   }
 
