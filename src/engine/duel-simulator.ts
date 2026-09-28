@@ -170,6 +170,43 @@ export function getCanonPresets(seriesSlug: string): DuelPreset[] {
     ];
   }
 
+  if (seriesSlug === 'lord-of-the-mysteries') {
+    return [
+      {
+        id: 'lotm-klein-ince',
+        title: 'Vengeance for Captain Dunn Smith',
+        chapter: 940,
+        fighterA: 'klein-moretti',
+        fighterB: 'in-zangwill',
+        synopsis: 'Gehrman Sparrow and Leonard Mitchell unleash divine retribution with Azik Eggers against the traitorous bearer of 0-08.',
+      },
+      {
+        id: 'lotm-klein-amon',
+        title: 'Fool’s Apotheosis: Battle of Wits and Time',
+        chapter: 1380,
+        fighterA: 'klein-moretti',
+        fighterB: 'amon',
+        synopsis: 'The ultimate battle for the Lord of the Mysteries position inside Sefirah Castle; grafting supernova destruction against destiny theft.',
+      },
+      {
+        id: 'lotm-klein-zaratul',
+        title: 'Miracle Invoker Historical Projection War',
+        chapter: 1340,
+        fighterA: 'klein-moretti',
+        fighterB: 'roselle-gustav',
+        synopsis: 'Miracle Invoker Klein summons historical projections of angels and demigods in foggy Backlund to break the Secret Order encirclement.',
+      },
+      {
+        id: 'lotm-audrey-adam',
+        title: 'Spectator Pathway: Mind Confrontation',
+        chapter: 1320,
+        fighterA: 'audrey-hall',
+        fighterB: 'adam',
+        synopsis: 'Miss Justice matches psychological manipulation and collective subconscious placation against the divine Author Adam.',
+      },
+    ];
+  }
+
   return [
     {
       id: 'cd-linley-clayde',
@@ -239,6 +276,15 @@ function resolvePowerRank(stageId: string | undefined, seriesSlug: string): { ra
   if (s.includes('s-rank')) return { rank: 8, name: 'S-Rank National Asset' };
   if (s.includes('national-level')) return { rank: 9, name: 'National Level Hunter' };
   if (s.includes('monarch') || s.includes('ruler')) return { rank: 10, name: 'Monarch / Ruler Sovereign' };
+
+  // Lord of the Mysteries sequences
+  if (s.includes('low-sequence')) return { rank: 2, name: 'Low-Sequence Beyonder (Seq 9-8)' };
+  if (s.includes('mid-sequence')) return { rank: 4, name: 'Mid-Sequence Beyonder (Seq 7-6)' };
+  if (s.includes('senior-sequence')) return { rank: 6, name: 'Senior Sequence (Seq 5)' };
+  if (s.includes('demigod-saint')) return { rank: 8, name: 'Demigod Saint (Seq 4-3)' };
+  if (s.includes('angel-archangel')) return { rank: 9, name: 'Angel / Ground Deity (Seq 2-1)' };
+  if (s.includes('true-deity')) return { rank: 10, name: 'True Deity (Seq 0)' };
+  if (s.includes('above-sequence') || s.includes('lord-of-mysteries')) return { rank: 10, name: 'Pillar / Great Old One' };
 
   return { rank: 3, name: stageId.replace(/[-_]/g, ' ') };
 }
@@ -322,6 +368,32 @@ function getCharacterTechniques(charId: string, seriesSlug: string): string[] {
     return ['White Tiger Beast Transformation', 'Divine White Fang Shred', 'Fierce Roar Intimidation'];
   }
 
+  // Lord of the Mysteries characters
+  if (c.includes('klein')) {
+    return ['Air Bullet & Flaming Jump Blitz', 'Historical Projection Summoning', 'Marionette Spirit Thread Control', 'Conceptual Grafting & Blind Stupidity', 'Miracle Invocation: Wish Realization', 'Sefirah Castle Divine Suppression'];
+  }
+  if (c.includes('amon')) {
+    return ['Steal Thoughts & Intentions', 'Steal Fate & Identity', 'Avatar Swarm Parasitism', 'Time Loop Deceleration', 'Error Loophole Exploit'];
+  }
+  if (c.includes('adam')) {
+    return ['Envisioning Reality into Existence', 'Author\'s Script Manipulation', 'Mental Plague & Dragon Roar', 'Virtual Persona Manifestation'];
+  }
+  if (c.includes('in-zangwill') || c.includes('zangwill')) {
+    return ['0-08 Story Coincidence Inscription', 'Underworld Gate Undead Descent', 'Spirit Severing Night Blade'];
+  }
+  if (c.includes('azik')) {
+    return ['Underworld Bone Dragon Descent', 'Death Eye Soul Freeze', 'Underworld River Grasp'];
+  }
+  if (c.includes('audrey')) {
+    return ['Mind Deprivation & Hypnosis', 'Placate Frenzy & Soul Reading', 'Dream Traversal & Consciousness Weave'];
+  }
+  if (c.includes('alger')) {
+    return ['Raging Lightning Spear', 'Tsunami Whirlpool Cataclysm', 'Ocean Siren Wind Storm'];
+  }
+  if (c.includes('derrick')) {
+    return ['Pure White Light of Purification', 'Unshadowed Spear of the Sun', 'Divine Holy Oath Blessing'];
+  }
+
   // Generics
   if (seriesSlug === 'one-piece') {
     return ['Heavy Armament Haki Smash', 'High-Speed Soru Flash Strike', 'Decisive Conqueror Aura Clash'];
@@ -331,6 +403,9 @@ function getCharacterTechniques(charId: string, seriesSlug: string): string[] {
   }
   if (seriesSlug === 'solo-leveling') {
     return ['High-Velocity Mana Dagger Thrust', 'Ruler\'s Mana Pulse Shockwave', 'Shadow Domain Extraction Surge'];
+  }
+  if (seriesSlug === 'lord-of-the-mysteries') {
+    return ['Mystical Spell Circle Burst', 'Spirit Vision Soul Gaze', 'Ritualistic Incantation Ward'];
   }
   return ['Elemental Domain Pressure', 'Profound Laws Sonic Burst', 'Divine Spark Cataclysmic Shock'];
 }

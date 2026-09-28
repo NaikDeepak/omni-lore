@@ -189,6 +189,58 @@ function getTierLoreManual(stageId: string, seriesSlug: string) {
     }
   }
 
+  if (seriesSlug === 'lord-of-the-mysteries') {
+    if (s.includes('low-sequence')) {
+      return {
+        criteria: 'Ingesting the initial Beyonder potion concoction and opening the Sea of Collective Subconscious / Spirit Vision.',
+        risk: 'Acute mental instability, phantom murmurs from the cosmos, rapid loss of control into mutated abominations.',
+        phenomena: 'Flickering Spirit Vision, subtle tarot card resonance, perception of ethereal spirit threads.',
+      };
+    }
+    if (s.includes('mid-sequence')) {
+      return {
+        criteria: 'Mastering core pathway abilities and digesting the potion through strict, disciplined adherence to the Acting Method.',
+        risk: 'High; psychological fragmentation and spiritual corruption if actions deviate from potion principles.',
+        phenomena: 'Manifestation of visible spell circles, spirit pact summonings, elemental and physical metamorphism.',
+      };
+    }
+    if (s.includes('senior-sequence')) {
+      return {
+        criteria: 'Ingesting Sequence 5 concoctions forged from rare mythical beast ingredients at the pinnacle of mortal sequences.',
+        risk: 'Severe; requires rigorous occult rituals aligned with celestial bodies to prevent instantaneous soul collapse.',
+        phenomena: 'Marionette soul thread manipulation, ethereal flight, localized spatial illusion shifts.',
+      };
+    }
+    if (s.includes('demigod-saint')) {
+      return {
+        criteria: 'Qualitative divine metamorphosis; completing divine ascension rituals and bearing the incomplete Mythical Creature Form.',
+        risk: 'Lethal; ordinary beings gaze upon the true form and immediately collapse into madness or horrific abominations.',
+        phenomena: 'Historical void projections, spatial door traversal, conceptual law distortions spanning entire cities.',
+      };
+    }
+    if (s.includes('angel-archangel')) {
+      return {
+        criteria: 'Absorbing Archangel characteristics, establishing anchor networks of faithful worshippers, holding King of Angels authority.',
+        risk: 'Existential crisis; relentless mental struggle against the awakening consciousness of the Original Creator.',
+        phenomena: 'Miracle invocation, temporal theft of thoughts and destiny, fate loops, dimensional spirit storms.',
+      };
+    }
+    if (s.includes('true-deity')) {
+      return {
+        criteria: 'Assimilating the complete Uniqueness and all Sequence 1 characteristics through world-shaking apotheosis rituals.',
+        risk: 'Cosmic madness; constant anchor reinforcement required to defend sanity against the Oldest One.',
+        phenomena: 'Cosmic conceptual authority, Divine Kingdom descent, unilateral alteration of physical and metaphysical reality.',
+      };
+    }
+    if (s.includes('above-sequence') || s.includes('lord-of-mysteries')) {
+      return {
+        criteria: 'Accommodating the corresponding Sefirah (e.g. Sefirah Castle) and neighboring pathway Uniquenesses to ascend as a Great Old One.',
+        risk: 'Apocalyptic; eternal slumber to suppress the primordial Celestial Worthy of Heaven and Earth.',
+        phenomena: 'Pillar of the Universe; absolute mastery over time, space, history, grafting, and the fog of mysteries.',
+      };
+    }
+  }
+
   return {
     criteria: 'Rigorous canonical training, epiphanies, and trial by combat.',
     risk: 'Moderate to high mortality under intense conflict.',

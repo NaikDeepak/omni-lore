@@ -1,0 +1,2382 @@
+{
+  "series": {
+    "slug": "lord-of-the-mysteries",
+    "title": "Lord of the Mysteries",
+    "type": "fantasy",
+    "total_chapters": 1432,
+    "knowledge_boundary": {
+      "latest_processed_chapter": 1432,
+      "as_of": "2026-09-28T00:00:00Z"
+    }
+  },
+  "entities": {
+    "plane-northern-continent": {
+      "id": "plane-northern-continent",
+      "type": "plane",
+      "name": "Northern Continent (Loen Kingdom & Feysac)",
+      "description": "Heart of human civilization, steam industry, coal smog, and orthodox church power."
+    },
+    "plane-mid-seas": {
+      "id": "plane-mid-seas",
+      "type": "plane",
+      "name": "The Five Seas & Colonial Archipelagos",
+      "description": "Pirate empires, siren reefs, forbidden cursed islands, and naval fleet battles."
+    },
+    "plane-divine-cursed": {
+      "id": "plane-divine-cursed",
+      "type": "plane",
+      "name": "Astral World, Spirit World & Forsaken Land",
+      "description": "Domains beyond the curtain: Sefirah Castle above the fog, the dark Forsaken Land of the Gods, and spirit realms."
+    },
+    "loc-tingan-blackthorn": {
+      "id": "loc-tingan-blackthorn",
+      "type": "location",
+      "name": "Tingen: Blackthorn Security Co.",
+      "plane_id": "plane-northern-continent",
+      "description": "Facade for Tingen Nighthawk headquarters, featuring the Chanis Gate and underground ammunition armory.",
+      "thumbnail_url": "/assets/pixels/lord-of-the-mysteries/locations/loc-tingan-blackthorn.svg",
+      "coordinates": {
+        "x": 420,
+        "y": 460
+      }
+    },
+    "loc-backlund-borough": {
+      "id": "loc-backlund-borough",
+      "type": "location",
+      "name": "Backlund: Sherlock Moriarty Agency",
+      "plane_id": "plane-northern-continent",
+      "description": "Detective office on Minsk Street where Klein solved urban occult mysteries and sheltered allies.",
+      "thumbnail_url": "/assets/pixels/lord-of-the-mysteries/locations/loc-backlund-borough.svg",
+      "coordinates": {
+        "x": 500,
+        "y": 380
+      }
+    },
+    "loc-backlund-bridge": {
+      "id": "loc-backlund-bridge",
+      "type": "location",
+      "name": "Backlund Bridge & East District",
+      "plane_id": "plane-northern-continent",
+      "description": "Sprawling impoverished slums, coal smog haze, and underground Beyonder ingredient trade markets.",
+      "thumbnail_url": "/assets/pixels/lord-of-the-mysteries/locations/loc-backlund-bridge.svg",
+      "coordinates": {
+        "x": 520,
+        "y": 410
+      }
+    },
+    "loc-saint-samuel": {
+      "id": "loc-saint-samuel",
+      "type": "location",
+      "name": "Saint Samuel Cathedral",
+      "plane_id": "plane-northern-continent",
+      "description": "Gothic cathedral in Backlund housing the highest archbishops and Sacred Emblems of the Evernight Goddess.",
+      "thumbnail_url": "/assets/pixels/lord-of-the-mysteries/locations/loc-saint-samuel.svg",
+      "coordinates": {
+        "x": 480,
+        "y": 350
+      }
+    },
+    "loc-queen-square": {
+      "id": "loc-queen-square",
+      "type": "location",
+      "name": "Queen Square & King’s Palace",
+      "plane_id": "plane-northern-continent",
+      "description": "Seat of Loen royal governance where George III secretly constructed the altar for the Black Emperor ritual.",
+      "thumbnail_url": "/assets/pixels/lord-of-the-mysteries/locations/loc-queen-square.svg",
+      "coordinates": {
+        "x": 510,
+        "y": 330
+      }
+    },
+    "loc-backlund-suburbs": {
+      "id": "loc-backlund-suburbs",
+      "type": "location",
+      "name": "Maybach Estate (Dwayne Dantès)",
+      "plane_id": "plane-northern-continent",
+      "description": "Aristocratic mansion on Böklund Street where tycoon Dwayne Dantès held high-society banquets.",
+      "thumbnail_url": "/assets/pixels/lord-of-the-mysteries/locations/loc-backlund-suburbs.svg",
+      "coordinates": {
+        "x": 460,
+        "y": 310
+      }
+    },
+    "loc-bayam-archipelago": {
+      "id": "loc-bayam-archipelago",
+      "type": "location",
+      "name": "Bayam: City of Generosity",
+      "plane_id": "plane-mid-seas",
+      "description": "Colonial trading metropolis on the Rorsted Archipelago frequented by Gehrman Sparrow and pirate crews.",
+      "thumbnail_url": "/assets/pixels/lord-of-the-mysteries/locations/loc-bayam-archipelago.svg",
+      "coordinates": {
+        "x": 620,
+        "y": 550
+      }
+    },
+    "loc-bansy-harbor": {
+      "id": "loc-bansy-harbor",
+      "type": "location",
+      "name": "Bansy Harbor Ruins",
+      "plane_id": "plane-mid-seas",
+      "description": "Desolate port island completely purged by naval lightning bombardment after cannibal rituals were unearthed.",
+      "thumbnail_url": "/assets/pixels/lord-of-the-mysteries/locations/loc-bansy-harbor.svg",
+      "coordinates": {
+        "x": 700,
+        "y": 620
+      }
+    },
+    "loc-oavi-island": {
+      "id": "loc-oavi-island",
+      "type": "location",
+      "name": "Oavi Mermaid Sanctuary",
+      "plane_id": "plane-mid-seas",
+      "description": "Coral waters where mermaids sing enchanting hymns, vital for potion acting and spirit anchoring.",
+      "thumbnail_url": "/assets/pixels/lord-of-the-mysteries/locations/loc-oavi-island.svg",
+      "coordinates": {
+        "x": 800,
+        "y": 580
+      }
+    },
+    "loc-sefirah-castle": {
+      "id": "loc-sefirah-castle",
+      "type": "location",
+      "name": "Above the Gray Fog: Sefirah Castle",
+      "plane_id": "plane-divine-cursed",
+      "description": "Infinite divine palace of ancient bronze pillars floating above the gray fog; birthplace of the Tarot Club.",
+      "thumbnail_url": "/assets/pixels/lord-of-the-mysteries/locations/loc-sefirah-castle.svg",
+      "coordinates": {
+        "x": 500,
+        "y": 150
+      }
+    },
+    "loc-forsaken-silver": {
+      "id": "loc-forsaken-silver",
+      "type": "location",
+      "name": "City of Silver (Forsaken Land)",
+      "plane_id": "plane-divine-cursed",
+      "description": "Ancient fortress city surrounded by eternal dark lightning, inhabited by giant cursed descendants.",
+      "thumbnail_url": "/assets/pixels/lord-of-the-mysteries/locations/loc-forsaken-silver.svg",
+      "coordinates": {
+        "x": 300,
+        "y": 720
+      }
+    },
+    "loc-forsaken-moon": {
+      "id": "loc-forsaken-moon",
+      "type": "location",
+      "name": "Moon City Sanctuary",
+      "plane_id": "plane-divine-cursed",
+      "description": "Deformed survivors of the cataclysm subsisting on monster flesh, waiting 2,500 years for the savior.",
+      "thumbnail_url": "/assets/pixels/lord-of-the-mysteries/locations/loc-forsaken-moon.svg",
+      "coordinates": {
+        "x": 380,
+        "y": 760
+      }
+    },
+    "loc-giant-king-court": {
+      "id": "loc-giant-king-court",
+      "type": "location",
+      "name": "Court of the King of Giants",
+      "plane_id": "plane-divine-cursed",
+      "description": "Titan ruins bathed in eternal sunset glow, guarding the boundary between the dark continent and the sea.",
+      "thumbnail_url": "/assets/pixels/lord-of-the-mysteries/locations/loc-giant-king-court.svg",
+      "coordinates": {
+        "x": 340,
+        "y": 650
+      }
+    },
+    "loc-calderon-city": {
+      "id": "loc-calderon-city",
+      "type": "location",
+      "name": "Calderon Spirit Metropolis",
+      "plane_id": "plane-divine-cursed",
+      "description": "Ancient spirit city of Phoenixes and the Underworld, drenched in river waters of the River of Eternal Darkness.",
+      "thumbnail_url": "/assets/pixels/lord-of-the-mysteries/locations/loc-calderon-city.svg",
+      "coordinates": {
+        "x": 550,
+        "y": 780
+      }
+    },
+    "loc-foggy-town": {
+      "id": "loc-foggy-town",
+      "type": "location",
+      "name": "Foggy Town (Hornacis Peak)",
+      "plane_id": "plane-divine-cursed",
+      "description": "Nightmarish domain of puppets and marionettes under the thrall of the Antigonus family ancestor.",
+      "thumbnail_url": "/assets/pixels/lord-of-the-mysteries/locations/loc-foggy-town.svg",
+      "coordinates": {
+        "x": 440,
+        "y": 220
+      }
+    },
+    "faction-tarot-club": {
+      "id": "faction-tarot-club",
+      "type": "faction",
+      "name": "The Tarot Club",
+      "leader_id": "klein-moretti",
+      "emblem_url": "/assets/pixels/lord-of-the-mysteries/factions/faction-tarot-club.svg",
+      "description": "Major occult organization in Lord of the Mysteries led by klein-moretti."
+    },
+    "faction-nighthawks": {
+      "id": "faction-nighthawks",
+      "type": "faction",
+      "name": "Church of Evernight (Nighthawks)",
+      "leader_id": "evernight-goddess",
+      "emblem_url": "/assets/pixels/lord-of-the-mysteries/factions/faction-nighthawks.svg",
+      "description": "Major occult organization in Lord of the Mysteries led by evernight-goddess."
+    },
+    "faction-mandated-punishers": {
+      "id": "faction-mandated-punishers",
+      "type": "faction",
+      "name": "Church of Storms (Mandated Punishers)",
+      "leader_id": "lord-of-storms",
+      "emblem_url": "/assets/pixels/lord-of-the-mysteries/factions/faction-mandated-punishers.svg",
+      "description": "Major occult organization in Lord of the Mysteries led by lord-of-storms."
+    },
+    "faction-machinery-hivemind": {
+      "id": "faction-machinery-hivemind",
+      "type": "faction",
+      "name": "Church of Steam (Machinery Hivemind)",
+      "leader_id": "god-of-steam",
+      "emblem_url": "/assets/pixels/lord-of-the-mysteries/factions/faction-machinery-hivemind.svg",
+      "description": "Major occult organization in Lord of the Mysteries led by god-of-steam."
+    },
+    "faction-aurora-order": {
+      "id": "faction-aurora-order",
+      "type": "faction",
+      "name": "The Aurora Order",
+      "leader_id": "adam",
+      "emblem_url": "/assets/pixels/lord-of-the-mysteries/factions/faction-aurora-order.svg",
+      "description": "Major occult organization in Lord of the Mysteries led by adam."
+    },
+    "faction-rose-school": {
+      "id": "faction-rose-school",
+      "type": "faction",
+      "name": "Rose School of Thought",
+      "leader_id": "sharron",
+      "emblem_url": "/assets/pixels/lord-of-the-mysteries/factions/faction-rose-school.svg",
+      "description": "Major occult organization in Lord of the Mysteries led by sharron."
+    },
+    "faction-city-of-silver": {
+      "id": "faction-city-of-silver",
+      "type": "faction",
+      "name": "City of Silver High Council",
+      "leader_id": "derrick-berg",
+      "emblem_url": "/assets/pixels/lord-of-the-mysteries/factions/faction-city-of-silver.svg",
+      "description": "Major occult organization in Lord of the Mysteries led by derrick-berg."
+    },
+    "faction-secret-order": {
+      "id": "faction-secret-order",
+      "type": "faction",
+      "name": "The Secret Order",
+      "leader_id": "roselle-gustav",
+      "emblem_url": "/assets/pixels/lord-of-the-mysteries/factions/faction-secret-order.svg",
+      "description": "Major occult organization in Lord of the Mysteries led by roselle-gustav."
+    },
+    "stage-low-sequence": {
+      "id": "stage-low-sequence",
+      "type": "power_stage",
+      "name": "Low-Sequence Beyonder (Seq 9-8)",
+      "system_name": "22 Beyonder Pathways System",
+      "order": 1,
+      "description": "Mortals taking the initial mystical potion; high risk of losing control from digesting improperly."
+    },
+    "stage-mid-sequence": {
+      "id": "stage-mid-sequence",
+      "type": "power_stage",
+      "name": "Mid-Sequence Beyonder (Seq 7-6)",
+      "system_name": "22 Beyonder Pathways System",
+      "order": 2,
+      "description": "Core magical combatants; requires the Acting Method to assimilate potion principles and maintain sanity."
+    },
+    "stage-senior-sequence": {
+      "id": "stage-senior-sequence",
+      "type": "power_stage",
+      "name": "Senior Sequence (Seq 5)",
+      "system_name": "22 Beyonder Pathways System",
+      "order": 3,
+      "description": "The threshold before godhood; supreme masters of their respective pathway specialties."
+    },
+    "stage-demigod-saint": {
+      "id": "stage-demigod-saint",
+      "type": "power_stage",
+      "name": "Demigod Saint (Seq 4-3)",
+      "system_name": "22 Beyonder Pathways System",
+      "order": 4,
+      "description": "Qualitative divine metamorphosis; uncomplete Mythical Creature Form possessing devastating supernatural authority."
+    },
+    "stage-angel-archangel": {
+      "id": "stage-angel-archangel",
+      "type": "power_stage",
+      "name": "Angel / Ground Deity (Seq 2-1)",
+      "system_name": "22 Beyonder Pathways System",
+      "order": 5,
+      "description": "Kings of Angels and Archangels holding miraculous authority over conceptual reality."
+    },
+    "stage-true-deity": {
+      "id": "stage-true-deity",
+      "type": "power_stage",
+      "name": "True Deity (Sequence 0)",
+      "system_name": "22 Beyonder Pathways System",
+      "order": 6,
+      "description": "Cosmic God holding the complete Uniqueness of a pathway; immortal anchors required to resist the Oldest One."
+    },
+    "stage-above-sequence": {
+      "id": "stage-above-sequence",
+      "type": "power_stage",
+      "name": "Above the Sequences / Lord of Mysteries",
+      "system_name": "22 Beyonder Pathways System",
+      "order": 7,
+      "description": "Pillars of the Universe; Great Old Ones commanding multiple neighboring pathways and Sefirot."
+    },
+    "arc-clown": {
+      "id": "arc-clown",
+      "type": "arc",
+      "name": "Volume 1: Clown",
+      "start_chapter": 1,
+      "end_chapter": 213,
+      "description": "Tingen City, joining the Nighthawks, 0-08 conspiracy, Klein’s tragic sacrifice."
+    },
+    "arc-faceless": {
+      "id": "arc-faceless",
+      "type": "arc",
+      "name": "Volume 2: Faceless",
+      "start_chapter": 214,
+      "end_chapter": 482,
+      "description": "Sherlock Moriarty in Backlund, fighting Desire Apostles, Great Smog catastrophe."
+    },
+    "arc-traveler": {
+      "id": "arc-traveler",
+      "type": "arc",
+      "name": "Volume 3: Traveler",
+      "start_chapter": 483,
+      "end_chapter": 732,
+      "description": "Crazy Adventurer Gehrman Sparrow across the Five Seas, Bansy Harbor, Admiral hunts."
+    },
+    "arc-undying": {
+      "id": "arc-undying",
+      "type": "arc",
+      "name": "Volume 4: Undying",
+      "start_chapter": 733,
+      "end_chapter": 946,
+      "description": "Dwayne Dantès, Red Rose Manor, Azik’s past, vengeance against Ince Zangwill."
+    },
+    "arc-red-priest": {
+      "id": "arc-red-priest",
+      "type": "arc",
+      "name": "Volume 5: Red Priest",
+      "start_chapter": 947,
+      "end_chapter": 1152,
+      "description": "World War erupts, George III Black Emperor ritual, fall of saints."
+    },
+    "arc-lightseeker": {
+      "id": "arc-lightseeker",
+      "type": "arc",
+      "name": "Volume 6: Lightseeker",
+      "start_chapter": 1153,
+      "end_chapter": 1266,
+      "description": "Exploring the Forsaken Land of the Gods, liberating the City of Silver."
+    },
+    "arc-the-fool": {
+      "id": "arc-the-fool",
+      "type": "arc",
+      "name": "Volume 7: The Fool",
+      "start_chapter": 1267,
+      "end_chapter": 1394,
+      "description": "Miracle Invoker ascent, climactic battle against Amon and Zaratul."
+    },
+    "arc-fools-gambit": {
+      "id": "arc-fools-gambit",
+      "type": "arc",
+      "name": "Volume 8: Fool’s Gambit",
+      "start_chapter": 1395,
+      "end_chapter": 1432,
+      "description": "Sefirah Castle awakening, entering slumber to protect humanity against Celestial Worthy."
+    },
+    "klein-moretti": {
+      "id": "klein-moretti",
+      "type": "character",
+      "name": "Klein Moretti",
+      "avatar_url": "/assets/pixels/lord-of-the-mysteries/avatars/klein-moretti.svg",
+      "description": "Transmigrator Zhou Mingrui; Master of the Fool Pathway and Lord of the Mysteries presiding over the Tarot Club."
+    },
+    "audrey-hall": {
+      "id": "audrey-hall",
+      "type": "character",
+      "name": "Audrey Hall",
+      "avatar_url": "/assets/pixels/lord-of-the-mysteries/avatars/audrey-hall.svg",
+      "description": "Earl Hall’s daughter; high-sequence Manipulator of the Spectator pathway and core financier of the Tarot Club."
+    },
+    "alger-wilson": {
+      "id": "alger-wilson",
+      "type": "character",
+      "name": "Alger Wilson",
+      "avatar_url": "/assets/pixels/lord-of-the-mysteries/avatars/alger-wilson.svg",
+      "description": "Captain of the Blue Avenger; veteran Sailor pathway Beyonder and seafaring tactician for the Tarot Club."
+    },
+    "derrick-berg": {
+      "id": "derrick-berg",
+      "type": "character",
+      "name": "Derrick Berg",
+      "avatar_url": "/assets/pixels/lord-of-the-mysteries/avatars/derrick-berg.svg",
+      "description": "Youth of the City of Silver who sought salvation from the endless darkness through Mr. Fool’s grace."
+    },
+    "fors-wall": {
+      "id": "fors-wall",
+      "type": "character",
+      "name": "Fors Wall",
+      "avatar_url": "/assets/pixels/lord-of-the-mysteries/avatars/fors-wall.svg",
+      "description": "Author and Door pathway Beyonder capable of spatial traversal, recording spells, and wandering the cosmos."
+    },
+    "xio-derecha": {
+      "id": "xio-derecha",
+      "type": "character",
+      "name": "Xio Derecha",
+      "avatar_url": "/assets/pixels/lord-of-the-mysteries/avatars/xio-derecha.svg",
+      "description": "Fors’s stalwart partner; Arbiter pathway judge enforcing discipline and order in Backlund’s underground."
+    },
+    "emlyn-white": {
+      "id": "emlyn-white",
+      "type": "character",
+      "name": "Emlyn White",
+      "avatar_url": "/assets/pixels/lord-of-the-mysteries/avatars/emlyn-white.svg",
+      "description": "Sanguine vampire doll enthusiast who became the devout high-sequence apostle of the Earth Mother."
+    },
+    "cattledya": {
+      "id": "cattledya",
+      "type": "character",
+      "name": "Cattledya",
+      "avatar_url": "/assets/pixels/lord-of-the-mysteries/avatars/cattledya.svg",
+      "description": "Pirate Admiral of the Future; Mystery Pryer demigod and adoptive disciple of Queen Mystic Bernadette."
+    },
+    "leonard-mitchell": {
+      "id": "leonard-mitchell",
+      "type": "character",
+      "name": "Leonard Mitchell",
+      "avatar_url": "/assets/pixels/lord-of-the-mysteries/avatars/leonard-mitchell.svg",
+      "description": "Poetic Nighthawk who harbors the ancient Marauder Angel Pallez Zoroast within his spirit."
+    },
+    "amon": {
+      "id": "amon",
+      "type": "character",
+      "name": "Amon",
+      "avatar_url": "/assets/pixels/lord-of-the-mysteries/avatars/amon.svg",
+      "description": "Son of the Ancient Sun God; monocle-wearing King of Angels who steals thoughts, abilities, and destiny."
+    },
+    "adam": {
+      "id": "adam",
+      "type": "character",
+      "name": "Adam",
+      "avatar_url": "/assets/pixels/lord-of-the-mysteries/avatars/adam.svg",
+      "description": "Leader of the Twilight Hermit Order; Spectator pathway True God who writes history into inevitable reality."
+    },
+    "dunn-smith": {
+      "id": "dunn-smith",
+      "type": "character",
+      "name": "Dunn Smith",
+      "avatar_url": "/assets/pixels/lord-of-the-mysteries/avatars/dunn-smith.svg",
+      "description": "Valiant Captain of the Tingen Nighthawks who laid down his life with a smile to protect his city."
+    },
+    "daly-simone": {
+      "id": "daly-simone",
+      "type": "character",
+      "name": "Daly Simone",
+      "avatar_url": "/assets/pixels/lord-of-the-mysteries/avatars/daly-simone.svg",
+      "description": "Unorthodox spirit medium of the Church of the Evernight Goddess; beloved partner of Captain Dunn Smith."
+    },
+    "azik-eggers": {
+      "id": "azik-eggers",
+      "type": "character",
+      "name": "Azik Eggers",
+      "avatar_url": "/assets/pixels/lord-of-the-mysteries/avatars/azik-eggers.svg",
+      "description": "Son of the Death Balam Emperor; ancient amnesiac demigod who served as Klein’s guardian angel."
+    },
+    "will-auceptin": {
+      "id": "will-auceptin",
+      "type": "character",
+      "name": "Will Auceptin",
+      "avatar_url": "/assets/pixels/lord-of-the-mysteries/avatars/will-auceptin.svg",
+      "description": "Snake of Fate reincarnated as a baby; loves ice cream and governs probability and karmic luck."
+    },
+    "sharron": {
+      "id": "sharron",
+      "type": "character",
+      "name": "Sharron",
+      "avatar_url": "/assets/pixels/lord-of-the-mysteries/avatars/sharron.svg",
+      "description": "Pale doll-like demigod of the Temperance faction; transforms into incorporeal wraiths and mirror reflections."
+    },
+    "maric": {
+      "id": "maric",
+      "type": "character",
+      "name": "Maric",
+      "avatar_url": "/assets/pixels/lord-of-the-mysteries/avatars/maric.svg",
+      "description": "Sharron’s steadfast partner who controls hordes of undead and channels zombie impulses into tarot games."
+    },
+    "in-zangwill": {
+      "id": "in-zangwill",
+      "type": "character",
+      "name": "Ince Zangwill",
+      "avatar_url": "/assets/pixels/lord-of-the-mysteries/avatars/in-zangwill.svg",
+      "description": "Traitorous former Archbishop who used Sealed Artifact 0-08 to orchestrate the tragedy of Tingen."
+    },
+    "medici": {
+      "id": "medici",
+      "type": "character",
+      "name": "Medici",
+      "avatar_url": "/assets/pixels/lord-of-the-mysteries/avatars/medici.svg",
+      "description": "Ancient Red Angel evil spirit of the Hunter pathway who provokes nations into catastrophic wars."
+    },
+    "ouroboros": {
+      "id": "ouroboros",
+      "type": "character",
+      "name": "Ouroboros",
+      "avatar_url": "/assets/pixels/lord-of-the-mysteries/avatars/ouroboros.svg",
+      "description": "King of Angels of the Monster pathway; devout attendant to the True Creator who paints destiny murals."
+    },
+    "pallez-zoroast": {
+      "id": "pallez-zoroast",
+      "type": "character",
+      "name": "Pallez Zoroast",
+      "avatar_url": "/assets/pixels/lord-of-the-mysteries/avatars/pallez-zoroast.svg",
+      "description": "Marauder pathway Angel parasitizing Leonard Mitchell; ancient rival of Amon from the Fourth Epoch."
+    },
+    "reinette-tinekerr": {
+      "id": "reinette-tinekerr",
+      "type": "character",
+      "name": "Reinette Tinekerr",
+      "avatar_url": "/assets/pixels/lord-of-the-mysteries/avatars/reinette-tinekerr.svg",
+      "description": "Chained pathway Angel appearing as a gothic doll carrying four blonde heads, collecting gold coins for deliveries."
+    },
+    "bernadette-gustav": {
+      "id": "bernadette-gustav",
+      "type": "character",
+      "name": "Bernadette Gustav",
+      "avatar_url": "/assets/pixels/lord-of-the-mysteries/avatars/bernadette-gustav.svg",
+      "description": "Daughter of Emperor Roselle and leader of Element Dawn; master of fairy tale spells and mystical items."
+    },
+    "roselle-gustav": {
+      "id": "roselle-gustav",
+      "type": "character",
+      "name": "Roselle Gustav",
+      "avatar_url": "/assets/pixels/lord-of-the-mysteries/avatars/roselle-gustav.svg",
+      "description": "Transmigrator emperor of Intis who created steam machinery, the Tarot deck, and the Black Emperor pathway."
+    },
+    "evernight-goddess": {
+      "id": "evernight-goddess",
+      "type": "character",
+      "name": "Evernight Goddess",
+      "avatar_url": "/assets/pixels/lord-of-the-mysteries/avatars/evernight-goddess.svg",
+      "description": "True Deity of Darkness, Slumber, and Misfortune; ancient Transmigrator protecting humanity’s sanity."
+    },
+    "lord-of-storms": {
+      "id": "lord-of-storms",
+      "type": "character",
+      "name": "Lord of Storms",
+      "avatar_url": "/assets/pixels/lord-of-the-mysteries/avatars/lord-of-storms.svg",
+      "description": "Deity of Lightning, Wind, and the Berserk Sea; strikes blasphemers down with thunder."
+    },
+    "god-of-steam": {
+      "id": "god-of-steam",
+      "type": "character",
+      "name": "God of Steam and Machinery",
+      "avatar_url": "/assets/pixels/lord-of-the-mysteries/avatars/god-of-steam.svg",
+      "description": "Orthodox Deity of Mechanics, Industry, and Physics, patron of the steam revolution."
+    },
+    "true-creator": {
+      "id": "true-creator",
+      "type": "character",
+      "name": "The True Creator",
+      "avatar_url": "/assets/pixels/lord-of-the-mysteries/avatars/true-creator.svg",
+      "description": "Mad deity worshipped by the Aurora Order; murmuring corrupting ravings into the minds of Beyonders."
+    }
+  },
+  "facts": {
+    "fact-stage-klein-moretti": {
+      "id": "fact-stage-klein-moretti",
+      "entity_id": "klein-moretti",
+      "fact_type": "power_stage",
+      "value": "stage-above-sequence",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-klein-moretti": {
+      "id": "fact-faction-klein-moretti",
+      "entity_id": "klein-moretti",
+      "fact_type": "faction",
+      "value": "faction-tarot-club",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-stage-audrey-hall": {
+      "id": "fact-stage-audrey-hall",
+      "entity_id": "audrey-hall",
+      "fact_type": "power_stage",
+      "value": "stage-demigod-saint",
+      "temporal": {
+        "valid_from": 2,
+        "valid_to": null,
+        "revealed_at": 2
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-audrey-hall": {
+      "id": "fact-faction-audrey-hall",
+      "entity_id": "audrey-hall",
+      "fact_type": "faction",
+      "value": "faction-tarot-club",
+      "temporal": {
+        "valid_from": 2,
+        "valid_to": null,
+        "revealed_at": 2
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-stage-alger-wilson": {
+      "id": "fact-stage-alger-wilson",
+      "entity_id": "alger-wilson",
+      "fact_type": "power_stage",
+      "value": "stage-demigod-saint",
+      "temporal": {
+        "valid_from": 2,
+        "valid_to": null,
+        "revealed_at": 2
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-alger-wilson": {
+      "id": "fact-faction-alger-wilson",
+      "entity_id": "alger-wilson",
+      "fact_type": "faction",
+      "value": "faction-tarot-club",
+      "temporal": {
+        "valid_from": 2,
+        "valid_to": null,
+        "revealed_at": 2
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-stage-derrick-berg": {
+      "id": "fact-stage-derrick-berg",
+      "entity_id": "derrick-berg",
+      "fact_type": "power_stage",
+      "value": "stage-demigod-saint",
+      "temporal": {
+        "valid_from": 85,
+        "valid_to": null,
+        "revealed_at": 85
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-derrick-berg": {
+      "id": "fact-faction-derrick-berg",
+      "entity_id": "derrick-berg",
+      "fact_type": "faction",
+      "value": "faction-city-of-silver",
+      "temporal": {
+        "valid_from": 85,
+        "valid_to": null,
+        "revealed_at": 85
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-stage-fors-wall": {
+      "id": "fact-stage-fors-wall",
+      "entity_id": "fors-wall",
+      "fact_type": "power_stage",
+      "value": "stage-demigod-saint",
+      "temporal": {
+        "valid_from": 180,
+        "valid_to": null,
+        "revealed_at": 180
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-fors-wall": {
+      "id": "fact-faction-fors-wall",
+      "entity_id": "fors-wall",
+      "fact_type": "faction",
+      "value": "faction-tarot-club",
+      "temporal": {
+        "valid_from": 180,
+        "valid_to": null,
+        "revealed_at": 180
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-stage-xio-derecha": {
+      "id": "fact-stage-xio-derecha",
+      "entity_id": "xio-derecha",
+      "fact_type": "power_stage",
+      "value": "stage-demigod-saint",
+      "temporal": {
+        "valid_from": 180,
+        "valid_to": null,
+        "revealed_at": 180
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-xio-derecha": {
+      "id": "fact-faction-xio-derecha",
+      "entity_id": "xio-derecha",
+      "fact_type": "faction",
+      "value": "faction-tarot-club",
+      "temporal": {
+        "valid_from": 180,
+        "valid_to": null,
+        "revealed_at": 180
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-stage-emlyn-white": {
+      "id": "fact-stage-emlyn-white",
+      "entity_id": "emlyn-white",
+      "fact_type": "power_stage",
+      "value": "stage-demigod-saint",
+      "temporal": {
+        "valid_from": 290,
+        "valid_to": null,
+        "revealed_at": 290
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-emlyn-white": {
+      "id": "fact-faction-emlyn-white",
+      "entity_id": "emlyn-white",
+      "fact_type": "faction",
+      "value": "faction-tarot-club",
+      "temporal": {
+        "valid_from": 290,
+        "valid_to": null,
+        "revealed_at": 290
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-stage-cattledya": {
+      "id": "fact-stage-cattledya",
+      "entity_id": "cattledya",
+      "fact_type": "power_stage",
+      "value": "stage-demigod-saint",
+      "temporal": {
+        "valid_from": 530,
+        "valid_to": null,
+        "revealed_at": 530
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-cattledya": {
+      "id": "fact-faction-cattledya",
+      "entity_id": "cattledya",
+      "fact_type": "faction",
+      "value": "faction-tarot-club",
+      "temporal": {
+        "valid_from": 530,
+        "valid_to": null,
+        "revealed_at": 530
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-stage-leonard-mitchell": {
+      "id": "fact-stage-leonard-mitchell",
+      "entity_id": "leonard-mitchell",
+      "fact_type": "power_stage",
+      "value": "stage-demigod-saint",
+      "temporal": {
+        "valid_from": 15,
+        "valid_to": null,
+        "revealed_at": 15
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-leonard-mitchell": {
+      "id": "fact-faction-leonard-mitchell",
+      "entity_id": "leonard-mitchell",
+      "fact_type": "faction",
+      "value": "faction-nighthawks",
+      "temporal": {
+        "valid_from": 15,
+        "valid_to": null,
+        "revealed_at": 15
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-stage-amon": {
+      "id": "fact-stage-amon",
+      "entity_id": "amon",
+      "fact_type": "power_stage",
+      "value": "stage-true-deity",
+      "temporal": {
+        "valid_from": 450,
+        "valid_to": null,
+        "revealed_at": 450
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-amon": {
+      "id": "fact-faction-amon",
+      "entity_id": "amon",
+      "fact_type": "faction",
+      "value": "faction-aurora-order",
+      "temporal": {
+        "valid_from": 450,
+        "valid_to": null,
+        "revealed_at": 450
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-stage-adam": {
+      "id": "fact-stage-adam",
+      "entity_id": "adam",
+      "fact_type": "power_stage",
+      "value": "stage-true-deity",
+      "temporal": {
+        "valid_from": 480,
+        "valid_to": null,
+        "revealed_at": 480
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-adam": {
+      "id": "fact-faction-adam",
+      "entity_id": "adam",
+      "fact_type": "faction",
+      "value": "faction-aurora-order",
+      "temporal": {
+        "valid_from": 480,
+        "valid_to": null,
+        "revealed_at": 480
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-stage-dunn-smith": {
+      "id": "fact-stage-dunn-smith",
+      "entity_id": "dunn-smith",
+      "fact_type": "power_stage",
+      "value": "stage-mid-sequence",
+      "temporal": {
+        "valid_from": 3,
+        "valid_to": null,
+        "revealed_at": 3
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-dunn-smith": {
+      "id": "fact-faction-dunn-smith",
+      "entity_id": "dunn-smith",
+      "fact_type": "faction",
+      "value": "faction-nighthawks",
+      "temporal": {
+        "valid_from": 3,
+        "valid_to": null,
+        "revealed_at": 3
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-stage-daly-simone": {
+      "id": "fact-stage-daly-simone",
+      "entity_id": "daly-simone",
+      "fact_type": "power_stage",
+      "value": "stage-mid-sequence",
+      "temporal": {
+        "valid_from": 5,
+        "valid_to": null,
+        "revealed_at": 5
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-daly-simone": {
+      "id": "fact-faction-daly-simone",
+      "entity_id": "daly-simone",
+      "fact_type": "faction",
+      "value": "faction-nighthawks",
+      "temporal": {
+        "valid_from": 5,
+        "valid_to": null,
+        "revealed_at": 5
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-stage-azik-eggers": {
+      "id": "fact-stage-azik-eggers",
+      "entity_id": "azik-eggers",
+      "fact_type": "power_stage",
+      "value": "stage-angel-archangel",
+      "temporal": {
+        "valid_from": 12,
+        "valid_to": null,
+        "revealed_at": 12
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-azik-eggers": {
+      "id": "fact-faction-azik-eggers",
+      "entity_id": "azik-eggers",
+      "fact_type": "faction",
+      "value": "faction-tarot-club",
+      "temporal": {
+        "valid_from": 12,
+        "valid_to": null,
+        "revealed_at": 12
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-stage-will-auceptin": {
+      "id": "fact-stage-will-auceptin",
+      "entity_id": "will-auceptin",
+      "fact_type": "power_stage",
+      "value": "stage-angel-archangel",
+      "temporal": {
+        "valid_from": 230,
+        "valid_to": null,
+        "revealed_at": 230
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-will-auceptin": {
+      "id": "fact-faction-will-auceptin",
+      "entity_id": "will-auceptin",
+      "fact_type": "faction",
+      "value": "faction-tarot-club",
+      "temporal": {
+        "valid_from": 230,
+        "valid_to": null,
+        "revealed_at": 230
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-stage-sharron": {
+      "id": "fact-stage-sharron",
+      "entity_id": "sharron",
+      "fact_type": "power_stage",
+      "value": "stage-demigod-saint",
+      "temporal": {
+        "valid_from": 260,
+        "valid_to": null,
+        "revealed_at": 260
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-sharron": {
+      "id": "fact-faction-sharron",
+      "entity_id": "sharron",
+      "fact_type": "faction",
+      "value": "faction-rose-school",
+      "temporal": {
+        "valid_from": 260,
+        "valid_to": null,
+        "revealed_at": 260
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-stage-maric": {
+      "id": "fact-stage-maric",
+      "entity_id": "maric",
+      "fact_type": "power_stage",
+      "value": "stage-mid-sequence",
+      "temporal": {
+        "valid_from": 260,
+        "valid_to": null,
+        "revealed_at": 260
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-maric": {
+      "id": "fact-faction-maric",
+      "entity_id": "maric",
+      "fact_type": "faction",
+      "value": "faction-rose-school",
+      "temporal": {
+        "valid_from": 260,
+        "valid_to": null,
+        "revealed_at": 260
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-stage-in-zangwill": {
+      "id": "fact-stage-in-zangwill",
+      "entity_id": "in-zangwill",
+      "fact_type": "power_stage",
+      "value": "stage-demigod-saint",
+      "temporal": {
+        "valid_from": 200,
+        "valid_to": null,
+        "revealed_at": 200
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-in-zangwill": {
+      "id": "fact-faction-in-zangwill",
+      "entity_id": "in-zangwill",
+      "fact_type": "faction",
+      "value": "faction-secret-order",
+      "temporal": {
+        "valid_from": 200,
+        "valid_to": null,
+        "revealed_at": 200
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-stage-medici": {
+      "id": "fact-stage-medici",
+      "entity_id": "medici",
+      "fact_type": "power_stage",
+      "value": "stage-angel-archangel",
+      "temporal": {
+        "valid_from": 380,
+        "valid_to": null,
+        "revealed_at": 380
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-medici": {
+      "id": "fact-faction-medici",
+      "entity_id": "medici",
+      "fact_type": "faction",
+      "value": "faction-aurora-order",
+      "temporal": {
+        "valid_from": 380,
+        "valid_to": null,
+        "revealed_at": 380
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-stage-ouroboros": {
+      "id": "fact-stage-ouroboros",
+      "entity_id": "ouroboros",
+      "fact_type": "power_stage",
+      "value": "stage-angel-archangel",
+      "temporal": {
+        "valid_from": 400,
+        "valid_to": null,
+        "revealed_at": 400
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-ouroboros": {
+      "id": "fact-faction-ouroboros",
+      "entity_id": "ouroboros",
+      "fact_type": "faction",
+      "value": "faction-aurora-order",
+      "temporal": {
+        "valid_from": 400,
+        "valid_to": null,
+        "revealed_at": 400
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-stage-pallez-zoroast": {
+      "id": "fact-stage-pallez-zoroast",
+      "entity_id": "pallez-zoroast",
+      "fact_type": "power_stage",
+      "value": "stage-angel-archangel",
+      "temporal": {
+        "valid_from": 250,
+        "valid_to": null,
+        "revealed_at": 250
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-pallez-zoroast": {
+      "id": "fact-faction-pallez-zoroast",
+      "entity_id": "pallez-zoroast",
+      "fact_type": "faction",
+      "value": "faction-nighthawks",
+      "temporal": {
+        "valid_from": 250,
+        "valid_to": null,
+        "revealed_at": 250
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-stage-reinette-tinekerr": {
+      "id": "fact-stage-reinette-tinekerr",
+      "entity_id": "reinette-tinekerr",
+      "fact_type": "power_stage",
+      "value": "stage-angel-archangel",
+      "temporal": {
+        "valid_from": 600,
+        "valid_to": null,
+        "revealed_at": 600
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-reinette-tinekerr": {
+      "id": "fact-faction-reinette-tinekerr",
+      "entity_id": "reinette-tinekerr",
+      "fact_type": "faction",
+      "value": "faction-tarot-club",
+      "temporal": {
+        "valid_from": 600,
+        "valid_to": null,
+        "revealed_at": 600
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-stage-bernadette-gustav": {
+      "id": "fact-stage-bernadette-gustav",
+      "entity_id": "bernadette-gustav",
+      "fact_type": "power_stage",
+      "value": "stage-angel-archangel",
+      "temporal": {
+        "valid_from": 540,
+        "valid_to": null,
+        "revealed_at": 540
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-bernadette-gustav": {
+      "id": "fact-faction-bernadette-gustav",
+      "entity_id": "bernadette-gustav",
+      "fact_type": "faction",
+      "value": "faction-tarot-club",
+      "temporal": {
+        "valid_from": 540,
+        "valid_to": null,
+        "revealed_at": 540
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-stage-roselle-gustav": {
+      "id": "fact-stage-roselle-gustav",
+      "entity_id": "roselle-gustav",
+      "fact_type": "power_stage",
+      "value": "stage-true-deity",
+      "temporal": {
+        "valid_from": 100,
+        "valid_to": null,
+        "revealed_at": 100
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-roselle-gustav": {
+      "id": "fact-faction-roselle-gustav",
+      "entity_id": "roselle-gustav",
+      "fact_type": "faction",
+      "value": "faction-secret-order",
+      "temporal": {
+        "valid_from": 100,
+        "valid_to": null,
+        "revealed_at": 100
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-stage-evernight-goddess": {
+      "id": "fact-stage-evernight-goddess",
+      "entity_id": "evernight-goddess",
+      "fact_type": "power_stage",
+      "value": "stage-true-deity",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-evernight-goddess": {
+      "id": "fact-faction-evernight-goddess",
+      "entity_id": "evernight-goddess",
+      "fact_type": "faction",
+      "value": "faction-nighthawks",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-stage-lord-of-storms": {
+      "id": "fact-stage-lord-of-storms",
+      "entity_id": "lord-of-storms",
+      "fact_type": "power_stage",
+      "value": "stage-true-deity",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-lord-of-storms": {
+      "id": "fact-faction-lord-of-storms",
+      "entity_id": "lord-of-storms",
+      "fact_type": "faction",
+      "value": "faction-mandated-punishers",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-stage-god-of-steam": {
+      "id": "fact-stage-god-of-steam",
+      "entity_id": "god-of-steam",
+      "fact_type": "power_stage",
+      "value": "stage-true-deity",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-god-of-steam": {
+      "id": "fact-faction-god-of-steam",
+      "entity_id": "god-of-steam",
+      "fact_type": "faction",
+      "value": "faction-machinery-hivemind",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-stage-true-creator": {
+      "id": "fact-stage-true-creator",
+      "entity_id": "true-creator",
+      "fact_type": "power_stage",
+      "value": "stage-true-deity",
+      "temporal": {
+        "valid_from": 10,
+        "valid_to": null,
+        "revealed_at": 10
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-true-creator": {
+      "id": "fact-faction-true-creator",
+      "entity_id": "true-creator",
+      "fact_type": "faction",
+      "value": "faction-aurora-order",
+      "temporal": {
+        "valid_from": 10,
+        "valid_to": null,
+        "revealed_at": 10
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Characters"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-klein-stage-1": {
+      "id": "fact-klein-stage-1",
+      "entity_id": "klein-moretti",
+      "fact_type": "power_stage",
+      "value": "stage-low-sequence",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": 213,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Klein Moretti"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-klein-stage-2": {
+      "id": "fact-klein-stage-2",
+      "entity_id": "klein-moretti",
+      "fact_type": "power_stage",
+      "value": "stage-mid-sequence",
+      "temporal": {
+        "valid_from": 214,
+        "valid_to": 482,
+        "revealed_at": 214
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Klein Moretti"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-klein-stage-3": {
+      "id": "fact-klein-stage-3",
+      "entity_id": "klein-moretti",
+      "fact_type": "power_stage",
+      "value": "stage-senior-sequence",
+      "temporal": {
+        "valid_from": 483,
+        "valid_to": 732,
+        "revealed_at": 483
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Klein Moretti"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-klein-stage-4": {
+      "id": "fact-klein-stage-4",
+      "entity_id": "klein-moretti",
+      "fact_type": "power_stage",
+      "value": "stage-demigod-saint",
+      "temporal": {
+        "valid_from": 733,
+        "valid_to": 1266,
+        "revealed_at": 733
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Klein Moretti"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-klein-stage-5": {
+      "id": "fact-klein-stage-5",
+      "entity_id": "klein-moretti",
+      "fact_type": "power_stage",
+      "value": "stage-angel-archangel",
+      "temporal": {
+        "valid_from": 1267,
+        "valid_to": 1394,
+        "revealed_at": 1267
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Klein Moretti"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-klein-stage-6": {
+      "id": "fact-klein-stage-6",
+      "entity_id": "klein-moretti",
+      "fact_type": "power_stage",
+      "value": "stage-above-sequence",
+      "temporal": {
+        "valid_from": 1395,
+        "valid_to": null,
+        "revealed_at": 1395
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Klein Moretti"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    }
+  },
+  "relationships": {
+    "rel-klein-moretti-audrey-hall": {
+      "id": "rel-klein-moretti-audrey-hall",
+      "source_id": "klein-moretti",
+      "target_id": "audrey-hall",
+      "relationship_type": "tarot_convenor",
+      "label": "Tarot Club Convenor & Miss Justice",
+      "temporal": {
+        "valid_from": 2,
+        "valid_to": null,
+        "revealed_at": 2
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Relationships"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-klein-moretti-alger-wilson": {
+      "id": "rel-klein-moretti-alger-wilson",
+      "source_id": "klein-moretti",
+      "target_id": "alger-wilson",
+      "relationship_type": "tarot_convenor",
+      "label": "Tarot Club Convenor & Mr. Hanged Man",
+      "temporal": {
+        "valid_from": 2,
+        "valid_to": null,
+        "revealed_at": 2
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Relationships"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-klein-moretti-derrick-berg": {
+      "id": "rel-klein-moretti-derrick-berg",
+      "source_id": "klein-moretti",
+      "target_id": "derrick-berg",
+      "relationship_type": "tarot_convenor",
+      "label": "Mr. Fool & Savior of Silver",
+      "temporal": {
+        "valid_from": 85,
+        "valid_to": null,
+        "revealed_at": 85
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Relationships"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-klein-moretti-fors-wall": {
+      "id": "rel-klein-moretti-fors-wall",
+      "source_id": "klein-moretti",
+      "target_id": "fors-wall",
+      "relationship_type": "tarot_convenor",
+      "label": "Tarot Club Convenor & Miss Magician",
+      "temporal": {
+        "valid_from": 180,
+        "valid_to": null,
+        "revealed_at": 180
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Relationships"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-klein-moretti-xio-derecha": {
+      "id": "rel-klein-moretti-xio-derecha",
+      "source_id": "klein-moretti",
+      "target_id": "xio-derecha",
+      "relationship_type": "tarot_convenor",
+      "label": "Tarot Club Convenor & Miss Judgment",
+      "temporal": {
+        "valid_from": 180,
+        "valid_to": null,
+        "revealed_at": 180
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Relationships"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-klein-moretti-emlyn-white": {
+      "id": "rel-klein-moretti-emlyn-white",
+      "source_id": "klein-moretti",
+      "target_id": "emlyn-white",
+      "relationship_type": "tarot_convenor",
+      "label": "Tarot Club Convenor & Mr. Moon",
+      "temporal": {
+        "valid_from": 290,
+        "valid_to": null,
+        "revealed_at": 290
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Relationships"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-klein-moretti-cattledya": {
+      "id": "rel-klein-moretti-cattledya",
+      "source_id": "klein-moretti",
+      "target_id": "cattledya",
+      "relationship_type": "tarot_convenor",
+      "label": "Tarot Club Convenor & Ma’am Hermit",
+      "temporal": {
+        "valid_from": 530,
+        "valid_to": null,
+        "revealed_at": 530
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Relationships"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-klein-moretti-leonard-mitchell": {
+      "id": "rel-klein-moretti-leonard-mitchell",
+      "source_id": "klein-moretti",
+      "target_id": "leonard-mitchell",
+      "relationship_type": "tarot_convenor",
+      "label": "Tarot Club Convenor & Former Nighthawk Comrade",
+      "temporal": {
+        "valid_from": 15,
+        "valid_to": null,
+        "revealed_at": 15
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Relationships"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-klein-moretti-amon": {
+      "id": "rel-klein-moretti-amon",
+      "source_id": "klein-moretti",
+      "target_id": "amon",
+      "relationship_type": "nemesis",
+      "label": "Arch-Nemesis / Cosmic Error Duel",
+      "temporal": {
+        "valid_from": 450,
+        "valid_to": null,
+        "revealed_at": 450
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Relationships"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-klein-moretti-dunn-smith": {
+      "id": "rel-klein-moretti-dunn-smith",
+      "source_id": "klein-moretti",
+      "target_id": "dunn-smith",
+      "relationship_type": "mentor",
+      "label": "Respected Captain & Guide in Tingen",
+      "temporal": {
+        "valid_from": 3,
+        "valid_to": null,
+        "revealed_at": 3
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Relationships"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-klein-moretti-azik-eggers": {
+      "id": "rel-klein-moretti-azik-eggers",
+      "source_id": "klein-moretti",
+      "target_id": "azik-eggers",
+      "relationship_type": "mentor",
+      "label": "Guardian Angel & Historical Mentor",
+      "temporal": {
+        "valid_from": 12,
+        "valid_to": null,
+        "revealed_at": 12
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Relationships"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-klein-moretti-will-auceptin": {
+      "id": "rel-klein-moretti-will-auceptin",
+      "source_id": "klein-moretti",
+      "target_id": "will-auceptin",
+      "relationship_type": "ally",
+      "label": "Karmic Benefactor / Ice Cream Ally",
+      "temporal": {
+        "valid_from": 230,
+        "valid_to": null,
+        "revealed_at": 230
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Relationships"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-klein-moretti-sharron": {
+      "id": "rel-klein-moretti-sharron",
+      "source_id": "klein-moretti",
+      "target_id": "sharron",
+      "relationship_type": "ally",
+      "label": "Trusted Bodyguard & Temperance Ally",
+      "temporal": {
+        "valid_from": 260,
+        "valid_to": null,
+        "revealed_at": 260
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Relationships"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-klein-moretti-reinette-tinekerr": {
+      "id": "rel-klein-moretti-reinette-tinekerr",
+      "source_id": "klein-moretti",
+      "target_id": "reinette-tinekerr",
+      "relationship_type": "contractor",
+      "label": "Four-Headed Messenger Contractor",
+      "temporal": {
+        "valid_from": 600,
+        "valid_to": null,
+        "revealed_at": 600
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Relationships"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-klein-moretti-bernadette-gustav": {
+      "id": "rel-klein-moretti-bernadette-gustav",
+      "source_id": "klein-moretti",
+      "target_id": "bernadette-gustav",
+      "relationship_type": "ally",
+      "label": "Consultant & Roselle Diary Exchange",
+      "temporal": {
+        "valid_from": 540,
+        "valid_to": null,
+        "revealed_at": 540
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Relationships"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-klein-moretti-evernight-goddess": {
+      "id": "rel-klein-moretti-evernight-goddess",
+      "source_id": "klein-moretti",
+      "target_id": "evernight-goddess",
+      "relationship_type": "divine_patron",
+      "label": "Blessed of Evernight / Fellow Transmigrator",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Relationships"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-amon-adam": {
+      "id": "rel-amon-adam",
+      "source_id": "amon",
+      "target_id": "adam",
+      "relationship_type": "brotherhood",
+      "label": "Sons of the Ancient Sun God",
+      "temporal": {
+        "valid_from": 480,
+        "valid_to": null,
+        "revealed_at": 480
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Relationships"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-leonard-mitchell-pallez-zoroast": {
+      "id": "rel-leonard-mitchell-pallez-zoroast",
+      "source_id": "leonard-mitchell",
+      "target_id": "pallez-zoroast",
+      "relationship_type": "parasite_host",
+      "label": "Host & Parasite Angel Teacher",
+      "temporal": {
+        "valid_from": 250,
+        "valid_to": null,
+        "revealed_at": 250
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Relationships"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-sharron-maric": {
+      "id": "rel-sharron-maric",
+      "source_id": "sharron",
+      "target_id": "maric",
+      "relationship_type": "companions",
+      "label": "Temperance Faction Partners",
+      "temporal": {
+        "valid_from": 260,
+        "valid_to": null,
+        "revealed_at": 260
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Relationships"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-fors-wall-xio-derecha": {
+      "id": "rel-fors-wall-xio-derecha",
+      "source_id": "fors-wall",
+      "target_id": "xio-derecha",
+      "relationship_type": "roommates",
+      "label": "Sworn Friends & Co-Inhabitants",
+      "temporal": {
+        "valid_from": 180,
+        "valid_to": null,
+        "revealed_at": 180
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Relationships"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-cattledya-bernadette-gustav": {
+      "id": "rel-cattledya-bernadette-gustav",
+      "source_id": "cattledya",
+      "target_id": "bernadette-gustav",
+      "relationship_type": "foster_daughter",
+      "label": "Adopted Daughter & Captain",
+      "temporal": {
+        "valid_from": 530,
+        "valid_to": null,
+        "revealed_at": 530
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Relationships"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-in-zangwill-dunn-smith": {
+      "id": "rel-in-zangwill-dunn-smith",
+      "source_id": "in-zangwill",
+      "target_id": "dunn-smith",
+      "relationship_type": "murderer",
+      "label": "Tragedy of Tingen Slayer",
+      "temporal": {
+        "valid_from": 213,
+        "valid_to": null,
+        "revealed_at": 213
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "page": "Relationships"
+        },
+        "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    }
+  }
+}

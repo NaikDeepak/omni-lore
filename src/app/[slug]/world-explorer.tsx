@@ -70,7 +70,9 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
         ? 'luffy'
         : graph.series.slug === 'solo-leveling'
           ? 'sung-jin-woo'
-          : 'linley-baruch'
+          : graph.series.slug === 'lord-of-the-mysteries'
+            ? 'klein-moretti'
+            : 'linley-baruch'
   );
 
   // Faction Web Filters & Views
