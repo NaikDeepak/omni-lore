@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="crispEdges">
+  <rect x="0" y="0" width="32" height="32" fill="#0e7490"/>
+  <!-- Sun Pirates / Arlong Sawshark Jolly Roger in Crimson -->
+  <rect x="12" y="8" width="8" height="8" fill="#dc2626"/>
+  <rect x="10" y="16" width="12" height="6" fill="#dc2626"/>
+  <!-- Sawtooth Snout -->
+  <rect x="7" y="11" width="4" height="2" fill="#f8fafc"/>
+  <rect x="5" y="13" width="3" height="2" fill="#f8fafc"/>
+  <rect x="7" y="15" width="4" height="2" fill="#f8fafc"/>
+  <!-- Shark Fin -->
+  <rect x="14" y="3" width="4" height="5" fill="#dc2626"/>
+</svg>

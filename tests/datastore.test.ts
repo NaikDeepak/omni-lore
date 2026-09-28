@@ -48,4 +48,35 @@ describe('LocalGitDataStore', () => {
       expect(char.avatar_url).toBeDefined();
     }
   });
+
+  it('validates all 5 universes against CanonicalLoreGraphSchema', async () => {
+    const { CanonicalLoreGraphSchema } = await import('../src/domain/schema');
+    const seriesList = await store.listSeries();
+    expect(seriesList.length).toBeGreaterThanOrEqual(5);
+
+    for (const series of seriesList) {
+      const graph = await store.getSeriesGraph(series.slug);
+      expect(graph).not.toBeNull();
+      const parseResult = CanonicalLoreGraphSchema.safeParse(graph);
+      if (!parseResult.success) {
+        console.error(`Schema errors in ${series.slug}:`, parseResult.error.issues);
+      }
+      expect(parseResult.success).toBe(true);
+    }
+  });
+
+  it('validates all canon duel presets reference existing fighters', async () => {
+    const { getCanonPresets } = await import('../src/engine/duel-simulator');
+    const seriesList = await store.listSeries();
+
+    for (const series of seriesList) {
+      const graph = await store.getSeriesGraph(series.slug);
+      expect(graph).not.toBeNull();
+      const presets = getCanonPresets(series.slug);
+      for (const preset of presets) {
+        expect(graph!.entities[preset.fighterA]).toBeDefined();
+        expect(graph!.entities[preset.fighterB]).toBeDefined();
+      }
+    }
+  });
 });

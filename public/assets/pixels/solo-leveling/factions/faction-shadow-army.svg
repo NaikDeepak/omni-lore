@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="crispEdges">
+  <rect x="0" y="0" width="32" height="32" fill="#030712"/>
+  <!-- Spectral Shadow Flame Aura -->
+  <rect x="9" y="4" width="14" height="16" fill="#3b0764"/>
+  <rect x="7" y="8" width="18" height="12" fill="#581c87"/>
+  <!-- Shadow Crown Spires -->
+  <rect x="11" y="2" width="2" height="4" fill="#c084fc"/>
+  <rect x="15" y="1" width="2" height="5" fill="#e9d5ff"/>
+  <rect x="19" y="2" width="2" height="4" fill="#c084fc"/>
+  <!-- Monarch Skull/Visor Mask -->
+  <rect x="10" y="8" width="12" height="10" fill="#09090b"/>
+  <!-- Piercing Cyan Monarch Eyes -->
+  <rect x="11" y="11" width="3" height="2" fill="#38bdf8"/>
+  <rect x="18" y="11" width="3" height="2" fill="#38bdf8"/>
+  <rect x="12" y="11" width="1" height="1" fill="#f8fafc"/>
+  <rect x="19" y="11" width="1" height="1" fill="#f8fafc"/>
+  <!-- Glowing Eye Trail Flaring Outward -->
+  <rect x="8" y="10" width="3" height="1" fill="#06b6d4" opacity="0.8"/>
+  <rect x="21" y="10" width="3" height="1" fill="#06b6d4" opacity="0.8"/>
+  <!-- Armored Pauldrons & Shadow Mist Base -->
+  <rect x="6" y="20" width="20" height="6" fill="#18181b"/>
+  <rect x="4" y="24" width="24" height="8" fill="#0f172a"/>
+  <rect x="10" y="24" width="12" height="2" fill="#a855f7"/>
+</svg>

@@ -31,6 +31,9 @@ export default async function HomePage() {
             <div className="text-xs sm:text-sm font-pixel text-amber-400 tracking-widest uppercase">
               ─── EXPLORE THE UNKNOWN ───
             </div>
+            <div className="text-[11px] sm:text-xs font-mono text-slate-400">
+              Temporal Knowledge Graph &amp; Spoiler-Free World Explorer
+            </div>
           </div>
 
           <p className="text-slate-300 text-sm sm:text-base font-sans max-w-xl mx-auto leading-relaxed">
@@ -125,7 +128,11 @@ export default async function HomePage() {
                   {/* Lore Index Gauge */}
                   <div className="pt-1">
                     <PixelGauge
-                      label={`INDEXED CHAPTERS: ${series.knowledge_boundary.latest_processed_chapter} / ${series.total_chapters}`}
+                      label={
+                        series.status === 'ongoing'
+                          ? `KNOWLEDGE BOUNDARY: CH ${series.knowledge_boundary.latest_processed_chapter} ● CURRENT INDEX`
+                          : `INDEXED THROUGH CH ${series.knowledge_boundary.latest_processed_chapter} / ${series.total_chapters}`
+                      }
                       value={Math.round((series.knowledge_boundary.latest_processed_chapter / series.total_chapters) * 10)}
                       max={10}
                       colorClass="text-amber-400"

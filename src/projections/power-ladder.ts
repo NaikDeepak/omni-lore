@@ -142,6 +142,20 @@ function getTierLoreManual(stageId: string, seriesSlug: string) {
         phenomena: 'Highgod Domain suppression, Asura-grade dimensional spatial tears.',
       };
     }
+    if (s.includes('sovereign')) {
+      return {
+        criteria: 'Refining a Sovereign Spark of an Elemental Law or Edict, obtaining Sovereign Will and endless Sovereign Divine Power.',
+        risk: 'Fatal; target of Chief Sovereign plots in the 10-trillion-year Planar Wars.',
+        phenomena: 'Sovereign Will crushing planar dimensions; tears across cosmic planar fabric.',
+      };
+    }
+    if (s.includes('grandmist') || s.includes('creator')) {
+      return {
+        criteria: 'Surviving a 4-way Soul Mutation across Earth, Water, Fire, and Wind; breaking through the cosmic universe into Grandmist Space.',
+        risk: 'Cosmic extinction; 99.9999% soul obliteration during 4-way law mutation.',
+        phenomena: 'Grandmist cosmic energy infusion; creation of personal pocket universes with customized laws.',
+      };
+    }
   }
 
   if (seriesSlug === 'solo-leveling') {

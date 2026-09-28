@@ -981,7 +981,7 @@
     "klein-moretti": {
       "id": "klein-moretti",
       "type": "character",
-      "name": "Klein Moretti",
+      "name": "The Fool / Klein Moretti",
       "avatar_url": "/assets/pixels/lord-of-the-mysteries/avatars/klein-moretti.svg",
       "aliases": [
         "The Fool / Lord of the Mysteries"
@@ -999,7 +999,34 @@
       },
       "canon_status": "canon",
       "first_appearance": 1,
-      "revealed_at": 1
+      "revealed_at": 1,
+      "reveals": [
+        {
+          "revealed_at": 214,
+          "masked_name": "Klein Moretti (Tingen Nighthawk)",
+          "true_identity": "Sherlock Moriarty"
+        },
+        {
+          "revealed_at": 483,
+          "masked_name": "Sherlock Moriarty (Backlund Detective)",
+          "true_identity": "Gehrman Sparrow"
+        },
+        {
+          "revealed_at": 733,
+          "masked_name": "Gehrman Sparrow (Crazy Adventurer)",
+          "true_identity": "Dwayne Dantes"
+        },
+        {
+          "revealed_at": 1153,
+          "masked_name": "Dwayne Dantes (Mayfair Tycoon)",
+          "true_identity": "Merlin Hermes"
+        },
+        {
+          "revealed_at": 1380,
+          "masked_name": "Merlin Hermes (Miracle Magician)",
+          "true_identity": "The Fool / Lord of Mysteries"
+        }
+      ]
     },
     "audrey-hall": {
       "id": "audrey-hall",
@@ -1022,7 +1049,14 @@
       },
       "canon_status": "canon",
       "first_appearance": 2,
-      "revealed_at": 2
+      "revealed_at": 2,
+      "reveals": [
+        {
+          "revealed_at": 5,
+          "masked_name": "Miss Audrey Hall (Loen Noble)",
+          "true_identity": "Miss Justice (Tarot Club #1)"
+        }
+      ]
     },
     "alger-wilson": {
       "id": "alger-wilson",
@@ -1045,7 +1079,14 @@
       },
       "canon_status": "canon",
       "first_appearance": 2,
-      "revealed_at": 2
+      "revealed_at": 2,
+      "reveals": [
+        {
+          "revealed_at": 5,
+          "masked_name": "Alger Wilson (Mandated Punisher)",
+          "true_identity": "The Hanged Man (Tarot Club)"
+        }
+      ]
     },
     "derrick-berg": {
       "id": "derrick-berg",
@@ -1068,7 +1109,14 @@
       },
       "canon_status": "canon",
       "first_appearance": 85,
-      "revealed_at": 85
+      "revealed_at": 85,
+      "reveals": [
+        {
+          "revealed_at": 85,
+          "masked_name": "Derrick Berg (City of Silver Youth)",
+          "true_identity": "The Sun (Tarot Club)"
+        }
+      ]
     },
     "fors-wall": {
       "id": "fors-wall",
@@ -1091,7 +1139,14 @@
       },
       "canon_status": "canon",
       "first_appearance": 180,
-      "revealed_at": 180
+      "revealed_at": 180,
+      "reveals": [
+        {
+          "revealed_at": 200,
+          "masked_name": "Fors Wall (Backlund Author)",
+          "true_identity": "The Magician (Tarot Club)"
+        }
+      ]
     },
     "xio-derecha": {
       "id": "xio-derecha",
@@ -1114,7 +1169,14 @@
       },
       "canon_status": "canon",
       "first_appearance": 180,
-      "revealed_at": 180
+      "revealed_at": 180,
+      "reveals": [
+        {
+          "revealed_at": 300,
+          "masked_name": "Xio Derecha (Arbiter Bounty Hunter)",
+          "true_identity": "Miss Judgment (Tarot Club)"
+        }
+      ]
     },
     "emlyn-white": {
       "id": "emlyn-white",
@@ -1137,7 +1199,14 @@
       },
       "canon_status": "canon",
       "first_appearance": 290,
-      "revealed_at": 290
+      "revealed_at": 290,
+      "reveals": [
+        {
+          "revealed_at": 350,
+          "masked_name": "Emlyn White (Sanguine Pharmacist)",
+          "true_identity": "The Moon (Tarot Club)"
+        }
+      ]
     },
     "cattledya": {
       "id": "cattledya",
@@ -1160,7 +1229,14 @@
       },
       "canon_status": "canon",
       "first_appearance": 530,
-      "revealed_at": 530
+      "revealed_at": 530,
+      "reveals": [
+        {
+          "revealed_at": 530,
+          "masked_name": "Admiral of Stars Cattledya",
+          "true_identity": "The Hermit (Tarot Club)"
+        }
+      ]
     },
     "leonard-mitchell": {
       "id": "leonard-mitchell",
@@ -1183,7 +1259,14 @@
       },
       "canon_status": "canon",
       "first_appearance": 15,
-      "revealed_at": 15
+      "revealed_at": 15,
+      "reveals": [
+        {
+          "revealed_at": 750,
+          "masked_name": "Leonard Mitchell (Red Glove)",
+          "true_identity": "The Star (Tarot Club)"
+        }
+      ]
     },
     "amon": {
       "id": "amon",
@@ -1206,7 +1289,14 @@
       },
       "canon_status": "canon",
       "first_appearance": 450,
-      "revealed_at": 450
+      "revealed_at": 450,
+      "reveals": [
+        {
+          "revealed_at": 450,
+          "masked_name": "Mysterious Monocle Scholar",
+          "true_identity": "Amon (Blasphemer & Angel of Time)"
+        }
+      ]
     },
     "adam": {
       "id": "adam",
@@ -1229,7 +1319,14 @@
       },
       "canon_status": "canon",
       "first_appearance": 480,
-      "revealed_at": 480
+      "revealed_at": 480,
+      "reveals": [
+        {
+          "revealed_at": 480,
+          "masked_name": "Priest in Simple Robes",
+          "true_identity": "Adam (Angel of Imagination / The Author)"
+        }
+      ]
     },
     "dunn-smith": {
       "id": "dunn-smith",
@@ -1390,7 +1487,14 @@
       },
       "canon_status": "canon",
       "first_appearance": 200,
-      "revealed_at": 200
+      "revealed_at": 200,
+      "reveals": [
+        {
+          "revealed_at": 210,
+          "masked_name": "Archbishop Ince Zangwill (Archivist)",
+          "true_identity": "The Traitor of 0-08 / Megose Mastermind"
+        }
+      ]
     },
     "medici": {
       "id": "medici",
@@ -1528,7 +1632,14 @@
       },
       "canon_status": "canon",
       "first_appearance": 100,
-      "revealed_at": 100
+      "revealed_at": 100,
+      "reveals": [
+        {
+          "revealed_at": 100,
+          "masked_name": "Emperor Roselle (Inventor of Steam)",
+          "true_identity": "Corrupted Black Emperor / Ancient Reincarnator"
+        }
+      ]
     },
     "evernight-goddess": {
       "id": "evernight-goddess",
@@ -1846,31 +1957,515 @@
       "canon_status": "canon",
       "first_appearance": 1430,
       "revealed_at": 1430
-    }
-  },
-  "facts": {
-    "fact-stage-klein-moretti": {
-      "id": "fact-stage-klein-moretti",
-      "entity_id": "klein-moretti",
-      "predicate": "power_stage",
-      "value": "stage-above-sequence",
-      "temporal": {
-        "valid_from": 1,
-        "valid_to": null,
-        "revealed_at": 1
-      },
+    },
+    "pathway-fool": {
+      "id": "pathway-fool",
+      "type": "ability",
+      "name": "Fool Pathway (Seer)",
+      "aliases": [
+        "Seer Pathway",
+        "Path of Mysteries",
+        "Door of Mysteries"
+      ],
+      "description": "Governed by Sefirah Castle. Specializes in divination, marionette soul threads, historical void projections, miracle invocation, and grafting reality.",
       "provenance": {
         "source": {
           "series": "lord-of-the-mysteries",
-          "page": "Characters",
           "chapter": 1
         },
-        "extracted_by": "manual",
+        "extracted_by": "deterministic",
         "confidence": 1,
         "created_at": "2026-09-28T00:00:00Z"
       },
-      "canon_status": "canon"
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
     },
+    "pathway-door": {
+      "id": "pathway-door",
+      "type": "ability",
+      "name": "Door Pathway (Apprentice)",
+      "aliases": [
+        "Apprentice Pathway",
+        "Path of Stars",
+        "Planeswalker"
+      ],
+      "description": "Governed by Sefirah Castle. Specializes in spatial traversal, recording and casting external abilities, seal breaking, and cosmos exploration.",
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 180
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 180,
+      "revealed_at": 180
+    },
+    "pathway-error": {
+      "id": "pathway-error",
+      "type": "ability",
+      "name": "Error Pathway (Marauder)",
+      "aliases": [
+        "Marauder Pathway",
+        "Path of Time",
+        "Trojan Horse"
+      ],
+      "description": "Governed by Sefirah Castle. Specializes in stealing thoughts, abilities, fate, and time; creating parasitism avatars through Worms of Time.",
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 250
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 250,
+      "revealed_at": 250
+    },
+    "pathway-visionary": {
+      "id": "pathway-visionary",
+      "type": "ability",
+      "name": "Visionary Pathway (Spectator)",
+      "aliases": [
+        "Spectator Pathway",
+        "Path of Mind",
+        "The Author"
+      ],
+      "description": "Governed by Chaos Sea. Specializes in observing subconscious psychological trends, telepathic manipulation, placation, and authoring real history.",
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 2
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 2,
+      "revealed_at": 2
+    },
+    "pathway-sun": {
+      "id": "pathway-sun",
+      "type": "ability",
+      "name": "Sun Pathway (Bard)",
+      "aliases": [
+        "Bard Pathway",
+        "Path of Light",
+        "White Angel"
+      ],
+      "description": "Governed by Chaos Sea. Specializes in absolute divine purification, banishing unholy spirits, notarizing contracts, and holy light shields.",
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 85
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 85,
+      "revealed_at": 85
+    },
+    "pathway-tyrant": {
+      "id": "pathway-tyrant",
+      "type": "ability",
+      "name": "Tyrant Pathway (Sailor)",
+      "aliases": [
+        "Sailor Pathway",
+        "Path of Storms",
+        "Sea King"
+      ],
+      "description": "Governed by Chaos Sea. Specializes in aquatic dominance, acoustic sirens, catastrophic tempest summoning, and heavenly thunderbolts.",
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 2
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 2,
+      "revealed_at": 2
+    },
+    "pathway-white-tower": {
+      "id": "pathway-white-tower",
+      "type": "ability",
+      "name": "White Tower Pathway (Reader)",
+      "aliases": [
+        "Reader Pathway",
+        "Path of Wisdom",
+        "Cognizer"
+      ],
+      "description": "Governed by Chaos Sea. Specializes in omniscience, rapid deciphering of mysticism secrets, analyzing weaknesses, and replicating spellcraft.",
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 200
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 200,
+      "revealed_at": 200
+    },
+    "pathway-hanged-man": {
+      "id": "pathway-hanged-man",
+      "type": "ability",
+      "name": "Hanged Man Pathway (Secrets Suppliant)",
+      "aliases": [
+        "Secrets Suppliant Pathway",
+        "Path of Sacrifice",
+        "Shepherd"
+      ],
+      "description": "Governed by Chaos Sea. Specializes in flesh and blood sacrifice, hearing cosmic ravings, shadow corruption, and grazing souls via Shepherd.",
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 10
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 10,
+      "revealed_at": 10
+    },
+    "pathway-darkness": {
+      "id": "pathway-darkness",
+      "type": "ability",
+      "name": "Darkness Pathway (Sleepless)",
+      "aliases": [
+        "Sleepless Pathway",
+        "Path of Night",
+        "Concealment"
+      ],
+      "description": "Governed by River of Eternal Darkness. Specializes in vigilance, nightmare induction, pacifying spirits, and conceptual concealment of truth.",
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
+    },
+    "pathway-death": {
+      "id": "pathway-death",
+      "type": "ability",
+      "name": "Death Pathway (Corpse Collector)",
+      "aliases": [
+        "Corpse Collector Pathway",
+        "Path of the Underworld",
+        "Undying"
+      ],
+      "description": "Governed by River of Eternal Darkness. Specializes in spirit summoning, death manipulation, immunity to fatal wounds, and reincarnation through the River.",
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 5
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 5,
+      "revealed_at": 5
+    },
+    "pathway-twilight-giant": {
+      "id": "pathway-twilight-giant",
+      "type": "ability",
+      "name": "Twilight Giant Pathway (Warrior)",
+      "aliases": [
+        "Warrior Pathway",
+        "Path of Twilight",
+        "Silver Knight"
+      ],
+      "description": "Governed by River of Eternal Darkness. Specializes in peerless martial weapon mastery, impenetrable twilight armor, and decay of divine constructs.",
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 85
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 85,
+      "revealed_at": 85
+    },
+    "pathway-red-priest": {
+      "id": "pathway-red-priest",
+      "type": "ability",
+      "name": "Red Priest Pathway (Hunter)",
+      "aliases": [
+        "Hunter Pathway",
+        "Path of War",
+        "Iron-blooded Knight"
+      ],
+      "description": "Governed by City of Calamity. Specializes in provoker psychological agitation, pyromancy, army vanguard buffs, and continental-scale military warfare.",
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 380
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 380,
+      "revealed_at": 380
+    },
+    "pathway-demoness": {
+      "id": "pathway-demoness",
+      "type": "ability",
+      "name": "Demoness Pathway (Assassin)",
+      "aliases": [
+        "Assassin Pathway",
+        "Path of Calamity",
+        "Witch"
+      ],
+      "description": "Governed by City of Calamity. Specializes in stealth assassinations, seductive allure, black flame curses, disease spread, and cataclysmic disasters.",
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 150
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 150,
+      "revealed_at": 150
+    },
+    "pathway-hermit": {
+      "id": "pathway-hermit",
+      "type": "ability",
+      "name": "Hermit Pathway (Mystery Pryer)",
+      "aliases": [
+        "Mystery Pryer Pathway",
+        "Path of Knowledge",
+        "Sage"
+      ],
+      "description": "Governed by Knowledge Moor. Specializes in mysticism scroll infusion, astronomical divination, fairytales invocation, and comprehension of hidden symbols.",
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 530
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 530,
+      "revealed_at": 530
+    },
+    "pathway-paragon": {
+      "id": "pathway-paragon",
+      "type": "ability",
+      "name": "Paragon Pathway (Savant)",
+      "aliases": [
+        "Savant Pathway",
+        "Path of Civilization",
+        "Artisan"
+      ],
+      "description": "Governed by Knowledge Moor. Specializes in technological alchemy, steam machinery, discovering material essences, and constructing mystical artifacts.",
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1
+    },
+    "pathway-wheel-of-fortune": {
+      "id": "pathway-wheel-of-fortune",
+      "type": "ability",
+      "name": "Wheel of Fortune Pathway (Monster)",
+      "aliases": [
+        "Monster Pathway",
+        "Path of Fate",
+        "Snake of Mercury"
+      ],
+      "description": "Governed by Key of Light. Specializes in perceiving spiritual luck currents, manipulating probability, premonitions of danger, and fate reboots.",
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 230
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 230,
+      "revealed_at": 230
+    },
+    "pathway-moon": {
+      "id": "pathway-moon",
+      "type": "ability",
+      "name": "Moon Pathway (Apothecary)",
+      "aliases": [
+        "Apothecary Pathway",
+        "Path of the Sanguine",
+        "Beauty Goddess"
+      ],
+      "description": "Governed by Brood Hive. Specializes in herbal potion concoctions, vampire blood transformations, beast taming, and crimson moon divine blessings.",
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 290
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 290,
+      "revealed_at": 290
+    },
+    "pathway-mother": {
+      "id": "pathway-mother",
+      "type": "ability",
+      "name": "Mother Pathway (Planter)",
+      "aliases": [
+        "Planter Pathway",
+        "Path of Life",
+        "Earth Mother"
+      ],
+      "description": "Governed by Brood Hive. Specializes in botanical hybridization, healing wounds, biological flesh creation, and fostering planetary fertility.",
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 290
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 290,
+      "revealed_at": 290
+    },
+    "pathway-chained": {
+      "id": "pathway-chained",
+      "type": "ability",
+      "name": "Chained Pathway (Prisoner)",
+      "aliases": [
+        "Prisoner Pathway",
+        "Path of Restraint",
+        "Wraith"
+      ],
+      "description": "Governed by Tenebrous World. Specializes in ascetic restraint, werewolf physical metamorphosis, ethereal wraith possession, and malevolent voodoo dolls.",
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 260
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 260,
+      "revealed_at": 260
+    },
+    "pathway-abyss": {
+      "id": "pathway-abyss",
+      "type": "ability",
+      "name": "Abyss Pathway (Criminal)",
+      "aliases": [
+        "Criminal Pathway",
+        "Path of Corruption",
+        "Devil"
+      ],
+      "description": "Governed by Tenebrous World. Specializes in malice premonition, sulfur flames, devil physical enhancements, blood contracts, and serial depravity.",
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 200
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 200,
+      "revealed_at": 200
+    },
+    "pathway-black-emperor": {
+      "id": "pathway-black-emperor",
+      "type": "ability",
+      "name": "Black Emperor Pathway (Lawyer)",
+      "aliases": [
+        "Lawyer Pathway",
+        "Path of Disorder",
+        "Prince of Abolition"
+      ],
+      "description": "Governed by Nation of Disorder. Specializes in exploiting systemic loopholes, bribery, psychological corruption, and distorting physical and legal rules.",
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 100
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 100,
+      "revealed_at": 100
+    },
+    "pathway-justiciar": {
+      "id": "pathway-justiciar",
+      "type": "ability",
+      "name": "Justiciar Pathway (Arbiter)",
+      "aliases": [
+        "Arbiter Pathway",
+        "Path of Order",
+        "Hand of Order"
+      ],
+      "description": "Governed by Nation of Disorder. Specializes in natural authority intimidation, enforcing mandatory prohibitions, sentencing criminals, and sealing zones.",
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 180
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 180,
+      "revealed_at": 180
+    }
+  },
+  "facts": {
     "fact-faction-klein-moretti": {
       "id": "fact-faction-klein-moretti",
       "entity_id": "klein-moretti",
@@ -3212,6 +3807,594 @@
         "created_at": "2026-09-28T00:00:00Z"
       },
       "canon_status": "canon"
+    },
+    "fact-pathway-klein-moretti": {
+      "id": "fact-pathway-klein-moretti",
+      "entity_id": "klein-moretti",
+      "predicate": "pathway",
+      "value": "pathway-fool",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-pathway-audrey-hall": {
+      "id": "fact-pathway-audrey-hall",
+      "entity_id": "audrey-hall",
+      "predicate": "pathway",
+      "value": "pathway-visionary",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-pathway-alger-wilson": {
+      "id": "fact-pathway-alger-wilson",
+      "entity_id": "alger-wilson",
+      "predicate": "pathway",
+      "value": "pathway-tyrant",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-pathway-derrick-berg": {
+      "id": "fact-pathway-derrick-berg",
+      "entity_id": "derrick-berg",
+      "predicate": "pathway",
+      "value": "pathway-sun",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-pathway-fors-wall": {
+      "id": "fact-pathway-fors-wall",
+      "entity_id": "fors-wall",
+      "predicate": "pathway",
+      "value": "pathway-door",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-pathway-xio-derecha": {
+      "id": "fact-pathway-xio-derecha",
+      "entity_id": "xio-derecha",
+      "predicate": "pathway",
+      "value": "pathway-justiciar",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-pathway-emlyn-white": {
+      "id": "fact-pathway-emlyn-white",
+      "entity_id": "emlyn-white",
+      "predicate": "pathway",
+      "value": "pathway-moon",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-pathway-cattledya": {
+      "id": "fact-pathway-cattledya",
+      "entity_id": "cattledya",
+      "predicate": "pathway",
+      "value": "pathway-hermit",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-pathway-leonard-mitchell": {
+      "id": "fact-pathway-leonard-mitchell",
+      "entity_id": "leonard-mitchell",
+      "predicate": "pathway",
+      "value": "pathway-darkness",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-pathway-amon": {
+      "id": "fact-pathway-amon",
+      "entity_id": "amon",
+      "predicate": "pathway",
+      "value": "pathway-error",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-pathway-adam": {
+      "id": "fact-pathway-adam",
+      "entity_id": "adam",
+      "predicate": "pathway",
+      "value": "pathway-visionary",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-pathway-dunn-smith": {
+      "id": "fact-pathway-dunn-smith",
+      "entity_id": "dunn-smith",
+      "predicate": "pathway",
+      "value": "pathway-darkness",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-pathway-daly-simone": {
+      "id": "fact-pathway-daly-simone",
+      "entity_id": "daly-simone",
+      "predicate": "pathway",
+      "value": "pathway-death",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-pathway-azik-eggers": {
+      "id": "fact-pathway-azik-eggers",
+      "entity_id": "azik-eggers",
+      "predicate": "pathway",
+      "value": "pathway-death",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-pathway-will-auceptin": {
+      "id": "fact-pathway-will-auceptin",
+      "entity_id": "will-auceptin",
+      "predicate": "pathway",
+      "value": "pathway-wheel-of-fortune",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-pathway-sharron": {
+      "id": "fact-pathway-sharron",
+      "entity_id": "sharron",
+      "predicate": "pathway",
+      "value": "pathway-chained",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-pathway-maric": {
+      "id": "fact-pathway-maric",
+      "entity_id": "maric",
+      "predicate": "pathway",
+      "value": "pathway-chained",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-pathway-in-zangwill": {
+      "id": "fact-pathway-in-zangwill",
+      "entity_id": "in-zangwill",
+      "predicate": "pathway",
+      "value": "pathway-darkness",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-pathway-medici": {
+      "id": "fact-pathway-medici",
+      "entity_id": "medici",
+      "predicate": "pathway",
+      "value": "pathway-red-priest",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-pathway-ouroboros": {
+      "id": "fact-pathway-ouroboros",
+      "entity_id": "ouroboros",
+      "predicate": "pathway",
+      "value": "pathway-wheel-of-fortune",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-pathway-pallez-zoroast": {
+      "id": "fact-pathway-pallez-zoroast",
+      "entity_id": "pallez-zoroast",
+      "predicate": "pathway",
+      "value": "pathway-error",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-pathway-reinette-tinekerr": {
+      "id": "fact-pathway-reinette-tinekerr",
+      "entity_id": "reinette-tinekerr",
+      "predicate": "pathway",
+      "value": "pathway-chained",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-pathway-bernadette-gustav": {
+      "id": "fact-pathway-bernadette-gustav",
+      "entity_id": "bernadette-gustav",
+      "predicate": "pathway",
+      "value": "pathway-hermit",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-pathway-roselle-gustav": {
+      "id": "fact-pathway-roselle-gustav",
+      "entity_id": "roselle-gustav",
+      "predicate": "pathway",
+      "value": "pathway-black-emperor",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-pathway-evernight-goddess": {
+      "id": "fact-pathway-evernight-goddess",
+      "entity_id": "evernight-goddess",
+      "predicate": "pathway",
+      "value": "pathway-darkness",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-pathway-lord-of-storms": {
+      "id": "fact-pathway-lord-of-storms",
+      "entity_id": "lord-of-storms",
+      "predicate": "pathway",
+      "value": "pathway-tyrant",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-pathway-god-of-steam": {
+      "id": "fact-pathway-god-of-steam",
+      "entity_id": "god-of-steam",
+      "predicate": "pathway",
+      "value": "pathway-paragon",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-pathway-true-creator": {
+      "id": "fact-pathway-true-creator",
+      "entity_id": "true-creator",
+      "predicate": "pathway",
+      "value": "pathway-hanged-man",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
     }
   },
   "relationships": {
@@ -3716,6 +4899,622 @@
           "chapter": 210
         },
         "extracted_by": "manual",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-pathway-klein-moretti": {
+      "id": "rel-pathway-klein-moretti",
+      "source_id": "klein-moretti",
+      "target_id": "pathway-fool",
+      "predicate": "POSSESSES",
+      "label": "Practicing Pathway",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-pathway-audrey-hall": {
+      "id": "rel-pathway-audrey-hall",
+      "source_id": "audrey-hall",
+      "target_id": "pathway-visionary",
+      "predicate": "POSSESSES",
+      "label": "Practicing Pathway",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-pathway-alger-wilson": {
+      "id": "rel-pathway-alger-wilson",
+      "source_id": "alger-wilson",
+      "target_id": "pathway-tyrant",
+      "predicate": "POSSESSES",
+      "label": "Practicing Pathway",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-pathway-derrick-berg": {
+      "id": "rel-pathway-derrick-berg",
+      "source_id": "derrick-berg",
+      "target_id": "pathway-sun",
+      "predicate": "POSSESSES",
+      "label": "Practicing Pathway",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-pathway-fors-wall": {
+      "id": "rel-pathway-fors-wall",
+      "source_id": "fors-wall",
+      "target_id": "pathway-door",
+      "predicate": "POSSESSES",
+      "label": "Practicing Pathway",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-pathway-xio-derecha": {
+      "id": "rel-pathway-xio-derecha",
+      "source_id": "xio-derecha",
+      "target_id": "pathway-justiciar",
+      "predicate": "POSSESSES",
+      "label": "Practicing Pathway",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-pathway-emlyn-white": {
+      "id": "rel-pathway-emlyn-white",
+      "source_id": "emlyn-white",
+      "target_id": "pathway-moon",
+      "predicate": "POSSESSES",
+      "label": "Practicing Pathway",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-pathway-cattledya": {
+      "id": "rel-pathway-cattledya",
+      "source_id": "cattledya",
+      "target_id": "pathway-hermit",
+      "predicate": "POSSESSES",
+      "label": "Practicing Pathway",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-pathway-leonard-mitchell": {
+      "id": "rel-pathway-leonard-mitchell",
+      "source_id": "leonard-mitchell",
+      "target_id": "pathway-darkness",
+      "predicate": "POSSESSES",
+      "label": "Practicing Pathway",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-pathway-amon": {
+      "id": "rel-pathway-amon",
+      "source_id": "amon",
+      "target_id": "pathway-error",
+      "predicate": "POSSESSES",
+      "label": "Practicing Pathway",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-pathway-adam": {
+      "id": "rel-pathway-adam",
+      "source_id": "adam",
+      "target_id": "pathway-visionary",
+      "predicate": "POSSESSES",
+      "label": "Practicing Pathway",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-pathway-dunn-smith": {
+      "id": "rel-pathway-dunn-smith",
+      "source_id": "dunn-smith",
+      "target_id": "pathway-darkness",
+      "predicate": "POSSESSES",
+      "label": "Practicing Pathway",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-pathway-daly-simone": {
+      "id": "rel-pathway-daly-simone",
+      "source_id": "daly-simone",
+      "target_id": "pathway-death",
+      "predicate": "POSSESSES",
+      "label": "Practicing Pathway",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-pathway-azik-eggers": {
+      "id": "rel-pathway-azik-eggers",
+      "source_id": "azik-eggers",
+      "target_id": "pathway-death",
+      "predicate": "POSSESSES",
+      "label": "Practicing Pathway",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-pathway-will-auceptin": {
+      "id": "rel-pathway-will-auceptin",
+      "source_id": "will-auceptin",
+      "target_id": "pathway-wheel-of-fortune",
+      "predicate": "POSSESSES",
+      "label": "Practicing Pathway",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-pathway-sharron": {
+      "id": "rel-pathway-sharron",
+      "source_id": "sharron",
+      "target_id": "pathway-chained",
+      "predicate": "POSSESSES",
+      "label": "Practicing Pathway",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-pathway-maric": {
+      "id": "rel-pathway-maric",
+      "source_id": "maric",
+      "target_id": "pathway-chained",
+      "predicate": "POSSESSES",
+      "label": "Practicing Pathway",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-pathway-in-zangwill": {
+      "id": "rel-pathway-in-zangwill",
+      "source_id": "in-zangwill",
+      "target_id": "pathway-darkness",
+      "predicate": "POSSESSES",
+      "label": "Practicing Pathway",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-pathway-medici": {
+      "id": "rel-pathway-medici",
+      "source_id": "medici",
+      "target_id": "pathway-red-priest",
+      "predicate": "POSSESSES",
+      "label": "Practicing Pathway",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-pathway-ouroboros": {
+      "id": "rel-pathway-ouroboros",
+      "source_id": "ouroboros",
+      "target_id": "pathway-wheel-of-fortune",
+      "predicate": "POSSESSES",
+      "label": "Practicing Pathway",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-pathway-pallez-zoroast": {
+      "id": "rel-pathway-pallez-zoroast",
+      "source_id": "pallez-zoroast",
+      "target_id": "pathway-error",
+      "predicate": "POSSESSES",
+      "label": "Practicing Pathway",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-pathway-reinette-tinekerr": {
+      "id": "rel-pathway-reinette-tinekerr",
+      "source_id": "reinette-tinekerr",
+      "target_id": "pathway-chained",
+      "predicate": "POSSESSES",
+      "label": "Practicing Pathway",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-pathway-bernadette-gustav": {
+      "id": "rel-pathway-bernadette-gustav",
+      "source_id": "bernadette-gustav",
+      "target_id": "pathway-hermit",
+      "predicate": "POSSESSES",
+      "label": "Practicing Pathway",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-pathway-roselle-gustav": {
+      "id": "rel-pathway-roselle-gustav",
+      "source_id": "roselle-gustav",
+      "target_id": "pathway-black-emperor",
+      "predicate": "POSSESSES",
+      "label": "Practicing Pathway",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-pathway-evernight-goddess": {
+      "id": "rel-pathway-evernight-goddess",
+      "source_id": "evernight-goddess",
+      "target_id": "pathway-darkness",
+      "predicate": "POSSESSES",
+      "label": "Practicing Pathway",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-pathway-lord-of-storms": {
+      "id": "rel-pathway-lord-of-storms",
+      "source_id": "lord-of-storms",
+      "target_id": "pathway-tyrant",
+      "predicate": "POSSESSES",
+      "label": "Practicing Pathway",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-pathway-god-of-steam": {
+      "id": "rel-pathway-god-of-steam",
+      "source_id": "god-of-steam",
+      "target_id": "pathway-paragon",
+      "predicate": "POSSESSES",
+      "label": "Practicing Pathway",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-pathway-true-creator": {
+      "id": "rel-pathway-true-creator",
+      "source_id": "true-creator",
+      "target_id": "pathway-hanged-man",
+      "predicate": "POSSESSES",
+      "label": "Practicing Pathway",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "lord-of-the-mysteries",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
         "confidence": 1,
         "created_at": "2026-09-28T00:00:00Z"
       },

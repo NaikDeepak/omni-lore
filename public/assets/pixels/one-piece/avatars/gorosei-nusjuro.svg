@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="crispEdges">
+  <rect x="0" y="0" width="32" height="32" fill="#064e3b"/>
+  <!-- Bald head & Round Glasses -->
+  <rect x="11" y="4" width="10" height="8" fill="#fed7aa"/>
+  <!-- Glasses -->
+  <rect x="12" y="7" width="3" height="2" fill="#38bdf8"/>
+  <rect x="17" y="7" width="3" height="2" fill="#38bdf8"/>
+  <rect x="15" y="7" width="2" height="1" fill="#f8fafc"/>
+  <!-- White Monk / Samurai Gi -->
+  <rect x="7" y="12" width="18" height="20" fill="#f8fafc"/>
+  <rect x="13" y="12" width="6" height="8" fill="#fed7aa"/>
+  <!-- Black Obi Belt -->
+  <rect x="10" y="20" width="12" height="3" fill="#0f172a"/>
+  <!-- Shodai Kitetsu Cursed Katana -->
+  <rect x="23" y="8" width="2" height="22" fill="#94a3b8"/>
+  <rect x="22" y="16" width="4" height="2" fill="#fbbf24"/>
+  <rect x="23" y="18" width="2" height="6" fill="#7f1d1d"/>
+  <!-- Frost Glacial Aura -->
+  <rect x="24" y="5" width="2" height="2" fill="#67e8f9"/>
+</svg>

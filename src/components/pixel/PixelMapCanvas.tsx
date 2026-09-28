@@ -448,6 +448,17 @@ export function PixelMapCanvas({
         {/* Layer Toggles & Zoom Controls */}
         <div className="flex items-center gap-1.5 ml-auto">
           <button
+            onClick={() => setShowFogPreview(f => !f)}
+            className={`p-1.5 rounded border transition flex items-center gap-1 font-pixel text-[10px] ${
+              showFogPreview ? 'bg-cyan-500/20 border-cyan-400 text-cyan-300 shadow-sm' : 'bg-slate-950 border-slate-800 text-slate-500 hover:text-slate-300'
+            }`}
+            title="Toggle Fog of War Shroud Layer"
+          >
+            <EyeOff className="w-3.5 h-3.5 text-cyan-400" />
+            <span className="hidden md:inline">{showFogPreview ? 'FOG: ON' : 'FOG: OFF'}</span>
+          </button>
+
+          <button
             onClick={() => setShowRoute(r => !r)}
             className={`p-1.5 rounded border transition flex items-center gap-1 font-pixel text-[10px] ${
               showRoute ? 'bg-amber-500/20 border-amber-400 text-amber-300' : 'bg-slate-950 border-slate-800 text-slate-500'
@@ -542,6 +553,74 @@ export function PixelMapCanvas({
             className="w-full h-full"
             style={{ imageRendering: 'pixelated' }}
           >
+            <defs>
+              {/* Atmospheric blur filter for soft fog clearing edges */}
+              <filter id="fog-soft-edge" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="12" />
+              </filter>
+
+              {/* 8-bit retro pixel dither pattern for unexplored fog */}
+              <pattern id="retro-fog-dither" width="8" height="8" patternUnits="userSpaceOnUse">
+                <rect width="8" height="8" fill="#020617" />
+                <rect x="0" y="0" width="2" height="2" fill="#0f172a" />
+                <rect x="4" y="4" width="2" height="2" fill="#0f172a" />
+                <rect x="2" y="6" width="1" height="1" fill="#1e293b" opacity="0.6" />
+                <rect x="6" y="2" width="1" height="1" fill="#1e293b" opacity="0.6" />
+              </pattern>
+
+              {/* Procedural Fog of War Mask (White = Shrouded, Black = Cleared) */}
+              <mask id="fog-of-war-mask">
+                {/* Baseline: map plane is completely blanketed in fog */}
+                <rect x="-300" y="-300" width="1600" height="1180" fill="white" />
+
+                {/* If full lore is indexed or completed */}
+                {userChapter >= totalChapters ? (
+                  <rect x="-300" y="-300" width="1600" height="1180" fill="black" />
+                ) : (
+                  <>
+                    {/* Clear circular apertures around every discovered landmark */}
+                    {discoveredLocations.map((loc) => {
+                      if (!loc.coordinates) return null;
+                      return (
+                        <circle
+                          key={`reveal-${loc.id}`}
+                          cx={loc.coordinates.x}
+                          cy={loc.coordinates.y}
+                          r="105"
+                          fill="black"
+                          filter="url(#fog-soft-edge)"
+                        />
+                      );
+                    })}
+
+                    {/* Clear broad corridor along the protagonist's journey route */}
+                    {journeyPath && (
+                      <path
+                        d={journeyPath}
+                        fill="none"
+                        stroke="black"
+                        strokeWidth="80"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        filter="url(#fog-soft-edge)"
+                      />
+                    )}
+
+                    {/* Active scanning radius around the current expedition outpost */}
+                    {currentProtagonistLocation?.coordinates && (
+                      <circle
+                        cx={currentProtagonistLocation.coordinates.x}
+                        cy={currentProtagonistLocation.coordinates.y}
+                        r="125"
+                        fill="black"
+                        filter="url(#fog-soft-edge)"
+                      />
+                    )}
+                  </>
+                )}
+              </mask>
+            </defs>
+
             {/* TRANSFORM MASTER GROUP FOR ZOOM & PAN */}
             <g
               transform={`translate(${pan.x}, ${pan.y}) scale(${zoom})`}
@@ -1210,6 +1289,83 @@ export function PixelMapCanvas({
                     strokeLinejoin="round"
                     opacity="0.85"
                   />
+                </g>
+              )}
+
+              {/* ======================================================== */}
+              {/* PROCEDURAL FOG OF WAR SHROUD LAYER                       */}
+              {/* ======================================================== */}
+              {showFogPreview && userChapter < totalChapters && (
+                <g id="fog-of-war-layer" pointerEvents="none" className="transition-opacity duration-300">
+                  {/* Atmospheric Deep Obsidian Mist */}
+                  <rect
+                    x="-300"
+                    y="-300"
+                    width="1600"
+                    height="1180"
+                    fill="#020617"
+                    opacity="0.93"
+                    mask="url(#fog-of-war-mask)"
+                  />
+
+                  {/* Retro 8-bit Pixel Dither Grid */}
+                  <rect
+                    x="-300"
+                    y="-300"
+                    width="1600"
+                    height="1180"
+                    fill="url(#retro-fog-dither)"
+                    opacity="0.5"
+                    mask="url(#fog-of-war-mask)"
+                  />
+
+                  {/* Scanline Mist Texture */}
+                  <rect
+                    x="-300"
+                    y="-300"
+                    width="1600"
+                    height="1180"
+                    fill="none"
+                    stroke="#1e293b"
+                    strokeWidth="1"
+                    strokeDasharray="2,6"
+                    opacity="0.25"
+                    mask="url(#fog-of-war-mask)"
+                  />
+
+                  {/* Atmospheric Runes / Fog Labels over Unexplored Sectors */}
+                  {allLocations
+                    .filter((l) => l.first_appearance > userChapter && l.coordinates)
+                    .slice(0, 4)
+                    .map((l) => (
+                      <g
+                        key={`fog-label-${l.id}`}
+                        transform={`translate(${l.coordinates!.x}, ${l.coordinates!.y + 26})`}
+                        opacity="0.45"
+                        mask="url(#fog-of-war-mask)"
+                      >
+                        <rect
+                          x="-45"
+                          y="-9"
+                          width="90"
+                          height="14"
+                          rx="3"
+                          fill="#090d16"
+                          stroke="#334155"
+                          strokeWidth="0.8"
+                        />
+                        <text
+                          x="0"
+                          y="1"
+                          textAnchor="middle"
+                          fontSize="6.5"
+                          fill="#94a3b8"
+                          fontFamily="Silkscreen"
+                        >
+                          ░ UNCHARTED (CH {l.first_appearance}+) ░
+                        </text>
+                      </g>
+                    ))}
                 </g>
               )}
 

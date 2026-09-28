@@ -3230,6 +3230,463 @@
       "first_appearance": 684,
       "revealed_at": 684,
       "avatar_url": "/assets/pixels/one-piece/avatars/momonosuke.svg"
+    },
+    "faction-world-government": {
+      "id": "faction-world-government",
+      "type": "faction",
+      "name": "World Government",
+      "aliases": [
+        "Sekai Seifu",
+        "Twenty Kingdoms Alliance",
+        "Celestial Nobles Regime"
+      ],
+      "description": "The colossal totalitarian regime spanning 170+ allied nations, founded 800 years ago after the Void Century, secretly ruled from Pangaea Castle by Imu and the Five Elders.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1,
+      "revealed_at": 1,
+      "emblem_url": "/assets/pixels/one-piece/factions/faction-world-government.svg"
+    },
+    "faction-gods-knights": {
+      "id": "faction-gods-knights",
+      "type": "faction",
+      "name": "God's Knights (Holy Knights)",
+      "aliases": [
+        "Holy Knights",
+        "Shinpan no Kishi"
+      ],
+      "description": "The elite martial enforcers of Mary Geoise commanded by Saint Figarland Garling, authorized to adjudicate conflicts even among the World Nobles.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1054
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1054,
+      "revealed_at": 1054,
+      "emblem_url": "/assets/pixels/one-piece/factions/faction-gods-knights.svg"
+    },
+    "faction-baroque-works": {
+      "id": "faction-baroque-works",
+      "type": "faction",
+      "name": "Baroque Works",
+      "aliases": [
+        "Mr. 0 Syndicate"
+      ],
+      "description": "Criminal corporate syndicate founded by Crocodile to overthrow Alabasta and acquire the Ancient Weapon Pluton.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 103
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 103,
+      "revealed_at": 103,
+      "emblem_url": "/assets/pixels/one-piece/factions/faction-baroque-works.svg"
+    },
+    "faction-impel-down": {
+      "id": "faction-impel-down",
+      "type": "faction",
+      "name": "Impel Down Prison",
+      "aliases": [
+        "The Great Underwater Gaol",
+        "Underwater Prison"
+      ],
+      "description": "The World Government's maximum security underwater fortress with Six Levels of Hell, commanded by Chief Warden Magellan.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 526
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 526,
+      "revealed_at": 526,
+      "emblem_url": "/assets/pixels/one-piece/factions/faction-impel-down.svg"
+    },
+    "faction-kozuki-clan": {
+      "id": "faction-kozuki-clan",
+      "type": "faction",
+      "name": "Kozuki Clan (Wano Country)",
+      "aliases": [
+        "Kozuki Family",
+        "Wano Samurai Retainers"
+      ],
+      "description": "The ancestral stonemason dynasty of Wano Country that carved the indestructible Poneglyphs, restored by Kozuki Momonosuke.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 817
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 817,
+      "revealed_at": 817,
+      "emblem_url": "/assets/pixels/one-piece/factions/faction-kozuki-clan.svg"
+    },
+    "faction-arlong-pirates": {
+      "id": "faction-arlong-pirates",
+      "type": "faction",
+      "name": "Arlong Pirates",
+      "aliases": [
+        "Sun Pirates Splinter",
+        "Arlong Park Crew"
+      ],
+      "description": "Fish-man supremacist pirate crew terrorizing the Conomi Islands from Arlong Park, led by Saw-Tooth Arlong.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 69
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 69,
+      "revealed_at": 69,
+      "emblem_url": "/assets/pixels/one-piece/factions/faction-arlong-pirates.svg"
+    },
+    "faction-egghead-science": {
+      "id": "faction-egghead-science",
+      "type": "faction",
+      "name": "Egghead Special Science Group (SSG)",
+      "aliases": [
+        "Future Island Research Division",
+        "Vegapunk Satellites"
+      ],
+      "description": "The pinnacle scientific research institution on Egghead Island led by Dr. Vegapunk and his six satellite minds.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1061
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1061,
+      "revealed_at": 1061,
+      "emblem_url": "/assets/pixels/one-piece/factions/faction-egghead-science.svg"
+    },
+    "faction-black-cat-pirates": {
+      "id": "faction-black-cat-pirates",
+      "type": "faction",
+      "name": "Black Cat Pirates",
+      "aliases": [
+        "Kuro Pirates"
+      ],
+      "description": "East Blue pirate crew previously commanded by Captain Kuro of a Hundred Plans.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 23
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 23,
+      "revealed_at": 23,
+      "emblem_url": "/assets/pixels/one-piece/factions/faction-black-cat-pirates.svg"
+    },
+    "faction-krieg-armada": {
+      "id": "faction-krieg-armada",
+      "type": "faction",
+      "name": "Krieg Pirate Armada",
+      "aliases": [
+        "Don Krieg Pirate Fleet"
+      ],
+      "description": "Fifty-ship East Blue galleon fleet commanded by Don Krieg.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 45
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 45,
+      "revealed_at": 45,
+      "emblem_url": "/assets/pixels/one-piece/factions/faction-krieg-armada.svg"
+    },
+    "faction-bonney-pirates": {
+      "id": "faction-bonney-pirates",
+      "type": "faction",
+      "name": "Bonney Pirates",
+      "aliases": [
+        "Jewelry Bonney Crew"
+      ],
+      "description": "South Blue pirate crew commanded by Big Eater Jewelry Bonney.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 498
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 498,
+      "revealed_at": 498,
+      "emblem_url": "/assets/pixels/one-piece/factions/faction-bonney-pirates.svg"
+    },
+    "imu": {
+      "id": "imu",
+      "type": "character",
+      "name": "Imu (Sovereign of the World)",
+      "aliases": [
+        "Master of the Empty Throne",
+        "Saint Imu",
+        "Nerona Imu"
+      ],
+      "description": "The clandestine supreme sovereign of the World Government who sits upon the Empty Throne; commander of the Five Elders with absolute power over the Mother Flame and global purges.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 906
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 906,
+      "revealed_at": 906,
+      "avatar_url": "/assets/pixels/one-piece/avatars/imu.svg"
+    },
+    "gorosei-saturn": {
+      "id": "gorosei-saturn",
+      "type": "character",
+      "name": "Saint Jaygarcia Saturn (Warrior God of Science & Defense)",
+      "aliases": [
+        "Elder Saturn",
+        "Warrior God of Science"
+      ],
+      "description": "Elder of the Five Elders who invaded Egghead Island with Admiral Kizaru, assuming a monstrous Gyuki spider-demon form with instant regenerative immortality and demonic eye-blasts.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 233
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 233,
+      "revealed_at": 233,
+      "avatar_url": "/assets/pixels/one-piece/avatars/gorosei-saturn.svg"
+    },
+    "gorosei-warcury": {
+      "id": "gorosei-warcury",
+      "type": "character",
+      "name": "Saint Topman Warcury (Warrior God of Justice)",
+      "aliases": [
+        "Elder Warcury",
+        "Warrior God of Justice"
+      ],
+      "description": "Elder of the Gorosei manifesting the colossal mythological Fengxi boar form with impregnable Conqueror's Haki armor that broke Gear 5 Luffy's fists.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 233
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 233,
+      "revealed_at": 233,
+      "avatar_url": "/assets/pixels/one-piece/avatars/gorosei-warcury.svg"
+    },
+    "gorosei-nusjuro": {
+      "id": "gorosei-nusjuro",
+      "type": "character",
+      "name": "Saint Ethanbaron V. Nusjuro (Warrior God of Finance)",
+      "aliases": [
+        "Elder Nusjuro",
+        "Warrior God of Finance"
+      ],
+      "description": "Elder of the Gorosei wielding the Shodai Kitetsu cursed blade, transforming into a skeletal Bakotsu demon stallion with blistering freezing sword strikes.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 233
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 233,
+      "revealed_at": 233,
+      "avatar_url": "/assets/pixels/one-piece/avatars/gorosei-nusjuro.svg"
+    },
+    "gorosei-mars": {
+      "id": "gorosei-mars",
+      "type": "character",
+      "name": "Saint Marcus Mars (Warrior God of Environment)",
+      "aliases": [
+        "Elder Mars",
+        "Warrior God of Environment"
+      ],
+      "description": "Elder of the Gorosei taking flight as the gigantic monstrous Itsumade bird demon, breaching the Labophase frontier dome with incandescent energy blasts.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 233
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 233,
+      "revealed_at": 233,
+      "avatar_url": "/assets/pixels/one-piece/avatars/gorosei-mars.svg"
+    },
+    "gorosei-ju-peter": {
+      "id": "gorosei-ju-peter",
+      "type": "character",
+      "name": "Saint Shepherd Ju Peter (Warrior God of Agriculture)",
+      "aliases": [
+        "Elder Ju Peter",
+        "Warrior God of Agriculture"
+      ],
+      "description": "Youngest of the Gorosei transforming into a monstrous subterranean Sandworm demon that devours battlefield targets from beneath the earth.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 233
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 233,
+      "revealed_at": 233,
+      "avatar_url": "/assets/pixels/one-piece/avatars/gorosei-ju-peter.svg"
+    },
+    "garling-figarland": {
+      "id": "garling-figarland",
+      "type": "character",
+      "name": "Saint Figarland Garling (Supreme Commander of God's Knights)",
+      "aliases": [
+        "Champion of God Valley",
+        "Saint Garling"
+      ],
+      "description": "The ruthless ruler of God Valley and Supreme Commander of God's Knights who executes World Nobles for misconduct; later elevated to the Gorosei as Warrior God of Science.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1086
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1086,
+      "revealed_at": 1086,
+      "avatar_url": "/assets/pixels/one-piece/avatars/garling-figarland.svg"
+    },
+    "item-pluton": {
+      "id": "item-pluton",
+      "type": "item",
+      "name": "Ancient Weapon Pluton",
+      "aliases": [
+        "Battleship Pluton",
+        "Underworld Warship"
+      ],
+      "description": "An apocalyptic ancient battleship capable of vaporizing entire islands in a single shot, sleeping submerged beneath the submerged ancient country of Wano until the borders are dismantled.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 193
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 193,
+      "revealed_at": 193,
+      "thumbnail_url": "/assets/pixels/one-piece/items/item-pluton.svg"
+    },
+    "ability-poseidon": {
+      "id": "ability-poseidon",
+      "type": "ability",
+      "name": "Ancient Weapon Poseidon (Sea King Telepathy)",
+      "aliases": [
+        "Voice of the Sea Kings",
+        "Princess Shirahoshi's Power"
+      ],
+      "description": "The hereditary telepathic power possessed by Mermaid Princess Shirahoshi to communicate with and command the colossal Sea Kings capable of sinking the entire world.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 626
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 626,
+      "revealed_at": 626
+    },
+    "item-uranus": {
+      "id": "item-uranus",
+      "type": "item",
+      "name": "Ancient Weapon Uranus (Mother Flame Annihilator)",
+      "aliases": [
+        "Sky Weapon Uranus",
+        "Lulusia Obliterator"
+      ],
+      "description": "The mythical sky weapon commanded by Imu and energized by Dr. Vegapunk's synthetic Mother Flame, unleashing sixteen descending lasers of light that erased Lulusia Kingdom from existence in seconds.",
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1060
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 1060,
+      "revealed_at": 1060,
+      "thumbnail_url": "/assets/pixels/one-piece/items/item-uranus.svg"
     }
   },
   "facts": {
@@ -3405,7 +3862,7 @@
       "id": "fact-power-franky",
       "entity_id": "franky",
       "predicate": "power_stage",
-      "value": "stage-grandline",
+      "value": "tier-supernova",
       "temporal": {
         "valid_from": 329,
         "valid_to": null,
@@ -3447,7 +3904,7 @@
       "id": "fact-power-brook",
       "entity_id": "brook",
       "predicate": "power_stage",
-      "value": "stage-grandline",
+      "value": "tier-supernova",
       "temporal": {
         "valid_from": 442,
         "valid_to": null,
@@ -3489,7 +3946,7 @@
       "id": "fact-power-jinbe",
       "entity_id": "jinbe",
       "predicate": "power_stage",
-      "value": "stage-newworld",
+      "value": "tier-commander",
       "temporal": {
         "valid_from": 528,
         "valid_to": null,
@@ -3531,7 +3988,7 @@
       "id": "fact-power-ace",
       "entity_id": "ace",
       "predicate": "power_stage",
-      "value": "stage-newworld",
+      "value": "tier-commander",
       "temporal": {
         "valid_from": 154,
         "valid_to": null,
@@ -3573,7 +4030,7 @@
       "id": "fact-power-sabo",
       "entity_id": "sabo",
       "predicate": "power_stage",
-      "value": "stage-newworld",
+      "value": "tier-commander",
       "temporal": {
         "valid_from": 583,
         "valid_to": null,
@@ -3615,7 +4072,7 @@
       "id": "fact-power-law",
       "entity_id": "law",
       "predicate": "power_stage",
-      "value": "stage-newworld",
+      "value": "tier-commander",
       "temporal": {
         "valid_from": 498,
         "valid_to": null,
@@ -3657,7 +4114,7 @@
       "id": "fact-power-kid",
       "entity_id": "kid",
       "predicate": "power_stage",
-      "value": "stage-newworld",
+      "value": "tier-commander",
       "temporal": {
         "valid_from": 498,
         "valid_to": null,
@@ -3699,7 +4156,7 @@
       "id": "fact-power-mihawk",
       "entity_id": "mihawk",
       "predicate": "power_stage",
-      "value": "stage-yonko",
+      "value": "tier-emperor-admiral",
       "temporal": {
         "valid_from": 49,
         "valid_to": null,
@@ -3741,7 +4198,7 @@
       "id": "fact-power-crocodile",
       "entity_id": "crocodile",
       "predicate": "power_stage",
-      "value": "stage-newworld",
+      "value": "tier-commander",
       "temporal": {
         "valid_from": 126,
         "valid_to": null,
@@ -3783,7 +4240,7 @@
       "id": "fact-power-doflamingo",
       "entity_id": "doflamingo",
       "predicate": "power_stage",
-      "value": "stage-newworld",
+      "value": "tier-commander",
       "temporal": {
         "valid_from": 233,
         "valid_to": null,
@@ -3825,7 +4282,7 @@
       "id": "fact-power-big-mom",
       "entity_id": "big-mom",
       "predicate": "power_stage",
-      "value": "stage-yonko",
+      "value": "tier-emperor-admiral",
       "temporal": {
         "valid_from": 651,
         "valid_to": null,
@@ -3867,7 +4324,7 @@
       "id": "fact-power-garp",
       "entity_id": "garp",
       "predicate": "power_stage",
-      "value": "stage-yonko",
+      "value": "tier-emperor-admiral",
       "temporal": {
         "valid_from": 92,
         "valid_to": null,
@@ -3909,7 +4366,7 @@
       "id": "fact-power-aokiji",
       "entity_id": "aokiji",
       "predicate": "power_stage",
-      "value": "stage-yonko",
+      "value": "tier-emperor-admiral",
       "temporal": {
         "valid_from": 303,
         "valid_to": null,
@@ -3951,7 +4408,7 @@
       "id": "fact-power-kizaru",
       "entity_id": "kizaru",
       "predicate": "power_stage",
-      "value": "stage-yonko",
+      "value": "tier-emperor-admiral",
       "temporal": {
         "valid_from": 504,
         "valid_to": null,
@@ -3993,7 +4450,7 @@
       "id": "fact-power-fujitora",
       "entity_id": "fujitora",
       "predicate": "power_stage",
-      "value": "stage-yonko",
+      "value": "tier-emperor-admiral",
       "temporal": {
         "valid_from": 701,
         "valid_to": null,
@@ -4035,7 +4492,7 @@
       "id": "fact-power-rayleigh",
       "entity_id": "rayleigh",
       "predicate": "power_stage",
-      "value": "stage-yonko",
+      "value": "tier-emperor-admiral",
       "temporal": {
         "valid_from": 500,
         "valid_to": null,
@@ -4077,7 +4534,7 @@
       "id": "fact-power-buggy",
       "entity_id": "buggy",
       "predicate": "power_stage",
-      "value": "stage-yonko",
+      "value": "tier-emperor-admiral",
       "temporal": {
         "valid_from": 9,
         "valid_to": null,
@@ -4119,7 +4576,7 @@
       "id": "fact-power-hancock",
       "entity_id": "hancock",
       "predicate": "power_stage",
-      "value": "stage-newworld",
+      "value": "tier-commander",
       "temporal": {
         "valid_from": 516,
         "valid_to": null,
@@ -4161,7 +4618,7 @@
       "id": "fact-power-yamato",
       "entity_id": "yamato",
       "predicate": "power_stage",
-      "value": "stage-newworld",
+      "value": "tier-commander",
       "temporal": {
         "valid_from": 971,
         "valid_to": null,
@@ -4203,7 +4660,7 @@
       "id": "fact-power-oden",
       "entity_id": "oden",
       "predicate": "power_stage",
-      "value": "stage-yonko",
+      "value": "tier-emperor-admiral",
       "temporal": {
         "valid_from": 920,
         "valid_to": null,
@@ -4245,7 +4702,7 @@
       "id": "fact-power-smoker",
       "entity_id": "smoker",
       "predicate": "power_stage",
-      "value": "stage-grandline",
+      "value": "tier-supernova",
       "temporal": {
         "valid_from": 97,
         "valid_to": null,
@@ -4287,7 +4744,7 @@
       "id": "fact-power-lucci",
       "entity_id": "lucci",
       "predicate": "power_stage",
-      "value": "stage-newworld",
+      "value": "tier-commander",
       "temporal": {
         "valid_from": 323,
         "valid_to": null,
@@ -4329,7 +4786,7 @@
       "id": "fact-power-kuma",
       "entity_id": "kuma",
       "predicate": "power_stage",
-      "value": "stage-newworld",
+      "value": "tier-commander",
       "temporal": {
         "valid_from": 233,
         "valid_to": null,
@@ -4371,7 +4828,7 @@
       "id": "fact-power-enel",
       "entity_id": "enel",
       "predicate": "power_stage",
-      "value": "stage-grandline",
+      "value": "tier-supernova",
       "temporal": {
         "valid_from": 254,
         "valid_to": null,
@@ -4409,53 +4866,11 @@
       },
       "canon_status": "canon"
     },
-    "fact-power-luffy": {
-      "id": "fact-power-luffy",
-      "entity_id": "luffy",
-      "predicate": "power_stage",
-      "value": "stage-yonko",
-      "temporal": {
-        "valid_from": 1044,
-        "valid_to": null,
-        "revealed_at": 1044
-      },
-      "provenance": {
-        "source": {
-          "series": "one-piece",
-          "chapter": 1044
-        },
-        "extracted_by": "deterministic",
-        "confidence": 1,
-        "created_at": "2026-09-27T00:00:00Z"
-      },
-      "canon_status": "canon"
-    },
     "fact-faction-zoro": {
       "id": "fact-faction-zoro",
       "entity_id": "zoro",
       "predicate": "faction",
       "value": "faction-straw-hats",
-      "temporal": {
-        "valid_from": 3,
-        "valid_to": null,
-        "revealed_at": 3
-      },
-      "provenance": {
-        "source": {
-          "series": "one-piece",
-          "chapter": 3
-        },
-        "extracted_by": "deterministic",
-        "confidence": 1,
-        "created_at": "2026-09-27T00:00:00Z"
-      },
-      "canon_status": "canon"
-    },
-    "fact-power-zoro": {
-      "id": "fact-power-zoro",
-      "entity_id": "zoro",
-      "predicate": "power_stage",
-      "value": "stage-newworld",
       "temporal": {
         "valid_from": 3,
         "valid_to": null,
@@ -4497,7 +4912,7 @@
       "id": "fact-power-nami",
       "entity_id": "nami",
       "predicate": "power_stage",
-      "value": "stage-grandline",
+      "value": "tier-rookie",
       "temporal": {
         "valid_from": 8,
         "valid_to": null,
@@ -4539,7 +4954,7 @@
       "id": "fact-power-usopp",
       "entity_id": "usopp",
       "predicate": "power_stage",
-      "value": "stage-grandline",
+      "value": "tier-rookie",
       "temporal": {
         "valid_from": 23,
         "valid_to": null,
@@ -4581,7 +4996,7 @@
       "id": "fact-power-sanji",
       "entity_id": "sanji",
       "predicate": "power_stage",
-      "value": "stage-newworld",
+      "value": "tier-commander",
       "temporal": {
         "valid_from": 43,
         "valid_to": null,
@@ -4623,7 +5038,7 @@
       "id": "fact-power-chopper",
       "entity_id": "chopper",
       "predicate": "power_stage",
-      "value": "stage-grandline",
+      "value": "tier-rookie",
       "temporal": {
         "valid_from": 134,
         "valid_to": null,
@@ -4665,7 +5080,7 @@
       "id": "fact-power-robin",
       "entity_id": "robin",
       "predicate": "power_stage",
-      "value": "stage-grandline",
+      "value": "tier-supernova",
       "temporal": {
         "valid_from": 114,
         "valid_to": null,
@@ -4707,7 +5122,7 @@
       "id": "fact-power-shanks",
       "entity_id": "shanks",
       "predicate": "power_stage",
-      "value": "stage-yonko",
+      "value": "tier-emperor-admiral",
       "temporal": {
         "valid_from": 1,
         "valid_to": null,
@@ -4749,7 +5164,7 @@
       "id": "fact-power-whitebeard",
       "entity_id": "whitebeard",
       "predicate": "power_stage",
-      "value": "stage-yonko",
+      "value": "tier-emperor-admiral",
       "temporal": {
         "valid_from": 234,
         "valid_to": null,
@@ -4791,7 +5206,7 @@
       "id": "fact-power-blackbeard",
       "entity_id": "blackbeard",
       "predicate": "power_stage",
-      "value": "stage-yonko",
+      "value": "tier-emperor-admiral",
       "temporal": {
         "valid_from": 223,
         "valid_to": null,
@@ -4833,7 +5248,7 @@
       "id": "fact-power-kaido",
       "entity_id": "kaido",
       "predicate": "power_stage",
-      "value": "stage-yonko",
+      "value": "tier-emperor-admiral",
       "temporal": {
         "valid_from": 795,
         "valid_to": null,
@@ -4875,7 +5290,7 @@
       "id": "fact-power-akainu",
       "entity_id": "akainu",
       "predicate": "power_stage",
-      "value": "stage-yonko",
+      "value": "tier-emperor-admiral",
       "temporal": {
         "valid_from": 397,
         "valid_to": null,
@@ -4917,7 +5332,7 @@
       "id": "fact-power-dragon",
       "entity_id": "dragon",
       "predicate": "power_stage",
-      "value": "stage-yonko",
+      "value": "tier-emperor-admiral",
       "temporal": {
         "valid_from": 100,
         "valid_to": null,
@@ -4959,7 +5374,7 @@
       "id": "fact-power-roger",
       "entity_id": "roger",
       "predicate": "power_stage",
-      "value": "stage-pirateking",
+      "value": "tier-pirate-king",
       "temporal": {
         "valid_from": 1,
         "valid_to": null,
@@ -5710,6 +6125,468 @@
         "created_at": "2026-09-27T00:00:00Z"
       },
       "canon_status": "canon"
+    },
+    "fact-faction-arlong": {
+      "id": "fact-faction-arlong",
+      "entity_id": "arlong",
+      "predicate": "faction",
+      "value": "faction-arlong-pirates",
+      "temporal": {
+        "valid_from": 69,
+        "valid_to": null,
+        "revealed_at": 69
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 69
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-kuro": {
+      "id": "fact-faction-kuro",
+      "entity_id": "kuro",
+      "predicate": "faction",
+      "value": "faction-black-cat-pirates",
+      "temporal": {
+        "valid_from": 23,
+        "valid_to": null,
+        "revealed_at": 23
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 23
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-krieg": {
+      "id": "fact-faction-krieg",
+      "entity_id": "krieg",
+      "predicate": "faction",
+      "value": "faction-krieg-armada",
+      "temporal": {
+        "valid_from": 45,
+        "valid_to": null,
+        "revealed_at": 45
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 45
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-bon-clay": {
+      "id": "fact-faction-bon-clay",
+      "entity_id": "bon-clay",
+      "predicate": "faction",
+      "value": "faction-baroque-works",
+      "temporal": {
+        "valid_from": 129,
+        "valid_to": null,
+        "revealed_at": 129
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 129
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-magellan": {
+      "id": "fact-faction-magellan",
+      "entity_id": "magellan",
+      "predicate": "faction",
+      "value": "faction-impel-down",
+      "temporal": {
+        "valid_from": 526,
+        "valid_to": null,
+        "revealed_at": 526
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 526
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-vegapunk": {
+      "id": "fact-faction-vegapunk",
+      "entity_id": "vegapunk",
+      "predicate": "faction",
+      "value": "faction-egghead-science",
+      "temporal": {
+        "valid_from": 1061,
+        "valid_to": null,
+        "revealed_at": 1061
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1061
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-bonney": {
+      "id": "fact-faction-bonney",
+      "entity_id": "bonney",
+      "predicate": "faction",
+      "value": "faction-bonney-pirates",
+      "temporal": {
+        "valid_from": 498,
+        "valid_to": null,
+        "revealed_at": 498
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 498
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-momonosuke": {
+      "id": "fact-faction-momonosuke",
+      "entity_id": "momonosuke",
+      "predicate": "faction",
+      "value": "faction-kozuki-clan",
+      "temporal": {
+        "valid_from": 684,
+        "valid_to": null,
+        "revealed_at": 684
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 684
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-imu": {
+      "id": "fact-power-imu",
+      "entity_id": "imu",
+      "predicate": "power_stage",
+      "value": "tier-pirate-king",
+      "temporal": {
+        "valid_from": 906,
+        "valid_to": null,
+        "revealed_at": 906
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 906
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-imu": {
+      "id": "fact-faction-imu",
+      "entity_id": "imu",
+      "predicate": "faction",
+      "value": "faction-world-government",
+      "temporal": {
+        "valid_from": 906,
+        "valid_to": null,
+        "revealed_at": 906
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 906
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-gorosei-saturn": {
+      "id": "fact-power-gorosei-saturn",
+      "entity_id": "gorosei-saturn",
+      "predicate": "power_stage",
+      "value": "tier-emperor-admiral",
+      "temporal": {
+        "valid_from": 233,
+        "valid_to": null,
+        "revealed_at": 233
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 233
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-gorosei-saturn": {
+      "id": "fact-faction-gorosei-saturn",
+      "entity_id": "gorosei-saturn",
+      "predicate": "faction",
+      "value": "faction-world-government",
+      "temporal": {
+        "valid_from": 233,
+        "valid_to": null,
+        "revealed_at": 233
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 233
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-gorosei-warcury": {
+      "id": "fact-power-gorosei-warcury",
+      "entity_id": "gorosei-warcury",
+      "predicate": "power_stage",
+      "value": "tier-emperor-admiral",
+      "temporal": {
+        "valid_from": 233,
+        "valid_to": null,
+        "revealed_at": 233
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 233
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-gorosei-warcury": {
+      "id": "fact-faction-gorosei-warcury",
+      "entity_id": "gorosei-warcury",
+      "predicate": "faction",
+      "value": "faction-world-government",
+      "temporal": {
+        "valid_from": 233,
+        "valid_to": null,
+        "revealed_at": 233
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 233
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-gorosei-nusjuro": {
+      "id": "fact-power-gorosei-nusjuro",
+      "entity_id": "gorosei-nusjuro",
+      "predicate": "power_stage",
+      "value": "tier-emperor-admiral",
+      "temporal": {
+        "valid_from": 233,
+        "valid_to": null,
+        "revealed_at": 233
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 233
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-gorosei-nusjuro": {
+      "id": "fact-faction-gorosei-nusjuro",
+      "entity_id": "gorosei-nusjuro",
+      "predicate": "faction",
+      "value": "faction-world-government",
+      "temporal": {
+        "valid_from": 233,
+        "valid_to": null,
+        "revealed_at": 233
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 233
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-gorosei-mars": {
+      "id": "fact-power-gorosei-mars",
+      "entity_id": "gorosei-mars",
+      "predicate": "power_stage",
+      "value": "tier-emperor-admiral",
+      "temporal": {
+        "valid_from": 233,
+        "valid_to": null,
+        "revealed_at": 233
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 233
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-gorosei-mars": {
+      "id": "fact-faction-gorosei-mars",
+      "entity_id": "gorosei-mars",
+      "predicate": "faction",
+      "value": "faction-world-government",
+      "temporal": {
+        "valid_from": 233,
+        "valid_to": null,
+        "revealed_at": 233
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 233
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-gorosei-ju-peter": {
+      "id": "fact-power-gorosei-ju-peter",
+      "entity_id": "gorosei-ju-peter",
+      "predicate": "power_stage",
+      "value": "tier-emperor-admiral",
+      "temporal": {
+        "valid_from": 233,
+        "valid_to": null,
+        "revealed_at": 233
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 233
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-gorosei-ju-peter": {
+      "id": "fact-faction-gorosei-ju-peter",
+      "entity_id": "gorosei-ju-peter",
+      "predicate": "faction",
+      "value": "faction-world-government",
+      "temporal": {
+        "valid_from": 233,
+        "valid_to": null,
+        "revealed_at": 233
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 233
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-garling-figarland": {
+      "id": "fact-power-garling-figarland",
+      "entity_id": "garling-figarland",
+      "predicate": "power_stage",
+      "value": "tier-emperor-admiral",
+      "temporal": {
+        "valid_from": 1086,
+        "valid_to": null,
+        "revealed_at": 1086
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1086
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-garling-figarland": {
+      "id": "fact-faction-garling-figarland",
+      "entity_id": "garling-figarland",
+      "predicate": "faction",
+      "value": "faction-gods-knights",
+      "temporal": {
+        "valid_from": 1086,
+        "valid_to": null,
+        "revealed_at": 1086
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1086
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
     }
   },
   "relationships": {
@@ -5717,7 +6594,7 @@
       "id": "rel-shanks-luffy",
       "source_id": "shanks",
       "target_id": "luffy",
-      "predicate": "role_model_for",
+      "predicate": "MASTER_OF",
       "label": "Inspiration & Hat Giver",
       "temporal": {
         "valid_from": 1,
@@ -5871,7 +6748,7 @@
       "id": "rel-dragon-luffy",
       "source_id": "dragon",
       "target_id": "luffy",
-      "predicate": "father_of",
+      "predicate": "RELATED_TO",
       "label": "Father",
       "temporal": {
         "valid_from": 100,
@@ -5959,7 +6836,7 @@
       "id": "rel-luffy-ace",
       "source_id": "luffy",
       "target_id": "ace",
-      "predicate": "sworn_brother",
+      "predicate": "RELATED_TO",
       "label": "Sworn Brother",
       "temporal": {
         "valid_from": 154,
@@ -5981,7 +6858,7 @@
       "id": "rel-luffy-sabo",
       "source_id": "luffy",
       "target_id": "sabo",
-      "predicate": "sworn_brother",
+      "predicate": "RELATED_TO",
       "label": "Sworn Brother",
       "temporal": {
         "valid_from": 583,
@@ -6003,7 +6880,7 @@
       "id": "rel-ace-sabo",
       "source_id": "ace",
       "target_id": "sabo",
-      "predicate": "sworn_brother",
+      "predicate": "RELATED_TO",
       "label": "Sworn Brother",
       "temporal": {
         "valid_from": 583,
@@ -6025,7 +6902,7 @@
       "id": "rel-garp-luffy",
       "source_id": "garp",
       "target_id": "luffy",
-      "predicate": "grandfather_of",
+      "predicate": "RELATED_TO",
       "label": "Grandfather",
       "temporal": {
         "valid_from": 92,
@@ -6047,7 +6924,7 @@
       "id": "rel-garp-dragon",
       "source_id": "garp",
       "target_id": "dragon",
-      "predicate": "father_of",
+      "predicate": "RELATED_TO",
       "label": "Father",
       "temporal": {
         "valid_from": 432,
@@ -6069,7 +6946,7 @@
       "id": "rel-mihawk-zoro",
       "source_id": "mihawk",
       "target_id": "zoro",
-      "predicate": "rival_and_master",
+      "predicate": "MASTER_OF",
       "label": "Swordsmanship Master & Goal",
       "temporal": {
         "valid_from": 49,
@@ -6091,7 +6968,7 @@
       "id": "rel-whitebeard-ace",
       "source_id": "whitebeard",
       "target_id": "ace",
-      "predicate": "adoptive_father_of",
+      "predicate": "RELATED_TO",
       "label": "Captain & Father",
       "temporal": {
         "valid_from": 154,
@@ -6113,7 +6990,7 @@
       "id": "rel-roger-rayleigh",
       "source_id": "roger",
       "target_id": "rayleigh",
-      "predicate": "right_hand_of",
+      "predicate": "ALLY_OF",
       "label": "First Mate & Partner",
       "temporal": {
         "valid_from": 500,
@@ -6135,7 +7012,7 @@
       "id": "rel-roger-shanks",
       "source_id": "roger",
       "target_id": "shanks",
-      "predicate": "apprentice_of",
+      "predicate": "DISCIPLE_OF",
       "label": "Cabin Boy & Mentee",
       "temporal": {
         "valid_from": 19,
@@ -6157,7 +7034,7 @@
       "id": "rel-roger-buggy",
       "source_id": "roger",
       "target_id": "buggy",
-      "predicate": "apprentice_of",
+      "predicate": "DISCIPLE_OF",
       "label": "Cabin Boy & Mentee",
       "temporal": {
         "valid_from": 19,
@@ -6179,7 +7056,7 @@
       "id": "rel-law-luffy",
       "source_id": "law",
       "target_id": "luffy",
-      "predicate": "pirate_alliance",
+      "predicate": "ALLY_OF",
       "label": "Yonko-Toppling Alliance",
       "temporal": {
         "valid_from": 668,
@@ -6201,7 +7078,7 @@
       "id": "rel-hancock-luffy",
       "source_id": "hancock",
       "target_id": "luffy",
-      "predicate": "infatuated_with",
+      "predicate": "ALLY_OF",
       "label": "Protector & Devotee",
       "temporal": {
         "valid_from": 516,
@@ -6223,7 +7100,7 @@
       "id": "rel-kaido-yamato",
       "source_id": "kaido",
       "target_id": "yamato",
-      "predicate": "father_of",
+      "predicate": "RELATED_TO",
       "label": "Father & Adversary",
       "temporal": {
         "valid_from": 971,
@@ -6245,7 +7122,7 @@
       "id": "rel-oden-roger",
       "source_id": "oden",
       "target_id": "roger",
-      "predicate": "allied_crewmate",
+      "predicate": "ALLY_OF",
       "label": "Poneglyph Reader & Crew",
       "temporal": {
         "valid_from": 966,
@@ -6267,7 +7144,7 @@
       "id": "rel-kuma-dragon",
       "source_id": "kuma",
       "target_id": "dragon",
-      "predicate": "founding_revolutionary",
+      "predicate": "ALLY_OF",
       "label": "Revolutionary Comrade",
       "temporal": {
         "valid_from": 233,
@@ -6289,7 +7166,7 @@
       "id": "rel-buggy-croc",
       "source_id": "buggy",
       "target_id": "crocodile",
-      "predicate": "cross_guild_partner",
+      "predicate": "ALLY_OF",
       "label": "Cross Guild Partner",
       "temporal": {
         "valid_from": 1056,
@@ -6311,7 +7188,7 @@
       "id": "rel-buggy-mihawk",
       "source_id": "buggy",
       "target_id": "mihawk",
-      "predicate": "cross_guild_partner",
+      "predicate": "ALLY_OF",
       "label": "Cross Guild Partner",
       "temporal": {
         "valid_from": 1056,
@@ -6333,7 +7210,7 @@
       "id": "rel-akainu-aokiji",
       "source_id": "akainu",
       "target_id": "aokiji",
-      "predicate": "duel_adversary",
+      "predicate": "RIVAL_OF",
       "label": "Punk Hazard Duelist",
       "temporal": {
         "valid_from": 650,
@@ -6355,7 +7232,7 @@
       "id": "rel-luffy-franky",
       "source_id": "luffy",
       "target_id": "franky",
-      "predicate": "crew_mate",
+      "predicate": "MEMBER_OF",
       "label": "Shipwright",
       "temporal": {
         "valid_from": 329,
@@ -6377,7 +7254,7 @@
       "id": "rel-luffy-brook",
       "source_id": "luffy",
       "target_id": "brook",
-      "predicate": "crew_mate",
+      "predicate": "MEMBER_OF",
       "label": "Musician",
       "temporal": {
         "valid_from": 442,
@@ -6399,7 +7276,7 @@
       "id": "rel-luffy-jinbe",
       "source_id": "luffy",
       "target_id": "jinbe",
-      "predicate": "crew_mate",
+      "predicate": "MEMBER_OF",
       "label": "Helmsman",
       "temporal": {
         "valid_from": 528,
@@ -6575,7 +7452,7 @@
       "id": "rel-tashigi-smoker",
       "source_id": "tashigi",
       "target_id": "smoker",
-      "predicate": "SUBORDINATE_OF",
+      "predicate": "MEMBER_OF",
       "label": "Marine G-5 Trusted Lieutenant",
       "temporal": {
         "valid_from": 96,
@@ -6641,7 +7518,7 @@
       "id": "rel-marco-whitebeard",
       "source_id": "marco",
       "target_id": "whitebeard",
-      "predicate": "SUBORDINATE_OF",
+      "predicate": "MEMBER_OF",
       "label": "First Division Commander & Beloved Son",
       "temporal": {
         "valid_from": 234,
@@ -6729,7 +7606,7 @@
       "id": "rel-katakuri-bigmom",
       "source_id": "katakuri",
       "target_id": "big-mom",
-      "predicate": "SUBORDINATE_OF",
+      "predicate": "MEMBER_OF",
       "label": "Sweet Commander & Family Pillar",
       "temporal": {
         "valid_from": 860,
@@ -6861,7 +7738,7 @@
       "id": "rel-king-kaido",
       "source_id": "king",
       "target_id": "kaido",
-      "predicate": "SUBORDINATE_OF",
+      "predicate": "MEMBER_OF",
       "label": "Right-Hand Lunarian All-Star",
       "temporal": {
         "valid_from": 920,
@@ -6883,7 +7760,7 @@
       "id": "rel-queen-kaido",
       "source_id": "queen",
       "target_id": "kaido",
-      "predicate": "SUBORDINATE_OF",
+      "predicate": "MEMBER_OF",
       "label": "All-Star Commander & Udon Prison Viceroy",
       "temporal": {
         "valid_from": 920,
@@ -7004,6 +7881,292 @@
         "source": {
           "series": "one-piece",
           "chapter": 985
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-saturn-imu": {
+      "id": "rel-saturn-imu",
+      "source_id": "gorosei-saturn",
+      "target_id": "imu",
+      "predicate": "ALLY_OF",
+      "label": "Elder Servant of the Empty Throne",
+      "temporal": {
+        "valid_from": 906,
+        "valid_to": null,
+        "revealed_at": 906
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 906
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-warcury-imu": {
+      "id": "rel-warcury-imu",
+      "source_id": "gorosei-warcury",
+      "target_id": "imu",
+      "predicate": "ALLY_OF",
+      "label": "Elder Servant of the Empty Throne",
+      "temporal": {
+        "valid_from": 906,
+        "valid_to": null,
+        "revealed_at": 906
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 906
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-nusjuro-imu": {
+      "id": "rel-nusjuro-imu",
+      "source_id": "gorosei-nusjuro",
+      "target_id": "imu",
+      "predicate": "ALLY_OF",
+      "label": "Elder Servant of the Empty Throne",
+      "temporal": {
+        "valid_from": 906,
+        "valid_to": null,
+        "revealed_at": 906
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 906
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-mars-imu": {
+      "id": "rel-mars-imu",
+      "source_id": "gorosei-mars",
+      "target_id": "imu",
+      "predicate": "ALLY_OF",
+      "label": "Elder Servant of the Empty Throne",
+      "temporal": {
+        "valid_from": 906,
+        "valid_to": null,
+        "revealed_at": 906
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 906
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-ju-peter-imu": {
+      "id": "rel-ju-peter-imu",
+      "source_id": "gorosei-ju-peter",
+      "target_id": "imu",
+      "predicate": "ALLY_OF",
+      "label": "Elder Servant of the Empty Throne",
+      "temporal": {
+        "valid_from": 906,
+        "valid_to": null,
+        "revealed_at": 906
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 906
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-garling-imu": {
+      "id": "rel-garling-imu",
+      "source_id": "garling-figarland",
+      "target_id": "imu",
+      "predicate": "ALLY_OF",
+      "label": "Supreme Knight Servant to the Throne",
+      "temporal": {
+        "valid_from": 1086,
+        "valid_to": null,
+        "revealed_at": 1086
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1086
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-imu-uranus": {
+      "id": "rel-imu-uranus",
+      "source_id": "imu",
+      "target_id": "item-uranus",
+      "predicate": "POSSESSES",
+      "label": "Command of the Mother Flame Annihilator",
+      "temporal": {
+        "valid_from": 1060,
+        "valid_to": null,
+        "revealed_at": 1060
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1060
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-luffy-saturn": {
+      "id": "rel-luffy-saturn",
+      "source_id": "luffy",
+      "target_id": "gorosei-saturn",
+      "predicate": "ENEMY_OF",
+      "label": "Sun God Nika vs Gyuki of Science",
+      "temporal": {
+        "valid_from": 1094,
+        "valid_to": null,
+        "revealed_at": 1094
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1094
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-zoro-nusjuro": {
+      "id": "rel-zoro-nusjuro",
+      "source_id": "zoro",
+      "target_id": "gorosei-nusjuro",
+      "predicate": "ENEMY_OF",
+      "label": "Kitetsu Cursed Blade Clash",
+      "temporal": {
+        "valid_from": 1117,
+        "valid_to": null,
+        "revealed_at": 1117
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1117
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-crocodile-baroque": {
+      "id": "rel-crocodile-baroque",
+      "source_id": "crocodile",
+      "target_id": "faction-baroque-works",
+      "predicate": "LEADER_OF",
+      "label": "Mr. 0 Syndicate Founder",
+      "temporal": {
+        "valid_from": 113,
+        "valid_to": null,
+        "revealed_at": 113
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 113
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-magellan-impel": {
+      "id": "rel-magellan-impel",
+      "source_id": "magellan",
+      "target_id": "faction-impel-down",
+      "predicate": "LEADER_OF",
+      "label": "Chief Warden of Impel Down",
+      "temporal": {
+        "valid_from": 526,
+        "valid_to": null,
+        "revealed_at": 526
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 526
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-momonosuke-kozuki": {
+      "id": "rel-momonosuke-kozuki",
+      "source_id": "momonosuke",
+      "target_id": "faction-kozuki-clan",
+      "predicate": "LEADER_OF",
+      "label": "Shogun of Wano Country",
+      "temporal": {
+        "valid_from": 1051,
+        "valid_to": null,
+        "revealed_at": 1051
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1051
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-vegapunk-egghead": {
+      "id": "rel-vegapunk-egghead",
+      "source_id": "vegapunk",
+      "target_id": "faction-egghead-science",
+      "predicate": "LEADER_OF",
+      "label": "Director of Egghead SSG",
+      "temporal": {
+        "valid_from": 1061,
+        "valid_to": null,
+        "revealed_at": 1061
+      },
+      "provenance": {
+        "source": {
+          "series": "one-piece",
+          "chapter": 1061
         },
         "extracted_by": "deterministic",
         "confidence": 1,

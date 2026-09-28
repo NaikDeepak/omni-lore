@@ -2877,7 +2877,7 @@
       "value": "stage-foundation",
       "temporal": {
         "valid_from": 1,
-        "valid_to": 15,
+        "valid_to": 14,
         "revealed_at": 1
       },
       "provenance": {
@@ -2898,7 +2898,7 @@
       "value": "stage-qi-condensation",
       "temporal": {
         "valid_from": 15,
-        "valid_to": 85,
+        "valid_to": 84,
         "revealed_at": 15
       },
       "provenance": {
@@ -2919,7 +2919,7 @@
       "value": "stage-bone-tempering",
       "temporal": {
         "valid_from": 85,
-        "valid_to": 250,
+        "valid_to": 249,
         "revealed_at": 85
       },
       "provenance": {
@@ -2940,7 +2940,7 @@
       "value": "stage-profound-heaven",
       "temporal": {
         "valid_from": 250,
-        "valid_to": 500,
+        "valid_to": 499,
         "revealed_at": 250
       },
       "provenance": {
@@ -2961,7 +2961,7 @@
       "value": "stage-radiant",
       "temporal": {
         "valid_from": 500,
-        "valid_to": 650,
+        "valid_to": 649,
         "revealed_at": 500
       },
       "provenance": {
@@ -2982,7 +2982,7 @@
       "value": "stage-ethereal",
       "temporal": {
         "valid_from": 650,
-        "valid_to": 800,
+        "valid_to": 1199,
         "revealed_at": 650
       },
       "provenance": {
@@ -3464,6 +3464,2232 @@
         "extracted_by": "deterministic",
         "confidence": 1,
         "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-luo-yunchang-1": {
+      "id": "fact-power-luo-yunchang-1",
+      "entity_id": "luo-yunchang",
+      "predicate": "power_stage",
+      "value": "stage-qi-condensation",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": 84,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-luo-yunchang-2": {
+      "id": "fact-power-luo-yunchang-2",
+      "entity_id": "luo-yunchang",
+      "predicate": "power_stage",
+      "value": "stage-bone-tempering",
+      "temporal": {
+        "valid_from": 85,
+        "valid_to": 330,
+        "revealed_at": 85
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 85
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-luo-yunchang-3": {
+      "id": "fact-power-luo-yunchang-3",
+      "entity_id": "luo-yunchang",
+      "predicate": "power_stage",
+      "value": "stage-profound-heaven",
+      "temporal": {
+        "valid_from": 331,
+        "valid_to": 650,
+        "revealed_at": 331
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 331
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-luo-yunchang-4": {
+      "id": "fact-power-luo-yunchang-4",
+      "entity_id": "luo-yunchang",
+      "predicate": "power_stage",
+      "value": "stage-radiant",
+      "temporal": {
+        "valid_from": 651,
+        "valid_to": null,
+        "revealed_at": 651
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 651
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-luo-yunhai-1": {
+      "id": "fact-power-luo-yunhai-1",
+      "entity_id": "luo-yunhai",
+      "predicate": "power_stage",
+      "value": "stage-foundation",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": 84,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-luo-yunhai-2": {
+      "id": "fact-power-luo-yunhai-2",
+      "entity_id": "luo-yunhai",
+      "predicate": "power_stage",
+      "value": "stage-bone-tempering",
+      "temporal": {
+        "valid_from": 85,
+        "valid_to": 330,
+        "revealed_at": 85
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 85
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-luo-yunhai-3": {
+      "id": "fact-power-luo-yunhai-3",
+      "entity_id": "luo-yunhai",
+      "predicate": "power_stage",
+      "value": "stage-profound-heaven",
+      "temporal": {
+        "valid_from": 331,
+        "valid_to": 650,
+        "revealed_at": 331
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 331
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-luo-yunhai-4": {
+      "id": "fact-power-luo-yunhai-4",
+      "entity_id": "luo-yunhai",
+      "predicate": "power_stage",
+      "value": "stage-radiant",
+      "temporal": {
+        "valid_from": 651,
+        "valid_to": null,
+        "revealed_at": 651
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 651
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-li-jingtian-1": {
+      "id": "fact-power-li-jingtian-1",
+      "entity_id": "li-jingtian",
+      "predicate": "power_stage",
+      "value": "stage-radiant",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": 650,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-li-jingtian-2": {
+      "id": "fact-power-li-jingtian-2",
+      "entity_id": "li-jingtian",
+      "predicate": "power_stage",
+      "value": "stage-ethereal",
+      "temporal": {
+        "valid_from": 651,
+        "valid_to": null,
+        "revealed_at": 651
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 651
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-xue-qingjian-1": {
+      "id": "fact-power-xue-qingjian-1",
+      "entity_id": "xue-qingjian",
+      "predicate": "power_stage",
+      "value": "stage-radiant",
+      "temporal": {
+        "valid_from": 100,
+        "valid_to": 700,
+        "revealed_at": 100
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 100
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-xue-qingjian-2": {
+      "id": "fact-power-xue-qingjian-2",
+      "entity_id": "xue-qingjian",
+      "predicate": "power_stage",
+      "value": "stage-ethereal",
+      "temporal": {
+        "valid_from": 701,
+        "valid_to": null,
+        "revealed_at": 701
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 701
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-qiu-yanhai-1": {
+      "id": "fact-power-qiu-yanhai-1",
+      "entity_id": "qiu-yanhai",
+      "predicate": "power_stage",
+      "value": "stage-radiant",
+      "temporal": {
+        "valid_from": 100,
+        "valid_to": 700,
+        "revealed_at": 100
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 100
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-qiu-yanhai-2": {
+      "id": "fact-power-qiu-yanhai-2",
+      "entity_id": "qiu-yanhai",
+      "predicate": "power_stage",
+      "value": "stage-ethereal",
+      "temporal": {
+        "valid_from": 701,
+        "valid_to": null,
+        "revealed_at": 701
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 701
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-yan-song-1": {
+      "id": "fact-power-yan-song-1",
+      "entity_id": "yan-song",
+      "predicate": "power_stage",
+      "value": "stage-profound-heaven",
+      "temporal": {
+        "valid_from": 80,
+        "valid_to": 250,
+        "revealed_at": 80
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 80
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-yan-song-2": {
+      "id": "fact-power-yan-song-2",
+      "entity_id": "yan-song",
+      "predicate": "power_stage",
+      "value": "stage-radiant",
+      "temporal": {
+        "valid_from": 251,
+        "valid_to": null,
+        "revealed_at": 251
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 251
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-captain-pang-1": {
+      "id": "fact-power-captain-pang-1",
+      "entity_id": "captain-pang",
+      "predicate": "power_stage",
+      "value": "stage-foundation",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": 84,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-captain-pang-2": {
+      "id": "fact-power-captain-pang-2",
+      "entity_id": "captain-pang",
+      "predicate": "power_stage",
+      "value": "stage-qi-condensation",
+      "temporal": {
+        "valid_from": 85,
+        "valid_to": 350,
+        "revealed_at": 85
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 85
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-captain-pang-3": {
+      "id": "fact-power-captain-pang-3",
+      "entity_id": "captain-pang",
+      "predicate": "power_stage",
+      "value": "stage-bone-tempering",
+      "temporal": {
+        "valid_from": 351,
+        "valid_to": null,
+        "revealed_at": 351
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 351
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-lei-yuting-1": {
+      "id": "fact-power-lei-yuting-1",
+      "entity_id": "lei-yuting",
+      "predicate": "power_stage",
+      "value": "stage-qi-condensation",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": 84,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-lei-yuting-2": {
+      "id": "fact-power-lei-yuting-2",
+      "entity_id": "lei-yuting",
+      "predicate": "power_stage",
+      "value": "stage-bone-tempering",
+      "temporal": {
+        "valid_from": 85,
+        "valid_to": 350,
+        "revealed_at": 85
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 85
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-lei-yuting-3": {
+      "id": "fact-power-lei-yuting-3",
+      "entity_id": "lei-yuting",
+      "predicate": "power_stage",
+      "value": "stage-profound-heaven",
+      "temporal": {
+        "valid_from": 351,
+        "valid_to": null,
+        "revealed_at": 351
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 351
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-huangpu-qingtian-1": {
+      "id": "fact-power-huangpu-qingtian-1",
+      "entity_id": "huangpu-qingtian",
+      "predicate": "power_stage",
+      "value": "stage-profound-heaven",
+      "temporal": {
+        "valid_from": 180,
+        "valid_to": null,
+        "revealed_at": 180
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 180
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-huangpu-tianyuan-1": {
+      "id": "fact-power-huangpu-tianyuan-1",
+      "entity_id": "huangpu-tianyuan",
+      "predicate": "power_stage",
+      "value": "stage-radiant",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": 350,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-huangpu-tianyuan-2": {
+      "id": "fact-power-huangpu-tianyuan-2",
+      "entity_id": "huangpu-tianyuan",
+      "predicate": "power_stage",
+      "value": "stage-ethereal",
+      "temporal": {
+        "valid_from": 351,
+        "valid_to": null,
+        "revealed_at": 351
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 351
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-leng-wuchang-1": {
+      "id": "fact-power-leng-wuchang-1",
+      "entity_id": "leng-wuchang",
+      "predicate": "power_stage",
+      "value": "stage-profound-heaven",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-huangpu-qingyun-1": {
+      "id": "fact-power-huangpu-qingyun-1",
+      "entity_id": "huangpu-qingyun",
+      "predicate": "power_stage",
+      "value": "stage-bone-tempering",
+      "temporal": {
+        "valid_from": 80,
+        "valid_to": null,
+        "revealed_at": 80
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 80
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-chu-qingcheng-1": {
+      "id": "fact-power-chu-qingcheng-1",
+      "entity_id": "chu-qingcheng",
+      "predicate": "power_stage",
+      "value": "stage-profound-heaven",
+      "temporal": {
+        "valid_from": 80,
+        "valid_to": 330,
+        "revealed_at": 80
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 80
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-chu-qingcheng-2": {
+      "id": "fact-power-chu-qingcheng-2",
+      "entity_id": "chu-qingcheng",
+      "predicate": "power_stage",
+      "value": "stage-radiant",
+      "temporal": {
+        "valid_from": 331,
+        "valid_to": 750,
+        "revealed_at": 331
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 331
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-chu-qingcheng-3": {
+      "id": "fact-power-chu-qingcheng-3",
+      "entity_id": "chu-qingcheng",
+      "predicate": "power_stage",
+      "value": "stage-ethereal",
+      "temporal": {
+        "valid_from": 751,
+        "valid_to": null,
+        "revealed_at": 751
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 751
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-xiao-dandan-1": {
+      "id": "fact-power-xiao-dandan-1",
+      "entity_id": "xiao-dandan",
+      "predicate": "power_stage",
+      "value": "stage-bone-tempering",
+      "temporal": {
+        "valid_from": 80,
+        "valid_to": 330,
+        "revealed_at": 80
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 80
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-xiao-dandan-2": {
+      "id": "fact-power-xiao-dandan-2",
+      "entity_id": "xiao-dandan",
+      "predicate": "power_stage",
+      "value": "stage-profound-heaven",
+      "temporal": {
+        "valid_from": 331,
+        "valid_to": null,
+        "revealed_at": 331
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 331
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-chu-bijun-1": {
+      "id": "fact-power-chu-bijun-1",
+      "entity_id": "chu-bijun",
+      "predicate": "power_stage",
+      "value": "stage-radiant",
+      "temporal": {
+        "valid_from": 80,
+        "valid_to": null,
+        "revealed_at": 80
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 80
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-long-jiu-1": {
+      "id": "fact-power-long-jiu-1",
+      "entity_id": "long-jiu",
+      "predicate": "power_stage",
+      "value": "stage-bone-tempering",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": 84,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-long-jiu-2": {
+      "id": "fact-power-long-jiu-2",
+      "entity_id": "long-jiu",
+      "predicate": "power_stage",
+      "value": "stage-profound-heaven",
+      "temporal": {
+        "valid_from": 85,
+        "valid_to": 490,
+        "revealed_at": 85
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 85
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-long-jiu-3": {
+      "id": "fact-power-long-jiu-3",
+      "entity_id": "long-jiu",
+      "predicate": "power_stage",
+      "value": "stage-radiant",
+      "temporal": {
+        "valid_from": 491,
+        "valid_to": null,
+        "revealed_at": 491
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 491
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-long-yifei-1": {
+      "id": "fact-power-long-yifei-1",
+      "entity_id": "long-yifei",
+      "predicate": "power_stage",
+      "value": "stage-radiant",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-long-kui-1": {
+      "id": "fact-power-long-kui-1",
+      "entity_id": "long-kui",
+      "predicate": "power_stage",
+      "value": "stage-qi-condensation",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": 84,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-long-kui-2": {
+      "id": "fact-power-long-kui-2",
+      "entity_id": "long-kui",
+      "predicate": "power_stage",
+      "value": "stage-bone-tempering",
+      "temporal": {
+        "valid_from": 85,
+        "valid_to": null,
+        "revealed_at": 85
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 85
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-xie-tianshang-1": {
+      "id": "fact-power-xie-tianshang-1",
+      "entity_id": "xie-tianshang",
+      "predicate": "power_stage",
+      "value": "stage-profound-heaven",
+      "temporal": {
+        "valid_from": 180,
+        "valid_to": 330,
+        "revealed_at": 180
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 180
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-xie-tianshang-2": {
+      "id": "fact-power-xie-tianshang-2",
+      "entity_id": "xie-tianshang",
+      "predicate": "power_stage",
+      "value": "stage-radiant",
+      "temporal": {
+        "valid_from": 331,
+        "valid_to": 650,
+        "revealed_at": 331
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 331
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-xie-tianshang-3": {
+      "id": "fact-power-xie-tianshang-3",
+      "entity_id": "xie-tianshang",
+      "predicate": "power_stage",
+      "value": "stage-ethereal",
+      "temporal": {
+        "valid_from": 651,
+        "valid_to": null,
+        "revealed_at": 651
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 651
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-xie-tianyang-1": {
+      "id": "fact-power-xie-tianyang-1",
+      "entity_id": "xie-tianyang",
+      "predicate": "power_stage",
+      "value": "stage-bone-tempering",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": 180,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-xie-tianyang-2": {
+      "id": "fact-power-xie-tianyang-2",
+      "entity_id": "xie-tianyang",
+      "predicate": "power_stage",
+      "value": "stage-profound-heaven",
+      "temporal": {
+        "valid_from": 181,
+        "valid_to": null,
+        "revealed_at": 181
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 181
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-xie-xiaofeng-1": {
+      "id": "fact-power-xie-xiaofeng-1",
+      "entity_id": "xie-xiaofeng",
+      "predicate": "power_stage",
+      "value": "stage-radiant",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-you-guiqi-1": {
+      "id": "fact-power-you-guiqi-1",
+      "entity_id": "you-guiqi",
+      "predicate": "power_stage",
+      "value": "stage-profound-heaven",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-you-guishan-1": {
+      "id": "fact-power-you-guishan-1",
+      "entity_id": "you-guishan",
+      "predicate": "power_stage",
+      "value": "stage-radiant",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-you-quan-1": {
+      "id": "fact-power-you-quan-1",
+      "entity_id": "you-quan",
+      "predicate": "power_stage",
+      "value": "stage-bone-tempering",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-yan-bogong-1": {
+      "id": "fact-power-yan-bogong-1",
+      "entity_id": "yan-bogong",
+      "predicate": "power_stage",
+      "value": "stage-radiant",
+      "temporal": {
+        "valid_from": 80,
+        "valid_to": null,
+        "revealed_at": 80
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 80
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-yan-fu-1": {
+      "id": "fact-power-yan-fu-1",
+      "entity_id": "yan-fu",
+      "predicate": "power_stage",
+      "value": "stage-bone-tempering",
+      "temporal": {
+        "valid_from": 80,
+        "valid_to": 330,
+        "revealed_at": 80
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 80
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-yan-fu-2": {
+      "id": "fact-power-yan-fu-2",
+      "entity_id": "yan-fu",
+      "predicate": "power_stage",
+      "value": "stage-profound-heaven",
+      "temporal": {
+        "valid_from": 331,
+        "valid_to": null,
+        "revealed_at": 331
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 331
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-lin-rufeng-1": {
+      "id": "fact-power-lin-rufeng-1",
+      "entity_id": "lin-rufeng",
+      "predicate": "power_stage",
+      "value": "stage-radiant",
+      "temporal": {
+        "valid_from": 180,
+        "valid_to": null,
+        "revealed_at": 180
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 180
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-yuwen-feng-1": {
+      "id": "fact-power-yuwen-feng-1",
+      "entity_id": "yuwen-feng",
+      "predicate": "power_stage",
+      "value": "stage-bone-tempering",
+      "temporal": {
+        "valid_from": 180,
+        "valid_to": null,
+        "revealed_at": 180
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 180
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-yuwen-cong-1": {
+      "id": "fact-power-yuwen-cong-1",
+      "entity_id": "yuwen-cong",
+      "predicate": "power_stage",
+      "value": "stage-qi-condensation",
+      "temporal": {
+        "valid_from": 180,
+        "valid_to": 330,
+        "revealed_at": 180
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 180
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-yuwen-cong-2": {
+      "id": "fact-power-yuwen-cong-2",
+      "entity_id": "yuwen-cong",
+      "predicate": "power_stage",
+      "value": "stage-bone-tempering",
+      "temporal": {
+        "valid_from": 331,
+        "valid_to": null,
+        "revealed_at": 331
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 331
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-zhuge-changfeng-1": {
+      "id": "fact-power-zhuge-changfeng-1",
+      "entity_id": "zhuge-changfeng",
+      "predicate": "power_stage",
+      "value": "stage-profound-heaven",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-dugu-zhantian-1": {
+      "id": "fact-power-dugu-zhantian-1",
+      "entity_id": "dugu-zhantian",
+      "predicate": "power_stage",
+      "value": "stage-radiant",
+      "temporal": {
+        "valid_from": 180,
+        "valid_to": null,
+        "revealed_at": 180
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 180
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-dugu-four-tigers-1": {
+      "id": "fact-power-dugu-four-tigers-1",
+      "entity_id": "dugu-four-tigers",
+      "predicate": "power_stage",
+      "value": "stage-profound-heaven",
+      "temporal": {
+        "valid_from": 180,
+        "valid_to": null,
+        "revealed_at": 180
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 180
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-xie-wuyue-1": {
+      "id": "fact-power-xie-wuyue-1",
+      "entity_id": "xie-wuyue",
+      "predicate": "power_stage",
+      "value": "stage-ethereal",
+      "temporal": {
+        "valid_from": 491,
+        "valid_to": null,
+        "revealed_at": 491
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 491
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-yuan-xinggang-1": {
+      "id": "fact-power-yuan-xinggang-1",
+      "entity_id": "yuan-xinggang",
+      "predicate": "power_stage",
+      "value": "stage-soul-harmony",
+      "temporal": {
+        "valid_from": 491,
+        "valid_to": null,
+        "revealed_at": 491
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 491
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-ye-lin-1": {
+      "id": "fact-power-ye-lin-1",
+      "entity_id": "ye-lin",
+      "predicate": "power_stage",
+      "value": "stage-ethereal",
+      "temporal": {
+        "valid_from": 491,
+        "valid_to": 750,
+        "revealed_at": 491
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 491
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-ye-lin-2": {
+      "id": "fact-power-ye-lin-2",
+      "entity_id": "ye-lin",
+      "predicate": "power_stage",
+      "value": "stage-soul-harmony",
+      "temporal": {
+        "valid_from": 751,
+        "valid_to": null,
+        "revealed_at": 751
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 751
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-danqing-shen-1": {
+      "id": "fact-power-danqing-shen-1",
+      "entity_id": "danqing-shen",
+      "predicate": "power_stage",
+      "value": "stage-soul-harmony",
+      "temporal": {
+        "valid_from": 491,
+        "valid_to": 900,
+        "revealed_at": 491
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 491
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-danqing-shen-2": {
+      "id": "fact-power-danqing-shen-2",
+      "entity_id": "danqing-shen",
+      "predicate": "power_stage",
+      "value": "stage-genesis",
+      "temporal": {
+        "valid_from": 901,
+        "valid_to": null,
+        "revealed_at": 901
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 901
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-wu-qingqiu-1": {
+      "id": "fact-power-wu-qingqiu-1",
+      "entity_id": "wu-qingqiu",
+      "predicate": "power_stage",
+      "value": "stage-ethereal",
+      "temporal": {
+        "valid_from": 491,
+        "valid_to": null,
+        "revealed_at": 491
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 491
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-double-dragon-exalted-1": {
+      "id": "fact-power-double-dragon-exalted-1",
+      "entity_id": "double-dragon-exalted",
+      "predicate": "power_stage",
+      "value": "stage-soul-harmony",
+      "temporal": {
+        "valid_from": 491,
+        "valid_to": null,
+        "revealed_at": 491
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 491
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-baili-yutian-1": {
+      "id": "fact-power-baili-yutian-1",
+      "entity_id": "baili-yutian",
+      "predicate": "power_stage",
+      "value": "stage-genesis",
+      "temporal": {
+        "valid_from": 751,
+        "valid_to": null,
+        "revealed_at": 751
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 751
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-baili-jingwei-1": {
+      "id": "fact-power-baili-jingwei-1",
+      "entity_id": "baili-jingwei",
+      "predicate": "power_stage",
+      "value": "stage-soul-harmony",
+      "temporal": {
+        "valid_from": 751,
+        "valid_to": null,
+        "revealed_at": 751
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 751
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-baili-yuyu-1": {
+      "id": "fact-power-baili-yuyu-1",
+      "entity_id": "baili-yuyu",
+      "predicate": "power_stage",
+      "value": "stage-soul-harmony",
+      "temporal": {
+        "valid_from": 751,
+        "valid_to": null,
+        "revealed_at": 751
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 751
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-kunpeng-1": {
+      "id": "fact-power-kunpeng-1",
+      "entity_id": "kunpeng",
+      "predicate": "power_stage",
+      "value": "stage-saint",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-nine-serenities-emperor-1": {
+      "id": "fact-power-nine-serenities-emperor-1",
+      "entity_id": "nine-serenities-emperor",
+      "predicate": "power_stage",
+      "value": "stage-sovereign",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-zhao-chen-1": {
+      "id": "fact-power-zhao-chen-1",
+      "entity_id": "zhao-chen",
+      "predicate": "power_stage",
+      "value": "stage-saint",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-xue-qingjian": {
+      "id": "fact-faction-xue-qingjian",
+      "entity_id": "xue-qingjian",
+      "predicate": "faction",
+      "value": "faction-luo",
+      "temporal": {
+        "valid_from": 100,
+        "valid_to": null,
+        "revealed_at": 100
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 100
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-qiu-yanhai": {
+      "id": "fact-faction-qiu-yanhai",
+      "entity_id": "qiu-yanhai",
+      "predicate": "faction",
+      "value": "faction-luo",
+      "temporal": {
+        "valid_from": 100,
+        "valid_to": null,
+        "revealed_at": 100
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 100
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-yan-song": {
+      "id": "fact-faction-yan-song",
+      "entity_id": "yan-song",
+      "predicate": "faction",
+      "value": "faction-luo",
+      "temporal": {
+        "valid_from": 120,
+        "valid_to": null,
+        "revealed_at": 120
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 120
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-captain-pang": {
+      "id": "fact-faction-captain-pang",
+      "entity_id": "captain-pang",
+      "predicate": "faction",
+      "value": "faction-luo",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-lei-yuting": {
+      "id": "fact-faction-lei-yuting",
+      "entity_id": "lei-yuting",
+      "predicate": "faction",
+      "value": "faction-luo",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-huangpu-tianyuan": {
+      "id": "fact-faction-huangpu-tianyuan",
+      "entity_id": "huangpu-tianyuan",
+      "predicate": "faction",
+      "value": "faction-regent",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-leng-wuchang": {
+      "id": "fact-faction-leng-wuchang",
+      "entity_id": "leng-wuchang",
+      "predicate": "faction",
+      "value": "faction-regent",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-huangpu-qingyun": {
+      "id": "fact-faction-huangpu-qingyun",
+      "entity_id": "huangpu-qingyun",
+      "predicate": "faction",
+      "value": "faction-regent",
+      "temporal": {
+        "valid_from": 80,
+        "valid_to": null,
+        "revealed_at": 80
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 80
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-xiao-dandan": {
+      "id": "fact-faction-xiao-dandan",
+      "entity_id": "xiao-dandan",
+      "predicate": "faction",
+      "value": "faction-drifting-flowers",
+      "temporal": {
+        "valid_from": 80,
+        "valid_to": null,
+        "revealed_at": 80
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 80
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-chu-bijun": {
+      "id": "fact-faction-chu-bijun",
+      "entity_id": "chu-bijun",
+      "predicate": "faction",
+      "value": "faction-drifting-flowers",
+      "temporal": {
+        "valid_from": 80,
+        "valid_to": null,
+        "revealed_at": 80
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 80
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-long-yifei": {
+      "id": "fact-faction-long-yifei",
+      "entity_id": "long-yifei",
+      "predicate": "faction",
+      "value": "faction-veiled-dragon",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-long-kui": {
+      "id": "fact-faction-long-kui",
+      "entity_id": "long-kui",
+      "predicate": "faction",
+      "value": "faction-veiled-dragon",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-xie-tianyang": {
+      "id": "fact-faction-xie-tianyang",
+      "entity_id": "xie-tianyang",
+      "predicate": "faction",
+      "value": "faction-sword-marquise",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-xie-xiaofeng": {
+      "id": "fact-faction-xie-xiaofeng",
+      "entity_id": "xie-xiaofeng",
+      "predicate": "faction",
+      "value": "faction-sword-marquise",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-you-guishan": {
+      "id": "fact-faction-you-guishan",
+      "entity_id": "you-guishan",
+      "predicate": "faction",
+      "value": "faction-hell-valley",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-you-quan": {
+      "id": "fact-faction-you-quan",
+      "entity_id": "you-quan",
+      "predicate": "faction",
+      "value": "faction-hell-valley",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-yan-bogong": {
+      "id": "fact-faction-yan-bogong",
+      "entity_id": "yan-bogong",
+      "predicate": "faction",
+      "value": "faction-pill-king",
+      "temporal": {
+        "valid_from": 80,
+        "valid_to": null,
+        "revealed_at": 80
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 80
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-yan-fu": {
+      "id": "fact-faction-yan-fu",
+      "entity_id": "yan-fu",
+      "predicate": "faction",
+      "value": "faction-luo",
+      "temporal": {
+        "valid_from": 180,
+        "valid_to": null,
+        "revealed_at": 180
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 180
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-lin-rufeng": {
+      "id": "fact-faction-lin-rufeng",
+      "entity_id": "lin-rufeng",
+      "predicate": "faction",
+      "value": "faction-merry-woods",
+      "temporal": {
+        "valid_from": 180,
+        "valid_to": null,
+        "revealed_at": 180
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 180
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-yuwen-feng": {
+      "id": "fact-faction-yuwen-feng",
+      "entity_id": "yuwen-feng",
+      "predicate": "faction",
+      "value": "faction-tianyu-imperial",
+      "temporal": {
+        "valid_from": 180,
+        "valid_to": null,
+        "revealed_at": 180
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 180
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-yuwen-cong": {
+      "id": "fact-faction-yuwen-cong",
+      "entity_id": "yuwen-cong",
+      "predicate": "faction",
+      "value": "faction-tianyu-imperial",
+      "temporal": {
+        "valid_from": 180,
+        "valid_to": null,
+        "revealed_at": 180
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 180
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-zhuge-changfeng": {
+      "id": "fact-faction-zhuge-changfeng",
+      "entity_id": "zhuge-changfeng",
+      "predicate": "faction",
+      "value": "faction-tianyu-imperial",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-dugu-zhantian": {
+      "id": "fact-faction-dugu-zhantian",
+      "entity_id": "dugu-zhantian",
+      "predicate": "faction",
+      "value": "faction-tianyu-imperial",
+      "temporal": {
+        "valid_from": 180,
+        "valid_to": null,
+        "revealed_at": 180
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 180
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-dugu-four-tigers": {
+      "id": "fact-faction-dugu-four-tigers",
+      "entity_id": "dugu-four-tigers",
+      "predicate": "faction",
+      "value": "faction-tianyu-imperial",
+      "temporal": {
+        "valid_from": 180,
+        "valid_to": null,
+        "revealed_at": 180
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 180
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-yuan-xinggang": {
+      "id": "fact-faction-yuan-xinggang",
+      "entity_id": "yuan-xinggang",
+      "predicate": "faction",
+      "value": "faction-demonic-scheme",
+      "temporal": {
+        "valid_from": 491,
+        "valid_to": null,
+        "revealed_at": 491
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 491
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-ye-lin": {
+      "id": "fact-faction-ye-lin",
+      "entity_id": "ye-lin",
+      "predicate": "faction",
+      "value": "faction-double-dragon",
+      "temporal": {
+        "valid_from": 491,
+        "valid_to": null,
+        "revealed_at": 491
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 491
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-danqing-shen": {
+      "id": "fact-faction-danqing-shen",
+      "entity_id": "danqing-shen",
+      "predicate": "faction",
+      "value": "faction-double-dragon",
+      "temporal": {
+        "valid_from": 491,
+        "valid_to": null,
+        "revealed_at": 491
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 491
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-wu-qingqiu": {
+      "id": "fact-faction-wu-qingqiu",
+      "entity_id": "wu-qingqiu",
+      "predicate": "faction",
+      "value": "faction-double-dragon",
+      "temporal": {
+        "valid_from": 491,
+        "valid_to": null,
+        "revealed_at": 491
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 491
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-double-dragon-exalted": {
+      "id": "fact-faction-double-dragon-exalted",
+      "entity_id": "double-dragon-exalted",
+      "predicate": "faction",
+      "value": "faction-double-dragon",
+      "temporal": {
+        "valid_from": 491,
+        "valid_to": null,
+        "revealed_at": 491
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 491
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-baili-jingwei": {
+      "id": "fact-faction-baili-jingwei",
+      "entity_id": "baili-jingwei",
+      "predicate": "faction",
+      "value": "faction-sword-star",
+      "temporal": {
+        "valid_from": 751,
+        "valid_to": null,
+        "revealed_at": 751
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 751
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-baili-yuyu": {
+      "id": "fact-faction-baili-yuyu",
+      "entity_id": "baili-yuyu",
+      "predicate": "faction",
+      "value": "faction-sword-star",
+      "temporal": {
+        "valid_from": 751,
+        "valid_to": null,
+        "revealed_at": 751
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 751
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-kunpeng": {
+      "id": "fact-faction-kunpeng",
+      "entity_id": "kunpeng",
+      "predicate": "faction",
+      "value": "faction-demonic-scheme",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-nine-serenities-emperor": {
+      "id": "fact-faction-nine-serenities-emperor",
+      "entity_id": "nine-serenities-emperor",
+      "predicate": "faction",
+      "value": "faction-demonic-scheme",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-zhao-chen": {
+      "id": "fact-faction-zhao-chen",
+      "entity_id": "zhao-chen",
+      "predicate": "faction",
+      "value": "faction-demonic-scheme",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "demonic-emperor",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-28T00:00:00Z"
       },
       "canon_status": "canon"
     }

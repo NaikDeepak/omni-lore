@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="crispEdges">
+  <rect x="0" y="0" width="32" height="32" fill="#0f172a"/>
+  <!-- World Government Four-Circle Cross -->
+  <!-- Cross Bars -->
+  <rect x="15" y="4" width="2" height="24" fill="#f8fafc"/>
+  <rect x="4" y="15" width="24" height="2" fill="#f8fafc"/>
+  <!-- Central Circle (Grand Line) -->
+  <rect x="13" y="13" width="6" height="6" fill="#f8fafc"/>
+  <rect x="14" y="14" width="4" height="4" fill="#0284c7"/>
+  <!-- North Blue Circle -->
+  <rect x="13" y="3" width="6" height="5" fill="#f8fafc"/>
+  <rect x="14" y="4" width="4" height="3" fill="#0284c7"/>
+  <!-- South Blue Circle -->
+  <rect x="13" y="24" width="6" height="5" fill="#f8fafc"/>
+  <rect x="14" y="25" width="4" height="3" fill="#0284c7"/>
+  <!-- West Blue Circle -->
+  <rect x="3" y="13" width="5" height="6" fill="#f8fafc"/>
+  <rect x="4" y="14" width="3" height="4" fill="#0284c7"/>
+  <!-- East Blue Circle -->
+  <rect x="24" y="13" width="5" height="6" fill="#f8fafc"/>
+  <rect x="25" y="14" width="3" height="4" fill="#0284c7"/>
+</svg>

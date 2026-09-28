@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="crispEdges">
+  <rect x="0" y="0" width="32" height="18" fill="#38bdf8"/>
+  <rect x="0" y="18" width="32" height="14" fill="#0284c7"/>
+  <rect x="0" y="26" width="32" height="6" fill="#0369a1"/>
+  <!-- Baratie Fish Figurehead & Ship Structure -->
+  <rect x="4" y="14" width="24" height="6" fill="#854d0e"/>
+  <rect x="6" y="20" width="20" height="3" fill="#713f12"/>
+  <rect x="2" y="12" width="6" height="5" fill="#f59e0b"/>
+  <rect x="4" y="13" width="2" height="2" fill="#0f172a"/>
+  <!-- Decks and Restaurant Windows -->
+  <rect x="9" y="11" width="14" height="3" fill="#fef08a"/>
+  <rect x="11" y="8" width="10" height="3" fill="#ca8a04"/>
+  <rect x="13" y="6" width="6" height="2" fill="#eab308"/>
+  <rect x="10" y="12" width="2" height="1" fill="#0f172a"/>
+  <rect x="14" y="12" width="2" height="1" fill="#0f172a"/>
+  <rect x="18" y="12" width="2" height="1" fill="#0f172a"/>
+  <!-- Mast & Chef Flag -->
+  <rect x="15" y="1" width="2" height="5" fill="#78350f"/>
+  <rect x="17" y="2" width="4" height="3" fill="#f8fafc"/>
+  <rect x="18" y="3" width="2" height="1" fill="#ef4444"/>
+  <!-- Ocean waves -->
+  <rect x="3" y="21" width="5" height="1" fill="#e0f2fe"/>
+  <rect x="24" y="21" width="5" height="1" fill="#e0f2fe"/>
+  <rect x="10" y="24" width="12" height="1" fill="#bae6fd"/>
+</svg>

@@ -44,6 +44,31 @@ describe('TemporalEngine & Spoiler Scrubber', () => {
       expect(afterReveal.isMasked).toBe(false);
       expect(afterReveal.name).toBe('Linley Baruch');
     });
+
+    it('progresses through sequential multi-stage reveals chronologically', () => {
+      const multiRevealChar: any = {
+        id: 'klein-moretti',
+        type: 'character',
+        name: 'The Fool / Klein Moretti',
+        first_appearance: 1,
+        revealed_at: 1,
+        reveals: [
+          { revealed_at: 214, masked_name: 'Klein Moretti (Tingen Nighthawk)', true_identity: 'Sherlock Moriarty' },
+          { revealed_at: 483, masked_name: 'Sherlock Moriarty (Backlund Detective)', true_identity: 'Gehrman Sparrow' },
+          { revealed_at: 733, masked_name: 'Gehrman Sparrow (Crazy Adventurer)', true_identity: 'Dwayne Dantes' },
+          { revealed_at: 1153, masked_name: 'Dwayne Dantes (Mayfair Tycoon)', true_identity: 'Merlin Hermes' },
+          { revealed_at: 1380, masked_name: 'Merlin Hermes (Miracle Magician)', true_identity: 'The Fool / Lord of Mysteries' },
+        ],
+      };
+
+      expect(TemporalEngine.resolveDisplayName(multiRevealChar, 100).name).toBe('Klein Moretti (Tingen Nighthawk)');
+      expect(TemporalEngine.resolveDisplayName(multiRevealChar, 300).name).toBe('Sherlock Moriarty (Backlund Detective)');
+      expect(TemporalEngine.resolveDisplayName(multiRevealChar, 600).name).toBe('Gehrman Sparrow (Crazy Adventurer)');
+      expect(TemporalEngine.resolveDisplayName(multiRevealChar, 900).name).toBe('Dwayne Dantes (Mayfair Tycoon)');
+      expect(TemporalEngine.resolveDisplayName(multiRevealChar, 1200).name).toBe('Merlin Hermes (Miracle Magician)');
+      expect(TemporalEngine.resolveDisplayName(multiRevealChar, 1400).name).toBe('The Fool / Klein Moretti');
+      expect(TemporalEngine.resolveDisplayName(multiRevealChar, 1400).isMasked).toBe(false);
+    });
   });
 
   describe('Scenario 4: Character power progression across chapters', () => {

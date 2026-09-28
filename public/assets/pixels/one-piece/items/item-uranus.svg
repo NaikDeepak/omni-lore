@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="crispEdges">
+  <rect x="0" y="0" width="32" height="32" fill="#020617"/>
+  <!-- Cloud Layer -->
+  <rect x="0" y="12" width="32" height="4" fill="#334155" opacity="0.8"/>
+  <!-- Floating Ancient Sky Fortress / Mother Flame Disc -->
+  <rect x="8" y="5" width="16" height="6" fill="#1e293b"/>
+  <rect x="10" y="3" width="12" height="3" fill="#f8fafc"/>
+  <rect x="12" y="2" width="8" height="2" fill="#38bdf8"/>
+  <!-- Mother Flame Core Combustion -->
+  <rect x="14" y="7" width="4" height="3" fill="#f97316"/>
+  <rect x="15" y="8" width="2" height="2" fill="#fef08a"/>
+  <!-- 16 Vertical Beams of Descending Light (Lulusia Obliteration) -->
+  <rect x="4" y="16" width="1" height="16" fill="#38bdf8"/>
+  <rect x="6" y="16" width="1" height="16" fill="#f8fafc"/>
+  <rect x="8" y="16" width="1" height="16" fill="#38bdf8"/>
+  <rect x="10" y="16" width="1" height="16" fill="#f8fafc"/>
+  <rect x="12" y="16" width="1" height="16" fill="#38bdf8"/>
+  <rect x="14" y="16" width="1" height="16" fill="#f8fafc"/>
+  <rect x="15" y="16" width="2" height="16" fill="#fef08a"/>
+  <rect x="17" y="16" width="1" height="16" fill="#f8fafc"/>
+  <rect x="19" y="16" width="1" height="16" fill="#38bdf8"/>
+  <rect x="21" y="16" width="1" height="16" fill="#f8fafc"/>
+  <rect x="23" y="16" width="1" height="16" fill="#38bdf8"/>
+  <rect x="25" y="16" width="1" height="16" fill="#f8fafc"/>
+  <rect x="27" y="16" width="1" height="16" fill="#38bdf8"/>
+</svg>

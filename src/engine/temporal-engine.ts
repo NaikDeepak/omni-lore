@@ -51,7 +51,7 @@ export class TemporalEngine {
       return { name: char.name, isMasked: false };
     }
 
-    const sortedReveals = [...char.reveals].sort((a, b) => b.revealed_at - a.revealed_at);
+    const sortedReveals = [...char.reveals].sort((a, b) => a.revealed_at - b.revealed_at);
     for (const rev of sortedReveals) {
       if (userChapter < rev.revealed_at) {
         return { name: rev.masked_name, isMasked: true };

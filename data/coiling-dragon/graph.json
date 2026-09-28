@@ -1364,6 +1364,326 @@
       "first_appearance": 520,
       "revealed_at": 520,
       "avatar_url": "/assets/pixels/coiling-dragon/avatars/phusro.svg"
+    },
+    "clayde": {
+      "id": "clayde",
+      "type": "character",
+      "name": "King Clayde of Fenlai",
+      "aliases": [
+        "Clayde",
+        "Ruler of Fenlai"
+      ],
+      "description": "King of the Kingdom of Fenlai, an early 9th-rank combatant who secretly became a Saint rank combatant backed by the Radiant Church. Personally involved in the sacrifice of Linley's mother and the murder of Linley's father Hogg.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 40
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 40,
+      "revealed_at": 40,
+      "avatar_url": "/assets/pixels/coiling-dragon/avatars/clayde.svg"
+    },
+    "stage-sovereign": {
+      "id": "stage-sovereign",
+      "type": "power_stage",
+      "name": "Sovereign (Lesser / Medium / Chief)",
+      "order": 13,
+      "system_name": "Laws and Sovereign System",
+      "description": "Fused with a Sovereign Spark, wielder of Sovereign's Might, commander of infinite planar faith and cosmic authority.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 700
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 700,
+      "revealed_at": 700,
+      "aliases": [
+        "Sovereign of the Universe",
+        "Chief Sovereign"
+      ]
+    },
+    "stage-grandmist": {
+      "id": "stage-grandmist",
+      "type": "power_stage",
+      "name": "Grandmist Creator (Grandmist Controller)",
+      "order": 14,
+      "system_name": "Laws and Sovereign System",
+      "description": "Transmuted beyond the four elemental realms into the primordial Grandmist Space, inscriber of the Grandmist Canon and universe creator.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 840
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 840,
+      "revealed_at": 840,
+      "aliases": [
+        "Grandmist Controller",
+        "Master of the Universe"
+      ]
+    },
+    "plane-netherworld": {
+      "id": "plane-netherworld",
+      "type": "plane",
+      "name": "Netherworld Realm",
+      "tier_order": 2,
+      "description": "Higher Plane of death and souls, home of the Netherworld Sovereign and the Netherworld Mountain.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 600
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 600,
+      "revealed_at": 600,
+      "aliases": [
+        "Higher Plane of Death",
+        "Netherworld"
+      ]
+    },
+    "plane-battlefield": {
+      "id": "plane-battlefield",
+      "type": "plane",
+      "name": "Planar Battlefield",
+      "tier_order": 3,
+      "description": "A pocket dimension where the Seven Higher Planes and Four Divine Planes clash in the decennial Planar Wars.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 750
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 750,
+      "revealed_at": 750,
+      "aliases": [
+        "Planar War Dimension"
+      ]
+    },
+    "plane-grandmist": {
+      "id": "plane-grandmist",
+      "type": "plane",
+      "name": "Grandmist Space",
+      "tier_order": 4,
+      "description": "The primordial boundless chaotic void encompassing all cosmoses, realms, and divine planes, ruled by Hongmeng.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 841
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 841,
+      "revealed_at": 841,
+      "aliases": [
+        "Primordial Void",
+        "Hongmeng Space"
+      ]
+    },
+    "loc-netherworld-mountain": {
+      "id": "loc-netherworld-mountain",
+      "type": "location",
+      "name": "Netherworld Mountain",
+      "plane_id": "plane-netherworld",
+      "coordinates": {
+        "x": 200,
+        "y": 180
+      },
+      "description": "Shrouded in dense gray mist where souls gather, home of the Red-Robed Messenger and Sovereign of Death.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 620
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 620,
+      "revealed_at": 620,
+      "aliases": [
+        "Ghost Mountain"
+      ],
+      "thumbnail_url": "/assets/pixels/coiling-dragon/locations/loc-netherworld-mountain.svg"
+    },
+    "loc-styx-river": {
+      "id": "loc-styx-river",
+      "type": "location",
+      "name": "Styx River",
+      "plane_id": "plane-netherworld",
+      "coordinates": {
+        "x": 280,
+        "y": 320
+      },
+      "description": "Endless soul river crossing the Netherworld, navigated by skeletal ferries under the gaze of Death Gods.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 615
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 615,
+      "revealed_at": 615,
+      "aliases": [
+        "River of Souls"
+      ],
+      "thumbnail_url": "/assets/pixels/coiling-dragon/locations/loc-styx-river.svg"
+    },
+    "loc-stellar-corridor": {
+      "id": "loc-stellar-corridor",
+      "type": "location",
+      "name": "Stellar Corridor",
+      "plane_id": "plane-battlefield",
+      "coordinates": {
+        "x": 150,
+        "y": 250
+      },
+      "description": "Narrow spatial passage connecting opposing planar camps in the Planar Battlefield where Commander-level battles erupt.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 760
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 760,
+      "revealed_at": 760,
+      "aliases": [
+        "War Corridor"
+      ],
+      "thumbnail_url": "/assets/pixels/coiling-dragon/locations/loc-stellar-corridor.svg"
+    },
+    "loc-nine-colored-channel": {
+      "id": "loc-nine-colored-channel",
+      "type": "location",
+      "name": "Nine-Colored Channel",
+      "plane_id": "plane-battlefield",
+      "coordinates": {
+        "x": 350,
+        "y": 250
+      },
+      "description": "Vast spatial rift channel between the Light and Darkness divine armies during the final clash of the Planar Wars.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 780
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 780,
+      "revealed_at": 780,
+      "aliases": [
+        "Nine Colors Rift"
+      ],
+      "thumbnail_url": "/assets/pixels/coiling-dragon/locations/loc-nine-colored-channel.svg"
+    },
+    "loc-hongmeng-hut": {
+      "id": "loc-hongmeng-hut",
+      "type": "location",
+      "name": "Hongmeng Thatched Hut",
+      "plane_id": "plane-grandmist",
+      "coordinates": {
+        "x": 250,
+        "y": 200
+      },
+      "description": "A modest rustic hut floating serenely in the boundless Grandmist Space where Elder Brother Hongmeng drinks wine and watches the cosmoses.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 841
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 841,
+      "revealed_at": 841,
+      "aliases": [
+        "Thatched Cottage"
+      ],
+      "thumbnail_url": "/assets/pixels/coiling-dragon/locations/loc-hongmeng-hut.svg"
+    },
+    "augusta": {
+      "id": "augusta",
+      "type": "character",
+      "name": "Chief Sovereign Augusta",
+      "aliases": [
+        "Chief Sovereign of Light",
+        "Augusta"
+      ],
+      "description": "The tyrannical Chief Sovereign of Light, master of the Radiant Church and possessor of Overgod artifacts, secretly the light clone of Chief Sovereign of Fate Orloff.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 720
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 720,
+      "revealed_at": 720,
+      "avatar_url": "/assets/pixels/coiling-dragon/avatars/augusta.svg"
+    },
+    "hongmeng": {
+      "id": "hongmeng",
+      "type": "character",
+      "name": "Hongmeng (Grandmist Controller)",
+      "aliases": [
+        "Elder Brother Hongmeng",
+        "First Grandmist Controller"
+      ],
+      "description": "The first entity born of the primordial Grandmist Space and creator of the cosmos. Linley's sworn elder brother who wrote Linley's name into the Grandmist Canon.",
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 841
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon",
+      "first_appearance": 841,
+      "revealed_at": 841,
+      "avatar_url": "/assets/pixels/coiling-dragon/avatars/hongmeng.svg"
     }
   },
   "facts": {
@@ -1437,7 +1757,7 @@
       "value": "stage-highgod",
       "temporal": {
         "valid_from": 500,
-        "valid_to": null,
+        "valid_to": 799,
         "revealed_at": 500
       },
       "provenance": {
@@ -2185,6 +2505,342 @@
         "created_at": "2026-09-27T00:00:00Z"
       },
       "canon_status": "canon"
+    },
+    "fact-power-clayde": {
+      "id": "fact-power-clayde",
+      "entity_id": "clayde",
+      "predicate": "power_stage",
+      "value": "stage-saint",
+      "temporal": {
+        "valid_from": 40,
+        "valid_to": 120,
+        "revealed_at": 40
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 40
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-faction-clayde": {
+      "id": "fact-faction-clayde",
+      "entity_id": "clayde",
+      "predicate": "faction",
+      "value": "faction-radiant-church",
+      "temporal": {
+        "valid_from": 40,
+        "valid_to": 120,
+        "revealed_at": 40
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 40
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-doehring": {
+      "id": "fact-power-doehring",
+      "entity_id": "doehring-cowart",
+      "predicate": "power_stage",
+      "value": "stage-saint",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": 120,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-bebe-1": {
+      "id": "fact-power-bebe-1",
+      "entity_id": "bebe",
+      "predicate": "power_stage",
+      "value": "stage-mortal",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": 114,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-bebe-2": {
+      "id": "fact-power-bebe-2",
+      "entity_id": "bebe",
+      "predicate": "power_stage",
+      "value": "stage-saint",
+      "temporal": {
+        "valid_from": 115,
+        "valid_to": 449,
+        "revealed_at": 115
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 115
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-bebe-3": {
+      "id": "fact-power-bebe-3",
+      "entity_id": "bebe",
+      "predicate": "power_stage",
+      "value": "stage-god",
+      "temporal": {
+        "valid_from": 450,
+        "valid_to": 499,
+        "revealed_at": 450
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 450
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-bebe-4": {
+      "id": "fact-power-bebe-4",
+      "entity_id": "bebe",
+      "predicate": "power_stage",
+      "value": "stage-highgod",
+      "temporal": {
+        "valid_from": 500,
+        "valid_to": null,
+        "revealed_at": 500
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 500
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-beirut": {
+      "id": "fact-power-beirut",
+      "entity_id": "beirut",
+      "predicate": "power_stage",
+      "value": "stage-highgod",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": 749,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-delia-1": {
+      "id": "fact-power-delia-1",
+      "entity_id": "delia",
+      "predicate": "power_stage",
+      "value": "stage-mortal",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": 114,
+        "revealed_at": 1
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 1
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-delia-2": {
+      "id": "fact-power-delia-2",
+      "entity_id": "delia",
+      "predicate": "power_stage",
+      "value": "stage-saint",
+      "temporal": {
+        "valid_from": 115,
+        "valid_to": 449,
+        "revealed_at": 115
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 115
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-delia-3": {
+      "id": "fact-power-delia-3",
+      "entity_id": "delia",
+      "predicate": "power_stage",
+      "value": "stage-god",
+      "temporal": {
+        "valid_from": 450,
+        "valid_to": null,
+        "revealed_at": 450
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 450
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-linley-sovereign": {
+      "id": "fact-linley-sovereign",
+      "entity_id": "linley-baruch",
+      "predicate": "power_stage",
+      "value": "stage-sovereign",
+      "temporal": {
+        "valid_from": 800,
+        "valid_to": 840,
+        "revealed_at": 800
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 800
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-linley-grandmist": {
+      "id": "fact-linley-grandmist",
+      "entity_id": "linley-baruch",
+      "predicate": "power_stage",
+      "value": "stage-grandmist",
+      "temporal": {
+        "valid_from": 841,
+        "valid_to": null,
+        "revealed_at": 841
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 841
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-beirut-sovereign": {
+      "id": "fact-power-beirut-sovereign",
+      "entity_id": "beirut",
+      "predicate": "power_stage",
+      "value": "stage-sovereign",
+      "temporal": {
+        "valid_from": 750,
+        "valid_to": null,
+        "revealed_at": 750
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 750
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-augusta": {
+      "id": "fact-power-augusta",
+      "entity_id": "augusta",
+      "predicate": "power_stage",
+      "value": "stage-sovereign",
+      "temporal": {
+        "valid_from": 720,
+        "valid_to": null,
+        "revealed_at": 720
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 720
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "fact-power-hongmeng": {
+      "id": "fact-power-hongmeng",
+      "entity_id": "hongmeng",
+      "predicate": "power_stage",
+      "value": "stage-grandmist",
+      "temporal": {
+        "valid_from": 1,
+        "valid_to": null,
+        "revealed_at": 841
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 841
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
     }
   },
   "relationships": {
@@ -2280,8 +2936,8 @@
       "id": "rel-hogg-linley",
       "source_id": "hogg-baruch",
       "target_id": "linley-baruch",
-      "predicate": "PARENT_OF",
-      "label": "Father & Baruch Heritage Guide",
+      "predicate": "RELATED_TO",
+      "label": "Father",
       "temporal": {
         "valid_from": 1,
         "valid_to": null,
@@ -2302,8 +2958,8 @@
       "id": "rel-wharton-linley",
       "source_id": "wharton-baruch",
       "target_id": "linley-baruch",
-      "predicate": "BROTHER_OF",
-      "label": "Dragonblood Brothers & Clan Rebuilders",
+      "predicate": "RELATED_TO",
+      "label": "Brother",
       "temporal": {
         "valid_from": 1,
         "valid_to": null,
@@ -2324,8 +2980,8 @@
       "id": "rel-hillman-linley",
       "source_id": "hillman",
       "target_id": "linley-baruch",
-      "predicate": "MENTOR_OF",
-      "label": "Martial Foundation Instructor",
+      "predicate": "MASTER_OF",
+      "label": "Warrior Mentor",
       "temporal": {
         "valid_from": 1,
         "valid_to": null,
@@ -2456,8 +3112,8 @@
       "id": "rel-obrien-beirut",
       "source_id": "obrien",
       "target_id": "beirut",
-      "predicate": "SUBORDINATE_OF",
-      "label": "Deity Disciple of Lord Beirut",
+      "predicate": "ALLY_OF",
+      "label": "Planar Subordinate",
       "temporal": {
         "valid_from": 130,
         "valid_to": null,
@@ -2522,8 +3178,8 @@
       "id": "rel-barker-linley",
       "source_id": "barker",
       "target_id": "linley-baruch",
-      "predicate": "SUBORDINATE_OF",
-      "label": "Undying Warrior Leader & Sworn Champion",
+      "predicate": "MEMBER_OF",
+      "label": "Sworn Retainer / Barker Brother",
       "temporal": {
         "valid_from": 165,
         "valid_to": null,
@@ -2643,6 +3299,94 @@
         "source": {
           "series": "coiling-dragon",
           "chapter": 520
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-linley-clayde": {
+      "id": "rel-linley-clayde",
+      "source_id": "linley-baruch",
+      "target_id": "clayde",
+      "predicate": "ENEMY_OF",
+      "label": "Mortal Blood Enemy",
+      "temporal": {
+        "valid_from": 115,
+        "valid_to": 120,
+        "revealed_at": 115
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 115
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-linley-augusta": {
+      "id": "rel-linley-augusta",
+      "source_id": "linley-baruch",
+      "target_id": "augusta",
+      "predicate": "ENEMY_OF",
+      "label": "Sovereign Nemesis",
+      "temporal": {
+        "valid_from": 750,
+        "valid_to": null,
+        "revealed_at": 750
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 750
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-beirut-augusta": {
+      "id": "rel-beirut-augusta",
+      "source_id": "beirut",
+      "target_id": "augusta",
+      "predicate": "ENEMY_OF",
+      "label": "Ancient Sovereign Vendetta",
+      "temporal": {
+        "valid_from": 700,
+        "valid_to": null,
+        "revealed_at": 700
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 700
+        },
+        "extracted_by": "deterministic",
+        "confidence": 1,
+        "created_at": "2026-09-27T00:00:00Z"
+      },
+      "canon_status": "canon"
+    },
+    "rel-linley-hongmeng": {
+      "id": "rel-linley-hongmeng",
+      "source_id": "linley-baruch",
+      "target_id": "hongmeng",
+      "predicate": "ALLY_OF",
+      "label": "Sworn Grandmist Brother",
+      "temporal": {
+        "valid_from": 841,
+        "valid_to": null,
+        "revealed_at": 841
+      },
+      "provenance": {
+        "source": {
+          "series": "coiling-dragon",
+          "chapter": 841
         },
         "extracted_by": "deterministic",
         "confidence": 1,

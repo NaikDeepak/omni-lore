@@ -101,6 +101,22 @@ export function getCanonPresets(seriesSlug: string): DuelPreset[] {
         fighterB: 'katakuri',
         synopsis: 'Luffy tests Future Sight against the undefeated Sweet Commander Katakuri in the Mirro-World.',
       },
+      {
+        id: 'op-luffy-saturn',
+        title: 'Egghead Incident: Sun God Nika vs Saint Saturn',
+        chapter: 1108,
+        fighterA: 'luffy',
+        fighterB: 'gorosei-saturn',
+        synopsis: 'Emperor Luffy in Gear 5 Sun God Nika form clashes with the monstrous Gyuki spider-demon elder Jaygarcia Saturn and Admiral Kizaru on Future Island.',
+      },
+      {
+        id: 'op-zoro-nusjuro',
+        title: 'Labophase Gate: Kitetsu Cursed Blade Clash',
+        chapter: 1117,
+        fighterA: 'zoro',
+        fighterB: 'gorosei-nusjuro',
+        synopsis: 'Zoro intercepts Saint Ethanbaron V. Nusjuro’s demonic Bakotsu skeletal centaur charge to halt the destruction of the Thousand Sunny.',
+      },
     ];
   }
 
@@ -111,7 +127,7 @@ export function getCanonPresets(seriesSlug: string): DuelPreset[] {
         title: 'Vengeance Against Hell Valley',
         chapter: 140,
         fighterA: 'zhuo-fan',
-        fighterB: 'you-gui-qi',
+        fighterB: 'you-guiqi',
         synopsis: 'Zhuo Fan executes You Guiqi with brilliant schemes and blood infant mastery.',
       },
       {
@@ -232,6 +248,14 @@ export function getCanonPresets(seriesSlug: string): DuelPreset[] {
       fighterB: 'heidens',
       synopsis: 'Deity Linley leads the Baruch army to shatter Holy Emperor Heidens and the Radiant Church.',
     },
+    {
+      id: 'cd-linley-augusta',
+      title: 'Decisive Battle of the Sovereigns',
+      chapter: 830,
+      fighterA: 'linley-baruch',
+      fighterB: 'augusta',
+      synopsis: 'Four-way Soul Mutate Sovereign Linley battles Chief Sovereign of Light Augusta wielding Overgod artifacts across the planar skies.',
+    },
   ];
 }
 
@@ -265,9 +289,10 @@ function resolvePowerRank(stageId: string | undefined, seriesSlug: string): { ra
   // Coiling Dragon stages
   if (s.includes('mortal')) return { rank: 2, name: 'Mortal Rank (1st-9th)' };
   if (s.includes('saint')) return { rank: 5, name: 'Saint Rank' };
-  if (s.includes('highgod')) return { rank: 9, name: 'Highgod Asura' };
+  if (s.includes('highgod')) return { rank: 8, name: 'Highgod Asura' };
   if (s.includes('god')) return { rank: 7, name: 'Demigod / Full God' };
-  if (s.includes('sovereign')) return { rank: 10, name: 'Sovereign of the Universe' };
+  if (s.includes('sovereign')) return { rank: 9, name: 'Sovereign of the Universe' };
+  if (s.includes('grandmist') || s.includes('creator')) return { rank: 10, name: 'Grandmist Controller' };
 
   // Solo Leveling ranks
   if (s.includes('e-d-rank') || s.includes('e-rank') || s.includes('d-rank')) return { rank: 2, name: 'E / D-Rank Hunter' };
@@ -323,6 +348,27 @@ function getCharacterTechniques(charId: string, seriesSlug: string): string[] {
   if (c.includes('katakuri')) {
     return ['Flowing Willow Mochi', 'Rain Drop Mochi Barrage', 'Power Mochi Annihilation', 'Buzz Cut Mochi Spiked Impact'];
   }
+  if (c.includes('imu')) {
+    return ['Mother Flame Descending Laser', 'Shadow Arrow Piercing Impale', 'Abyssal Dominance Gaze', 'Empty Throne Annihilation'];
+  }
+  if (c.includes('saturn')) {
+    return ['Gyuki Demonic Venom Horns', 'Instant Flesh Regeneration', 'Telepathic Head-Popping Glare', 'Poisonous Spider-Leg Impale'];
+  }
+  if (c.includes('warcury')) {
+    return ['Fengxi Roaring Tusk Quake', 'Adamantine Conqueror Tusk Shield', 'Monstrous Boar Charge', 'Sonic Shockwave Blast'];
+  }
+  if (c.includes('nusjuro')) {
+    return ['Shodai Kitetsu Frost Cleave', 'Bakotsu Centaur Sprint', 'Glacial Sword Wave', 'Pacifista Bisection'];
+  }
+  if (c.includes('mars')) {
+    return ['Itsumade Incandescent Ray', 'Avian Barrier Infiltration', 'Sky-Splitting Cry', 'Aerial Feather Barrage'];
+  }
+  if (c.includes('ju-peter') || c.includes('jupeter')) {
+    return ['Subterranean Pit Ingestion', 'Sandworm Maw Vacuum', 'Earthy Tremor Surge', 'Colossal Annihilation Chomp'];
+  }
+  if (c.includes('garling')) {
+    return ['Champion of God Valley Cleave', 'God\'s Knights Executive Execution', 'Celestial Judgment Slash'];
+  }
   if (c.includes('zhuo')) {
     return ['Wraith Cloud Flight', 'Blood Infant Corpse Devour', 'Demonic Eye of the Heavenly Emperor', 'Sacred Qilin Dragon Horn Strike'];
   }
@@ -340,6 +386,12 @@ function getCharacterTechniques(charId: string, seriesSlug: string): string[] {
   }
   if (c.includes('heidens')) {
     return ['Holy Radiant Judgment', 'Divine Angel Descent Ritual', 'Sacred Light Spear of Annihilation'];
+  }
+  if (c.includes('augusta')) {
+    return ['Overgod Sword of Light', 'Sovereign Divine Domain', 'Sword of Judgement', 'Light of Annihilation'];
+  }
+  if (c.includes('hongmeng')) {
+    return ['Primordial Grandmist Palm', 'Cosmic Creation Spark', 'Universal Law Erasure', 'Grandmist Wine Toast'];
   }
 
   // Solo Leveling characters

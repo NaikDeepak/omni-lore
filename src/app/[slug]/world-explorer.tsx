@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import { CanonicalLoreGraph, CharacterEntity } from '../../domain/types';
 import { getUniverseTheme } from '../../domain/themes';
@@ -16,6 +16,7 @@ import {
 import { PixelAvatar } from '../../components/pixel/PixelAvatar';
 import { PixelGauge } from '../../components/pixel/PixelGauge';
 import { RpgStatusScreen } from '../../components/pixel/RpgStatusScreen';
+import { CharacterExplorer } from '../../components/pixel/CharacterExplorer';
 import { PixelMapCanvas } from '../../components/pixel/PixelMapCanvas';
 import { PixelNetworkCanvas } from '../../components/pixel/PixelNetworkCanvas';
 import { NodeDossierDrawer } from '../../components/pixel/NodeDossierDrawer';
@@ -38,7 +39,8 @@ import {
   Users,
   Search,
   Volume2,
-  VolumeX
+  VolumeX,
+  Check
 } from 'lucide-react';
 import { useSoundEffects } from '../../lib/sound-effects';
 
@@ -92,6 +94,62 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
   // Map & Timeline Cross-linking
   const [selectedLocationId, setSelectedLocationId] = useState<string | null>(null);
   const [timelineFilter, setTimelineFilter] = useState<'all' | 'battle' | 'breakthrough' | 'political' | 'discovery' | 'tragedy'>('all');
+
+  // URL state persistence and share toast
+  const [copiedToast, setCopiedToast] = useState(false);
+  const [hasInitializedUrl, setHasInitializedUrl] = useState(false);
+
+  // Initialize state from URL params on mount
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const params = new URLSearchParams(window.location.search);
+    const chParam = params.get('ch');
+    const tabParam = params.get('tab');
+    const charParam = params.get('char');
+    const locParam = params.get('loc');
+
+    if (chParam && !isNaN(Number(chParam))) {
+      const parsedCh = Math.max(1, Math.min(totalChapters, Number(chParam)));
+      setUserChapter(parsedCh);
+    }
+    if (tabParam && ['ladder', 'web', 'map', 'timeline', 'journey', 'duel'].includes(tabParam)) {
+      setActiveTab(tabParam as any);
+    }
+    if (charParam && graph.entities[charParam]) {
+      setSelectedCharacterId(charParam);
+    }
+    if (locParam && graph.entities[locParam]) {
+      setSelectedLocationId(locParam);
+    }
+    setHasInitializedUrl(true);
+  }, [totalChapters, graph.entities]);
+
+  // Sync state back to URL query parameters on state changes
+  useEffect(() => {
+    if (typeof window === 'undefined' || !hasInitializedUrl) return;
+    const params = new URLSearchParams();
+    params.set('ch', userChapter.toString());
+    params.set('tab', activeTab);
+    if (selectedCharacterId) {
+      params.set('char', selectedCharacterId);
+    }
+    if (selectedLocationId) {
+      params.set('loc', selectedLocationId);
+    }
+    const newUrl = `/${graph.series.slug}?${params.toString()}`;
+    window.history.replaceState(null, '', newUrl);
+  }, [userChapter, activeTab, selectedCharacterId, selectedLocationId, graph.series.slug, hasInitializedUrl]);
+
+  const handleShareSnapshot = async () => {
+    if (typeof window === 'undefined') return;
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopiedToast(true);
+      setTimeout(() => setCopiedToast(false), 2500);
+    } catch (err) {
+      console.error('Failed to copy snapshot link', err);
+    }
+  };
 
   // Computed projections strictly driven by userChapter
   const powerLadder = useMemo(() => projectPowerLadder(graph, userChapter), [graph, userChapter]);
@@ -269,6 +327,19 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
 
         <div className="flex items-center gap-3">
           <button
+            onClick={handleShareSnapshot}
+            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border font-pixel text-xs transition cursor-pointer ${
+              copiedToast
+                ? 'bg-emerald-500/20 border-emerald-400 text-emerald-300'
+                : 'bg-amber-500/10 border-amber-500/30 text-amber-300 hover:bg-amber-500/20 hover:border-amber-400 shadow-sm'
+            }`}
+            title="Copy temporal snapshot URL with chapter, tab, and character"
+          >
+            {copiedToast ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Share2 className="w-3.5 h-3.5" />}
+            <span>{copiedToast ? 'LINK COPIED!' : 'SHARE SNAPSHOT'}</span>
+          </button>
+
+          <button
             onClick={toggleMute}
             className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border font-pixel text-xs transition cursor-pointer ${
               isMuted
@@ -400,7 +471,7 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
           }`}
         >
           <User className="w-4 h-4" />
-          <span>RPG STATUS SHEET</span>
+          <span>🧙 CHARACTER EXPLORER</span>
         </button>
 
         <button
@@ -500,7 +571,11 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
                   return (
                     <div
                       key={tier.id}
-                      className={`rounded-xl border p-4 transition-all ${
+                      onClick={() => {
+                        setSelectedRealmTier(tier);
+                        playBreakthroughFanfare();
+                      }}
+                      className={`rounded-xl border p-4 transition-all cursor-pointer hover:border-amber-400 ${
                         hasCharacters
                           ? 'border-amber-500/60 bg-[#0c1220] shadow-md'
                           : 'border-slate-800 bg-slate-950/60 opacity-60'
@@ -546,7 +621,8 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
                           {tier.characters.map((char) => (
                             <div
                               key={char.id}
-                              onClick={() => {
+                              onClick={(e) => {
+                                e.stopPropagation();
                                 setSelectedCharacterId(char.id);
                                 setActiveTab('journey');
                               }}
@@ -585,124 +661,26 @@ export function WorldExplorer({ graph }: WorldExplorerProps) {
           </div>
         )}
 
-        {/* VIEW 3: RPG STATUS SCREEN & CHARACTER JOURNEY */}
+        {/* VIEW 3: CHARACTER EXPLORER */}
         {activeTab === 'journey' && (
-          <div className="space-y-6">
-            <div className="flex flex-col lg:flex-row gap-6 items-start">
-              {/* Left Column: Authentic Retro RPG Status Screen */}
-              <div className="w-full lg:w-auto shrink-0 space-y-3">
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="font-pixel text-xs text-slate-400">SELECT CHARACTER:</span>
-                    <select
-                      value={selectedCharacterId}
-                      onChange={(e) => setSelectedCharacterId(e.target.value)}
-                      className="bg-slate-900 text-white font-pixel text-xs px-3 py-1.5 rounded border border-slate-700 focus:outline-none focus:border-amber-400 max-w-[220px] truncate"
-                    >
-                      <optgroup label={`Discovered by Ch. ${userChapter} (${characterList.filter(c => c.first_appearance <= userChapter).length})`}>
-                        {characterList
-                          .filter((c) => c.first_appearance <= userChapter)
-                          .map((c) => (
-                            <option key={c.id} value={c.id}>
-                              {c.name}
-                            </option>
-                          ))}
-                      </optgroup>
-                      {characterList.some((c) => c.first_appearance > userChapter) && (
-                        <optgroup label="Upcoming / Later Chapters">
-                          {characterList
-                            .filter((c) => c.first_appearance > userChapter)
-                            .map((c) => (
-                              <option key={c.id} value={c.id}>
-                                🔒 {c.name} (Ch. {c.first_appearance}+)
-                              </option>
-                            ))}
-                        </optgroup>
-                      )}
-                    </select>
-                  </div>
-
-                  {/* Featured Character Quick-Jump Chips */}
-                  <div className="flex flex-wrap gap-1.5 max-w-[320px]">
-                    {featuredCharacters.map((fid) => {
-                      const fChar = graph.entities[fid];
-                      if (!fChar) return null;
-                      const isSelected = selectedCharacterId === fid;
-                      return (
-                        <button
-                          key={fid}
-                          onClick={() => setSelectedCharacterId(fid)}
-                          className={`flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-pixel transition border ${
-                            isSelected
-                              ? 'bg-amber-500/20 border-amber-400 text-amber-300'
-                              : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'
-                          }`}
-                        >
-                          <PixelAvatar id={fid} name={fChar.name} size={16} avatarUrl={(fChar as any).avatar_url} />
-                          <span>{fChar.name.split(' ')[0]}</span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                <RpgStatusScreen
-                  characterId={selectedCharacterId}
-                  name={selectedCharacter?.name ?? selectedCharacterId}
-                  displayName={characterJourney?.displayName ?? selectedCharacter?.name ?? selectedCharacterId}
-                  isMasked={characterJourney?.displayName !== selectedCharacter?.name}
-                  avatarUrl={(selectedCharacter as any)?.avatar_url}
-                  realmName={activeStageFact?.name ?? (graph.series.slug === 'one-piece' ? 'East Blue Novice' : 'Mortal / Unranked')}
-                  realmOrder={activeStageFact?.order ?? 1}
-                  factionName={factionName}
-                  locationName={locationName}
-                  userChapter={userChapter}
-                  relationshipsCount={relationshipWeb.edges.filter(
-                    (e) => e.source === selectedCharacterId || e.target === selectedCharacterId
-                  ).length}
-                  onChallengeInDuel={(cid) => {
-                    setDuelFighterA(cid);
-                    setActiveTab('duel');
-                  }}
-                />
-              </div>
-
-              {/* Right Column: Character Biographical Journey */}
-              <div className="flex-1 w-full space-y-4 font-mono">
-                <div className="p-4 rounded-xl bg-slate-900 border border-slate-800">
-                  <h3 className="font-pixel text-xs text-amber-300">
-                    BIOGRAPHICAL CHRONICLE (UP TO CH {userChapter})
-                  </h3>
-                  <p className="text-xs text-slate-400 mt-1">
-                    Combined roadmap of breakthroughs, relationships, and key events experienced by {characterJourney?.displayName}.
-                  </p>
-                </div>
-
-                {characterJourney && characterJourney.milestones.length > 0 ? (
-                  <div className="relative pl-6 space-y-3 before:absolute before:left-2.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-800">
-                    {characterJourney.milestones.map((m, idx) => (
-                      <div key={idx} className="relative flex items-start gap-3">
-                        <div className="absolute -left-6 top-2 w-2.5 h-2.5 rounded-full bg-amber-400 border border-slate-950" />
-                        <div className="w-full rounded-xl border border-slate-800 bg-slate-900/90 p-3.5 space-y-1">
-                          <div className="flex items-center justify-between">
-                            <span className="font-pixel text-xs text-white">{m.title}</span>
-                            <span className="text-[10px] font-pixel text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">
-                              CH {m.chapter}
-                            </span>
-                          </div>
-                          <p className="text-xs text-slate-300">{m.description}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="text-xs font-pixel text-slate-600 p-6 rounded-xl border border-slate-800 text-center">
-                    ░░ NO MILESTONES RECORDED PRIOR TO CH {userChapter} ░░
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
+          <CharacterExplorer
+            journey={characterJourney}
+            graph={graph}
+            userChapter={userChapter}
+            onSelectCharacter={(cid) => {
+              setSelectedCharacterId(cid);
+            }}
+            onNavigateToTab={(t, locId) => {
+              if (locId) setSelectedLocationId(locId);
+              setActiveTab(t);
+              playMenuSelect();
+            }}
+            onChallengeInDuel={(cid) => {
+              setDuelFighterA(cid);
+              setActiveTab('duel');
+              playMenuSelect();
+            }}
+          />
         )}
 
         {/* VIEW 4: RELATIONSHIP & FACTION WEB */}
