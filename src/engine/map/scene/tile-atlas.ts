@@ -2,6 +2,10 @@
  * Loads the tileset sheets once (Pixi Assets) and serves:
  *  - nearest-filtered sub-textures for live layers (markers, props)
  *  - raw sheet images for the Canvas 2D plane painter
+ *
+ * The sheet Textures are owned by Pixi's shared Assets cache (Assets.load deduplicates by URL),
+ * so destroy() does NOT unload them — only clears local caches. This prevents double-unload
+ * when React StrictMode double-mounts a second renderer instance.
  */
 
 import { Assets, Rectangle, Texture } from 'pixi.js';
@@ -56,5 +60,6 @@ export class TileAtlas {
   public destroy(): void {
     for (const texture of this.cache.values()) texture.destroy(false);
     this.cache.clear();
+    this.sheets.clear();
   }
 }

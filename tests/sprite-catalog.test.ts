@@ -89,4 +89,14 @@ describe('TileAtlas', () => {
     expect(castle.frame).toEqual(new Rectangle(SPRITES.castle.x, SPRITES.castle.y, 32, 32));
     atlas.destroy();
   });
+
+  it('becomes empty after destroy (ready=false, texture=EMPTY, image=null)', async () => {
+    const atlas = new TileAtlas(fakeLoader);
+    await atlas.load();
+    expect(atlas.ready).toBe(true);
+    atlas.destroy();
+    expect(atlas.ready).toBe(false);
+    expect(atlas.texture('castle')).toBe(Texture.EMPTY);
+    expect(atlas.image('puny')).toBeNull();
+  });
 });
