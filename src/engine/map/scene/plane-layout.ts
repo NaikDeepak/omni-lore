@@ -116,10 +116,11 @@ export function buildPlaneLayout(snapshot: ProjectedWorldMapSnapshot): PlaneLayo
     });
 
   // Water enclosed by land is a lake (rimmed); other water is open sea (plain, under the coast).
-  // A land fill only "encloses" water whose bounding box it fully contains -- centroid-in-polygon
-  // alone is not enough: an open-sea polygon can have its centroid land inside a land polygon it
-  // merely overlaps (e.g. a large plains ring whose center point sits under a surrounding sea),
-  // even though the sea is not actually nested inside that land shape.
+  // Centroid-in-polygon alone is not a safe enclosure test: a large open-sea fill can have its
+  // centroid happen to land inside some smaller land polygon it merely overlaps (e.g. a plains
+  // ring whose center point sits under a surrounding sea), which would wrongly mark that open
+  // sea as a lake. The extra bounds-containment check below guards against exactly that: a land
+  // fill only "encloses" water whose bounding box it fully contains.
   const boundsContains = (outer: Bounds, inner: Bounds): boolean =>
     outer.minX <= inner.minX && outer.minY <= inner.minY && outer.maxX >= inner.maxX && outer.maxY >= inner.maxY;
   for (const fill of fills) {

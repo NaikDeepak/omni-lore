@@ -58,6 +58,14 @@ const fakeImage = {} as CanvasImageSource;
 const withSheets: SheetImages = { image: () => fakeImage };
 const noSheets: SheetImages = { image: () => null };
 
+/** True if `seq` appears as a contiguous run inside `arr`, in order. */
+function hasContiguousSubsequence<T>(arr: T[], seq: T[]): boolean {
+  for (let i = 0; i + seq.length <= arr.length; i++) {
+    if (seq.every((v, j) => arr[i + j] === v)) return true;
+  }
+  return false;
+}
+
 describe('paintPlane', () => {
   const layout = buildPlaneLayout(projectTemporalMap(def, 1));
   const look = getUniverseLook('one-piece');
@@ -79,7 +87,13 @@ describe('paintPlane', () => {
     paintPlane(ctx, layout, withSheets, look, fakeCanvas, 42);
     const widths = calls.filter((c) => c.name === 'set:lineWidth').map((c) => c.args[0]);
     expect(widths).toContain(28); // shelf
-    expect(widths).toContain(layout.rivers[0].width); // river water
+    // River strokes 3 concentric widths back-to-back, in order: bank, water, shallow highlight.
+    // Asserting the contiguous triplet (rather than `toContain(river.width)`) matters here: this
+    // fixture's river pixel width (8) equals the coast's foam stroke width (8), so a bare
+    // `toContain` would pass even if the river-stroke code were deleted entirely.
+    const riverWidth = layout.rivers[0].width;
+    const riverStrokeWidths = [riverWidth + 4, riverWidth, Math.max(1, riverWidth / 3)];
+    expect(hasContiguousSubsequence(widths, riverStrokeWidths)).toBe(true);
   });
 
   it('paints open water plainly before the coast strokes', () => {
@@ -91,17 +105,31 @@ describe('paintPlane', () => {
     expect(seaLayout.fills[0].kind).toBe('water');
     const { ctx, calls } = recordingContext(seaLayout.width, seaLayout.height);
     paintPlane(ctx, seaLayout, withSheets, look, fakeCanvas, 42);
-    const names = calls.map((c) => `${c.name}:${String(c.args[0])}`);
-    const lastSeaFill = names.lastIndexOf(`set:fillStyle:${look.sea}`);
-    const firstShelf = names.indexOf('set:lineWidth:28');
-    expect(lastSeaFill).toBeGreaterThan(0);
-    expect(lastSeaFill).toBeLessThan(firstShelf);
+    // `set:fillStyle:sea` is assigned unconditionally before the open-water loop runs, so its mere
+    // presence doesn't prove the water ring was actually filled. Instead, locate the `moveTo` that
+    // traces this specific water ring's first point, then require an actual `fill` call after it
+    // (not just the fillStyle assignment) before the coast strokes begin.
+    const waterRing = seaLayout.fills[0].ring;
+    const moveToIdx = calls.findIndex(
+      (c) => c.name === 'moveTo' && c.args[0] === waterRing[0][0] && c.args[1] === waterRing[0][1]
+    );
+    expect(moveToIdx).toBeGreaterThanOrEqual(0);
+    const fillIdx = calls.findIndex((c, i) => i > moveToIdx && c.name === 'fill');
+    const firstShelf = calls.findIndex((c) => c.name === 'set:lineWidth' && c.args[0] === 28);
+    expect(fillIdx).toBeGreaterThan(moveToIdx);
+    expect(fillIdx).toBeLessThan(firstShelf);
   });
 
   it('still paints terrain when the sheets are not loaded', () => {
     const { ctx, calls } = recordingContext(layout.width, layout.height);
     expect(() => paintPlane(ctx, layout, noSheets, look, fakeCanvas, 42)).not.toThrow();
     expect(calls.filter((c) => c.name === 'drawImage')).toHaveLength(0);
-    expect(calls.filter((c) => c.name === 'fill').length).toBeGreaterThan(2);
+    // A generic "more than 2 fills" count is satisfied by the sea backdrop's noise ellipses alone
+    // and doesn't prove the grass-tile fallback ran. Require the '#6a9c3c' flat-color fallback
+    // (used when `sheets.image('puny')` returns null) to actually be set and then filled.
+    const fallbackIdx = calls.findIndex((c) => c.name === 'set:fillStyle' && c.args[0] === '#6a9c3c');
+    expect(fallbackIdx).toBeGreaterThanOrEqual(0);
+    const fillAfter = calls.findIndex((c, i) => i > fallbackIdx && c.name === 'fill');
+    expect(fillAfter).toBeGreaterThan(fallbackIdx);
   });
 });
