@@ -1,48 +1,44 @@
-# Diablo-Style Pixel-Gothic World Atlas Implementation Plan
+# Level-Select Tileset World Atlas Implementation Plan (v2)
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Rewrite the OmniLore map into a retained, diff-driven, pixel-gothic Diablo IV–style world atlas with real multi-plane support, animated hero, live dithered fog reveal, hover tooltips and waypoint fast-travel, and re-author the Reverend Insanity map as the showcase.
+**Goal:** Replace the OmniLore map with a bright, per-universe-tinted 16-bit "level select" world atlas composed from pixel tilesets (dense forests, snowy mountain ranges, shaded coasts, rivers with bridges, castles/caves, dirt paths with numbered stage badges), driven by a retained, diff-animated PixiJS engine with real multi-plane support, walking hero, dithered cloud fog, hover tooltips and waypoint fast-travel — and re-author Reverend Insanity as the showcase.
 
-**Architecture:** Pure layers stay pure: `projectTemporalMap` (now plane-aware) produces a zero-spoiler snapshot, and a new pure `diffMapSnapshots` compares consecutive snapshots. `PixiWorldRenderer` becomes a thin facade over focused modules: a static baker (terrain + scattered glyphs baked to one nearest-scaled texture per plane) plus retained dynamic layers (markers, routes, hero, fog with a Bayer-dither shader, FX, atmosphere, labels) that animate diffs instead of redrawing. React hosts DOM overlays (frame, tooltip, banner, waypoint panel, minimap).
+**Architecture:** Pure layers stay pure: `projectTemporalMap` (plane-aware, with rivers) produces a zero-spoiler snapshot and `diffMapSnapshots` compares consecutive snapshots. The never-chapter-gated geography of each plane is laid out by a pure function (`buildPlaneLayout`: roughened coasts, fills, noise-driven trees/peaks/rocks/palms, rivers) and painted once on Canvas 2D from the tilesets (`paintPlane`), color-graded per universe, cached as a nearest-filtered texture. `PixiWorldRenderer` is a thin facade over retained layers (regions, dirt-path routes, markers with tileset props and badges, hero, fog mesh shader, FX, atmosphere, labels) that animate diffs. React hosts DOM overlays (frame with art credits, tooltip, banner, waypoint panel, minimap).
 
-**Tech Stack:** Next.js 16 (App Router, client component), React 19, PixiJS 8.21 (WebGL preference, custom GLSL Mesh shader), Zod 3, Vitest 3, TypeScript 5 strict, Tailwind 3.
+**Tech Stack:** Next.js 16 (App Router, client component), React 19, PixiJS 8.21 (WebGL preference, custom GLSL Mesh shader), Canvas 2D for the plane bake, Zod 3, Vitest 3, TypeScript 5 strict, Tailwind 3. Art: Puny World tileset (CC0), OGA Worldmap mountains by MrBeast (CC-BY 3.0).
 
-**Spec:** `docs/superpowers/specs/2026-09-29-diablo-atlas-design.md`
+**Spec:** `docs/superpowers/specs/2026-09-29-diablo-atlas-design.md` (v2)
+
+**Evidence:** An offline PIL spike rendered the RI mortal plane with these exact tilesets and matched the user's reference look; preview images live in the session scratchpad under `preview/` (`ri-neutral.png`, `ri-jade.png`, `ri-jade-zoom.png`, `lotm-grade.png`).
 
 ## Global Constraints
 
-- PixiJS only for map rendering; no Mapbox, Leaflet, map tiles or new rendering dependencies (AGENTS.md §4.5). No new npm dependencies at all.
+- PixiJS only for map rendering; no Mapbox, Leaflet, map tiles or new npm dependencies. Static pixel-art images under `public/assets/tilesets/` are allowed.
+- Art licenses: Puny World is CC0; MrBeast mountains are CC-BY 3.0 and **must** be credited in `CREDITS.md` and in the atlas frame ("Art:" links). Do not add other sheets without recording license and credit.
 - Every visible map element derives from `projectTemporalMap(def, userChapter, { planeId, activeCharacterId })`. All spoiler filtering lives in `src/projections/`, never in the renderer.
-- Projections and diff functions are pure: never mutate inputs; no `Math.random`, no Pixi imports.
-- Glyph scatter is deterministic: seed = `hashString(mapId + ':' + terrainId)`, PRNG = mulberry32.
+- The baked plane uses only never-chapter-gated data (terrain, rivers, plane). No bake-time clearing around locations; visible markers draw their own grass clearings.
+- Projections, layout and diff functions are pure: never mutate inputs; no `Math.random` (use `mulberry32`/`hashString`/`fbm2D`), no Pixi or DOM imports.
+- Scale: baked texture at `PIXELS_PER_WORLD = 0.5` (16 px tile = 32 world units), displayed at 2×; live-layer tileset sprites at scale 2. Keep scales integers so nearest filtering stays crisp.
 - Audio only in response to a user gesture, via `SoundEngine.playPlaneWarp()` (already `isMuted`-guarded).
 - URL deep-link parity: existing `?ch=&tab=&char=&loc=` keep working; add `plane=<id>`.
-- Pixel look: static layer baked at resolution 0.5 with `scaleMode = 'nearest'`; pixel sprites are 1 grid cell = 2 world units (icons) or 2 world units (glyphs) or 3 world units (landmarks).
-- `prefers-reduced-motion: reduce` disables hero walk, reveal bursts, warp spiral, particles, cloud drift and marker bob.
+- `prefers-reduced-motion: reduce` disables hero walk, reveal bursts, warp spiral, particles, cloud drift, fog drift and marker bob.
 - The 9 public top-level containers on `PixiWorldRenderer` (`backgroundContainer` … `labelsContainer`) remain.
-- All code must work in the Vitest node environment (no WebGL): anything needing a Pixi `Renderer` must no-op gracefully when it is `null`.
+- All code must work in the Vitest node environment (no WebGL, no DOM canvas): anything needing a Pixi `Renderer`, `document` or a real 2D context must no-op or use an injected fake.
 - `npm test`, `npx tsc --noEmit`, `npm run build` must pass at the end of every task that touches TypeScript.
 - Commit after every task with a conventional-commit message ending in the line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
 - Reference files in docs with clickable `file:///` URLs (AGENTS.md §4.3).
 
-## Plan Deviations From Spec (intentional, recorded in spec during Task 23)
+## Plan Deviations From Spec
 
-1. **Hover glow** uses an additive, accent-tinted back-sprite instead of a separate outline `Filter` — same look, no extra shader.
-2. **Glyph exclusion around markers** is replaced by a dark "clearing" ellipse drawn under each *visible* marker. Baking gaps around *all* locations would leak where future (undiscovered) locations are when fog is toggled off.
-3. **Adapter `dangerLevel`**: `LocationEntity` has no `danger_level` field, so adapter-generated maps leave `dangerLevel` undefined (no ring). Hand-authored maps set it.
-4. **Secret routes** are filtered in the projection (`routeType === 'secret'` requires `revealedAtChapter <= userChapter`) rather than in the renderer.
-5. **Fog is a custom Mesh shader, not a `Filter`,** so its dither is anchored to world space (2-unit cells) and does not crawl while panning; the renderer is forced to WebGL (`preference: 'webgl'`) and the shader ships GLSL only.
-6. **Rivers are ribbon polygons.** The schema has no polyline terrain, so the River of Time is authored as a smoothed band polygon rather than a 3 px polyline.
-7. **Coast foam ring** (spec §5.2) is replaced by a static shallow-water halo painted into the baked layer; the animated marching dashes on sea lanes carry the "moving water" cue.
-8. **One Piece gulls** (spec §5.7) are omitted; One Piece uses swirling sea-spray particles only.
+Spec v2 §12 lists the intentional deviations (additive hover glow; no bake-time clearings; adapter `dangerLevel` undefined; secret routes filtered in the projection; world-space fog Mesh shader; `edgeStyle` ignored). Task 23 appends any new ones discovered during implementation.
 
 ## Review Focus
 
 1. **Rapid scrubbing** (slider dragged across hundreds of chapters per second): renderer must coalesce to the newest snapshot, never queue animations, and end in exactly the last chapter's state — pinned in Task 19.
 2. **`?plane=` pointing at a sealed or unknown plane**: projection must fall back to the first plane and the atlas must report the fallback so the URL is rewritten — fallback pinned by unit tests in Task 2; the URL rewrite (a React effect, not reachable from SSR tests) is verified in the browser in Task 23 Step 6.6.
 3. **`?loc=` for a location on another plane, present on first mount**: atlas must switch to that location's plane and fly to it — the decision is pinned by `planeSwitchForLocation` tests in Task 21; the mount-time handling (a ref that starts `undefined`) is verified in the browser in Task 21 Step 10.7 and Task 23 Step 6.5.
-4. **No hero on the current plane / selected character has no path**: no hero token, no crash, no "HERO IN" chip for a character with no waypoints — pinned in Task 4 and Task 15.
+4. **Tileset sheets fail to load or load late** (offline, slow network): the plane must still paint terrain (flat grass color fallback), markers must fall back to code-drawn icons, nothing may throw — pinned by the painter "sheets not loaded" test (Task 12) and the markers "atlas not loaded" test (Task 13); the network-failure path is checked in the Task 21 browser smoke check.
 5. **Zero-size container** (tab hidden via `display:none`, then shown): `resize(0, 0)` must be ignored so camera math never divides by zero — pinned in Task 10.
 
 ---
@@ -50,54 +46,62 @@
 ## File Structure
 
 ```
+public/assets/tilesets/
+  punyworld/punyworld-overworld-tileset.png   ADD (CC0)
+  oga-worldmap/mountains.png                  ADD (CC-BY 3.0)
+CREDITS.md                                    CREATE
 src/domain/
-  map-types.ts                MODIFY  planes, landmark glyphs, planeId fields, waypoint, dangerLevel, edgeStyle
+  map-types.ts                MODIFY  planes, rivers, landmark glyphs, planeId fields, waypoint, dangerLevel, edgeStyle
   map-planes.ts               CREATE  getMapPlanes(), planeIdOf(), planeForLocation(), DEFAULT_PLANE_ID
   map-schema.ts               MODIFY  Zod for new fields, plane-aware bounds & reference checks
 src/projections/
-  temporal-map.ts             MODIFY  planeId option; planes, waypoints, heroPosition, landmarkGlyphs; secret routes
+  temporal-map.ts             MODIFY  planeId option; planes, rivers, waypoints, heroPosition, landmarkGlyphs; secret routes
   map-snapshot-diff.ts        CREATE  diffMapSnapshots()
+  journey-numbers.ts          CREATE  level-select stage numbers
   map-adapter.ts              MODIFY  planes, planeId, waypoint rule, per-plane routes/territories
 src/engine/map/
-  pixi-world-renderer.ts      REWRITE facade
+  pixi-world-renderer.ts      REWRITE facade (tile atlas, canvas plane bake, coalescing queue)
   camera-controller.ts        MODIFY  setWorldSize, fitWorld, getViewBounds, resize guard
-  anim/tween.ts               CREATE  TweenManager, Ease
-  input/gesture-tracker.ts    CREATE  click/drag/pinch state machine
-  input/picking.ts            CREATE  pickAt() hit testing
-  scene/prng.ts               CREATE  hashString, mulberry32
-  scene/geometry.ts           CREATE  polygon/polyline math, chaikinSmooth, dashSegments
-  scene/glyph-scatter.ts      CREATE  scatterGlyphs()
-  scene/pixel-palette.ts      CREATE  biomeRamp, spritePalette, DANGER_COLORS, color math
-  scene/pixel-sprites.ts      CREATE  pixel-grid art (icons, glyphs, landmarks, pylon) + drawPixelGrid
-  scene/icon-atlas.ts         CREATE  cached texture factory
-  scene/terrain-painter.ts    CREATE  paintBackdrop, paintTerrain
-  scene/static-baker.ts       CREATE  buildStaticScene()
-  layers/layer-context.ts     CREATE  LayerContext type
+  anim/tween.ts               CREATE
+  input/gesture-tracker.ts    CREATE
+  input/picking.ts            CREATE
+  scene/prng.ts               CREATE
+  scene/geometry.ts           CREATE  (+ jagPolygon, distanceToPolyline)
+  scene/noise.ts              CREATE  value noise + fbm
+  scene/sprite-catalog.ts     CREATE  sheets, sprite rects, location→prop map, credits
+  scene/tile-atlas.ts         CREATE  sheet loading, sub-textures, raw images
+  scene/pixel-palette.ts      CREATE  color math, DANGER_COLORS, code-drawn sprite palettes
+  scene/universe-look.ts      CREATE  per-universe grade + water/sand/fog colors, gradePixels
+  scene/pixel-sprites.ts      CREATE  code-drawn fallback icons, landmark glyphs, pylon
+  scene/icon-atlas.ts         CREATE  code-drawn texture factory + soft disc
+  scene/plane-layout.ts       CREATE  pure plane layout
+  scene/plane-painter.ts      CREATE  Canvas 2D painter
+  layers/layer-context.ts     CREATE
   layers/regions-layer.ts     CREATE
   layers/markers-layer.ts     CREATE
   layers/routes-layer.ts      CREATE
-  layers/hero-walker.ts       CREATE  pure walking math
+  layers/hero-walker.ts       CREATE
   layers/hero-layer.ts        CREATE
-  layers/fog-apertures.ts     CREATE  pure aperture targets + ApertureField
+  layers/fog-apertures.ts     CREATE
+  layers/fog-material.ts      CREATE  world-space GLSL Bayer dither fog (Mesh shader)
   layers/fog-layer.ts         CREATE
   layers/fx-layer.ts          CREATE
   layers/atmosphere-layer.ts  CREATE
   layers/labels-layer.ts      CREATE
-  layers/fog-material.ts      CREATE  world-anchored GLSL Bayer dither fog (custom Mesh shader)
 src/components/map/
-  atlas-ui-state.ts           CREATE  pure UI helpers (banner reducer, tooltip model, waypoint grouping)
+  atlas-ui-state.ts           CREATE
   AtlasTooltip.tsx            CREATE
   DiscoveryBanner.tsx         CREATE
   WaypointPanel.tsx           CREATE
-  AtlasFrame.tsx              CREATE
+  AtlasFrame.tsx              CREATE  (with art credits)
   AtlasMinimap.tsx            CREATE
   MapHudControls.tsx          MODIFY  locked planes, waypoint button
   RpgWorldAtlas.tsx           REWRITE wiring
-src/app/[slug]/world-explorer.tsx  MODIFY  ?plane= param, hero avatar, plane state
-scripts/author-reverend-insanity-map.ts  CREATE  control points -> smoothed map.json
+src/app/[slug]/world-explorer.tsx  MODIFY  ?plane= param, hero avatar, protagonist fix
+scripts/author-reverend-insanity-map.ts  CREATE
 data/reverend-insanity/map.json          REGENERATE
 tests/                        CREATE/MODIFY (per task)
-ARCHITECTURE.md, DESIGN_SYSTEM.md, TODO.md, spec  MODIFY (Task 23)
+ARCHITECTURE.md, DESIGN_SYSTEM.md, TODO.md  MODIFY (Task 23)
 ```
 
 ---
@@ -112,10 +116,10 @@ ARCHITECTURE.md, DESIGN_SYSTEM.md, TODO.md, spec  MODIFY (Task 23)
 
 **Interfaces:**
 - Produces:
-  - Types `PlaneBackdrop`, `MapPlane`, `LandmarkGlyphKind`, `LandmarkGlyph`, `DangerLevel`, `TerrainEdgeStyle` from `src/domain/map-types.ts`.
-  - Optional `planeId?: string` on `TerrainLayer`, `MapRegion`, `MapLocation`, `MapRoute`, `FactionTerritory`, `CharacterWaypoint`; `MapLocation.waypoint?: boolean`, `MapLocation.dangerLevel?: DangerLevel`; `TerrainLayer.edgeStyle?: TerrainEdgeStyle`; `WorldMapDefinition.planes?: MapPlane[]`, `WorldMapDefinition.landmarkGlyphs?: LandmarkGlyph[]`.
+  - Types `PlaneBackdrop`, `MapPlane`, `LandmarkGlyphKind`, `LandmarkGlyph`, `DangerLevel`, `TerrainEdgeStyle`, `MapRiver` from `src/domain/map-types.ts`.
+  - Optional `planeId?: string` on `TerrainLayer`, `MapRegion`, `MapLocation`, `MapRoute`, `FactionTerritory`, `CharacterWaypoint`; `MapLocation.waypoint?: boolean`, `MapLocation.dangerLevel?: DangerLevel`; `TerrainLayer.edgeStyle?: TerrainEdgeStyle`; `WorldMapDefinition.planes?: MapPlane[]`, `WorldMapDefinition.landmarkGlyphs?: LandmarkGlyph[]`, `WorldMapDefinition.rivers?: MapRiver[]` where `interface MapRiver { id: string; name: string; points: [number, number][]; width: number; planeId?: string; bridges?: [number, number][] }` (world units; rivers are geography and never chapter-gated).
   - `DEFAULT_PLANE_ID = 'main'`, `getMapPlanes(def: Pick<WorldMapDefinition,'planes'|'width'|'height'>): MapPlane[]` (sorted by `order`, implicit single plane if none), `planeIdOf(entity: { planeId?: string }, planes: MapPlane[]): string`, `planeForLocation(def: WorldMapDefinition, locationId: string): string | null` from `src/domain/map-planes.ts`.
-  - Zod: `MapPlaneSchema`, `LandmarkGlyphSchema`, `DangerLevelSchema`, `PlaneBackdropSchema`; `WorldMapSchema` validates coordinates against the entity's plane dimensions and rejects unknown `planeId` references.
+  - Zod: `MapPlaneSchema`, `LandmarkGlyphSchema`, `DangerLevelSchema`, `PlaneBackdropSchema`, `MapRiverSchema`; `WorldMapSchema` validates coordinates against the entity's plane dimensions and rejects unknown `planeId` references.
 
 - [ ] **Step 1: Write the failing test**
 
@@ -168,6 +172,7 @@ function multiPlaneMap(): WorldMapDefinition {
       },
     ],
     landmarkGlyphs: [{ id: 'g1', glyph: 'volcano', x: 1200, y: 900, planeId: 'mortal', revealedAtChapter: 10 }],
+    rivers: [{ id: 'r1', name: 'Jade River', points: [[100, 500], [800, 520], [1500, 480]], width: 24, planeId: 'mortal', bridges: [[800, 520]] }],
   };
 }
 
@@ -242,6 +247,14 @@ describe('WorldMapSchema multi-plane validation', () => {
     expect(safeValidateWorldMap(def).success).toBe(false);
   });
 
+  it('bounds-checks river points and bridges against their plane', () => {
+    const def = multiPlaneMap();
+    def.rivers = [{ id: 'r2', name: 'Sky River', points: [[10, 10], [790, 590]], width: 10, planeId: 'heaven', bridges: [[900, 100]] }];
+    expect(safeValidateWorldMap(def).success).toBe(false);
+    def.rivers = [{ id: 'r3', name: 'Short', points: [[10, 10]], width: 10, planeId: 'heaven' }];
+    expect(safeValidateWorldMap(def).success).toBe(false);
+  });
+
   it('rejects duplicate plane ids', () => {
     const def = multiPlaneMap();
     def.planes = [...def.planes!, { ...def.planes![0] }];
@@ -300,6 +313,15 @@ export interface LandmarkGlyph {
 export type DangerLevel = 'EX' | 'S' | 'A' | 'B' | 'Safe';
 
 export type TerrainEdgeStyle = 'coast' | 'cliff' | 'soft';
+
+export interface MapRiver {
+  id: string;
+  name: string;
+  points: [number, number][];
+  width: number;
+  planeId?: string;
+  bridges?: [number, number][];
+}
 ```
 
 2. Add fields (keep all existing fields):
@@ -309,7 +331,7 @@ export type TerrainEdgeStyle = 'coast' | 'cliff' | 'soft';
    - `MapRoute`: `planeId?: string;`
    - `FactionTerritory`: `planeId?: string;`
    - `CharacterWaypoint`: `planeId?: string;`
-   - `WorldMapDefinition`: `planes?: MapPlane[];` and `landmarkGlyphs?: LandmarkGlyph[];`
+   - `WorldMapDefinition`: `planes?: MapPlane[];`, `landmarkGlyphs?: LandmarkGlyph[];` and `rivers?: MapRiver[];`
 
 - [ ] **Step 4: Create plane helpers**
 
@@ -405,12 +427,21 @@ export const LandmarkGlyphSchema = z.object({
 
 export const DangerLevelSchema = z.enum(['EX', 'S', 'A', 'B', 'Safe']);
 export const TerrainEdgeStyleSchema = z.enum(['coast', 'cliff', 'soft']);
+
+export const MapRiverSchema = z.object({
+  id: z.string().min(1),
+  name: z.string().min(1),
+  points: z.array(Point2DSchema).min(2),
+  width: z.number().positive(),
+  planeId: z.string().min(1).optional(),
+  bridges: z.array(Point2DSchema).optional(),
+});
 ```
 
 3. Add `planeId: z.string().min(1).optional(),` to `TerrainLayerSchema`, `MapRegionSchema`, `MapLocationSchema`, `MapRouteSchema`, `FactionTerritorySchema`, `CharacterWaypointSchema`.
 4. Add `edgeStyle: TerrainEdgeStyleSchema.optional(),` to `TerrainLayerSchema`.
 5. Add `waypoint: z.boolean().optional(),` and `dangerLevel: DangerLevelSchema.optional(),` to `MapLocationSchema`.
-6. In `WorldMapSchema`'s `z.object({...})`, add `planes: z.array(MapPlaneSchema).optional(),` and `landmarkGlyphs: z.array(LandmarkGlyphSchema).optional(),`.
+6. In `WorldMapSchema`'s `z.object({...})`, add `planes: z.array(MapPlaneSchema).optional(),`, `landmarkGlyphs: z.array(LandmarkGlyphSchema).optional(),` and `rivers: z.array(MapRiverSchema).optional(),`.
 7. Replace the whole `.superRefine((data, ctx) => { ... })` body with:
 
 ```ts
@@ -510,6 +541,16 @@ export const TerrainEdgeStyleSchema = z.enum(['coast', 'cliff', 'soft']);
       });
     });
 
+    (data.rivers ?? []).forEach((river, rIdx) => {
+      const bounds = boundsFor(river.planeId, `River "${river.name}"`, ['rivers', rIdx, 'planeId']);
+      river.points.forEach((pt, pIdx) => {
+        checkPoint(pt[0], pt[1], bounds, `River point in "${river.name}"`, ['rivers', rIdx, 'points', pIdx]);
+      });
+      (river.bridges ?? []).forEach((pt, bIdx) => {
+        checkPoint(pt[0], pt[1], bounds, `Bridge on "${river.name}"`, ['rivers', rIdx, 'bridges', bIdx]);
+      });
+    });
+
     (data.landmarkGlyphs ?? []).forEach((glyph, gIdx) => {
       const path = ['landmarkGlyphs', gIdx];
       const bounds = boundsFor(glyph.planeId, `Landmark glyph "${glyph.id}"`, path);
@@ -521,7 +562,7 @@ export const TerrainEdgeStyleSchema = z.enum(['coast', 'cliff', 'soft']);
 - [ ] **Step 6: Run the new test and the full suite**
 
 Run: `npx vitest run tests/map-planes.test.ts && npm test`
-Expected: PASS — new file 10 tests pass; full suite still 115 + 10 passing.
+Expected: PASS — new file 11 tests pass; full suite still 115 + 11 passing.
 
 - [ ] **Step 7: Typecheck**
 
@@ -532,7 +573,7 @@ Expected: no output (clean).
 
 ```bash
 git add src/domain/map-types.ts src/domain/map-planes.ts src/domain/map-schema.ts tests/map-planes.test.ts
-git commit -m "feat(map): add multi-plane, landmark glyph, waypoint and danger schema
+git commit -m "feat(map): add multi-plane, river, landmark glyph, waypoint and danger schema
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 ```
@@ -553,7 +594,7 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
   - `interface ProjectedWaypoint { locationId: string; name: string; planeId: string; regionId?: string; x: number; y: number; type: LocationType; isCurrent: boolean }`
   - `interface HeroPosition { x: number; y: number; locationId?: string; planeId: string; chapter: number }`
   - `TemporalMapOptions.planeId?: string`
-  - `ProjectedWorldMapSnapshot` gains required `planeId: string; planes: ProjectedPlane[]; landmarkGlyphs: LandmarkGlyph[]; waypoints: ProjectedWaypoint[]; heroPosition: HeroPosition | null;` — `width`/`height` are now the active plane's; `currentPosition` is the hero position only when the hero is on the active plane; `locations`, `terrain`, `regions`, `routes`, `territories`, `characterPaths` are filtered to the active plane; `events` stay chapter-filtered only.
+  - `ProjectedWorldMapSnapshot` gains required `planeId: string; planes: ProjectedPlane[]; landmarkGlyphs: LandmarkGlyph[]; waypoints: ProjectedWaypoint[]; heroPosition: HeroPosition | null; rivers: MapRiver[];` (rivers: active plane only, never chapter-gated) — `width`/`height` are now the active plane's; `currentPosition` is the hero position only when the hero is on the active plane; `locations`, `terrain`, `regions`, `routes`, `territories`, `characterPaths` are filtered to the active plane; `events` stay chapter-filtered only.
   - Secret routes are included only when `revealedAtChapter <= userChapter`.
 
 - [ ] **Step 1: Write the failing test**
@@ -619,6 +660,10 @@ function map(): WorldMapDefinition {
       { id: 'volcano', glyph: 'volcano', x: 1200, y: 400, planeId: 'mortal', revealedAtChapter: 80 },
       { id: 'sky-spire', glyph: 'spire', x: 500, y: 200, planeId: 'heaven', revealedAtChapter: 100 },
     ],
+    rivers: [
+      { id: 'mortal-river', name: 'Mortal River', points: [[50, 600], [900, 700]], width: 30, planeId: 'mortal' },
+      { id: 'sky-river', name: 'Sky River', points: [[10, 300], [700, 350]], width: 20, planeId: 'heaven' },
+    ],
   };
 }
 
@@ -639,6 +684,11 @@ describe('projectTemporalMap planes', () => {
     expect(snap.regions.map((r) => r.id)).toEqual(['r-heaven']);
     expect(snap.routes.map((r) => r.id)).toEqual(['sky-bridge']);
     expect(snap.territories.map((t) => t.factionId)).toEqual(['f-heaven']);
+  });
+
+  it('includes the active plane rivers at every chapter', () => {
+    expect(projectTemporalMap(map(), 1).rivers.map((r) => r.id)).toEqual(['mortal-river']);
+    expect(projectTemporalMap(map(), 150, { planeId: 'heaven' }).rivers.map((r) => r.id)).toEqual(['sky-river']);
   });
 
   it('keeps events chapter-filtered but not plane-filtered', () => {
@@ -746,6 +796,7 @@ import {
   CoordinateSystem,
   LandmarkGlyph,
   LocationType,
+  MapRiver,
   PlaneBackdrop,
 } from '../domain/map-types';
 import { getMapPlanes, planeIdOf } from '../domain/map-planes';
@@ -792,6 +843,7 @@ export interface HeroPosition {
   landmarkGlyphs: LandmarkGlyph[];
   waypoints: ProjectedWaypoint[];
   heroPosition: HeroPosition | null;
+  rivers: MapRiver[];
 ```
 
 4. In `TemporalMapOptions`, add `planeId?: string;`.
@@ -966,6 +1018,7 @@ export interface HeroPosition {
   ).length;
 
   const terrain: TerrainLayer[] = (map.terrain || []).filter(onActivePlane);
+  const rivers: MapRiver[] = (map.rivers || []).filter(onActivePlane);
 
   return {
     id: map.id,
@@ -980,6 +1033,7 @@ export interface HeroPosition {
     landmarkGlyphs,
     waypoints,
     heroPosition,
+    rivers,
     activeCharacterId: activeCharId,
     currentPosition,
     terrain,
@@ -1006,6 +1060,7 @@ In `tests/pixi-renderer.test.ts`, inside `sampleSnapshot` right after `userChapt
     waypoints: [],
     heroPosition: { x: 200, y: 200, locationId: 'loc-qing-mao', planeId: 'main', chapter: 1 },
     currentPosition: { x: 200, y: 200, locationId: 'loc-qing-mao' },
+    rivers: [],
 ```
 
 - [ ] **Step 5: Run tests**
@@ -1016,7 +1071,7 @@ Expected: PASS — all new tests pass; existing `temporal-map.test.ts` still pas
 - [ ] **Step 6: Typecheck**
 
 Run: `npx tsc --noEmit`
-Expected: clean. If any other file builds a `ProjectedWorldMapSnapshot` literal, add the five new fields there the same way as Step 4.
+Expected: clean. If any other file builds a `ProjectedWorldMapSnapshot` literal, add the six new fields there the same way as Step 4.
 
 - [ ] **Step 7: Commit**
 
@@ -1615,11 +1670,12 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 
 ---
 
-### Task 5: PRNG and geometry utilities
+### Task 5: PRNG, noise and geometry utilities
 
 **Files:**
 - Create: `src/engine/map/scene/prng.ts`
 - Create: `src/engine/map/scene/geometry.ts`
+- Create: `src/engine/map/scene/noise.ts`
 - Test: `tests/map-geometry.test.ts`
 
 **Interfaces:**
@@ -1637,6 +1693,9 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
   - `slicePolyline(points: Pt[], distance: number): Pt[]` (prefix of the polyline up to `distance`, ending at the interpolated point)
   - `dashSegments(points: Pt[], dash: number, gap: number, offset: number): Array<[Pt, Pt]>`
   - `chaikinSmooth(poly: Vec2[], iterations: number, closed?: boolean): Vec2[]`
+  - `distanceToPolyline(x: number, y: number, points: Vec2[]): number`
+  - `jagPolygon(poly: Vec2[], seed: number, amplitude: number, iterations?: number): Vec2[]` — seeded fractal midpoint displacement of a closed ring (natural coastlines); returns `poly.length · 2^iterations` vertices; the displacement shrinks by 1.7× per iteration.
+- Produces (`noise.ts`): `type Noise2D = (x: number, y: number) => number`, `valueNoise2D(seed: number, cell: number): Noise2D` (smooth, in [0, 1]), `fbm2D(seed: number, octaves: number, baseCell: number): Noise2D` (weighted octaves, in [0, 1]).
 
 - [ ] **Step 1: Write the failing test**
 
@@ -1657,8 +1716,11 @@ import {
   slicePolyline,
   dashSegments,
   chaikinSmooth,
+  distanceToPolyline,
+  jagPolygon,
   Vec2,
 } from '../src/engine/map/scene/geometry';
+import { valueNoise2D, fbm2D } from '../src/engine/map/scene/noise';
 
 const square: Vec2[] = [[0, 0], [100, 0], [100, 100], [0, 100]];
 
@@ -1723,6 +1785,49 @@ describe('polygon geometry', () => {
     const smoothed = chaikinSmooth(line, 1, false);
     expect(smoothed[0]).toEqual([0, 0]);
     expect(smoothed[smoothed.length - 1]).toEqual([100, 100]);
+  });
+});
+
+describe('coast roughening and polyline distance', () => {
+  it('jags a ring deterministically within the amplitude envelope', () => {
+    const a = jagPolygon(square, 7, 10);
+    expect(a).toHaveLength(4 * 16);
+    expect(jagPolygon(square, 7, 10)).toEqual(a);
+    expect(jagPolygon(square, 8, 10)).not.toEqual(a);
+    const b = polygonBounds(a);
+    expect(b.minX).toBeGreaterThan(-25);
+    expect(b.maxX).toBeLessThan(125);
+    expect(jagPolygon(square, 7, 10, 0)).toEqual(square);
+  });
+
+  it('measures distance to an open polyline', () => {
+    const line: Vec2[] = [[0, 0], [100, 0], [100, 100]];
+    expect(distanceToPolyline(50, 10, line)).toBeCloseTo(10);
+    expect(distanceToPolyline(110, 50, line)).toBeCloseTo(10);
+    expect(distanceToPolyline(-5, 0, line)).toBeCloseTo(5);
+  });
+});
+
+describe('noise', () => {
+  it('is deterministic, bounded, smooth and roughly centered', () => {
+    const n = valueNoise2D(3, 16);
+    expect(n(10.5, 20.25)).toBe(valueNoise2D(3, 16)(10.5, 20.25));
+    expect(valueNoise2D(4, 16)(10.5, 20.25)).not.toBe(n(10.5, 20.25));
+    const f = fbm2D(9, 3, 48);
+    let sum = 0;
+    let count = 0;
+    for (let y = 0; y < 400; y += 7) {
+      for (let x = 0; x < 400; x += 7) {
+        const v = f(x, y);
+        expect(v).toBeGreaterThanOrEqual(0);
+        expect(v).toBeLessThanOrEqual(1);
+        expect(Math.abs(f(x + 0.5, y) - v)).toBeLessThan(0.1);
+        sum += v;
+        count += 1;
+      }
+    }
+    expect(sum / count).toBeGreaterThan(0.35);
+    expect(sum / count).toBeLessThan(0.65);
   });
 });
 
@@ -1954,6 +2059,48 @@ export function dashSegments(points: Pt[], dash: number, gap: number, offset: nu
   return segments;
 }
 
+export function distanceToPolyline(x: number, y: number, points: Vec2[]): number {
+  if (points.length === 1) return Math.hypot(x - points[0][0], y - points[0][1]);
+  let best = Infinity;
+  for (let i = 1; i < points.length; i++) {
+    const d = distanceToSegment(x, y, points[i - 1][0], points[i - 1][1], points[i][0], points[i][1]);
+    if (d < best) best = d;
+  }
+  return best;
+}
+
+/**
+ * Seeded fractal midpoint displacement of a closed ring: each edge gets a
+ * midpoint pushed along its normal; the push shrinks every iteration.
+ * Turns hand-authored or rectangular outlines into natural coastlines.
+ */
+export function jagPolygon(poly: Vec2[], seed: number, amplitude: number, iterations = 4): Vec2[] {
+  let a = seed >>> 0;
+  const rand = () => {
+    a = (a + 0x6d2b79f5) >>> 0;
+    let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+  let pts = poly.map(([x, y]) => [x, y] as Vec2);
+  for (let k = 0; k < iterations; k++) {
+    const out: Vec2[] = [];
+    const scale = amplitude / Math.pow(1.7, k);
+    for (let i = 0; i < pts.length; i++) {
+      const [x0, y0] = pts[i];
+      const [x1, y1] = pts[(i + 1) % pts.length];
+      const dx = x1 - x0;
+      const dy = y1 - y0;
+      const len = Math.hypot(dx, dy) || 1;
+      const off = (rand() * 2 - 1) * scale * Math.min(1, len / 40);
+      out.push([x0, y0], [(x0 + x1) / 2 - (dy / len) * off, (y0 + y1) / 2 + (dx / len) * off]);
+    }
+    pts = out;
+  }
+  return pts;
+}
+
 /** Chaikin corner-cutting. Each iteration doubles the vertex count of a closed ring. */
 export function chaikinSmooth(poly: Vec2[], iterations: number, closed = true): Vec2[] {
   let current = poly.map(([x, y]) => [x, y] as Vec2);
@@ -1975,268 +2122,467 @@ export function chaikinSmooth(poly: Vec2[], iterations: number, closed = true): 
 }
 ```
 
-- [ ] **Step 5: Run tests**
+- [ ] **Step 5: Implement value noise**
+
+Create `src/engine/map/scene/noise.ts`:
+
+```ts
+/**
+ * Seeded 2D value noise and fractal (fbm) sums for procedural decoration
+ * (forest clumps, grass tone). Pure and deterministic.
+ */
+
+export type Noise2D = (x: number, y: number) => number;
+
+export function valueNoise2D(seed: number, cell: number): Noise2D {
+  const s = seed | 0;
+  const hash = (ix: number, iy: number): number => {
+    let h = (Math.imul(ix, 374761393) + Math.imul(iy, 668265263) + Math.imul(s, 1442695041)) | 0;
+    h = Math.imul(h ^ (h >>> 13), 1274126177);
+    h ^= h >>> 16;
+    return (h >>> 0) / 4294967296;
+  };
+  return (x, y) => {
+    const fx = x / cell;
+    const fy = y / cell;
+    const ix = Math.floor(fx);
+    const iy = Math.floor(fy);
+    const tx = fx - ix;
+    const ty = fy - iy;
+    const sx = tx * tx * (3 - 2 * tx);
+    const sy = ty * ty * (3 - 2 * ty);
+    const a = hash(ix, iy);
+    const b = hash(ix + 1, iy);
+    const c = hash(ix, iy + 1);
+    const d = hash(ix + 1, iy + 1);
+    return a + (b - a) * sx + (c - a) * sy + (a - b - c + d) * sx * sy;
+  };
+}
+
+export function fbm2D(seed: number, octaves: number, baseCell: number): Noise2D {
+  const layers = Array.from({ length: octaves }, (_, i) => valueNoise2D(seed + i * 1013, baseCell / Math.pow(2, i)));
+  const weights = layers.map((_, i) => Math.pow(0.5, i));
+  const total = weights.reduce((sum, w) => sum + w, 0);
+  return (x, y) => {
+    let v = 0;
+    for (let i = 0; i < layers.length; i++) v += layers[i](x, y) * weights[i];
+    return v / total;
+  };
+}
+```
+
+- [ ] **Step 6: Run tests**
 
 Run: `npx vitest run tests/map-geometry.test.ts`
-Expected: PASS (13 tests). Dash convention: a positive `offset` moves the dash pattern forward along the line; a dash that starts before 0 is clipped to 0.
+Expected: PASS (16 tests). Dash convention: a positive `offset` moves the dash pattern forward along the line; a dash that starts before 0 is clipped to 0.
 
-- [ ] **Step 6: Typecheck and commit**
+- [ ] **Step 7: Typecheck and commit**
 
 Run: `npx tsc --noEmit`
 Expected: clean.
 
 ```bash
-git add src/engine/map/scene/prng.ts src/engine/map/scene/geometry.ts tests/map-geometry.test.ts
-git commit -m "feat(map): add deterministic prng and pure geometry helpers
+git add src/engine/map/scene/prng.ts src/engine/map/scene/geometry.ts src/engine/map/scene/noise.ts tests/map-geometry.test.ts
+git commit -m "feat(map): add deterministic prng, value noise and pure geometry helpers
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 ```
 
 ---
 
-### Task 6: Deterministic glyph scatter
+### Task 6: Tileset assets, sprite catalog, tile atlas and credits
 
 **Files:**
-- Create: `src/engine/map/scene/glyph-scatter.ts`
-- Test: `tests/glyph-scatter.test.ts`
+- Add (already downloaded, untracked): `public/assets/tilesets/punyworld/punyworld-overworld-tileset.png`, `public/assets/tilesets/oga-worldmap/mountains.png`
+- Create: `CREDITS.md`
+- Create: `src/engine/map/scene/sprite-catalog.ts`
+- Create: `src/engine/map/scene/tile-atlas.ts`
+- Test: `tests/sprite-catalog.test.ts`
 
 **Interfaces:**
-- Consumes: `mulberry32` (Task 5); `polygonBounds`, `pointInPolygon`, `distanceToPolygonEdge`, `Vec2` (Task 5); `TerrainType`.
-- Produces:
-  - `type GlyphKind = 'peak' | 'pine' | 'dune' | 'reed' | 'shard' | 'vent' | 'crack' | 'tuft' | 'wave'`
-  - `interface GlyphSpec { kind: GlyphKind; spacing: number; variants: number }`
-  - `const TERRAIN_GLYPHS: Record<TerrainType, GlyphSpec | null>`
-  - `interface ScatteredGlyph { kind: GlyphKind; variant: number; x: number; y: number; scale: number }`
-  - `interface ScatterOptions { polygon: Vec2[]; terrainType: TerrainType; seed: number; spacingScale?: number; edgeMargin?: number; maxGlyphs?: number }`
-  - `scatterGlyphs(options: ScatterOptions): ScatteredGlyph[]` — sorted by `y` then `x`; every glyph strictly inside the polygon, at least `edgeMargin` (default 6) from edges; pairwise distance ≥ spec spacing × `spacingScale`.
+- Consumes: `LocationType` (Task 1).
+- Produces (`sprite-catalog.ts`, pure data):
+  - `type SheetId = 'puny' | 'mountains'`
+  - `interface SheetDef { url: string; width: number; height: number; license: 'CC0' | 'CC-BY-3.0'; credit: string; sourceUrl: string }`, `const SHEETS: Record<SheetId, SheetDef>`
+  - `type SpriteName` (union below), `interface SpriteDef { sheet: SheetId; x: number; y: number; w: number; h: number; peak?: { lean: number } }`, `const SPRITES: Record<SpriteName, SpriteDef>`
+  - Groups: `GRASS_TILES`, `CONIFERS`, `ROUND_TREES`, `PALMS`, `ROCKS`, `PEAKS_GREY`, `PEAKS_SNOW`, `PEAKS_SMALL` (arrays of `SpriteName`)
+  - `const LOCATION_PROP: Partial<Record<LocationType, SpriteName>>`
+  - `const ART_CREDITS: Array<{ label: string; url: string }>`
+- Produces (`tile-atlas.ts`):
+  - `interface SheetLoader { load(url: string): Promise<Texture> }`, `const assetsLoader: SheetLoader` (uses Pixi `Assets.load`)
+  - `class TileAtlas { constructor(loader: SheetLoader | null); readonly ready: boolean; load(): Promise<void>; texture(name: SpriteName): Texture; image(sheet: SheetId): CanvasImageSource | null; destroy(): void }` — `texture()` returns a cached sub-texture (nearest filtering) or `Texture.EMPTY` when the sheet is not loaded; `image()` returns the sheet's underlying image for Canvas 2D painting.
 
 - [ ] **Step 1: Write the failing test**
 
-Create `tests/glyph-scatter.test.ts`:
+Create `tests/sprite-catalog.test.ts`:
 
 ```ts
 import { describe, it, expect } from 'vitest';
-import { scatterGlyphs, TERRAIN_GLYPHS } from '../src/engine/map/scene/glyph-scatter';
-import { pointInPolygon, distanceToPolygonEdge, Vec2 } from '../src/engine/map/scene/geometry';
+import * as fs from 'fs';
+import * as path from 'path';
+import { Rectangle, Texture, TextureSource } from 'pixi.js';
+import {
+  SHEETS,
+  SPRITES,
+  GRASS_TILES,
+  CONIFERS,
+  ROUND_TREES,
+  PALMS,
+  ROCKS,
+  PEAKS_GREY,
+  PEAKS_SNOW,
+  PEAKS_SMALL,
+  LOCATION_PROP,
+  ART_CREDITS,
+  SpriteName,
+} from '../src/engine/map/scene/sprite-catalog';
+import { TileAtlas, SheetLoader } from '../src/engine/map/scene/tile-atlas';
 
-const blob: Vec2[] = [[50, 40], [420, 20], [560, 260], [400, 480], [120, 430], [20, 220]];
+function pngSize(file: string): { width: number; height: number } {
+  const buf = fs.readFileSync(file);
+  return { width: buf.readUInt32BE(16), height: buf.readUInt32BE(20) };
+}
 
-describe('scatterGlyphs', () => {
-  it('is deterministic for the same seed', () => {
-    const a = scatterGlyphs({ polygon: blob, terrainType: 'mountain', seed: 1234 });
-    const b = scatterGlyphs({ polygon: blob, terrainType: 'mountain', seed: 1234 });
-    expect(a.length).toBeGreaterThan(20);
-    expect(a).toEqual(b);
-  });
-
-  it('differs for different seeds', () => {
-    const a = scatterGlyphs({ polygon: blob, terrainType: 'mountain', seed: 1 });
-    const b = scatterGlyphs({ polygon: blob, terrainType: 'mountain', seed: 2 });
-    expect(a).not.toEqual(b);
-  });
-
-  it('keeps every glyph inside the polygon and away from its edge', () => {
-    const glyphs = scatterGlyphs({ polygon: blob, terrainType: 'forest', seed: 7, edgeMargin: 8 });
-    for (const g of glyphs) {
-      expect(pointInPolygon(g.x, g.y, blob)).toBe(true);
-      expect(distanceToPolygonEdge(g.x, g.y, blob)).toBeGreaterThanOrEqual(7.5);
+describe('sprite catalog', () => {
+  it('ships every sheet at its declared size', () => {
+    for (const sheet of Object.values(SHEETS)) {
+      const size = pngSize(path.resolve(process.cwd(), 'public', sheet.url.replace(/^\//, '')));
+      expect(size).toEqual({ width: sheet.width, height: sheet.height });
     }
   });
 
-  it('respects minimum spacing between glyphs', () => {
-    const glyphs = scatterGlyphs({ polygon: blob, terrainType: 'desert', seed: 9 });
-    const spacing = TERRAIN_GLYPHS.desert!.spacing;
-    for (let i = 0; i < glyphs.length; i++) {
-      for (let j = i + 1; j < glyphs.length; j++) {
-        const d = Math.hypot(glyphs[i].x - glyphs[j].x, glyphs[i].y - glyphs[j].y);
-        expect(d).toBeGreaterThanOrEqual(spacing - 1); // -1 tolerates integer rounding
-      }
+  it('keeps every sprite rectangle inside its sheet', () => {
+    for (const [name, def] of Object.entries(SPRITES)) {
+      const sheet = SHEETS[def.sheet];
+      expect(def.x >= 0 && def.y >= 0, name).toBe(true);
+      expect(def.x + def.w <= sheet.width, name).toBe(true);
+      expect(def.y + def.h <= sheet.height, name).toBe(true);
     }
   });
 
-  it('uses the terrain kind and valid variants and scales', () => {
-    const glyphs = scatterGlyphs({ polygon: blob, terrainType: 'mountain', seed: 3 });
-    const spec = TERRAIN_GLYPHS.mountain!;
-    for (const g of glyphs) {
-      expect(g.kind).toBe('peak');
-      expect(g.variant).toBeGreaterThanOrEqual(0);
-      expect(g.variant).toBeLessThan(spec.variants);
-      expect(g.scale).toBeGreaterThanOrEqual(0.85);
-      expect(g.scale).toBeLessThanOrEqual(1.15);
+  it('groups only reference defined sprites and peaks carry a silhouette', () => {
+    const groups = [GRASS_TILES, CONIFERS, ROUND_TREES, PALMS, ROCKS, PEAKS_GREY, PEAKS_SNOW, PEAKS_SMALL];
+    for (const group of groups) {
+      expect(group.length).toBeGreaterThan(0);
+      for (const name of group) expect(SPRITES[name as SpriteName]).toBeDefined();
+    }
+    for (const name of [...PEAKS_GREY, ...PEAKS_SNOW, ...PEAKS_SMALL]) expect(SPRITES[name].peak).toBeDefined();
+  });
+
+  it('maps location types to defined sprites', () => {
+    expect(LOCATION_PROP.city).toBe('castle');
+    for (const sprite of Object.values(LOCATION_PROP)) expect(SPRITES[sprite as SpriteName]).toBeDefined();
+  });
+
+  it('credits every CC-BY sheet', () => {
+    const labels = ART_CREDITS.map((c) => c.label).join(' | ');
+    for (const sheet of Object.values(SHEETS)) {
+      if (sheet.license === 'CC-BY-3.0') expect(labels).toContain(sheet.credit);
+      expect(sheet.sourceUrl).toMatch(/^https:\/\/opengameart\.org\//);
     }
   });
+});
 
-  it('returns glyphs sorted top-to-bottom for correct overlap', () => {
-    const glyphs = scatterGlyphs({ polygon: blob, terrainType: 'forest', seed: 11 });
-    for (let i = 1; i < glyphs.length; i++) {
-      expect(glyphs[i].y >= glyphs[i - 1].y).toBe(true);
-    }
+describe('TileAtlas', () => {
+  const fakeLoader: SheetLoader = {
+    load: async (url) => {
+      const sheet = Object.values(SHEETS).find((s) => s.url === url)!;
+      return new Texture({ source: new TextureSource({ width: sheet.width, height: sheet.height }) });
+    },
+  };
+
+  it('returns Texture.EMPTY before loading or without a loader', async () => {
+    const atlas = new TileAtlas(null);
+    await atlas.load();
+    expect(atlas.ready).toBe(false);
+    expect(atlas.texture('castle')).toBe(Texture.EMPTY);
+    expect(atlas.image('puny')).toBeNull();
   });
 
-  it('caps the glyph count', () => {
-    expect(scatterGlyphs({ polygon: blob, terrainType: 'forest', seed: 5, maxGlyphs: 10 })).toHaveLength(10);
-  });
-
-  it('returns nothing for terrain without glyphs or degenerate polygons', () => {
-    expect(scatterGlyphs({ polygon: blob, terrainType: 'river', seed: 1 })).toEqual([]);
-    expect(scatterGlyphs({ polygon: [[0, 0], [1, 1]], terrainType: 'mountain', seed: 1 })).toEqual([]);
+  it('serves cached sub-textures framed to the sprite rectangle', async () => {
+    const atlas = new TileAtlas(fakeLoader);
+    await atlas.load();
+    expect(atlas.ready).toBe(true);
+    const castle = atlas.texture('castle');
+    expect(castle).toBe(atlas.texture('castle'));
+    expect(castle.frame).toEqual(new Rectangle(SPRITES.castle.x, SPRITES.castle.y, 32, 32));
+    atlas.destroy();
   });
 });
 ```
 
 - [ ] **Step 2: Run test to verify it fails**
 
-Run: `npx vitest run tests/glyph-scatter.test.ts`
-Expected: FAIL — cannot resolve module.
+Run: `npx vitest run tests/sprite-catalog.test.ts`
+Expected: FAIL — cannot resolve `../src/engine/map/scene/sprite-catalog`.
 
-- [ ] **Step 3: Implement**
+- [ ] **Step 3: Implement the catalog**
 
-Create `src/engine/map/scene/glyph-scatter.ts`:
+Create `src/engine/map/scene/sprite-catalog.ts`:
 
 ```ts
 /**
- * Deterministic Poisson-disk style scatter of decorative terrain glyphs
- * (peaks, pines, dunes...) inside hand-authored terrain polygons.
+ * Sprite catalog for the level-select atlas: which sheet, which rectangle.
+ *
+ * Sheets (see CREDITS.md):
+ *  - Puny World overworld tileset by Shade — CC0
+ *  - Worldmap mountains by MrBeast, commissioned by OpenGameArt.org — CC-BY 3.0
+ * Coordinates are in sheet pixels; Puny World uses a 16 px grid.
  */
 
-import { TerrainType } from '../../../domain/map-types';
-import { mulberry32 } from './prng';
-import { polygonBounds, pointInPolygon, distanceToPolygonEdge, Vec2 } from './geometry';
+import { LocationType } from '../../../domain/map-types';
 
-export type GlyphKind = 'peak' | 'pine' | 'dune' | 'reed' | 'shard' | 'vent' | 'crack' | 'tuft' | 'wave';
+export type SheetId = 'puny' | 'mountains';
 
-export interface GlyphSpec {
-  kind: GlyphKind;
-  spacing: number;
-  variants: number;
+export interface SheetDef {
+  url: string;
+  width: number;
+  height: number;
+  license: 'CC0' | 'CC-BY-3.0';
+  credit: string;
+  sourceUrl: string;
 }
 
-export const TERRAIN_GLYPHS: Record<TerrainType, GlyphSpec | null> = {
-  mountain: { kind: 'peak', spacing: 26, variants: 3 },
-  forest: { kind: 'pine', spacing: 14, variants: 3 },
-  desert: { kind: 'dune', spacing: 34, variants: 2 },
-  swamp: { kind: 'reed', spacing: 18, variants: 2 },
-  ice: { kind: 'shard', spacing: 24, variants: 2 },
-  volcanic: { kind: 'vent', spacing: 30, variants: 2 },
-  void: { kind: 'crack', spacing: 40, variants: 2 },
-  plains: { kind: 'tuft', spacing: 48, variants: 2 },
-  ocean: { kind: 'wave', spacing: 56, variants: 2 },
-  river: null,
-  custom: null,
+export const SHEETS: Record<SheetId, SheetDef> = {
+  puny: {
+    url: '/assets/tilesets/punyworld/punyworld-overworld-tileset.png',
+    width: 432,
+    height: 1040,
+    license: 'CC0',
+    credit: 'Puny World tileset by Shade (CC0)',
+    sourceUrl: 'https://opengameart.org/content/16x16-puny-world-tileset',
+  },
+  mountains: {
+    url: '/assets/tilesets/oga-worldmap/mountains.png',
+    width: 192,
+    height: 160,
+    license: 'CC-BY-3.0',
+    credit: 'Worldmap mountains by MrBeast, commissioned by OpenGameArt.org (CC-BY 3.0)',
+    sourceUrl: 'https://opengameart.org/content/worldmapoverworld-tileset',
+  },
 };
 
-export interface ScatteredGlyph {
-  kind: GlyphKind;
-  variant: number;
+export type SpriteName =
+  | 'grass-0'
+  | 'grass-1'
+  | 'grass-2'
+  | 'grass-3'
+  | 'conifer-0'
+  | 'conifer-1'
+  | 'tree-round-0'
+  | 'tree-round-1'
+  | 'tree-round-2'
+  | 'palm-0'
+  | 'palm-1'
+  | 'rock'
+  | 'stones'
+  | 'castle'
+  | 'castle-red'
+  | 'hall-teal'
+  | 'house'
+  | 'cave'
+  | 'peak-grey-0'
+  | 'peak-grey-1'
+  | 'peak-snow-0'
+  | 'peak-snow-1'
+  | 'peak-grey-small'
+  | 'peak-snow-small';
+
+export interface SpriteDef {
+  sheet: SheetId;
   x: number;
   y: number;
-  scale: number;
+  w: number;
+  h: number;
+  /** Mountain sprites are clipped to a triangle silhouette whose apex leans by `lean` px. */
+  peak?: { lean: number };
 }
 
-export interface ScatterOptions {
-  polygon: Vec2[];
-  terrainType: TerrainType;
-  seed: number;
-  spacingScale?: number;
-  edgeMargin?: number;
-  maxGlyphs?: number;
+const P = 16;
+const puny = (tx: number, ty: number, tw = 1, th = 1): SpriteDef => ({
+  sheet: 'puny',
+  x: tx * P,
+  y: ty * P,
+  w: tw * P,
+  h: th * P,
+});
+
+export const SPRITES: Record<SpriteName, SpriteDef> = {
+  'grass-0': puny(0, 0),
+  'grass-1': puny(1, 0),
+  'grass-2': puny(0, 1),
+  'grass-3': puny(1, 1),
+  'conifer-0': puny(17, 7),
+  'conifer-1': puny(17, 9),
+  'tree-round-0': puny(3, 26),
+  'tree-round-1': puny(0, 27),
+  'tree-round-2': puny(0, 29),
+  'palm-0': puny(3, 28),
+  'palm-1': puny(0, 31),
+  rock: puny(0, 26),
+  stones: puny(1, 26),
+  castle: puny(10, 26, 2, 2),
+  'castle-red': puny(22, 32, 2, 2),
+  'hall-teal': puny(12, 32, 2, 2),
+  house: puny(8, 28),
+  cave: puny(19, 4),
+  'peak-grey-0': { sheet: 'mountains', x: 20, y: 20, w: 40, h: 40, peak: { lean: 0 } },
+  'peak-grey-1': { sheet: 'mountains', x: 40, y: 30, w: 40, h: 40, peak: { lean: -4 } },
+  'peak-snow-0': { sheet: 'mountains', x: 116, y: 20, w: 40, h: 40, peak: { lean: 0 } },
+  'peak-snow-1': { sheet: 'mountains', x: 136, y: 30, w: 40, h: 40, peak: { lean: 4 } },
+  'peak-grey-small': { sheet: 'mountains', x: 24, y: 100, w: 32, h: 32, peak: { lean: 0 } },
+  'peak-snow-small': { sheet: 'mountains', x: 120, y: 100, w: 32, h: 32, peak: { lean: 0 } },
+};
+
+export const GRASS_TILES: SpriteName[] = ['grass-0', 'grass-1', 'grass-2', 'grass-3'];
+export const CONIFERS: SpriteName[] = ['conifer-0', 'conifer-1'];
+export const ROUND_TREES: SpriteName[] = ['tree-round-0', 'tree-round-1', 'tree-round-2'];
+export const PALMS: SpriteName[] = ['palm-0', 'palm-1'];
+export const ROCKS: SpriteName[] = ['rock', 'stones'];
+export const PEAKS_GREY: SpriteName[] = ['peak-grey-0', 'peak-grey-1'];
+export const PEAKS_SNOW: SpriteName[] = ['peak-snow-0', 'peak-snow-1'];
+export const PEAKS_SMALL: SpriteName[] = ['peak-grey-small', 'peak-snow-small'];
+
+/** Location types drawn with a tileset prop; the rest use code-drawn fallback icons. */
+export const LOCATION_PROP: Partial<Record<LocationType, SpriteName>> = {
+  city: 'castle',
+  castle: 'castle-red',
+  sect: 'hall-teal',
+  temple: 'hall-teal',
+  clan: 'house',
+  village: 'house',
+  dungeon: 'cave',
+  cave: 'cave',
+  mountain: 'cave',
+};
+
+export const ART_CREDITS: Array<{ label: string; url: string }> = Object.values(SHEETS).map((sheet) => ({
+  label: sheet.credit,
+  url: sheet.sourceUrl,
+}));
+```
+
+- [ ] **Step 4: Implement the tile atlas**
+
+Create `src/engine/map/scene/tile-atlas.ts`:
+
+```ts
+/**
+ * Loads the tileset sheets once (Pixi Assets) and serves:
+ *  - nearest-filtered sub-textures for live layers (markers, props)
+ *  - raw sheet images for the Canvas 2D plane painter
+ */
+
+import { Assets, Rectangle, Texture } from 'pixi.js';
+import { SheetId, SHEETS, SpriteName, SPRITES } from './sprite-catalog';
+
+export interface SheetLoader {
+  load(url: string): Promise<Texture>;
 }
 
-export function scatterGlyphs(options: ScatterOptions): ScatteredGlyph[] {
-  const spec = TERRAIN_GLYPHS[options.terrainType];
-  const poly = options.polygon;
-  if (!spec || poly.length < 3) return [];
+export const assetsLoader: SheetLoader = {
+  load: (url) => Assets.load<Texture>(url),
+};
 
-  const rng = mulberry32(options.seed);
-  const spacing = spec.spacing * (options.spacingScale ?? 1);
-  const margin = options.edgeMargin ?? 6;
-  const maxGlyphs = options.maxGlyphs ?? 4000;
-  const bounds = polygonBounds(poly);
-  const width = bounds.maxX - bounds.minX;
-  const height = bounds.maxY - bounds.minY;
-  const attempts = Math.min(40000, Math.ceil(((width * height) / (spacing * spacing)) * 8));
+export class TileAtlas {
+  private readonly sheets = new Map<SheetId, Texture>();
+  private readonly cache = new Map<SpriteName, Texture>();
 
-  const cellSize = spacing / Math.SQRT2;
-  const grid = new Map<string, ScatteredGlyph>();
-  const keyOf = (x: number, y: number) =>
-    `${Math.floor((x - bounds.minX) / cellSize)},${Math.floor((y - bounds.minY) / cellSize)}`;
+  constructor(private readonly loader: SheetLoader | null) {}
 
-  const tooClose = (x: number, y: number): boolean => {
-    const gx = Math.floor((x - bounds.minX) / cellSize);
-    const gy = Math.floor((y - bounds.minY) / cellSize);
-    for (let dx = -2; dx <= 2; dx++) {
-      for (let dy = -2; dy <= 2; dy++) {
-        const other = grid.get(`${gx + dx},${gy + dy}`);
-        if (other && Math.hypot(other.x - x, other.y - y) < spacing) return true;
-      }
-    }
-    return false;
-  };
-
-  const result: ScatteredGlyph[] = [];
-  for (let i = 0; i < attempts && result.length < maxGlyphs; i++) {
-    const x = Math.round(bounds.minX + rng() * width);
-    const y = Math.round(bounds.minY + rng() * height);
-    if (!pointInPolygon(x, y, poly)) continue;
-    if (distanceToPolygonEdge(x, y, poly) < margin) continue;
-    if (tooClose(x, y)) continue;
-    const glyph: ScatteredGlyph = {
-      kind: spec.kind,
-      variant: Math.floor(rng() * spec.variants),
-      x,
-      y,
-      scale: 0.85 + rng() * 0.3,
-    };
-    grid.set(keyOf(x, y), glyph);
-    result.push(glyph);
+  public get ready(): boolean {
+    return this.sheets.size === Object.keys(SHEETS).length;
   }
 
-  return result.sort((a, b) => a.y - b.y || a.x - b.x);
+  public async load(): Promise<void> {
+    if (!this.loader || this.ready) return;
+    const loader = this.loader;
+    await Promise.all(
+      (Object.keys(SHEETS) as SheetId[]).map(async (id) => {
+        const texture = await loader.load(SHEETS[id].url);
+        texture.source.scaleMode = 'nearest';
+        this.sheets.set(id, texture);
+      })
+    );
+  }
+
+  public texture(name: SpriteName): Texture {
+    const cached = this.cache.get(name);
+    if (cached) return cached;
+    const def = SPRITES[name];
+    const sheet = this.sheets.get(def.sheet);
+    if (!sheet) return Texture.EMPTY;
+    const texture = new Texture({ source: sheet.source, frame: new Rectangle(def.x, def.y, def.w, def.h) });
+    this.cache.set(name, texture);
+    return texture;
+  }
+
+  public image(sheet: SheetId): CanvasImageSource | null {
+    const resource = this.sheets.get(sheet)?.source.resource as CanvasImageSource | undefined;
+    return resource ?? null;
+  }
+
+  public destroy(): void {
+    for (const texture of this.cache.values()) texture.destroy(false);
+    this.cache.clear();
+  }
 }
 ```
 
-- [ ] **Step 4: Run tests**
+- [ ] **Step 5: Write CREDITS.md**
 
-Run: `npx vitest run tests/glyph-scatter.test.ts`
-Expected: PASS (8 tests). If "respects minimum spacing" fails, the grid neighborhood is too small: `cellSize = spacing/√2` guarantees one point per cell and neighbors within `2` cells cover `2·cellSize ≈ 1.41·spacing ≥ spacing`, so check that `keyOf` and `tooClose` use the same origin (`bounds.minX/minY`).
+Create `CREDITS.md`:
 
-- [ ] **Step 5: Typecheck and commit**
+```markdown
+# Art Credits
 
-Run: `npx tsc --noEmit`
+OmniLore's world atlas is composed from these open-licensed pixel-art sets.
+
+| Asset | Author | License | Source |
+| --- | --- | --- | --- |
+| Puny World overworld tileset (`public/assets/tilesets/punyworld/`) | Shade | CC0 1.0 (public domain) | https://opengameart.org/content/16x16-puny-world-tileset |
+| Worldmap/Overworld tileset — mountains (`public/assets/tilesets/oga-worldmap/mountains.png`) | MrBeast, commissioned by OpenGameArt.org | CC-BY 3.0 — https://creativecommons.org/licenses/by/3.0/ | https://opengameart.org/content/worldmapoverworld-tileset |
+
+The mountain sprites are cropped and clipped to triangle silhouettes at render time; no other changes were made.
+```
+
+- [ ] **Step 6: Run tests, typecheck, commit**
+
+Run: `npx vitest run tests/sprite-catalog.test.ts && npx tsc --noEmit`
+Expected: PASS (7 tests), clean.
 
 ```bash
-git add src/engine/map/scene/glyph-scatter.ts tests/glyph-scatter.test.ts
-git commit -m "feat(map): add deterministic poisson glyph scatter for terrain decoration
+git add public/assets/tilesets CREDITS.md src/engine/map/scene/sprite-catalog.ts src/engine/map/scene/tile-atlas.ts tests/sprite-catalog.test.ts
+git commit -m "feat(map): add CC0/CC-BY tilesets, sprite catalog, tile atlas and credits
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 ```
 
 ---
 
-### Task 7: Pixel palette and color math
+### Task 7: Color math, sprite palettes and per-universe looks
 
 **Files:**
 - Create: `src/engine/map/scene/pixel-palette.ts`
+- Create: `src/engine/map/scene/universe-look.ts`
 - Test: `tests/pixel-palette.test.ts`
 
 **Interfaces:**
-- Consumes: `MapTheme`, `TerrainType`, `DangerLevel`, `PlaneBackdrop`, `UNIVERSE_MAP_THEMES`.
-- Produces:
-  - `hexToRgb(hex: string): { r: number; g: number; b: number }` (accepts `#rgb`, `#rrggbb`, `rgba(...)`/`rgb(...)`)
+- Consumes: `MapTheme`, `DangerLevel`.
+- Produces (`pixel-palette.ts`):
+  - `hexToRgb(color: string): { r: number; g: number; b: number }` (accepts `#rgb`, `#rrggbb`, `rgb(...)`, `rgba(...)`)
   - `rgbToHex(r: number, g: number, b: number): string`
   - `mix(a: string, b: string, t: number): string`
-  - `shade(hex: string, amount: number): string` (amount in [-1, 1]; negative → toward black, positive → toward white)
-  - `luminance(hex: string): number` (0..1, relative)
-  - `hexToRgb01(hex: string): [number, number, number]`
-  - `type Ramp = [string, string, string, string]` (deep, base, light, highlight)
-  - `biomeRamp(theme: MapTheme, terrainType: TerrainType, colorOverride?: string): Ramp`
-  - `backdropColor(theme: MapTheme, backdrop: PlaneBackdrop): string`
+  - `shade(color: string, amount: number): string` (−1 → black … +1 → white)
+  - `luminance(color: string): number`
+  - `hexToRgb01(color: string): [number, number, number]`
   - `const DANGER_COLORS: Record<DangerLevel, string>`
-  - `type PixelChar = 'o' | 'd' | 'b' | 'l' | 'h' | 's' | 'a' | 'w'`
-  - `type PixelSpritePalette = Record<PixelChar, string>`
-  - `spritePalette(theme: MapTheme, tint?: string): PixelSpritePalette`
-  - `rampPalette(ramp: Ramp, accent: string): PixelSpritePalette`
-  - `silhouettePalette(color: string): PixelSpritePalette`
+  - `type PixelChar = 'o' | 'd' | 'b' | 'l' | 'h' | 's' | 'a' | 'w'`, `type PixelSpritePalette = Record<PixelChar, string>`
+  - `spritePalette(theme: MapTheme, tint?: string): PixelSpritePalette`, `silhouettePalette(color: string): PixelSpritePalette`
+- Produces (`universe-look.ts`):
+  - `interface UniverseLook { tint: string; amount: number; saturation: number; sea: string; seaDeep: string; shelf: string; shallows: string; sand: string; foam: string; grass: string; fogColor: string; fogOpacity: number }`
+  - `const DEFAULT_LOOK: UniverseLook`, `const UNIVERSE_LOOKS: Record<string, UniverseLook>`, `getUniverseLook(slug: string): UniverseLook`
+  - `gradePixels(data: Uint8ClampedArray, look: Pick<UniverseLook, 'tint' | 'amount' | 'saturation'>): void` — in place: saturation around Rec.601 luma, then mix toward `tint` by `amount`; alpha untouched.
 
 - [ ] **Step 1: Write the failing test**
 
@@ -2251,18 +2597,14 @@ import {
   shade,
   luminance,
   hexToRgb01,
-  biomeRamp,
-  backdropColor,
   DANGER_COLORS,
   spritePalette,
-  rampPalette,
   silhouettePalette,
 } from '../src/engine/map/scene/pixel-palette';
+import { UNIVERSE_LOOKS, DEFAULT_LOOK, getUniverseLook, gradePixels } from '../src/engine/map/scene/universe-look';
 import { UNIVERSE_MAP_THEMES } from '../src/domain/map-themes';
-import { TerrainType } from '../src/domain/map-types';
 
 const HEX = /^#[0-9a-f]{6}$/;
-const TERRAIN_TYPES: TerrainType[] = ['ocean', 'river', 'mountain', 'forest', 'desert', 'plains', 'swamp', 'ice', 'volcanic', 'void', 'custom'];
 
 describe('color math', () => {
   it('parses and formats colors', () => {
@@ -2273,64 +2615,55 @@ describe('color math', () => {
     expect(hexToRgb01('#ff0000')).toEqual([1, 0, 0]);
   });
 
-  it('mixes and shades toward black and white', () => {
+  it('mixes and shades', () => {
     expect(mix('#000000', '#ffffff', 0.5)).toBe('#808080');
     expect(shade('#808080', -1)).toBe('#000000');
     expect(shade('#808080', 1)).toBe('#ffffff');
     expect(shade('#808080', 0)).toBe('#808080');
-  });
-
-  it('computes relative luminance', () => {
     expect(luminance('#000000')).toBe(0);
     expect(luminance('#ffffff')).toBeCloseTo(1);
   });
-});
 
-describe('biome ramps', () => {
-  it('returns 4 valid, increasingly bright tones for every theme and terrain', () => {
-    for (const theme of Object.values(UNIVERSE_MAP_THEMES)) {
-      for (const type of TERRAIN_TYPES) {
-        const ramp = biomeRamp(theme, type);
-        expect(ramp).toHaveLength(4);
-        for (const c of ramp) expect(c).toMatch(HEX);
-        expect(luminance(ramp[0])).toBeLessThan(luminance(ramp[1]));
-        expect(luminance(ramp[1])).toBeLessThan(luminance(ramp[2]));
-        expect(luminance(ramp[2])).toBeLessThan(luminance(ramp[3]));
-      }
-    }
-  });
-
-  it('honors a terrain color override as the base tone family', () => {
-    const theme = UNIVERSE_MAP_THEMES['reverend-insanity'];
-    const ramp = biomeRamp(theme, 'plains', '#aa0000');
-    const { r, g, b } = hexToRgb(ramp[1]);
-    expect(r).toBeGreaterThan(g);
-    expect(r).toBeGreaterThan(b);
-  });
-
-  it('provides backdrop colors for every backdrop', () => {
-    const theme = UNIVERSE_MAP_THEMES['one-piece'];
-    for (const b of ['void', 'sky', 'sea', 'abyss', 'river'] as const) {
-      expect(backdropColor(theme, b)).toMatch(HEX);
-    }
-  });
-});
-
-describe('sprite palettes', () => {
-  it('covers every danger level', () => {
+  it('covers every danger level and builds complete sprite palettes', () => {
     expect(Object.keys(DANGER_COLORS).sort()).toEqual(['A', 'B', 'EX', 'S', 'Safe']);
-  });
-
-  it('builds palettes with every pixel character', () => {
-    const theme = UNIVERSE_MAP_THEMES['coiling-dragon'];
-    for (const palette of [
-      spritePalette(theme),
-      rampPalette(biomeRamp(theme, 'forest'), '#ff0000'),
-      silhouettePalette('#111111'),
-    ]) {
+    for (const palette of [spritePalette(UNIVERSE_MAP_THEMES['coiling-dragon']), silhouettePalette('#111111')]) {
       expect(Object.keys(palette).sort()).toEqual(['a', 'b', 'd', 'h', 'l', 'o', 's', 'w']);
       for (const c of Object.values(palette)) expect(c).toMatch(HEX);
     }
+  });
+});
+
+describe('universe looks', () => {
+  it('defines a valid look for every themed universe', () => {
+    for (const slug of Object.keys(UNIVERSE_MAP_THEMES)) {
+      const look = getUniverseLook(slug);
+      expect(UNIVERSE_LOOKS[slug], slug).toBeDefined();
+      for (const key of ['tint', 'sea', 'seaDeep', 'shelf', 'shallows', 'sand', 'foam', 'grass', 'fogColor'] as const) {
+        expect(look[key], `${slug}.${key}`).toMatch(HEX);
+      }
+      expect(look.amount).toBeGreaterThanOrEqual(0);
+      expect(look.amount).toBeLessThanOrEqual(0.3);
+      expect(look.fogOpacity).toBeGreaterThan(0.5);
+    }
+    expect(getUniverseLook('unknown-universe')).toBe(DEFAULT_LOOK);
+  });
+
+  it('grades pixels: identity, full desaturation, full tint, alpha kept', () => {
+    const px = () => new Uint8ClampedArray([200, 100, 50, 77]);
+
+    const same = px();
+    gradePixels(same, { tint: '#000000', amount: 0, saturation: 1 });
+    expect(Array.from(same)).toEqual([200, 100, 50, 77]);
+
+    const gray = px();
+    gradePixels(gray, { tint: '#000000', amount: 0, saturation: 0 });
+    expect(gray[0]).toBe(gray[1]);
+    expect(gray[1]).toBe(gray[2]);
+    expect(gray[3]).toBe(77);
+
+    const tinted = px();
+    gradePixels(tinted, { tint: '#10a0f0', amount: 1, saturation: 1 });
+    expect(Array.from(tinted)).toEqual([16, 160, 240, 77]);
   });
 });
 ```
@@ -2338,20 +2671,20 @@ describe('sprite palettes', () => {
 - [ ] **Step 2: Run test to verify it fails**
 
 Run: `npx vitest run tests/pixel-palette.test.ts`
-Expected: FAIL — cannot resolve module.
+Expected: FAIL — cannot resolve modules.
 
-- [ ] **Step 3: Implement**
+- [ ] **Step 3: Implement `pixel-palette.ts`**
 
 Create `src/engine/map/scene/pixel-palette.ts`:
 
 ```ts
 /**
- * Pixel-gothic palette math: biome ramps, backdrops, sprite palettes.
- * Pure (no Pixi). All outputs are lowercase #rrggbb.
+ * Color math plus palettes for the code-drawn pixel sprites
+ * (fallback icons, landmark glyphs, waypoint pylon). Pure.
  */
 
 import { MapTheme } from '../../../domain/map-themes';
-import { DangerLevel, PlaneBackdrop, TerrainType } from '../../../domain/map-types';
+import { DangerLevel } from '../../../domain/map-types';
 
 export interface Rgb {
   r: number;
@@ -2362,9 +2695,7 @@ export interface Rgb {
 export function hexToRgb(color: string): Rgb {
   const value = color.trim().toLowerCase();
   const rgbMatch = value.match(/^rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/);
-  if (rgbMatch) {
-    return { r: Number(rgbMatch[1]), g: Number(rgbMatch[2]), b: Number(rgbMatch[3]) };
-  }
+  if (rgbMatch) return { r: Number(rgbMatch[1]), g: Number(rgbMatch[2]), b: Number(rgbMatch[3]) };
   let hex = value.replace('#', '');
   if (hex.length === 3) hex = hex.split('').map((c) => c + c).join('');
   const num = parseInt(hex.slice(0, 6), 16);
@@ -2404,68 +2735,6 @@ export function hexToRgb01(color: string): [number, number, number] {
   return [r / 255, g / 255, b / 255];
 }
 
-export type Ramp = [string, string, string, string];
-
-/** Neutral gothic base tones per biome; mixed with theme colors for per-universe mood. */
-const BIOME_BASE: Record<TerrainType, string> = {
-  ocean: '#10263a',
-  river: '#1f5f7a',
-  mountain: '#4a423a',
-  forest: '#1f3d26',
-  desert: '#7a6338',
-  plains: '#34422a',
-  swamp: '#2b3a2e',
-  ice: '#8ea9ba',
-  volcanic: '#5a2218',
-  void: '#241c3d',
-  custom: '#3a3a3a',
-};
-
-const PARCHMENT_SHADOW = '#2b2620';
-
-function themedBase(theme: MapTheme, terrainType: TerrainType): string {
-  const palette = theme.palette as Record<string, unknown>;
-  const pick = (key: string) => (typeof palette[key] === 'string' ? (palette[key] as string) : null);
-  switch (terrainType) {
-    case 'plains':
-      return mix(BIOME_BASE.plains, pick('landColor') ?? BIOME_BASE.plains, 0.5);
-    case 'ocean':
-      return mix(BIOME_BASE.ocean, pick('seaColor') ?? BIOME_BASE.ocean, 0.5);
-    case 'mountain':
-      return mix(BIOME_BASE.mountain, pick('mountainColor') ?? BIOME_BASE.mountain, 0.35);
-    default:
-      return mix(BIOME_BASE[terrainType], theme.palette.primaryAccent, 0.08);
-  }
-}
-
-export function biomeRamp(theme: MapTheme, terrainType: TerrainType, colorOverride?: string): Ramp {
-  const source = colorOverride ?? themedBase(theme, terrainType);
-  // Gothic mood: pull every base slightly toward a dark parchment tone
-  let base = mix(source, PARCHMENT_SHADOW, 0.15);
-  // Guarantee headroom for the dark tone on near-black bases
-  if (luminance(base) < 0.004) base = shade(base, 0.12);
-  return [shade(base, -0.45), base, shade(base, 0.18), shade(base, 0.4)];
-}
-
-export function backdropColor(theme: MapTheme, backdrop: PlaneBackdrop): string {
-  const bg = theme.palette.background;
-  const palette = theme.palette as Record<string, unknown>;
-  const sea = typeof palette.seaColor === 'string' ? (palette.seaColor as string) : '#0a1a2a';
-  switch (backdrop) {
-    case 'sea':
-      return mix(sea, '#0b2236', 0.35);
-    case 'sky':
-      return mix(bg, '#3b4a6b', 0.35);
-    case 'abyss':
-      return shade(bg, -0.4);
-    case 'river':
-      return mix(bg, theme.palette.primaryAccent, 0.08);
-    case 'void':
-    default:
-      return shade(bg, 0);
-  }
-}
-
 export const DANGER_COLORS: Record<DangerLevel, string> = {
   EX: '#dc2626',
   S: '#f97316',
@@ -2477,10 +2746,9 @@ export const DANGER_COLORS: Record<DangerLevel, string> = {
 export type PixelChar = 'o' | 'd' | 'b' | 'l' | 'h' | 's' | 'a' | 'w';
 export type PixelSpritePalette = Record<PixelChar, string>;
 
-const OUTLINE = '#0b0b10';
-const BONE = '#d8d0bc';
+const OUTLINE = '#1a1410';
+const BONE = '#e8dcc0';
 
-/** Palette for landmark and location icons, tinted by the universe accent. */
 export function spritePalette(theme: MapTheme, tint?: string): PixelSpritePalette {
   const base = shade(tint ?? mix(theme.palette.primaryAccent, BONE, 0.35), 0);
   return {
@@ -2495,55 +2763,116 @@ export function spritePalette(theme: MapTheme, tint?: string): PixelSpritePalett
   };
 }
 
-/** Palette for terrain glyphs, derived from the biome ramp they sit on. */
-export function rampPalette(ramp: Ramp, accent: string): PixelSpritePalette {
-  return {
-    o: shade(ramp[0], -0.35),
-    d: ramp[0],
-    b: shade(ramp[1], 0.08),
-    l: ramp[2],
-    h: ramp[3],
-    s: shade(ramp[3], 0.25),
-    a: shade(accent, 0),
-    w: '#ffffff',
-  };
-}
-
 export function silhouettePalette(color: string): PixelSpritePalette {
   const c = shade(color, 0);
   return { o: c, d: c, b: c, l: c, h: c, s: c, a: c, w: c };
 }
 ```
 
-- [ ] **Step 4: Run tests**
+- [ ] **Step 4: Implement `universe-look.ts`**
 
-Run: `npx vitest run tests/pixel-palette.test.ts`
-Expected: PASS (8 tests). If the strictly-increasing luminance assertion fails for a very dark theme base (e.g. `#04100c`), raise the headroom guard threshold in `biomeRamp` from `0.004` to `0.01` and re-run.
+Create `src/engine/map/scene/universe-look.ts`:
 
-- [ ] **Step 5: Typecheck and commit**
+```ts
+/**
+ * Per-universe look for the level-select atlas: a color grade applied to
+ * the baked plane plus water, sand, grass and fog colors. Same tiles,
+ * different mood per universe.
+ */
 
-Run: `npx tsc --noEmit`
+import { hexToRgb } from './pixel-palette';
+
+export interface UniverseLook {
+  tint: string;
+  amount: number;
+  saturation: number;
+  sea: string;
+  seaDeep: string;
+  shelf: string;
+  shallows: string;
+  sand: string;
+  foam: string;
+  grass: string;
+  fogColor: string;
+  fogOpacity: number;
+}
+
+const BASE = {
+  sea: '#2076aa',
+  seaDeep: '#1a6296',
+  shelf: '#46aac8',
+  shallows: '#68c4d6',
+  sand: '#ecd696',
+  foam: '#eefaff',
+  grass: '#6a9c3c',
+  fogColor: '#e6ecf2',
+  fogOpacity: 0.94,
+};
+
+export const DEFAULT_LOOK: UniverseLook = { ...BASE, tint: '#ffffff', amount: 0, saturation: 1 };
+
+export const UNIVERSE_LOOKS: Record<string, UniverseLook> = {
+  'reverend-insanity': { ...BASE, tint: '#14966e', amount: 0.12, saturation: 0.9, fogColor: '#dfeee6' },
+  'lord-of-the-mysteries': { ...BASE, tint: '#503282', amount: 0.22, saturation: 0.6, fogColor: '#cfc8dc' },
+  'coiling-dragon': { ...BASE, tint: '#f0a030', amount: 0.08, saturation: 1.05, fogColor: '#f2eadb' },
+  'demonic-emperor': { ...BASE, tint: '#8a1830', amount: 0.16, saturation: 0.75, fogColor: '#d8c8cc' },
+  'one-piece': { ...BASE, tint: '#1080d0', amount: 0.05, saturation: 1.1, fogColor: '#e8f2fa' },
+  'solo-leveling': { ...BASE, tint: '#102850', amount: 0.25, saturation: 0.7, fogColor: '#b8c4d8', fogOpacity: 0.96 },
+};
+
+export function getUniverseLook(slug: string): UniverseLook {
+  return UNIVERSE_LOOKS[slug] ?? DEFAULT_LOOK;
+}
+
+/** In-place grade: saturation around luma, then mix toward the tint. Alpha untouched. */
+export function gradePixels(
+  data: Uint8ClampedArray,
+  look: Pick<UniverseLook, 'tint' | 'amount' | 'saturation'>
+): void {
+  const { r: tr, g: tg, b: tb } = hexToRgb(look.tint);
+  const { amount, saturation } = look;
+  if (amount === 0 && saturation === 1) return;
+  for (let i = 0; i < data.length; i += 4) {
+    const r = data[i];
+    const g = data[i + 1];
+    const b = data[i + 2];
+    const luma = 0.299 * r + 0.587 * g + 0.114 * b;
+    const sr = luma + (r - luma) * saturation;
+    const sg = luma + (g - luma) * saturation;
+    const sb = luma + (b - luma) * saturation;
+    data[i] = sr + (tr - sr) * amount;
+    data[i + 1] = sg + (tg - sg) * amount;
+    data[i + 2] = sb + (tb - sb) * amount;
+  }
+}
+```
+
+(`Uint8ClampedArray` assignment rounds and clamps automatically.)
+
+- [ ] **Step 5: Run tests, typecheck, commit**
+
+Run: `npx vitest run tests/pixel-palette.test.ts && npx tsc --noEmit`
+Expected: PASS (5 tests), clean.
 
 ```bash
-git add src/engine/map/scene/pixel-palette.ts tests/pixel-palette.test.ts
-git commit -m "feat(map): add pixel-gothic biome ramps and sprite palettes
+git add src/engine/map/scene/pixel-palette.ts src/engine/map/scene/universe-look.ts tests/pixel-palette.test.ts
+git commit -m "feat(map): add color math and per-universe atlas looks with pixel grading
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 ```
 
 ---
 
-### Task 8: Pixel sprite art and grid renderer
+### Task 8: Code-drawn pixel sprites (fallback icons, landmarks, pylon)
 
 **Files:**
 - Create: `src/engine/map/scene/pixel-sprites.ts`
 - Test: `tests/pixel-sprites.test.ts`
 
 **Interfaces:**
-- Consumes: `LocationType`, `LandmarkGlyphKind` (Task 1); `GlyphKind`, `TERRAIN_GLYPHS` (Task 6); `PixelChar`, `PixelSpritePalette` (Task 7).
+- Consumes: `LocationType`, `LandmarkGlyphKind` (Task 1); `PixelChar`, `PixelSpritePalette` (Task 7). Terrain decoration comes from the tilesets (Tasks 6 and 12); these grids cover only what the sheets lack.
 - Produces:
   - `LOCATION_ICONS: Record<LocationType, string[]>` — 12×12 grids.
-  - `GLYPH_SPRITES: Record<GlyphKind, string[][]>` — per kind, `TERRAIN_GLYPHS[type].variants` variants of 8×8 grids.
   - `LANDMARK_SPRITES: Record<LandmarkGlyphKind, string[]>` — 12×12 grids.
   - `WAYPOINT_PYLON: string[]` — 8 wide × 9 tall.
   - `PIXEL_GRID_CHARS: ReadonlySet<string>` = `. o d b l h s a w`.
@@ -2559,13 +2888,11 @@ import { describe, it, expect } from 'vitest';
 import { Graphics } from 'pixi.js';
 import {
   LOCATION_ICONS,
-  GLYPH_SPRITES,
   LANDMARK_SPRITES,
   WAYPOINT_PYLON,
   PIXEL_GRID_CHARS,
   drawPixelGrid,
 } from '../src/engine/map/scene/pixel-sprites';
-import { TERRAIN_GLYPHS } from '../src/engine/map/scene/glyph-scatter';
 import { silhouettePalette } from '../src/engine/map/scene/pixel-palette';
 import { LocationType, LandmarkGlyphKind } from '../src/domain/map-types';
 
@@ -2584,15 +2911,6 @@ function expectGrid(grid: string[], width: number, height: number, label: string
 describe('pixel sprites', () => {
   it('defines a 12x12 icon for every location type', () => {
     for (const type of LOCATION_TYPES) expectGrid(LOCATION_ICONS[type], 12, 12, `icon ${type}`);
-  });
-
-  it('defines the declared number of 8x8 variants for every glyph kind', () => {
-    for (const spec of Object.values(TERRAIN_GLYPHS)) {
-      if (!spec) continue;
-      const variants = GLYPH_SPRITES[spec.kind];
-      expect(variants, spec.kind).toHaveLength(spec.variants);
-      variants.forEach((grid, i) => expectGrid(grid, 8, 8, `glyph ${spec.kind}#${i}`));
-    }
   });
 
   it('defines a 12x12 sprite for every landmark glyph kind', () => {
@@ -2627,7 +2945,7 @@ Create `src/engine/map/scene/pixel-sprites.ts`:
 
 ```ts
 /**
- * Hand-drawn pixel-grid sprites for the pixel-gothic atlas.
+ * Code-drawn pixel-grid sprites for what the tilesets lack (fallback icons, landmarks, pylon).
  *
  * Legend: '.' transparent, 'o' outline, 'd' dark, 'b' base, 'l' light,
  * 'h' highlight, 's' stone/bone, 'a' accent (glow/lava/danger), 'w' white.
@@ -2635,7 +2953,6 @@ Create `src/engine/map/scene/pixel-sprites.ts`:
 
 import { Graphics } from 'pixi.js';
 import { LandmarkGlyphKind, LocationType } from '../../../domain/map-types';
-import { GlyphKind } from './glyph-scatter';
 import { PixelChar, PixelSpritePalette } from './pixel-palette';
 
 export const PIXEL_GRID_CHARS: ReadonlySet<string> = new Set(['.', 'o', 'd', 'b', 'l', 'h', 's', 'a', 'w']);
@@ -2896,227 +3213,6 @@ export const LOCATION_ICONS: Record<LocationType, string[]> = {
   ],
 };
 
-export const GLYPH_SPRITES: Record<GlyphKind, string[][]> = {
-  peak: [
-    [
-      '...oo...',
-      '..ohho..',
-      '..olbo..',
-      '.olbbdo.',
-      '.obbddo.',
-      'olbbdddo',
-      'oooooooo',
-      '........',
-    ],
-    [
-      '........',
-      '..o.....',
-      '.oho.o..',
-      '.olboho.',
-      'olbbolbo',
-      'obbdobdo',
-      'oooooooo',
-      '........',
-    ],
-    [
-      '........',
-      '........',
-      '...oo...',
-      '..ohho..',
-      '.olbbdo.',
-      'obbbddo.',
-      'ooooooo.',
-      '........',
-    ],
-  ],
-  pine: [
-    [
-      '...oo...',
-      '..olbo..',
-      '.olbbdo.',
-      '..obdo..',
-      '.olbbdo.',
-      'olbbbddo',
-      'oooddooo',
-      '...dd...',
-    ],
-    [
-      '........',
-      '...oo...',
-      '..olbo..',
-      '.olbbdo.',
-      '..obdo..',
-      '.olbbdo.',
-      '.oooooo.',
-      '...dd...',
-    ],
-    [
-      '..oooo..',
-      '.olllbo.',
-      'olllbbbo',
-      'olbbbbdo',
-      '.obbddo.',
-      '..oddo..',
-      '...dd...',
-      '...dd...',
-    ],
-  ],
-  dune: [
-    [
-      '........',
-      '........',
-      '...oooo.',
-      '..ohlllo',
-      '.ohlllbo',
-      'olllbbbo',
-      'oooooooo',
-      '........',
-    ],
-    [
-      '........',
-      '........',
-      '........',
-      'oooo....',
-      'ollloo..',
-      'olllbbo.',
-      'oooooooo',
-      '........',
-    ],
-  ],
-  reed: [
-    [
-      '........',
-      '.h...h..',
-      '.o.h.o..',
-      '.o.o.o.h',
-      '.o.o.o.o',
-      '.oloolo.',
-      '..oooo..',
-      '........',
-    ],
-    [
-      '........',
-      '..h.....',
-      '..o..h..',
-      '..o.oo..',
-      '.oo.o.o.',
-      '.o.oo.o.',
-      '..oooo..',
-      '........',
-    ],
-  ],
-  shard: [
-    [
-      '...o....',
-      '..oho...',
-      '..olo.o.',
-      '.olbooho',
-      '.olbolbo',
-      'olbbolbo',
-      'oooooooo',
-      '........',
-    ],
-    [
-      '....o...',
-      '...oho..',
-      '...olo..',
-      '..olbo..',
-      '..olbo..',
-      '.olbbdo.',
-      '.oooooo.',
-      '........',
-    ],
-  ],
-  vent: [
-    [
-      '...ss...',
-      '..s..s..',
-      '...ss...',
-      '..oooo..',
-      '.obaabo.',
-      'obbaabbo',
-      'oooooooo',
-      '........',
-    ],
-    [
-      '....s...',
-      '...s....',
-      '....s...',
-      '........',
-      '..oaao..',
-      '.obaabo.',
-      'oooooooo',
-      '........',
-    ],
-  ],
-  crack: [
-    [
-      '........',
-      'o.......',
-      '.o......',
-      '..oa....',
-      '...oao..',
-      '....o.a.',
-      '......oa',
-      '........',
-    ],
-    [
-      '.....o..',
-      '....o...',
-      '...ao...',
-      '..oa....',
-      '..o.o...',
-      '.o...oa.',
-      'o.......',
-      '........',
-    ],
-  ],
-  tuft: [
-    [
-      '........',
-      '........',
-      '........',
-      '........',
-      '..l.l...',
-      '.lbllb..',
-      '..bdb...',
-      '........',
-    ],
-    [
-      '........',
-      '........',
-      '........',
-      '........',
-      '...l....',
-      '.l.b.l..',
-      '..bbb...',
-      '........',
-    ],
-  ],
-  wave: [
-    [
-      '........',
-      '........',
-      '........',
-      '.ll.....',
-      'l..l..l.',
-      '....ll..',
-      '........',
-      '........',
-    ],
-    [
-      '........',
-      '........',
-      '........',
-      '....ll..',
-      '...l..l.',
-      '.ll.....',
-      '........',
-      '........',
-    ],
-  ],
-};
-
 export const LANDMARK_SPRITES: Record<LandmarkGlyphKind, string[]> = {
   volcano: [
     '....aaa.....',
@@ -3276,7 +3372,7 @@ export const WAYPOINT_PYLON: string[] = [
 - [ ] **Step 4: Run tests**
 
 Run: `npx vitest run tests/pixel-sprites.test.ts`
-Expected: PASS (5 tests).
+Expected: PASS (4 tests).
 
 - [ ] **Step 5: Typecheck and commit**
 
@@ -3284,7 +3380,7 @@ Run: `npx tsc --noEmit`
 
 ```bash
 git add src/engine/map/scene/pixel-sprites.ts tests/pixel-sprites.test.ts
-git commit -m "feat(map): add hand-drawn pixel sprite grids for icons, glyphs and landmarks
+git commit -m "feat(map): add code-drawn fallback icons, landmark glyphs and waypoint pylon
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 ```
@@ -3943,7 +4039,7 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 
 ---
 
-### Task 11: Icon atlas texture factory and layer context
+### Task 11: Code-drawn texture factory and layer context
 
 **Files:**
 - Create: `src/engine/map/scene/icon-atlas.ts`
@@ -3951,12 +4047,12 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 - Test: `tests/icon-atlas.test.ts`
 
 **Interfaces:**
-- Consumes: sprites (Task 8), palettes (Task 7), `GlyphKind` (Task 6), `TweenManager` (Task 9), `MapTheme`, `LocationType`, `LandmarkGlyphKind`.
+- Consumes: code-drawn sprites (Task 8), palettes (Task 7), `TileAtlas` (Task 6), `TweenManager` (Task 9), `MapTheme`, `LocationType`, `LandmarkGlyphKind`.
 - Produces:
   - `interface TextureBaker { generateTexture(target: Container, width: number, height: number): Texture }`
   - `createRendererBaker(renderer: Renderer): TextureBaker` (frame = full grid size, resolution 1, no antialias, `scaleMode = 'nearest'`)
-  - `class IconAtlas { constructor(baker: TextureBaker | null, theme: MapTheme); readonly canBake: boolean; location(type: LocationType, variant?: 'lit' | 'silhouette'): Texture; glyph(kind: GlyphKind, variant: number, ramp: Ramp): Texture; landmark(kind: LandmarkGlyphKind): Texture; pylon(lit: boolean): Texture; softDisc(): Texture; destroy(): void }` — every method caches by key; with `baker === null` returns `Texture.EMPTY` (node/test mode). `softDisc()` is a 128×128 white radial disc: full alpha inside 55% radius, stepped falloff to 0 at the edge (used for fog apertures and torch-lights).
-  - `interface LayerContext { theme: MapTheme; atlas: IconAtlas; tweens: TweenManager; reducedMotion: boolean }`
+  - `class IconAtlas { constructor(baker: TextureBaker | null, theme: MapTheme); readonly canBake: boolean; location(type: LocationType, variant?: 'lit' | 'silhouette'): Texture; landmark(kind: LandmarkGlyphKind): Texture; pylon(lit: boolean): Texture; softDisc(): Texture; destroy(): void }` — every method caches by key; with `baker === null` returns `Texture.EMPTY` (node/test mode). `softDisc()` is a 128×128 white radial disc: full alpha inside 55% radius, stepped falloff to 0 at the edge (used for fog apertures and torch-lights).
+  - `interface LayerContext { theme: MapTheme; atlas: IconAtlas; tiles: TileAtlas; tweens: TweenManager; reducedMotion: boolean }` — `atlas` = code-drawn textures (fallback icons, landmarks, pylon, soft disc); `tiles` = tileset sprites (Task 6).
   - Constants: `SOFT_DISC_RADIUS = 64`.
 
 - [ ] **Step 1: Write the failing test**
@@ -3968,7 +4064,6 @@ import { describe, it, expect, vi } from 'vitest';
 import { Container, Texture } from 'pixi.js';
 import { IconAtlas, TextureBaker, SOFT_DISC_RADIUS } from '../src/engine/map/scene/icon-atlas';
 import { getMapTheme } from '../src/domain/map-themes';
-import { biomeRamp } from '../src/engine/map/scene/pixel-palette';
 
 function fakeBaker() {
   const made: Array<{ width: number; height: number; destroy: ReturnType<typeof vi.fn> }> = [];
@@ -4002,22 +4097,20 @@ describe('IconAtlas', () => {
     atlas.landmark('volcano');
     atlas.pylon(true);
     atlas.pylon(false);
-    const ramp = biomeRamp(theme, 'mountain');
-    atlas.glyph('peak', 0, ramp);
-    atlas.glyph('peak', 0, ramp);
-    expect(baker.generateTexture).toHaveBeenCalledTimes(6);
+    atlas.landmark('volcano');
+    expect(baker.generateTexture).toHaveBeenCalledTimes(5);
   });
 
   it('bakes sprites with their full grid frame size', () => {
     const { baker, made } = fakeBaker();
     const atlas = new IconAtlas(baker, theme);
     atlas.location('village');
-    atlas.glyph('pine', 1, biomeRamp(theme, 'forest'));
+    atlas.landmark('spire');
     atlas.pylon(true);
     atlas.softDisc();
     expect(made.map((t) => [t.width, t.height])).toEqual([
       [12, 12],
-      [8, 8],
+      [12, 12],
       [8, 9],
       [SOFT_DISC_RADIUS * 2, SOFT_DISC_RADIUS * 2],
     ]);
@@ -4054,17 +4147,8 @@ Create `src/engine/map/scene/icon-atlas.ts`:
 import { Container, Graphics, Rectangle, Renderer, Texture } from 'pixi.js';
 import { MapTheme } from '../../../domain/map-themes';
 import { LandmarkGlyphKind, LocationType } from '../../../domain/map-types';
-import { GlyphKind } from './glyph-scatter';
+import { PixelSpritePalette, shade, silhouettePalette, spritePalette } from './pixel-palette';
 import {
-  PixelSpritePalette,
-  Ramp,
-  rampPalette,
-  shade,
-  silhouettePalette,
-  spritePalette,
-} from './pixel-palette';
-import {
-  GLYPH_SPRITES,
   LANDMARK_SPRITES,
   LOCATION_ICONS,
   WAYPOINT_PYLON,
@@ -4112,15 +4196,6 @@ export class IconAtlas {
     const grid = LOCATION_ICONS[type];
     return this.bake(`loc:${type}:${variant}`, grid[0].length, grid.length, (g) =>
       drawPixelGrid(g, grid, variant === 'lit' ? this.palette : this.silhouette)
-    );
-  }
-
-  public glyph(kind: GlyphKind, variant: number, ramp: Ramp): Texture {
-    const variants = GLYPH_SPRITES[kind];
-    const grid = variants[variant % variants.length];
-    const accent = this.theme.palette.secondaryAccent ?? '#dc2626';
-    return this.bake(`glyph:${kind}:${variant}:${ramp.join(',')}`, grid[0].length, grid.length, (g) =>
-      drawPixelGrid(g, grid, rampPalette(ramp, accent))
     );
   }
 
@@ -4177,11 +4252,15 @@ Create `src/engine/map/layers/layer-context.ts`:
 import { MapTheme } from '../../../domain/map-themes';
 import { TweenManager } from '../anim/tween';
 import { IconAtlas } from '../scene/icon-atlas';
+import { TileAtlas } from '../scene/tile-atlas';
 
 /** Shared dependencies handed to every renderer layer. */
 export interface LayerContext {
   theme: MapTheme;
+  /** Code-drawn textures: fallback icons, landmark glyphs, pylon, soft disc. */
   atlas: IconAtlas;
+  /** Tileset sprites (props); may be not-ready in tests or before load. */
+  tiles: TileAtlas;
   tweens: TweenManager;
   reducedMotion: boolean;
 }
@@ -4194,359 +4273,774 @@ Expected: PASS (4 tests), clean typecheck.
 
 ```bash
 git add src/engine/map/scene/icon-atlas.ts src/engine/map/layers/layer-context.ts tests/icon-atlas.test.ts
-git commit -m "feat(map): add cached pixel texture atlas and shared layer context
+git commit -m "feat(map): add code-drawn texture factory and shared layer context
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 ```
 
 ---
 
-### Task 12: Terrain painter and static scene builder
+### Task 12: Plane layout (pure) and Canvas 2D plane painter
 
 **Files:**
-- Create: `src/engine/map/scene/terrain-painter.ts`
-- Create: `src/engine/map/scene/static-baker.ts`
-- Test: `tests/static-scene.test.ts`
+- Create: `src/engine/map/scene/plane-layout.ts`
+- Create: `src/engine/map/scene/plane-painter.ts`
+- Test: `tests/plane-layout.test.ts`
+- Test: `tests/plane-painter.test.ts`
 
 **Interfaces:**
-- Consumes: geometry, prng, palette (Tasks 5, 7), `scatterGlyphs` (Task 6), `IconAtlas` (Task 11), `ProjectedWorldMapSnapshot`, `ProjectedPlane` (Task 2).
-- Produces:
-  - `ditherEdgePixels(ring: Vec2[], step?: number, depth?: number): Array<[number, number]>` — pure; 2-unit-snapped, de-duplicated pixel cells forming a checkerboard dither band just inside `ring`.
-  - `paintBackdrop(g: Graphics, plane: Pick<ProjectedPlane, 'width' | 'height' | 'backdrop'>, theme: MapTheme, seed: number): void`
-  - `paintTerrain(g: Graphics, terrain: TerrainLayer, theme: MapTheme): void`
-  - `GLYPH_SCALE = 2`
-  - `buildStaticScene(input: { snapshot: ProjectedWorldMapSnapshot; theme: MapTheme; atlas: IconAtlas }): Container` — children in order: backdrop `Graphics` (label `backdrop`), terrain `Graphics` (label `terrain`), glyph `Container` (label `glyphs`). Glyphs covered by a later terrain polygon are skipped. Only terrain (never chapter-gated) is baked — no locations, regions or landmark glyphs.
+- Consumes: `jagPolygon`, `pointInPolygon`, `distanceToPolygonEdge`, `distanceToPolyline`, `polygonBounds`, `polygonCentroid`, `Vec2` (Task 5); `fbm2D` (Task 5); `hashString`, `mulberry32` (Task 5); `SPRITES`, sprite groups, `SheetId`, `SpriteName` (Task 6); `UniverseLook`, `gradePixels` (Task 7); `ProjectedWorldMapSnapshot` (Task 2).
+- Produces (`plane-layout.ts`, pure):
+  - `PIXELS_PER_WORLD = 0.5`
+  - `type GroundKind = 'grass' | 'sand' | 'snow' | 'ash' | 'bog' | 'voidstone'`, `type FillKind = GroundKind | 'water'`
+  - `interface LayoutFill { kind: FillKind; terrainType: TerrainType; ring: Vec2[] }`
+  - `interface Stamp { sprite: SpriteName; x: number; y: number; flip: boolean }` (pixel space, bottom-center anchor)
+  - `interface Patch { x: number; y: number; rx: number; ry: number }`
+  - `interface LayoutRiver { points: Vec2[]; width: number }`
+  - `interface PlaneLayout { width: number; height: number; backdrop: PlaneBackdrop; land: Vec2[][]; fills: LayoutFill[]; patches: Patch[]; rivers: LayoutRiver[]; bridges: Vec2[]; stamps: Stamp[] }`
+  - `buildPlaneLayout(snapshot: ProjectedWorldMapSnapshot): PlaneLayout`
+- Produces (`plane-painter.ts`):
+  - `interface SheetImages { image(sheet: SheetId): CanvasImageSource | null }` (satisfied by `TileAtlas`)
+  - `type CanvasFactory = (width: number, height: number) => HTMLCanvasElement`
+  - `paintPlane(ctx: CanvasRenderingContext2D, layout: PlaneLayout, sheets: SheetImages, look: UniverseLook, createCanvas: CanvasFactory, seed: number): void`
 
-- [ ] **Step 1: Write the failing test**
+Paint order (spec §3.2): backdrop → coast strokes around land → fills in terrain order (ground or water) → grass tone patches → rivers → bridges → y-sorted stamps → color grade.
 
-Create `tests/static-scene.test.ts`:
+- [ ] **Step 1: Write the failing layout test**
+
+Create `tests/plane-layout.test.ts`:
 
 ```ts
 import { describe, it, expect } from 'vitest';
-import { Container } from 'pixi.js';
-import { buildStaticScene, GLYPH_SCALE } from '../src/engine/map/scene/static-baker';
-import { ditherEdgePixels } from '../src/engine/map/scene/terrain-painter';
-import { IconAtlas } from '../src/engine/map/scene/icon-atlas';
-import { getMapTheme } from '../src/domain/map-themes';
+import { buildPlaneLayout, PIXELS_PER_WORLD } from '../src/engine/map/scene/plane-layout';
+import { pointInPolygon, distanceToPolyline } from '../src/engine/map/scene/geometry';
+import { CONIFERS, ROUND_TREES, PEAKS_GREY, PEAKS_SNOW, PEAKS_SMALL, PALMS, ROCKS } from '../src/engine/map/scene/sprite-catalog';
 import { projectTemporalMap } from '../src/projections/temporal-map';
 import { WorldMapDefinition } from '../src/domain/map-types';
-import { Vec2 } from '../src/engine/map/scene/geometry';
+
+const TREES = new Set<string>([...CONIFERS, ...ROUND_TREES]);
+const PEAKS = new Set<string>([...PEAKS_GREY, ...PEAKS_SNOW, ...PEAKS_SMALL]);
 
 const def: WorldMapDefinition = {
-  id: 'bake-map',
-  universeId: 'coiling-dragon',
+  id: 'layout-map',
+  universeId: 'reverend-insanity',
   coordinateSystem: 'world',
-  width: 800,
-  height: 600,
+  width: 1200,
+  height: 800,
+  planes: [{ id: 'mortal', name: 'Mortal', width: 1200, height: 800, revealedAtChapter: 0, backdrop: 'sea', order: 0 }],
   terrain: [
-    { id: 'range', type: 'mountain', name: 'Range', polygon: [[40, 40], [760, 40], [760, 560], [40, 560]], elevation: 2, edgeStyle: 'cliff' },
-    { id: 'meadow', type: 'plains', name: 'Meadow', polygon: [[400, 40], [760, 40], [760, 560], [400, 560]], edgeStyle: 'coast' },
+    { id: 'plains', type: 'plains', name: 'Plains', polygon: [[100, 100], [700, 100], [700, 700], [100, 700]], planeId: 'mortal' },
+    { id: 'woods', type: 'forest', name: 'Woods', polygon: [[150, 150], [450, 150], [450, 450], [150, 450]], planeId: 'mortal' },
+    { id: 'range', type: 'mountain', name: 'Range', polygon: [[500, 150], [650, 150], [650, 650], [500, 650]], planeId: 'mortal' },
+    { id: 'sands', type: 'desert', name: 'Sands', polygon: [[750, 100], [1100, 100], [1100, 700], [750, 700]], planeId: 'mortal' },
+    { id: 'oasis', type: 'ocean', name: 'Oasis', polygon: [[880, 380], [960, 380], [960, 440], [880, 440]], planeId: 'mortal' },
+    { id: 'lake', type: 'ocean', name: 'Lake', polygon: [[200, 520], [320, 520], [320, 620], [200, 620]], planeId: 'mortal' },
   ],
-  regions: [],
-  locations: [],
-  routes: [],
-  territories: [],
-  events: [],
-  characterPaths: [],
+  rivers: [{ id: 'r', name: 'River', points: [[120, 480], [400, 470], [690, 500]], width: 20, planeId: 'mortal', bridges: [[400, 470]] }],
+  regions: [], locations: [], routes: [], territories: [], events: [], characterPaths: [],
 };
 
-describe('ditherEdgePixels', () => {
-  const ring: Vec2[] = [[0, 0], [100, 0], [100, 100], [0, 100]];
+describe('buildPlaneLayout', () => {
+  const snap = projectTemporalMap(def, 1);
+  const layout = buildPlaneLayout(snap);
 
-  it('returns unique, 2-unit snapped cells inside the ring', () => {
-    const cells = ditherEdgePixels(ring);
-    expect(cells.length).toBeGreaterThan(20);
-    const keys = new Set(cells.map(([x, y]) => `${x},${y}`));
-    expect(keys.size).toBe(cells.length);
-    for (const [x, y] of cells) {
-      expect(x % 2).toBe(0);
-      expect(y % 2).toBe(0);
-      expect(x).toBeGreaterThanOrEqual(0);
-      expect(x).toBeLessThanOrEqual(100);
+  it('scales the plane to pixel space and keeps the backdrop', () => {
+    expect(layout.width).toBe(1200 * PIXELS_PER_WORLD);
+    expect(layout.height).toBe(800 * PIXELS_PER_WORLD);
+    expect(layout.backdrop).toBe('sea');
+    expect(layout.rivers[0].width).toBe(20 * PIXELS_PER_WORLD);
+    expect(layout.bridges).toEqual([[200, 235]]);
+  });
+
+  it('keeps fills in terrain order and marks water', () => {
+    expect(layout.fills.map((f) => f.kind)).toEqual(['grass', 'grass', 'grass', 'sand', 'water', 'water']);
+    expect(layout.land).toHaveLength(4);
+  });
+
+  it('roughens coastlines deterministically', () => {
+    expect(layout.fills[0].ring.length).toBeGreaterThan(4 * 8);
+    expect(buildPlaneLayout(snap)).toEqual(layout);
+  });
+
+  it('puts trees in the forest, peaks in the range and none in the desert', () => {
+    const inWoods = layout.stamps.filter((s) => s.x > 90 && s.x < 210 && s.y > 90 && s.y < 210);
+    expect(inWoods.filter((s) => TREES.has(s.sprite)).length).toBeGreaterThan(40);
+    const inRange = layout.stamps.filter((s) => s.x > 262 && s.x < 318 && s.y > 90 && s.y < 310);
+    expect(inRange.filter((s) => PEAKS.has(s.sprite)).length).toBeGreaterThan(30);
+    const inSands = layout.stamps.filter((s) => s.x > 390 && s.y > 60 && s.y < 340);
+    expect(inSands.some((s) => TREES.has(s.sprite) || PEAKS.has(s.sprite))).toBe(false);
+    expect(inSands.some((s) => ROCKS.includes(s.sprite))).toBe(true);
+  });
+
+  it('rings desert water with palms', () => {
+    const palms = layout.stamps.filter((s) => PALMS.includes(s.sprite));
+    expect(palms.length).toBeGreaterThanOrEqual(6);
+    for (const p of palms) expect(Math.hypot(p.x - 460, p.y - 205)).toBeLessThan(60);
+  });
+
+  it('never stamps on water or rivers', () => {
+    const waters = layout.fills.filter((f) => f.kind === 'water');
+    for (const s of layout.stamps) {
+      if (PALMS.includes(s.sprite)) continue;
+      for (const w of waters) expect(pointInPolygon(s.x, s.y, w.ring)).toBe(false);
+      expect(distanceToPolyline(s.x, s.y, layout.rivers[0].points)).toBeGreaterThanOrEqual(layout.rivers[0].width / 2 + 3);
     }
   });
 
-  it('is deterministic', () => {
-    expect(ditherEdgePixels(ring)).toEqual(ditherEdgePixels(ring));
-  });
-});
-
-describe('buildStaticScene', () => {
-  const theme = getMapTheme('coiling-dragon');
-  const snapshot = projectTemporalMap(def, 1);
-
-  it('builds backdrop, terrain and glyph layers', () => {
-    const scene = buildStaticScene({ snapshot, theme, atlas: new IconAtlas(null, theme) });
-    expect(scene.children.map((c) => c.label)).toEqual(['backdrop', 'terrain', 'glyphs']);
-    const glyphs = scene.children[2] as Container;
-    expect(glyphs.children.length).toBeGreaterThan(10);
+  it('sorts stamps top-to-bottom and adds grass tone patches', () => {
+    for (let i = 1; i < layout.stamps.length; i++) expect(layout.stamps[i].y).toBeGreaterThanOrEqual(layout.stamps[i - 1].y);
+    expect(layout.patches.length).toBeGreaterThan(5);
   });
 
-  it('is deterministic across builds', () => {
-    const a = buildStaticScene({ snapshot, theme, atlas: new IconAtlas(null, theme) });
-    const b = buildStaticScene({ snapshot, theme, atlas: new IconAtlas(null, theme) });
-    const pos = (s: Container) => (s.children[2] as Container).children.map((c) => `${c.x},${c.y}`);
-    expect(pos(a)).toEqual(pos(b));
-  });
-
-  it('skips glyphs hidden under later terrain polygons', () => {
-    const scene = buildStaticScene({ snapshot, theme, atlas: new IconAtlas(null, theme) });
-    const glyphs = (scene.children[2] as Container).children;
-    // The meadow (drawn after the range) covers x >= 400, so no mountain peak may sit there
-    const peaksOnRight = glyphs.filter((g) => g.label.startsWith('peak') && g.x > 401);
-    expect(peaksOnRight).toEqual([]);
-    expect(glyphs.some((g) => g.label.startsWith('peak'))).toBe(true);
-    expect(glyphs.some((g) => g.label.startsWith('tuft'))).toBe(true);
-    for (const g of glyphs) {
-      expect(Math.abs(g.scale.x)).toBe(GLYPH_SCALE);
-      expect(g.scale.y).toBe(GLYPH_SCALE);
-    }
+  it('roughens rectangles from adapter maps too', () => {
+    const rect = { ...def, terrain: [def.terrain[0]], rivers: [] };
+    const l = buildPlaneLayout(projectTemporalMap(rect, 1));
+    const xs = l.fills[0].ring.map((p) => p[0]);
+    expect(new Set(xs.map((x) => Math.round(x))).size).toBeGreaterThan(10);
   });
 });
 ```
 
-The baker sets each glyph sprite's `label` to `` `${glyph.kind}:${glyph.variant}` ``.
+- [ ] **Step 2: Write the failing painter test**
 
-- [ ] **Step 2: Run test to verify it fails**
+Create `tests/plane-painter.test.ts`:
 
-Run: `npx vitest run tests/static-scene.test.ts`
+```ts
+import { describe, it, expect } from 'vitest';
+import { paintPlane, SheetImages } from '../src/engine/map/scene/plane-painter';
+import { buildPlaneLayout } from '../src/engine/map/scene/plane-layout';
+import { getUniverseLook } from '../src/engine/map/scene/universe-look';
+import { projectTemporalMap } from '../src/projections/temporal-map';
+import { WorldMapDefinition } from '../src/domain/map-types';
+
+type Call = { name: string; args: unknown[] };
+
+function recordingContext(width: number, height: number) {
+  const calls: Call[] = [];
+  const target: Record<string, unknown> = {};
+  const ctx = new Proxy(target, {
+    get(obj, prop: string) {
+      if (prop in obj) return obj[prop];
+      if (prop === 'getImageData') {
+        return (...args: unknown[]) => {
+          calls.push({ name: prop, args });
+          return { data: new Uint8ClampedArray(width * height * 4), width, height };
+        };
+      }
+      if (prop === 'createPattern') {
+        return (...args: unknown[]) => {
+          calls.push({ name: prop, args });
+          return { pattern: true };
+        };
+      }
+      return (...args: unknown[]) => {
+        calls.push({ name: prop, args });
+      };
+    },
+    set(obj, prop: string, value) {
+      obj[prop] = value;
+      calls.push({ name: `set:${prop}`, args: [value] });
+      return true;
+    },
+  });
+  return { ctx: ctx as unknown as CanvasRenderingContext2D, calls };
+}
+
+const fakeCanvas = (w: number, h: number) => {
+  const { ctx } = recordingContext(w, h);
+  return { width: w, height: h, getContext: () => ctx } as unknown as HTMLCanvasElement;
+};
+
+const def: WorldMapDefinition = {
+  id: 'paint-map', universeId: 'one-piece', coordinateSystem: 'world', width: 800, height: 600,
+  planes: [{ id: 'main', name: 'World', width: 800, height: 600, revealedAtChapter: 0, backdrop: 'sea' }],
+  terrain: [
+    { id: 'isle', type: 'forest', name: 'Isle', polygon: [[100, 100], [600, 100], [600, 500], [100, 500]] },
+    { id: 'peaks', type: 'mountain', name: 'Peaks', polygon: [[400, 150], [550, 150], [550, 450], [400, 450]] },
+  ],
+  rivers: [{ id: 'r', name: 'R', points: [[120, 300], [390, 320]], width: 16, bridges: [[250, 310]] }],
+  regions: [], locations: [], routes: [], territories: [], events: [], characterPaths: [],
+};
+
+const fakeImage = {} as CanvasImageSource;
+const withSheets: SheetImages = { image: () => fakeImage };
+const noSheets: SheetImages = { image: () => null };
+
+describe('paintPlane', () => {
+  const layout = buildPlaneLayout(projectTemporalMap(def, 1));
+  const look = getUniverseLook('one-piece');
+
+  it('paints backdrop first, draws every stamp, and grades exactly once', () => {
+    const { ctx, calls } = recordingContext(layout.width, layout.height);
+    paintPlane(ctx, layout, withSheets, look, fakeCanvas, 42);
+    const first = calls.find((c) => c.name === 'fillRect')!;
+    expect(first.args).toEqual([0, 0, layout.width, layout.height]);
+    expect(calls.filter((c) => c.name === 'drawImage').length).toBeGreaterThanOrEqual(layout.stamps.length);
+    expect(calls.filter((c) => c.name === 'getImageData')).toHaveLength(1);
+    expect(calls.filter((c) => c.name === 'putImageData')).toHaveLength(1);
+    const lastGrade = calls.map((c) => c.name).lastIndexOf('putImageData');
+    expect(lastGrade).toBe(calls.length - 1);
+  });
+
+  it('strokes the coast and the river', () => {
+    const { ctx, calls } = recordingContext(layout.width, layout.height);
+    paintPlane(ctx, layout, withSheets, look, fakeCanvas, 42);
+    const widths = calls.filter((c) => c.name === 'set:lineWidth').map((c) => c.args[0]);
+    expect(widths).toContain(28); // shelf
+    expect(widths).toContain(layout.rivers[0].width); // river water
+  });
+
+  it('still paints terrain when the sheets are not loaded', () => {
+    const { ctx, calls } = recordingContext(layout.width, layout.height);
+    expect(() => paintPlane(ctx, layout, noSheets, look, fakeCanvas, 42)).not.toThrow();
+    expect(calls.filter((c) => c.name === 'drawImage')).toHaveLength(0);
+    expect(calls.filter((c) => c.name === 'fill').length).toBeGreaterThan(2);
+  });
+});
+```
+
+- [ ] **Step 3: Run tests to verify they fail**
+
+Run: `npx vitest run tests/plane-layout.test.ts tests/plane-painter.test.ts`
 Expected: FAIL — cannot resolve modules.
 
-- [ ] **Step 3: Implement the terrain painter**
+- [ ] **Step 4: Implement the layout**
 
-Create `src/engine/map/scene/terrain-painter.ts`:
+Create `src/engine/map/scene/plane-layout.ts`:
 
 ```ts
 /**
- * Pixel-gothic terrain painting: backdrops, biome fills with dithered
- * elevation bands, and coast/cliff/soft edge treatments.
+ * Pure, deterministic layout of one plane's static art: roughened coasts,
+ * ground/water fills, grass tone patches, rivers, bridges and decoration
+ * stamps (trees, peaks, rocks, palms). Pixel space (PIXELS_PER_WORLD).
+ *
+ * Uses only never-chapter-gated data (terrain, rivers, plane), so the
+ * result can be baked once per plane without spoiling anything.
  */
 
-import { Graphics } from 'pixi.js';
-import { MapTheme } from '../../../domain/map-themes';
-import { TerrainLayer } from '../../../domain/map-types';
-import { ProjectedPlane } from '../../../projections/temporal-map';
-import { flattenPoly, polygonCentroid, scalePolygon, Vec2 } from './geometry';
-import { backdropColor, biomeRamp, mix, shade } from './pixel-palette';
-import { mulberry32 } from './prng';
+import { PlaneBackdrop, TerrainType } from '../../../domain/map-types';
+import { ProjectedWorldMapSnapshot } from '../../../projections/temporal-map';
+import {
+  distanceToPolygonEdge,
+  distanceToPolyline,
+  jagPolygon,
+  pointInPolygon,
+  polygonBounds,
+  polygonCentroid,
+  Vec2,
+} from './geometry';
+import { fbm2D } from './noise';
+import { hashString, mulberry32 } from './prng';
+import {
+  CONIFERS,
+  PALMS,
+  PEAKS_GREY,
+  PEAKS_SMALL,
+  PEAKS_SNOW,
+  ROCKS,
+  ROUND_TREES,
+  SpriteName,
+} from './sprite-catalog';
 
-const PIXEL = 2;
+export const PIXELS_PER_WORLD = 0.5;
 
-/** Checkerboard dither cells just inside a ring (pure, deterministic). */
-export function ditherEdgePixels(ring: Vec2[], step = PIXEL, depth = 3): Array<[number, number]> {
-  const c = polygonCentroid(ring);
-  const seen = new Set<string>();
-  const cells: Array<[number, number]> = [];
-  for (let i = 0; i < ring.length; i++) {
-    const [ax, ay] = ring[i];
-    const [bx, by] = ring[(i + 1) % ring.length];
-    const len = Math.hypot(bx - ax, by - ay);
-    const samples = Math.max(1, Math.floor(len / step));
-    for (let s = 0; s <= samples; s++) {
-      const t = s / samples;
-      const x = ax + (bx - ax) * t;
-      const y = ay + (by - ay) * t;
-      const toC = Math.hypot(c.x - x, c.y - y) || 1;
-      const nx = (c.x - x) / toC;
-      const ny = (c.y - y) / toC;
-      for (let k = 0; k < depth; k++) {
-        const px = Math.floor((x + nx * k * step) / PIXEL) * PIXEL;
-        const py = Math.floor((y + ny * k * step) / PIXEL) * PIXEL;
-        const checker = ((px / PIXEL + py / PIXEL) & 1) === 0;
-        const sparse = ((px / PIXEL) & 1) === 0 && ((py / PIXEL) & 1) === 0;
-        if (k === 0 ? !checker : !sparse) continue;
-        const key = `${px},${py}`;
-        if (seen.has(key)) continue;
-        seen.add(key);
-        cells.push([px, py]);
+export type GroundKind = 'grass' | 'sand' | 'snow' | 'ash' | 'bog' | 'voidstone';
+export type FillKind = GroundKind | 'water';
+
+export interface LayoutFill {
+  kind: FillKind;
+  terrainType: TerrainType;
+  ring: Vec2[];
+}
+
+export interface Stamp {
+  sprite: SpriteName;
+  x: number;
+  y: number;
+  flip: boolean;
+}
+
+export interface Patch {
+  x: number;
+  y: number;
+  rx: number;
+  ry: number;
+}
+
+export interface LayoutRiver {
+  points: Vec2[];
+  width: number;
+}
+
+export interface PlaneLayout {
+  width: number;
+  height: number;
+  backdrop: PlaneBackdrop;
+  land: Vec2[][];
+  fills: LayoutFill[];
+  patches: Patch[];
+  rivers: LayoutRiver[];
+  bridges: Vec2[];
+  stamps: Stamp[];
+}
+
+const FILL_KIND: Record<TerrainType, FillKind> = {
+  plains: 'grass',
+  custom: 'grass',
+  forest: 'grass',
+  mountain: 'grass',
+  desert: 'sand',
+  ice: 'snow',
+  volcanic: 'ash',
+  swamp: 'bog',
+  void: 'voidstone',
+  ocean: 'water',
+  river: 'water',
+};
+
+const GRID_X = 8;
+const GRID_Y = 7;
+const RIVER_CLEARANCE = 3;
+
+export function buildPlaneLayout(snapshot: ProjectedWorldMapSnapshot): PlaneLayout {
+  const s = PIXELS_PER_WORLD;
+  const width = Math.round(snapshot.width * s);
+  const height = Math.round(snapshot.height * s);
+  const backdrop = snapshot.planes.find((p) => p.id === snapshot.planeId)?.backdrop ?? 'void';
+  const amplitude = Math.max(6, Math.min(width, height) * 0.02);
+
+  const fills: LayoutFill[] = snapshot.terrain
+    .filter((t) => t.polygon.length >= 3)
+    .map((t) => ({
+      kind: FILL_KIND[t.type],
+      terrainType: t.type,
+      ring: jagPolygon(
+        t.polygon.map(([x, y]) => [x * s, y * s] as Vec2),
+        hashString(`${snapshot.mapId}:${t.id}`),
+        amplitude
+      ),
+    }));
+
+  const rivers: LayoutRiver[] = (snapshot.rivers ?? []).map((r) => ({
+    points: r.points.map(([x, y]) => [x * s, y * s] as Vec2),
+    width: r.width * s,
+  }));
+  const bridges: Vec2[] = (snapshot.rivers ?? []).flatMap((r) =>
+    (r.bridges ?? []).map(([x, y]) => [x * s, y * s] as Vec2)
+  );
+
+  /** Top-most fill under a point (terrain order = paint order), or null for backdrop. */
+  const surfaceAt = (x: number, y: number): LayoutFill | null => {
+    for (let i = fills.length - 1; i >= 0; i--) {
+      if (pointInPolygon(x, y, fills[i].ring)) return fills[i];
+    }
+    return null;
+  };
+  const nearRiver = (x: number, y: number): boolean =>
+    rivers.some((r) => distanceToPolyline(x, y, r.points) < r.width / 2 + RIVER_CLEARANCE);
+
+  const seed = hashString(`${snapshot.mapId}:${snapshot.planeId}:layout`);
+  const rng = mulberry32(seed);
+  const forestNoise = fbm2D(seed ^ 0x5f3759df, 3, 48);
+  const pick = <T>(list: T[]): T => list[Math.floor(rng() * list.length)];
+  const tree = (): SpriteName => (rng() < 0.7 ? pick(CONIFERS) : pick(ROUND_TREES));
+
+  const stamps: Stamp[] = [];
+  const patches: Patch[] = [];
+
+  for (let gy = 0; gy < height; gy += GRID_Y) {
+    for (let gx = 0; gx < width; gx += GRID_X) {
+      const x = Math.round(gx + (rng() - 0.5) * 6);
+      const y = Math.round(gy + (rng() - 0.5) * 4);
+      const flip = rng() < 0.5;
+      const roll = rng();
+      if (x < 0 || y < 0 || x >= width || y >= height) continue;
+      const surface = surfaceAt(x, y);
+      if (!surface || surface.kind === 'water' || nearRiver(x, y)) continue;
+      const n = forestNoise(x, y);
+
+      switch (surface.terrainType) {
+        case 'forest':
+          if (n > 0.42) stamps.push({ sprite: tree(), x, y, flip });
+          else if (roll < 0.03) stamps.push({ sprite: tree(), x, y, flip });
+          break;
+        case 'plains':
+        case 'custom':
+          if (n > 0.62) stamps.push({ sprite: tree(), x, y, flip });
+          else if (roll < 0.02) stamps.push({ sprite: tree(), x, y, flip });
+          else if (roll > 0.985) patches.push({ x, y, rx: 10 + rng() * 18, ry: 5 + rng() * 9 });
+          break;
+        case 'mountain': {
+          if (roll > 0.85) break;
+          const nearEdge = distanceToPolygonEdge(x, y, surface.ring) < 8;
+          const sprite = nearEdge ? pick(PEAKS_SMALL) : rng() < 0.35 ? pick(PEAKS_SNOW) : pick(PEAKS_GREY);
+          stamps.push({ sprite, x, y, flip: false });
+          break;
+        }
+        case 'swamp':
+          if (roll < 0.12) stamps.push({ sprite: pick(ROUND_TREES), x, y, flip });
+          break;
+        case 'desert':
+        case 'ice':
+        case 'volcanic':
+        case 'void':
+          if (roll < 0.03) stamps.push({ sprite: pick(ROCKS), x, y, flip });
+          break;
+        default:
+          break;
       }
     }
   }
-  return cells;
-}
 
-export function paintBackdrop(
-  g: Graphics,
-  plane: Pick<ProjectedPlane, 'width' | 'height' | 'backdrop'>,
-  theme: MapTheme,
-  seed: number
-): void {
-  const { width, height } = plane;
-  const base = backdropColor(theme, plane.backdrop);
-  g.rect(0, 0, width, height).fill(base);
-
-  // Pixel speckle texture
-  const rng = mulberry32(seed);
-  const light = shade(base, 0.08);
-  const dark = shade(base, -0.25);
-  const specks = Math.floor((width * height) / 900);
-  const lightCells: Array<[number, number]> = [];
-  const darkCells: Array<[number, number]> = [];
-  for (let i = 0; i < specks; i++) {
-    const x = Math.floor((rng() * width) / PIXEL) * PIXEL;
-    const y = Math.floor((rng() * height) / PIXEL) * PIXEL;
-    (rng() < 0.5 ? lightCells : darkCells).push([x, y]);
-  }
-  // One fill() per color batches thousands of speck rects
-  for (const [x, y] of lightCells) g.rect(x, y, PIXEL, PIXEL);
-  g.fill(light);
-  for (const [x, y] of darkCells) g.rect(x, y, PIXEL, PIXEL);
-  g.fill(dark);
-
-  // In-world iron frame
-  g.rect(0, 0, width, height).stroke({ color: shade(theme.palette.background, -0.6), width: 6 });
-  g.rect(3, 3, width - 6, height - 6).stroke({ color: theme.palette.primaryAccent, width: 1, alpha: 0.5 });
-}
-
-export function paintTerrain(g: Graphics, terrain: TerrainLayer, theme: MapTheme): void {
-  const poly = terrain.polygon as Vec2[];
-  if (!poly || poly.length < 3) return;
-  const ramp = biomeRamp(theme, terrain.type, terrain.colorOverride);
-  const flat = flattenPoly(poly);
-  const edge = terrain.edgeStyle ?? 'soft';
-
-  if (edge === 'cliff') {
-    const shadow = poly.map(([x, y]) => [x + 3, y + 4] as Vec2);
-    g.poly(flattenPoly(shadow)).fill({ color: shade(ramp[0], -0.4), alpha: 0.9 });
-  }
-  if (edge === 'coast') {
-    g.poly(flattenPoly(scalePolygon(poly, 1.02))).fill({ color: shade(ramp[3], 0.1), alpha: 0.18 });
-  }
-
-  g.poly(flat).fill(ramp[1]);
-
-  const steps = Math.max(0, Math.min(3, Math.round(terrain.elevation ?? 1)));
-  let previousTone = ramp[1];
-  for (let i = 1; i <= steps; i++) {
-    const inner = scalePolygon(poly, 1 - 0.16 * i);
-    const tone = mix(ramp[1], ramp[2], i / steps);
-    g.poly(flattenPoly(inner)).fill(tone);
-    const cells = ditherEdgePixels(inner);
-    if (cells.length > 0) {
-      for (const [x, y] of cells) g.rect(x, y, PIXEL, PIXEL);
-      g.fill(previousTone);
+  // Palms ring any water that sits inside sand (oases)
+  for (const fill of fills) {
+    if (fill.kind !== 'water') continue;
+    const c = polygonCentroid(fill.ring);
+    const around = fills.find((f) => f !== fill && f.kind === 'sand' && pointInPolygon(c.x, c.y, f.ring));
+    if (!around) continue;
+    const b = polygonBounds(fill.ring);
+    const rx = (b.maxX - b.minX) / 2 + 7;
+    const ry = (b.maxY - b.minY) / 2 + 5;
+    for (let i = 0; i < 6; i++) {
+      const a = (i / 6) * Math.PI * 2;
+      stamps.push({
+        sprite: PALMS[i % PALMS.length],
+        x: Math.round(c.x + Math.cos(a) * rx),
+        y: Math.round(c.y + Math.sin(a) * ry + 4),
+        flip: i % 2 === 0,
+      });
     }
-    previousTone = tone;
   }
 
-  if (edge === 'coast') {
-    g.poly(flat).stroke({ color: ramp[0], width: 3 });
-    g.poly(flattenPoly(scalePolygon(poly, 0.992))).stroke({ color: ramp[3], width: 1, alpha: 0.45 });
-  } else if (edge === 'cliff') {
-    g.poly(flat).stroke({ color: shade(ramp[0], -0.3), width: 3 });
-    g.poly(flattenPoly(scalePolygon(poly, 0.99))).stroke({ color: ramp[2], width: 1, alpha: 0.5 });
-  } else {
-    g.poly(flat).stroke({ color: ramp[0], width: 1, alpha: 0.55 });
-  }
+  stamps.sort((a, b) => a.y - b.y || a.x - b.x);
+
+  return {
+    width,
+    height,
+    backdrop,
+    land: fills.filter((f) => f.kind !== 'water').map((f) => f.ring),
+    fills,
+    patches,
+    rivers,
+    bridges,
+    stamps,
+  };
 }
 ```
 
-- [ ] **Step 4: Implement the static scene builder**
+- [ ] **Step 5: Implement the painter**
 
-Create `src/engine/map/scene/static-baker.ts`:
+Create `src/engine/map/scene/plane-painter.ts`:
 
 ```ts
 /**
- * Builds the never-chapter-gated static scene for one plane:
- * backdrop + terrain + deterministic glyph scatter. The facade bakes this
- * into one nearest-scaled texture per (map, plane, theme).
+ * Executes a PlaneLayout on a Canvas 2D context using the tileset sheets,
+ * then applies the universe color grade. Browser-only at runtime; tested
+ * with a recording fake context.
  */
 
-import { Container, Graphics, Sprite } from 'pixi.js';
-import { MapTheme } from '../../../domain/map-themes';
-import { ProjectedPlane, ProjectedWorldMapSnapshot } from '../../../projections/temporal-map';
-import { pointInPolygon, Vec2 } from './geometry';
-import { scatterGlyphs } from './glyph-scatter';
-import { IconAtlas } from './icon-atlas';
-import { biomeRamp } from './pixel-palette';
-import { hashString } from './prng';
-import { paintBackdrop, paintTerrain } from './terrain-painter';
+import { PlaneBackdrop } from '../../../domain/map-types';
+import { Vec2 } from './geometry';
+import { GroundKind, PlaneLayout } from './plane-layout';
+import { mulberry32 } from './prng';
+import { GRASS_TILES, SheetId, SpriteDef, SpriteName, SPRITES } from './sprite-catalog';
+import { gradePixels, UniverseLook } from './universe-look';
+import { shade } from './pixel-palette';
 
-export const GLYPH_SCALE = 2;
-
-export interface StaticSceneInput {
-  snapshot: ProjectedWorldMapSnapshot;
-  theme: MapTheme;
-  atlas: IconAtlas;
+export interface SheetImages {
+  image(sheet: SheetId): CanvasImageSource | null;
 }
 
-export function buildStaticScene({ snapshot, theme, atlas }: StaticSceneInput): Container {
-  const root = new Container();
-  root.label = 'static-scene';
+export type CanvasFactory = (width: number, height: number) => HTMLCanvasElement;
 
-  const plane: Pick<ProjectedPlane, 'width' | 'height' | 'backdrop'> =
-    snapshot.planes.find((p) => p.id === snapshot.planeId) ?? {
-      width: snapshot.width,
-      height: snapshot.height,
-      backdrop: 'void',
-    };
+const GROUND_COLORS: Record<Exclude<GroundKind, 'grass' | 'sand'>, string> = {
+  snow: '#e8eef2',
+  ash: '#4a3a36',
+  bog: '#4a6a3a',
+  voidstone: '#3a2f55',
+};
 
-  const backdrop = new Graphics();
-  backdrop.label = 'backdrop';
-  paintBackdrop(backdrop, plane, theme, hashString(`${snapshot.mapId}:${snapshot.planeId}:backdrop`));
-  root.addChild(backdrop);
+function tracePath(ctx: CanvasRenderingContext2D, ring: Vec2[]): void {
+  ctx.beginPath();
+  ctx.moveTo(ring[0][0], ring[0][1]);
+  for (let i = 1; i < ring.length; i++) ctx.lineTo(ring[i][0], ring[i][1]);
+  ctx.closePath();
+}
 
-  const land = new Graphics();
-  land.label = 'terrain';
-  for (const terrain of snapshot.terrain) paintTerrain(land, terrain, theme);
-  root.addChild(land);
+function tracePolyline(ctx: CanvasRenderingContext2D, points: Vec2[]): void {
+  ctx.beginPath();
+  ctx.moveTo(points[0][0], points[0][1]);
+  for (let i = 1; i < points.length; i++) ctx.lineTo(points[i][0], points[i][1]);
+}
 
-  const glyphs = new Container();
-  glyphs.label = 'glyphs';
-  snapshot.terrain.forEach((terrain, index) => {
-    const ramp = biomeRamp(theme, terrain.type, terrain.colorOverride);
-    const above = snapshot.terrain.slice(index + 1);
-    const scattered = scatterGlyphs({
-      polygon: terrain.polygon as Vec2[],
-      terrainType: terrain.type,
-      seed: hashString(`${snapshot.mapId}:${terrain.id}`),
-    });
-    for (const glyph of scattered) {
-      if (above.some((other) => pointInPolygon(glyph.x, glyph.y, other.polygon as Vec2[]))) continue;
-      const sprite = new Sprite(atlas.glyph(glyph.kind, glyph.variant, ramp));
-      sprite.label = `${glyph.kind}:${glyph.variant}`;
-      sprite.anchor.set(0.5, 1);
-      sprite.position.set(glyph.x, glyph.y);
-      // Integer scale keeps 1 texel per grid cell in the 0.5-resolution bake;
-      // the scatter's scale jitter becomes a pixel-safe horizontal mirror instead
-      sprite.scale.set(glyph.scale >= 1 ? GLYPH_SCALE : -GLYPH_SCALE, GLYPH_SCALE);
-      glyphs.addChild(sprite);
+function backdropColor(backdrop: PlaneBackdrop, look: UniverseLook): string {
+  switch (backdrop) {
+    case 'sea':
+    case 'river':
+      return look.sea;
+    case 'sky':
+      return '#9cc8e8';
+    case 'abyss':
+      return '#141626';
+    case 'void':
+    default:
+      return '#1c1830';
+  }
+}
+
+/** 64x64 mosaic of random grass tiles, used as a repeating pattern. */
+function grassPattern(
+  ctx: CanvasRenderingContext2D,
+  sheets: SheetImages,
+  createCanvas: CanvasFactory,
+  rng: () => number
+): CanvasPattern | string {
+  const sheet = sheets.image('puny');
+  if (!sheet) return '#6a9c3c';
+  const canvas = createCanvas(64, 64);
+  const g = canvas.getContext('2d');
+  if (!g) return '#6a9c3c';
+  g.imageSmoothingEnabled = false;
+  for (let y = 0; y < 64; y += 16) {
+    for (let x = 0; x < 64; x += 16) {
+      const def = SPRITES[GRASS_TILES[Math.floor(rng() * GRASS_TILES.length)]];
+      g.drawImage(sheet, def.x, def.y, def.w, def.h, x, y, def.w, def.h);
     }
-  });
-  root.addChild(glyphs);
+  }
+  return ctx.createPattern(canvas, 'repeat') ?? '#6a9c3c';
+}
 
-  return root;
+/** Mountain sprite clipped to a triangle silhouette with a 1 px dark outline. */
+function preparePeak(def: SpriteDef, sheet: CanvasImageSource, createCanvas: CanvasFactory): HTMLCanvasElement | null {
+  const w = def.w + 2;
+  const h = def.h + 2;
+  const masked = createCanvas(w, h);
+  const m = masked.getContext('2d');
+  if (!m) return null;
+  m.imageSmoothingEnabled = false;
+  const lean = def.peak?.lean ?? 0;
+  m.beginPath();
+  m.moveTo(w / 2 + lean, 2);
+  m.lineTo(w - 1, h - 1);
+  m.lineTo(1, h - 1);
+  m.closePath();
+  m.save();
+  m.clip();
+  m.drawImage(sheet, def.x, def.y, def.w, def.h, 1, 1, def.w, def.h);
+  m.restore();
+
+  const out = createCanvas(w, h);
+  const o = out.getContext('2d');
+  if (!o) return masked;
+  o.imageSmoothingEnabled = false;
+  for (const [dx, dy] of [[-1, 0], [1, 0], [0, -1], [0, 1]]) o.drawImage(masked, dx, dy);
+  o.globalCompositeOperation = 'source-in';
+  o.fillStyle = '#261e22';
+  o.fillRect(0, 0, w, h);
+  o.globalCompositeOperation = 'source-over';
+  o.drawImage(masked, 0, 0);
+  return out;
+}
+
+export function paintPlane(
+  ctx: CanvasRenderingContext2D,
+  layout: PlaneLayout,
+  sheets: SheetImages,
+  look: UniverseLook,
+  createCanvas: CanvasFactory,
+  seed: number
+): void {
+  const { width, height } = layout;
+  const rng = mulberry32(seed);
+  ctx.imageSmoothingEnabled = false;
+  ctx.lineJoin = 'round';
+  ctx.lineCap = 'round';
+
+  // 1. Backdrop
+  ctx.fillStyle = backdropColor(layout.backdrop, look);
+  ctx.fillRect(0, 0, width, height);
+  const watery = layout.backdrop === 'sea' || layout.backdrop === 'river';
+  if (watery) {
+    ctx.fillStyle = look.seaDeep;
+    for (let i = 0; i < (width * height) / 9000; i++) {
+      ctx.beginPath();
+      ctx.ellipse(rng() * width, rng() * height, 12 + rng() * 40, 6 + rng() * 18, 0, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.strokeStyle = shade(look.shallows, 0.35);
+    ctx.lineWidth = 1;
+    for (let i = 0; i < (width * height) / 1700; i++) {
+      const x = Math.round(rng() * width);
+      const y = Math.round(rng() * height);
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(x + 2, y - 1);
+      ctx.lineTo(x + 4, y);
+      ctx.stroke();
+    }
+  } else if (layout.backdrop === 'sky') {
+    ctx.fillStyle = '#c4e0f4';
+    for (let i = 0; i < (width * height) / 12000; i++) {
+      ctx.beginPath();
+      ctx.ellipse(rng() * width, rng() * height, 30 + rng() * 60, 10 + rng() * 20, 0, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  // 2. Coast treatment around land
+  for (const ring of layout.land) {
+    tracePath(ctx, ring);
+    if (watery) {
+      ctx.strokeStyle = look.shelf;
+      ctx.lineWidth = 28;
+      ctx.stroke();
+      ctx.strokeStyle = look.shallows;
+      ctx.lineWidth = 14;
+      ctx.stroke();
+      ctx.strokeStyle = look.foam;
+      ctx.lineWidth = 8;
+      ctx.stroke();
+      ctx.strokeStyle = look.sand;
+      ctx.lineWidth = 6;
+      ctx.stroke();
+    } else if (layout.backdrop === 'sky') {
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 16;
+      ctx.stroke();
+    } else {
+      ctx.save();
+      ctx.translate(3, 5);
+      ctx.fillStyle = 'rgba(0,0,0,0.35)';
+      tracePath(ctx, ring);
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  // 3. Fills in terrain order
+  const grass = grassPattern(ctx, sheets, createCanvas, rng);
+  for (const fill of layout.fills) {
+    tracePath(ctx, fill.ring);
+    if (fill.kind === 'water') {
+      ctx.strokeStyle = look.sand;
+      ctx.lineWidth = 4;
+      ctx.stroke();
+      ctx.fillStyle = look.shallows;
+      ctx.fill();
+      continue;
+    }
+    ctx.fillStyle =
+      fill.kind === 'grass' ? grass : fill.kind === 'sand' ? look.sand : GROUND_COLORS[fill.kind];
+    ctx.fill();
+    if (fill.kind === 'sand') {
+      ctx.save();
+      ctx.clip();
+      ctx.fillStyle = shade(look.sand, -0.15);
+      for (let i = 0; i < 400; i++) ctx.fillRect(Math.round(rng() * width), Math.round(rng() * height), 1, 1);
+      ctx.restore();
+    }
+  }
+
+  // 4. Grass tone patches
+  ctx.fillStyle = 'rgba(0,0,0,0.08)';
+  for (const p of layout.patches) {
+    ctx.beginPath();
+    ctx.ellipse(p.x, p.y, p.rx, p.ry, 0, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // 5. Rivers
+  for (const river of layout.rivers) {
+    if (river.points.length < 2) continue;
+    tracePolyline(ctx, river.points);
+    ctx.strokeStyle = look.sand;
+    ctx.lineWidth = river.width + 4;
+    ctx.stroke();
+    ctx.strokeStyle = look.shelf;
+    ctx.lineWidth = river.width;
+    ctx.stroke();
+    ctx.strokeStyle = look.shallows;
+    ctx.lineWidth = Math.max(1, river.width / 3);
+    ctx.stroke();
+  }
+
+  // 6. Bridges
+  for (const [bx, by] of layout.bridges) {
+    ctx.fillStyle = '#7e562c';
+    ctx.fillRect(Math.round(bx - 7), Math.round(by - 5), 14, 10);
+    ctx.fillStyle = '#5a3c1e';
+    for (let i = -6; i <= 6; i += 3) ctx.fillRect(Math.round(bx + i), Math.round(by - 5), 1, 10);
+  }
+
+  // 7. Stamps (already y-sorted)
+  const peakCache = new Map<SpriteName, HTMLCanvasElement | null>();
+  for (const stamp of layout.stamps) {
+    const def = SPRITES[stamp.sprite];
+    const sheet = sheets.image(def.sheet);
+    if (!sheet) continue;
+    if (def.peak) {
+      if (!peakCache.has(stamp.sprite)) peakCache.set(stamp.sprite, preparePeak(def, sheet, createCanvas));
+      const peak = peakCache.get(stamp.sprite);
+      if (peak) ctx.drawImage(peak, Math.round(stamp.x - peak.width / 2), Math.round(stamp.y - peak.height + 4));
+      continue;
+    }
+    const dx = Math.round(stamp.x - def.w / 2);
+    const dy = Math.round(stamp.y - def.h + 4);
+    if (stamp.flip) {
+      ctx.save();
+      ctx.translate(dx + def.w, dy);
+      ctx.scale(-1, 1);
+      ctx.drawImage(sheet, def.x, def.y, def.w, def.h, 0, 0, def.w, def.h);
+      ctx.restore();
+    } else {
+      ctx.drawImage(sheet, def.x, def.y, def.w, def.h, dx, dy, def.w, def.h);
+    }
+  }
+
+  // 8. Per-universe color grade
+  const image = ctx.getImageData(0, 0, width, height);
+  gradePixels(image.data, look);
+  ctx.putImageData(image, 0, 0);
 }
 ```
 
-- [ ] **Step 5: Run tests, typecheck, commit**
+Note: the painter test's "grade is the last call" check requires nothing after `putImageData`; keep it last.
 
-Run: `npx vitest run tests/static-scene.test.ts && npx tsc --noEmit`
-Expected: PASS (5 tests), clean typecheck.
+- [ ] **Step 6: Run tests**
+
+Run: `npx vitest run tests/plane-layout.test.ts tests/plane-painter.test.ts`
+Expected: PASS (8 + 3 tests). Fixture arithmetic for the layout test (pixel space = world × 0.5): woods 75–225, range x 250–325, sands x 375–550, oasis centered (460, 205), river width 10, bridge (200, 235). If "puts trees in the forest" fails because the noise threshold leaves too few trees in the 120×120 px sample window, lower the forest threshold from `0.42` to `0.38` (keep plains at `0.62`) and re-run.
+
+- [ ] **Step 7: Typecheck and commit**
+
+Run: `npx tsc --noEmit`
 
 ```bash
-git add src/engine/map/scene/terrain-painter.ts src/engine/map/scene/static-baker.ts tests/static-scene.test.ts
-git commit -m "feat(map): paint pixel-gothic terrain and build per-plane static scene
+git add src/engine/map/scene/plane-layout.ts src/engine/map/scene/plane-painter.ts tests/plane-layout.test.ts tests/plane-painter.test.ts
+git commit -m "feat(map): compose level-select planes from tilesets via pure layout and canvas painter
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 ```
 
 ---
 
-### Task 13: Regions layer and markers layer
+### Task 13: Regions layer and level-select markers layer
 
 **Files:**
+- Create: `src/projections/journey-numbers.ts`
 - Create: `src/engine/map/layers/regions-layer.ts`
 - Create: `src/engine/map/layers/markers-layer.ts`
 - Test: `tests/markers-layer.test.ts`
 
 **Interfaces:**
-- Consumes: `LayerContext` (Task 11), `EVENT_FLAG_OFFSET` (Task 10), `DANGER_COLORS`, `shade` (Task 7), `isDiscoveredStatus` (Task 4), `ProjectedWorldMapSnapshot`, `FogStatus`, `MapMode`.
+- Consumes: `LayerContext` (Task 11: `{ theme, atlas, tiles, tweens, reducedMotion }`), `LOCATION_PROP` (Task 6), `getUniverseLook` (Task 7), `EVENT_FLAG_OFFSET` (Task 10), `DANGER_COLORS` (Task 7), `isDiscoveredStatus` (Task 4), `ProjectedWorldMapSnapshot`, `FogStatus`, `MapMode`.
 - Produces:
-  - `class RegionsLayer { constructor(container: Container, ctx: LayerContext); sync(snapshot: ProjectedWorldMapSnapshot): void; setHovered(id: string | null): void; readonly regionCount: number; destroy(): void }`
-  - `ICON_SCALE = 2`, `CRITICAL_ICON_SCALE = 3`, `LANDMARK_SCALE = 3` (integers: 1 grid cell = whole world units, so nearest filtering stays crisp); hover adds exactly +1 to the scale. KNOWN markers never show a waypoint pylon.
-  - `interface MarkerView { root: Container; glow: Sprite; icon: Sprite; clearing: Graphics; ring: Graphics; halo: Graphics; pylon: Sprite | null; status: FogStatus; critical: boolean; baseScale: number; hover: number; phase: number }`
-  - `class MarkersLayer { constructor(container: Container, ctx: LayerContext); readonly markers: Map<string, MarkerView>; readonly landmarks: Map<string, Sprite>; readonly eventFlags: Map<string, Graphics>; sync(snapshot: ProjectedWorldMapSnapshot, animate: boolean): void; setHovered(id: string | null): void; readonly hoveredId: string | null; setZoom(zoom: number): void; setMode(mode: MapMode): void; update(dtMs: number): void; destroy(): void }`
+  - `journeyNumbers(snapshot: ProjectedWorldMapSnapshot): Map<string, number>` — stage numbers 1..n by the order the active character first visited each **discovered** location on this plane (snapshot paths are already chapter- and plane-filtered).
+  - `class RegionsLayer { constructor(container: Container, ctx: LayerContext); sync(snapshot): void; setHovered(id: string | null): void; readonly regionCount: number; destroy(): void }`
+  - `PROP_SCALE = 2` (world units per sheet pixel — matches the baked plane), `ICON_SCALE = 2`, `CRITICAL_ICON_SCALE = 3` (code-drawn fallback icons), `LANDMARK_SCALE = 3`, `KNOWN_TINT = '#1c2430'`
+  - `interface MarkerView { root: Container; clearing: Graphics; ring: Graphics; halo: Graphics; glow: Sprite; icon: Sprite; pylon: Sprite | null; badge: Container | null; status: FogStatus; usesProp: boolean; critical: boolean; baseScale: number; hover: number; phase: number }`
+  - `class MarkersLayer { constructor(container: Container, ctx: LayerContext); readonly markers: Map<string, MarkerView>; readonly landmarks: Map<string, Sprite>; readonly eventFlags: Map<string, Graphics>; sync(snapshot, animate: boolean): void; setHovered(id: string | null): void; readonly hoveredId: string | null; setZoom(zoom: number): void; setMode(mode: MapMode): void; update(dtMs: number): void; destroy(): void }`
+  - Visual rules: each visible marker draws a grass clearing (universe grass color) under itself; tileset prop when `LOCATION_PROP[type]` exists and the tile atlas is ready, else code-drawn icon; KNOWN → dark tint (prop) or silhouette texture (icon) at 70% alpha, no pylon, no badge; hover adds exactly +1 to the scale; journey badges are gold squares with the stage number.
 
 - [ ] **Step 1: Write the failing test**
 
@@ -4554,14 +5048,17 @@ Create `tests/markers-layer.test.ts`:
 
 ```ts
 import { describe, it, expect } from 'vitest';
-import { Container } from 'pixi.js';
-import { MarkersLayer, ICON_SCALE, CRITICAL_ICON_SCALE } from '../src/engine/map/layers/markers-layer';
+import { Container, Texture, TextureSource } from 'pixi.js';
+import { MarkersLayer, PROP_SCALE, CRITICAL_ICON_SCALE, KNOWN_TINT } from '../src/engine/map/layers/markers-layer';
 import { RegionsLayer } from '../src/engine/map/layers/regions-layer';
 import { LayerContext } from '../src/engine/map/layers/layer-context';
 import { IconAtlas } from '../src/engine/map/scene/icon-atlas';
+import { TileAtlas, SheetLoader } from '../src/engine/map/scene/tile-atlas';
+import { SHEETS } from '../src/engine/map/scene/sprite-catalog';
 import { TweenManager } from '../src/engine/map/anim/tween';
 import { getMapTheme } from '../src/domain/map-themes';
 import { projectTemporalMap, FogStatus } from '../src/projections/temporal-map';
+import { journeyNumbers } from '../src/projections/journey-numbers';
 import { WorldMapDefinition } from '../src/domain/map-types';
 
 const def: WorldMapDefinition = {
@@ -4569,40 +5066,77 @@ const def: WorldMapDefinition = {
   terrain: [],
   regions: [{ id: 'reg', name: 'Region', geometry: { type: 'Polygon', coordinates: [[[0, 0], [500, 0], [500, 500]]] } }],
   locations: [
-    { id: 'home', name: 'Home', x: 100, y: 100, type: 'village', importance: 'critical', firstAppearanceChapter: 1, revealedAtChapter: 1, waypoint: true, dangerLevel: 'Safe' },
+    { id: 'home', name: 'Home', x: 100, y: 100, type: 'city', importance: 'critical', firstAppearanceChapter: 1, revealedAtChapter: 1, waypoint: true, dangerLevel: 'Safe' },
     { id: 'rumor', name: 'Rumored Keep', x: 300, y: 300, type: 'castle', importance: 'major', firstAppearanceChapter: 50, revealedAtChapter: 10, waypoint: true },
-    { id: 'later', name: 'Later', x: 600, y: 600, type: 'dungeon', importance: 'minor', firstAppearanceChapter: 80, revealedAtChapter: 80, dangerLevel: 'EX' },
+    { id: 'later', name: 'Later', x: 600, y: 600, type: 'battlefield', importance: 'critical', firstAppearanceChapter: 80, revealedAtChapter: 80, dangerLevel: 'EX' },
   ],
   routes: [],
   territories: [{ factionId: 'f', name: 'F', boundary: [[0, 0], [100, 0], [100, 100]], controlPeriods: [{ fromChapter: 1, toChapter: null, influencePct: 50 }] }],
   events: [{ id: 'ev', name: 'Fight', chapter: 5, locationId: 'home', eventType: 'battle', importance: 'major' }],
-  characterPaths: [{ characterId: 'hero', characterName: 'Hero', waypoints: [{ chapter: 1, locationId: 'home', x: 100, y: 100 }] }],
+  characterPaths: [{ characterId: 'hero', characterName: 'Hero', waypoints: [
+    { chapter: 1, locationId: 'home', x: 100, y: 100 },
+    { chapter: 85, locationId: 'later', x: 600, y: 600 },
+    { chapter: 90, locationId: 'home', x: 100, y: 100 },
+  ] }],
   landmarkGlyphs: [{ id: 'volcano', glyph: 'volcano', x: 800, y: 200, revealedAtChapter: 40 }],
 };
 
-function ctx(reducedMotion = false): LayerContext {
+const loader: SheetLoader = {
+  load: async (url) => {
+    const s = Object.values(SHEETS).find((x) => x.url === url)!;
+    return new Texture({ source: new TextureSource({ width: s.width, height: s.height }) });
+  },
+};
+
+async function ctx(reducedMotion = false, withTiles = true): Promise<LayerContext> {
   const theme = getMapTheme('reverend-insanity');
-  return { theme, atlas: new IconAtlas(null, theme), tweens: new TweenManager(), reducedMotion };
+  const tiles = new TileAtlas(withTiles ? loader : null);
+  await tiles.load();
+  return { theme, atlas: new IconAtlas(null, theme), tiles, tweens: new TweenManager(), reducedMotion };
 }
 
+describe('journeyNumbers', () => {
+  it('numbers discovered locations by first visit order', () => {
+    expect([...journeyNumbers(projectTemporalMap(def, 95)).entries()]).toEqual([['home', 1], ['later', 2]]);
+    expect([...journeyNumbers(projectTemporalMap(def, 20)).entries()]).toEqual([['home', 1]]);
+  });
+});
+
 describe('MarkersLayer', () => {
-  it('creates markers only for visible locations and marks KNOWN ones', () => {
-    const layer = new MarkersLayer(new Container(), ctx());
-    layer.sync(projectTemporalMap(def, 20), false);
-    expect([...layer.markers.keys()].sort()).toEqual(['home', 'rumor']);
-    expect(layer.markers.get('rumor')!.status).toBe(FogStatus.KNOWN);
-    expect(layer.markers.get('home')!.pylon).not.toBeNull();
-    expect(layer.markers.get('home')!.pylon!.visible).toBe(true);
-    // KNOWN waypoint: pylon hidden so fast-travel status does not leak
-    expect(layer.markers.get('rumor')!.pylon!.visible).toBe(false);
-    expect(layer.markers.get('home')!.baseScale).toBe(CRITICAL_ICON_SCALE);
-    expect(layer.markers.get('rumor')!.baseScale).toBe(ICON_SCALE);
+  it('uses tileset props for mapped types and fallback icons otherwise', async () => {
+    const layer = new MarkersLayer(new Container(), await ctx());
+    layer.sync(projectTemporalMap(def, 90), false);
+    expect(layer.markers.get('home')!.usesProp).toBe(true);
+    expect(layer.markers.get('home')!.baseScale).toBe(PROP_SCALE);
+    expect(layer.markers.get('later')!.usesProp).toBe(false);
+    expect(layer.markers.get('later')!.baseScale).toBe(CRITICAL_ICON_SCALE);
   });
 
-  it('adds and removes markers, landmarks and event flags across chapters', () => {
-    const layer = new MarkersLayer(new Container(), ctx());
-    layer.sync(projectTemporalMap(def, 90), false);
+  it('falls back to icons when the tile atlas is not loaded', async () => {
+    const layer = new MarkersLayer(new Container(), await ctx(false, false));
+    layer.sync(projectTemporalMap(def, 20), false);
+    expect(layer.markers.get('home')!.usesProp).toBe(false);
+  });
+
+  it('silhouettes KNOWN locations without pylon or badge', async () => {
+    const layer = new MarkersLayer(new Container(), await ctx());
+    layer.sync(projectTemporalMap(def, 20), false);
+    const rumor = layer.markers.get('rumor')!;
+    expect(rumor.status).toBe(FogStatus.KNOWN);
+    expect(rumor.icon.tint).toBe(Number.parseInt(KNOWN_TINT.slice(1), 16));
+    expect(rumor.icon.alpha).toBeCloseTo(0.7);
+    expect(rumor.pylon!.visible).toBe(false);
+    expect(rumor.badge).toBeNull();
+    const home = layer.markers.get('home')!;
+    expect(home.pylon!.visible).toBe(true);
+    expect(home.badge).not.toBeNull();
+  });
+
+  it('adds and removes markers, landmarks, flags and badges across chapters', async () => {
+    const layer = new MarkersLayer(new Container(), await ctx());
+    layer.sync(projectTemporalMap(def, 95), false);
     expect(layer.markers.size).toBe(3);
+    expect(layer.markers.get('later')!.badge).not.toBeNull();
     expect([...layer.landmarks.keys()]).toEqual(['volcano']);
     expect([...layer.eventFlags.keys()]).toEqual(['ev']);
     layer.sync(projectTemporalMap(def, 2), true);
@@ -4611,8 +5145,8 @@ describe('MarkersLayer', () => {
     expect(layer.eventFlags.size).toBe(0);
   });
 
-  it('fades new markers in when animating', () => {
-    const c = ctx();
+  it('fades new markers in when animating', async () => {
+    const c = await ctx();
     const layer = new MarkersLayer(new Container(), c);
     layer.sync(projectTemporalMap(def, 20), false);
     layer.sync(projectTemporalMap(def, 90), true);
@@ -4622,40 +5156,34 @@ describe('MarkersLayer', () => {
     expect(later.root.alpha).toBe(1);
   });
 
-  it('scales the hovered marker up and back down', () => {
-    const c = ctx();
+  it('scales the hovered marker by exactly +1 and back', async () => {
+    const c = await ctx();
     const layer = new MarkersLayer(new Container(), c);
     layer.sync(projectTemporalMap(def, 20), false);
     layer.setHovered('home');
-    expect(layer.hoveredId).toBe('home');
     c.tweens.tick(200);
     const home = layer.markers.get('home')!;
-    expect(home.icon.scale.x).toBe(CRITICAL_ICON_SCALE + 1);
+    expect(home.icon.scale.x).toBe(PROP_SCALE + 1);
     expect(home.glow.alpha).toBeGreaterThan(0.5);
     layer.setHovered(null);
     c.tweens.tick(200);
-    expect(home.icon.scale.x).toBe(CRITICAL_ICON_SCALE);
+    expect(home.icon.scale.x).toBe(PROP_SCALE);
   });
 
-  it('hides danger rings when zoomed out', () => {
-    const layer = new MarkersLayer(new Container(), ctx());
+  it('hides danger rings when zoomed out and freezes under reduced motion', async () => {
+    const layer = new MarkersLayer(new Container(), await ctx(true));
     layer.sync(projectTemporalMap(def, 90), false);
     layer.setZoom(0.6);
     expect(layer.markers.get('later')!.ring.visible).toBe(false);
     layer.setZoom(1.2);
     expect(layer.markers.get('later')!.ring.visible).toBe(true);
-  });
-
-  it('does not bob critical markers under reduced motion', () => {
-    const layer = new MarkersLayer(new Container(), ctx(true));
-    layer.sync(projectTemporalMap(def, 20), false);
     const y0 = layer.markers.get('home')!.icon.y;
     layer.update(600);
     expect(layer.markers.get('home')!.icon.y).toBe(y0);
   });
 
-  it('forgets the hovered id when that marker is removed', () => {
-    const layer = new MarkersLayer(new Container(), ctx());
+  it('forgets the hovered id when that marker is removed', async () => {
+    const layer = new MarkersLayer(new Container(), await ctx());
     layer.sync(projectTemporalMap(def, 90), false);
     layer.setHovered('later');
     layer.sync(projectTemporalMap(def, 20), true);
@@ -4664,9 +5192,9 @@ describe('MarkersLayer', () => {
 });
 
 describe('RegionsLayer', () => {
-  it('draws regions and territories and tracks hover', () => {
+  it('draws regions and territories and tracks hover', async () => {
     const container = new Container();
-    const layer = new RegionsLayer(container, ctx());
+    const layer = new RegionsLayer(container, await ctx());
     layer.sync(projectTemporalMap(def, 20));
     expect(layer.regionCount).toBe(1);
     expect(container.children.length).toBeGreaterThan(0);
@@ -4683,7 +5211,35 @@ describe('RegionsLayer', () => {
 Run: `npx vitest run tests/markers-layer.test.ts`
 Expected: FAIL — cannot resolve modules.
 
-- [ ] **Step 3: Implement the regions layer**
+- [ ] **Step 3: Implement `journeyNumbers`**
+
+Create `src/projections/journey-numbers.ts`:
+
+```ts
+/**
+ * Level-select stage numbers: the order in which the active character first
+ * visited each discovered location on the active plane. Uses only the
+ * zero-spoiler snapshot (paths are already chapter- and plane-filtered).
+ */
+
+import { isDiscoveredStatus } from './map-snapshot-diff';
+import { ProjectedWorldMapSnapshot } from './temporal-map';
+
+export function journeyNumbers(snapshot: ProjectedWorldMapSnapshot): Map<string, number> {
+  const numbers = new Map<string, number>();
+  const path = snapshot.characterPaths.find((p) => p.characterId === snapshot.activeCharacterId);
+  const locations = new Map(snapshot.locations.map((l) => [l.id, l]));
+  for (const wp of path?.waypoints ?? []) {
+    if (!wp.locationId || numbers.has(wp.locationId)) continue;
+    const loc = locations.get(wp.locationId);
+    if (!loc || !isDiscoveredStatus(loc.fogStatus)) continue;
+    numbers.set(wp.locationId, numbers.size + 1);
+  }
+  return numbers;
+}
+```
+
+- [ ] **Step 4: Implement the regions layer**
 
 Create `src/engine/map/layers/regions-layer.ts`:
 
@@ -4736,9 +5292,9 @@ export class RegionsLayer {
     for (const territory of snapshot.territories) {
       if (!territory.boundary || territory.boundary.length < 3) continue;
       const flat = territory.boundary.flat();
-      const alpha = (territory.currentInfluencePct / 100) * (this.ctx.theme.palette.territoryAlpha ?? 0.22);
+      const alpha = (territory.currentInfluencePct / 100) * 0.16;
       t.poly(flat).fill({ color, alpha });
-      t.poly(flat).stroke({ color, width: 1, alpha: Math.min(1, alpha * 2.5) });
+      t.poly(flat).stroke({ color, width: 2, alpha: Math.min(1, alpha * 3) });
     }
   }
 
@@ -4762,6 +5318,7 @@ export class RegionsLayer {
 
   private drawRegion(g: Graphics, region: MapRegion, hovered: boolean): void {
     g.clear();
+    if (!hovered) return; // borders only on hover: keep the level-select art clean
     const accent = this.ctx.theme.palette.primaryAccent;
     const polygons =
       region.geometry.type === 'Polygon'
@@ -4771,26 +5328,27 @@ export class RegionsLayer {
       for (const ring of polygon) {
         const flat = ring.flat();
         if (flat.length < 6) continue;
-        g.poly(flat).fill({ color: accent, alpha: hovered ? 0.1 : 0.025 });
-        g.poly(flat).stroke({ color: accent, width: hovered ? 2.5 : 1.5, alpha: hovered ? 0.9 : 0.35 });
+        g.poly(flat).fill({ color: '#ffffff', alpha: 0.08 });
+        g.poly(flat).stroke({ color: accent, width: 3, alpha: 0.9 });
       }
     }
   }
 }
 ```
 
-- [ ] **Step 4: Implement the markers layer**
+- [ ] **Step 5: Implement the markers layer**
 
 Create `src/engine/map/layers/markers-layer.ts`:
 
 ```ts
 /**
- * Retained, id-keyed location markers, landmark glyphs and event flags.
- * Diff-friendly: sync() adds/updates/removes only what changed.
+ * Retained, id-keyed location markers (tileset props or code-drawn icons),
+ * numbered journey badges, landmark glyphs and event flags.
  */
 
-import { Container, Graphics, Sprite, Texture } from 'pixi.js';
+import { Container, Graphics, Sprite, Text, Texture } from 'pixi.js';
 import { MapMode } from '../../../domain/map-types';
+import { journeyNumbers } from '../../../projections/journey-numbers';
 import { isDiscoveredStatus } from '../../../projections/map-snapshot-diff';
 import {
   FogStatus,
@@ -4798,22 +5356,28 @@ import {
   ProjectedWorldMapSnapshot,
 } from '../../../projections/temporal-map';
 import { EVENT_FLAG_OFFSET } from '../input/picking';
-import { DANGER_COLORS, shade } from '../scene/pixel-palette';
+import { DANGER_COLORS } from '../scene/pixel-palette';
+import { LOCATION_PROP } from '../scene/sprite-catalog';
+import { getUniverseLook } from '../scene/universe-look';
 import { LayerContext } from './layer-context';
 
+export const PROP_SCALE = 2;
 export const ICON_SCALE = 2;
 export const CRITICAL_ICON_SCALE = 3;
 export const LANDMARK_SCALE = 3;
+export const KNOWN_TINT = '#1c2430';
 
 export interface MarkerView {
   root: Container;
-  glow: Sprite;
-  icon: Sprite;
   clearing: Graphics;
   ring: Graphics;
   halo: Graphics;
+  glow: Sprite;
+  icon: Sprite;
   pylon: Sprite | null;
+  badge: Container | null;
   status: FogStatus;
+  usesProp: boolean;
   critical: boolean;
   baseScale: number;
   hover: number;
@@ -4821,6 +5385,7 @@ export interface MarkerView {
 }
 
 const ICON_Y = 2;
+const BADGE_Y = 16;
 
 export class MarkersLayer {
   public readonly markers = new Map<string, MarkerView>();
@@ -4849,6 +5414,7 @@ export class MarkersLayer {
     const fade = animate && !this.ctx.reducedMotion;
     const visible = snapshot.locations.filter((l) => l.fogStatus !== FogStatus.UNKNOWN);
     const keep = new Set(visible.map((l) => l.id));
+    const numbers = journeyNumbers(snapshot);
 
     for (const [id, view] of this.markers) {
       if (keep.has(id)) continue;
@@ -4878,7 +5444,7 @@ export class MarkersLayer {
           });
         }
       }
-      this.updateMarker(view, loc);
+      this.updateMarker(view, loc, numbers.get(loc.id) ?? null);
     }
 
     this.syncLandmarks(snapshot, fade);
@@ -4932,15 +5498,19 @@ export class MarkersLayer {
 
   private createMarker(loc: ProjectedLocation): MarkerView {
     const theme = this.ctx.theme;
+    const look = getUniverseLook(theme.slug);
     const root = new Container();
     root.position.set(loc.x, loc.y);
     root.zIndex = loc.y;
 
+    // Grass clearing under the marker hides baked trees without leaking unrevealed places
     const clearing = new Graphics()
-      .ellipse(0, 1, 13, 5)
-      .fill({ color: shade(theme.palette.background, -0.3), alpha: 0.75 });
+      .ellipse(0, 2, 26, 12)
+      .fill({ color: look.grass, alpha: 0.95 })
+      .ellipse(0, 3, 20, 8)
+      .fill({ color: '#000000', alpha: 0.12 });
     const ring = new Graphics();
-    const halo = new Graphics().circle(0, -10, 16).stroke({ color: theme.palette.primaryAccent, width: 2 });
+    const halo = new Graphics().circle(0, -14, 22).stroke({ color: '#fff4c0', width: 2 });
     halo.visible = false;
 
     const glow = new Sprite(Texture.EMPTY);
@@ -4958,7 +5528,7 @@ export class MarkersLayer {
     if (loc.waypoint) {
       pylon = new Sprite(Texture.EMPTY);
       pylon.anchor.set(0.5, 1);
-      pylon.position.set(15, ICON_Y);
+      pylon.position.set(22, ICON_Y);
       pylon.scale.set(1.5);
     }
 
@@ -4968,25 +5538,41 @@ export class MarkersLayer {
     const critical = loc.importance === 'critical';
     return {
       root,
-      glow,
-      icon,
       clearing,
       ring,
       halo,
+      glow,
+      icon,
       pylon,
+      badge: null,
       status: loc.fogStatus,
+      usesProp: false,
       critical,
-      baseScale: critical ? CRITICAL_ICON_SCALE : ICON_SCALE,
+      baseScale: ICON_SCALE,
       hover: 0,
       phase: ((loc.x * 13 + loc.y * 7) % 1000) / 1000,
     };
   }
 
-  private updateMarker(view: MarkerView, loc: ProjectedLocation): void {
+  private updateMarker(view: MarkerView, loc: ProjectedLocation, stage: number | null): void {
     const known = loc.fogStatus === FogStatus.KNOWN;
-    const texture = this.ctx.atlas.location(loc.type, known ? 'silhouette' : 'lit');
-    view.icon.texture = texture;
-    view.glow.texture = texture;
+    const propName = LOCATION_PROP[loc.type];
+    const usesProp = Boolean(propName) && this.ctx.tiles.ready;
+
+    if (usesProp && propName) {
+      const texture = this.ctx.tiles.texture(propName);
+      view.icon.texture = texture;
+      view.glow.texture = texture;
+      view.icon.tint = known ? KNOWN_TINT : 0xffffff;
+      view.baseScale = PROP_SCALE;
+    } else {
+      const texture = this.ctx.atlas.location(loc.type, known ? 'silhouette' : 'lit');
+      view.icon.texture = texture;
+      view.glow.texture = texture;
+      view.icon.tint = 0xffffff;
+      view.baseScale = view.critical ? CRITICAL_ICON_SCALE : ICON_SCALE;
+    }
+    view.usesProp = usesProp;
     view.status = loc.fogStatus;
     view.icon.alpha = known ? 0.7 : 1;
     view.halo.visible = loc.fogStatus === FogStatus.CURRENT || Boolean(loc.isCurrentPosition);
@@ -4995,16 +5581,46 @@ export class MarkersLayer {
 
     view.ring.clear();
     if (loc.dangerLevel && !known) {
-      view.ring.ellipse(0, 1, 15, 6).stroke({ color: DANGER_COLORS[loc.dangerLevel], width: 1.5, alpha: 0.9 });
+      view.ring.ellipse(0, 3, 24, 10).stroke({ color: DANGER_COLORS[loc.dangerLevel], width: 2, alpha: 0.9 });
     }
     view.ring.visible = this.zoom >= 1;
 
     if (view.pylon) {
-      // A pylon on an undiscovered (KNOWN) place would leak that it is a fast-travel point
       view.pylon.visible = !known;
       view.pylon.texture = this.ctx.atlas.pylon(isDiscoveredStatus(loc.fogStatus));
     }
+
+    this.syncBadge(view, known ? null : stage);
     this.applyHover(view);
+  }
+
+  private syncBadge(view: MarkerView, stage: number | null): void {
+    if (stage === null) {
+      view.badge?.destroy({ children: true });
+      view.badge = null;
+      return;
+    }
+    const label = String(stage);
+    const existing = view.badge?.children[1] as Text | undefined;
+    if (view.badge && existing?.text === label) return;
+    view.badge?.destroy({ children: true });
+    const badge = new Container();
+    const w = label.length > 1 ? 22 : 16;
+    const plate = new Graphics()
+      .rect(-w / 2 - 2, -10, w + 4, 20)
+      .fill('#46280e')
+      .rect(-w / 2, -8, w, 16)
+      .fill('#f0c454');
+    const text = new Text({
+      text: label,
+      style: { fontFamily: 'Silkscreen, monospace', fontSize: 28, fill: '#46280e', fontWeight: 'bold' },
+    });
+    text.anchor.set(0.5);
+    text.scale.set(0.5);
+    badge.addChild(plate, text);
+    badge.position.set(0, BADGE_Y);
+    view.root.addChild(badge);
+    view.badge = badge;
   }
 
   private animateHover(id: string, on: boolean): void {
@@ -5022,7 +5638,6 @@ export class MarkersLayer {
   }
 
   private applyHover(view: MarkerView): void {
-    // Integer scale at rest and at full hover (base -> base + 1)
     const scale = view.hover >= 1 ? view.baseScale + 1 : view.baseScale + view.hover;
     view.icon.scale.set(scale);
     view.glow.scale.set(scale + 1);
@@ -5077,9 +5692,9 @@ export class MarkersLayer {
       if (this.eventFlags.has(ev.id)) continue;
       const loc = locations.get(ev.locationId!)!;
       const flag = new Graphics();
-      flag.rect(-3, -5, 1, 11).fill('#0b0b10');
+      flag.rect(-3, -5, 1, 11).fill('#1a1410');
       flag.rect(-2, -5, 6, 5).fill(color);
-      flag.rect(-2, -5, 6, 5).stroke({ color: '#0b0b10', width: 1 });
+      flag.rect(-2, -5, 6, 5).stroke({ color: '#1a1410', width: 1 });
       flag.position.set(loc.x + EVENT_FLAG_OFFSET.x, loc.y + EVENT_FLAG_OFFSET.y);
       flag.scale.set(this.flagScale);
       this.eventFlags.set(ev.id, flag);
@@ -5089,21 +5704,21 @@ export class MarkersLayer {
 }
 ```
 
-- [ ] **Step 5: Run tests, typecheck, commit**
+- [ ] **Step 6: Run tests, typecheck, commit**
 
 Run: `npx vitest run tests/markers-layer.test.ts && npx tsc --noEmit`
-Expected: PASS (8 tests), clean.
+Expected: PASS (10 tests), clean. Fixture notes: at chapter 90 the hero stands at `home` again (`later` visited at 85), so both are discovered; `later` is a `battlefield` (no tileset prop → fallback icon, critical scale 3).
 
 ```bash
-git add src/engine/map/layers/regions-layer.ts src/engine/map/layers/markers-layer.ts tests/markers-layer.test.ts
-git commit -m "feat(map): add retained regions and pixel marker layers with hover glow
+git add src/projections/journey-numbers.ts src/engine/map/layers/regions-layer.ts src/engine/map/layers/markers-layer.ts tests/markers-layer.test.ts
+git commit -m "feat(map): add tileset prop markers with clearings, journey badges and hover glow
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 ```
 
 ---
 
-### Task 14: Animated routes layer
+### Task 14: Dirt-path and animated routes layer
 
 **Files:**
 - Create: `src/engine/map/layers/routes-layer.ts`
@@ -5112,7 +5727,8 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 **Interfaces:**
 - Consumes: `LayerContext`, `dashSegments`, `shade`, `ProjectedWorldMapSnapshot`, `MapRoute`, `MapTheme`.
 - Produces:
-  - `ROUTE_STYLES: Record<MapRoute['routeType'], { dash: number; gap: number; width: number; speed: number; alpha: number }>` (speed in world units per ms)
+  - `ROUTE_STYLES: Record<MapRoute['routeType'], { dash: number; gap: number; width: number; speed: number; alpha: number }>` (speed in world units per ms; `road` is drawn as a solid level-select dirt path — dark brown edge, tan center — and ignores dash settings)
+  - `DIRT_EDGE = '#6e4824'`, `DIRT_TOP = '#d4a860'`
   - `routeColor(route: MapRoute, theme: MapTheme): string`
   - `class RoutesLayer { constructor(container: Container, ctx: LayerContext); sync(snapshot: ProjectedWorldMapSnapshot): void; update(dtMs: number): void; readonly routeCount: number; readonly dashPhaseMs: number; destroy(): void }`
 
@@ -5123,15 +5739,16 @@ Create `tests/routes-layer.test.ts`:
 ```ts
 import { describe, it, expect } from 'vitest';
 import { Container } from 'pixi.js';
-import { RoutesLayer, ROUTE_STYLES, routeColor } from '../src/engine/map/layers/routes-layer';
+import { RoutesLayer, ROUTE_STYLES, routeColor, DIRT_TOP } from '../src/engine/map/layers/routes-layer';
 import { IconAtlas } from '../src/engine/map/scene/icon-atlas';
+import { TileAtlas } from '../src/engine/map/scene/tile-atlas';
 import { TweenManager } from '../src/engine/map/anim/tween';
 import { getMapTheme } from '../src/domain/map-themes';
 import { projectTemporalMap } from '../src/projections/temporal-map';
 import { WorldMapDefinition, MapRoute } from '../src/domain/map-types';
 
 const theme = getMapTheme('one-piece');
-const ctx = (reducedMotion = false) => ({ theme, atlas: new IconAtlas(null, theme), tweens: new TweenManager(), reducedMotion });
+const ctx = (reducedMotion = false) => ({ theme, atlas: new IconAtlas(null, theme), tiles: new TileAtlas(null), tweens: new TweenManager(), reducedMotion });
 
 const def: WorldMapDefinition = {
   id: 'routes', universeId: 'one-piece', coordinateSystem: 'world', width: 500, height: 500,
@@ -5150,9 +5767,11 @@ describe('RoutesLayer', () => {
     }
   });
 
-  it('colors secret routes with the secondary accent', () => {
+  it('colors roads as dirt paths and secret routes with the secondary accent', () => {
     const secret: MapRoute = { id: 's', name: 's', points: [[0, 0], [1, 1]], routeType: 'secret', visibleFromChapter: 1 };
+    const road: MapRoute = { ...secret, routeType: 'road' };
     expect(routeColor(secret, theme)).toBe(theme.palette.secondaryAccent);
+    expect(routeColor(road, theme)).toBe(DIRT_TOP);
   });
 
   it('syncs visible routes', () => {
@@ -5211,11 +5830,15 @@ export const ROUTE_STYLES: Record<
   secret: { dash: 3, gap: 5, width: 1.5, speed: 0.008, alpha: 0.85 },
 };
 
+export const DIRT_EDGE = '#6e4824';
+export const DIRT_TOP = '#d4a860';
+
 export function routeColor(route: MapRoute, theme: MapTheme): string {
   const base = theme.palette.routeColor ?? theme.palette.primaryAccent;
+  if (route.routeType === 'road') return DIRT_TOP;
   if (route.routeType === 'secret') return theme.palette.secondaryAccent ?? base;
-  if (route.routeType === 'sea') return shade(base, 0.3);
-  return base;
+  if (route.routeType === 'sea') return '#f4fbff';
+  return shade(base, 0.2);
 }
 
 export class RoutesLayer {
@@ -5260,6 +5883,16 @@ export class RoutesLayer {
       const points: Pt[] = route.points.map(([x, y]) => ({ x, y }));
       const color = routeColor(route, this.ctx.theme);
 
+      if (route.routeType === 'road') {
+        // Level-select dirt path: dark edge, tan center, no animation
+        for (const [width, stroke] of [[10, DIRT_EDGE], [6, DIRT_TOP]] as const) {
+          g.moveTo(points[0].x, points[0].y);
+          for (let i = 1; i < points.length; i++) g.lineTo(points[i].x, points[i].y);
+          g.stroke({ color: stroke, width, cap: 'round', join: 'round' });
+        }
+        continue;
+      }
+
       // Soft dark underlay so dashes read on any biome
       g.moveTo(points[0].x, points[0].y);
       for (let i = 1; i < points.length; i++) g.lineTo(points[i].x, points[i].y);
@@ -5285,7 +5918,7 @@ Expected: PASS (4 tests), clean.
 
 ```bash
 git add src/engine/map/layers/routes-layer.ts tests/routes-layer.test.ts
-git commit -m "feat(map): add animated pixel-dash routes layer
+git commit -m "feat(map): add dirt-path roads and animated sea/portal/secret routes
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 ```
@@ -5317,6 +5950,7 @@ import { Container } from 'pixi.js';
 import { HeroWalker, heroTrailPoints, HERO_JUMP_WAYPOINTS } from '../src/engine/map/layers/hero-walker';
 import { HeroLayer } from '../src/engine/map/layers/hero-layer';
 import { IconAtlas } from '../src/engine/map/scene/icon-atlas';
+import { TileAtlas } from '../src/engine/map/scene/tile-atlas';
 import { TweenManager } from '../src/engine/map/anim/tween';
 import { getMapTheme } from '../src/domain/map-themes';
 import { projectTemporalMap } from '../src/projections/temporal-map';
@@ -5383,7 +6017,7 @@ const def: WorldMapDefinition = {
 
 function layer(reducedMotion = false) {
   const theme = getMapTheme('reverend-insanity');
-  return new HeroLayer(new Container(), { theme, atlas: new IconAtlas(null, theme), tweens: new TweenManager(), reducedMotion });
+  return new HeroLayer(new Container(), { theme, atlas: new IconAtlas(null, theme), tiles: new TileAtlas(null), tweens: new TweenManager(), reducedMotion });
 }
 
 describe('HeroLayer', () => {
@@ -5546,7 +6180,6 @@ import { Assets, Container, Graphics, Sprite, Texture } from 'pixi.js';
 import { MapMode } from '../../../domain/map-types';
 import { MapPoint, MapSnapshotDiff } from '../../../projections/map-snapshot-diff';
 import { ProjectedWorldMapSnapshot } from '../../../projections/temporal-map';
-import { shade } from '../scene/pixel-palette';
 import { HERO_JUMP_WAYPOINTS, HeroWalker, heroTrailPoints } from './hero-walker';
 import { LayerContext } from './layer-context';
 
@@ -5561,7 +6194,7 @@ export class HeroLayer {
   private avatarMask: Graphics | null = null;
   private trailBase: MapPoint[] = [];
   private time = 0;
-  private trailWidth = 3;
+  private trailWidth = 6;
 
   constructor(private readonly container: Container, private readonly ctx: LayerContext) {
     const { primaryAccent, secondaryAccent } = ctx.theme.palette;
@@ -5610,7 +6243,7 @@ export class HeroLayer {
   }
 
   public setMode(mode: MapMode): void {
-    this.trailWidth = mode === 'adventure' ? 4 : 3;
+    this.trailWidth = mode === 'adventure' ? 8 : 6;
     this.redrawTrail();
   }
 
@@ -5693,14 +6326,12 @@ export class HeroLayer {
         ? [...this.trailBase, this.walker.position]
         : this.trailBase;
     if (points.length >= 2) {
-      const secondary = this.ctx.theme.palette.secondaryAccent ?? this.ctx.theme.palette.primaryAccent;
-      g.moveTo(points[0].x, points[0].y);
-      for (let i = 1; i < points.length; i++) g.lineTo(points[i].x, points[i].y);
-      g.stroke({ color: shade(secondary, -0.6), width: this.trailWidth + 3, alpha: 0.55 });
-      g.moveTo(points[0].x, points[0].y);
-      for (let i = 1; i < points.length; i++) g.lineTo(points[i].x, points[i].y);
-      g.stroke({ color: secondary, width: this.trailWidth, alpha: 0.95 });
-      for (const p of this.trailBase) g.circle(p.x, p.y, 2.5).fill(secondary);
+      // Level-select journey path: dark dirt edge, tan center (stage badges come from the markers layer)
+      for (const [extra, color] of [[4, '#6e4824'], [0, '#e0b86a']] as const) {
+        g.moveTo(points[0].x, points[0].y);
+        for (let i = 1; i < points.length; i++) g.lineTo(points[i].x, points[i].y);
+        g.stroke({ color, width: this.trailWidth + extra, cap: 'round', join: 'round' });
+      }
     }
   }
 }
@@ -5715,7 +6346,7 @@ Expected: PASS (9 tests), clean. Check the jump test's arithmetic: at chapter 1 
 
 ```bash
 git add src/engine/map/layers/hero-walker.ts src/engine/map/layers/hero-layer.ts tests/hero-layer.test.ts
-git commit -m "feat(map): add walking hero token with torch-light and journey trail
+git commit -m "feat(map): add walking hero token with torch-light and dirt-path journey trail
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 ```
@@ -5731,7 +6362,7 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 - Test: `tests/fog-apertures.test.ts`
 
 **Interfaces:**
-- Consumes: `isDiscoveredStatus` (Task 4), `hexToRgb01` (Task 7), `LayerContext`, `IconAtlas.softDisc()`/`SOFT_DISC_RADIUS` (Task 11).
+- Consumes: `isDiscoveredStatus` (Task 4), `getUniverseLook` (Task 7: light per-universe cloud fog color/opacity), `hexToRgb01` (Task 7), `LayerContext`, `IconAtlas.softDisc()`/`SOFT_DISC_RADIUS` (Task 11).
 - Produces:
   - `APERTURE_RADIUS = { critical: 70, other: 45, waypoint: 50 }`
   - `computeApertureTargets(snapshot: ProjectedWorldMapSnapshot): Map<string, { x: number; y: number; radius: number }>` — keys `loc:<id>` and `wp:<chapter>:<x>:<y>`.
@@ -5751,6 +6382,7 @@ import { Container } from 'pixi.js';
 import { ApertureField, computeApertureTargets, APERTURE_RADIUS } from '../src/engine/map/layers/fog-apertures';
 import { FogLayer } from '../src/engine/map/layers/fog-layer';
 import { IconAtlas } from '../src/engine/map/scene/icon-atlas';
+import { TileAtlas } from '../src/engine/map/scene/tile-atlas';
 import { TweenManager } from '../src/engine/map/anim/tween';
 import { getMapTheme } from '../src/domain/map-themes';
 import { projectTemporalMap } from '../src/projections/temporal-map';
@@ -5832,7 +6464,7 @@ describe('ApertureField', () => {
 describe('FogLayer without a renderer', () => {
   it('tracks apertures and returns newly opened ids', () => {
     const theme = getMapTheme('reverend-insanity');
-    const fog = new FogLayer(new Container(), { theme, atlas: new IconAtlas(null, theme), tweens: new TweenManager(), reducedMotion: false }, null);
+    const fog = new FogLayer(new Container(), { theme, atlas: new IconAtlas(null, theme), tiles: new TileAtlas(null), tweens: new TweenManager(), reducedMotion: false }, null);
     fog.resize(1000, 1000);
     fog.sync(projectTemporalMap(def, 30), false);
     const opened = fog.sync(projectTemporalMap(def, 60), true);
@@ -6114,6 +6746,7 @@ Create `src/engine/map/layers/fog-layer.ts`:
 import { Container, Mesh, RenderTexture, Renderer, Sprite } from 'pixi.js';
 import { ProjectedWorldMapSnapshot } from '../../../projections/temporal-map';
 import { SOFT_DISC_RADIUS } from '../scene/icon-atlas';
+import { getUniverseLook } from '../scene/universe-look';
 import { ApertureField, computeApertureTargets } from './fog-apertures';
 import { createFogQuad, DitherFogMaterial } from './fog-material';
 import { LayerContext } from './layer-context';
@@ -6145,10 +6778,11 @@ export class FogLayer {
       width: Math.ceil(width / FOG_MASK_SCALE),
       height: Math.ceil(height / FOG_MASK_SCALE),
     });
+    const look = getUniverseLook(this.ctx.theme.slug);
     this.material = new DitherFogMaterial({
       mask: this.renderTexture,
-      color: this.ctx.theme.fogStyle.color ?? '#020705',
-      opacity: this.ctx.theme.fogStyle.opacity ?? 0.85,
+      color: look.fogColor,
+      opacity: look.fogOpacity,
       worldWidth: width,
       worldHeight: height,
     });
@@ -6248,12 +6882,13 @@ import { Container } from 'pixi.js';
 import { FxLayer } from '../src/engine/map/layers/fx-layer';
 import { AtmosphereLayer, particleStyleFor } from '../src/engine/map/layers/atmosphere-layer';
 import { IconAtlas } from '../src/engine/map/scene/icon-atlas';
+import { TileAtlas } from '../src/engine/map/scene/tile-atlas';
 import { TweenManager } from '../src/engine/map/anim/tween';
 import { getMapTheme, UNIVERSE_MAP_THEMES } from '../src/domain/map-themes';
 
 const ctx = (slug = 'coiling-dragon', reducedMotion = false) => {
   const theme = getMapTheme(slug);
-  return { theme, atlas: new IconAtlas(null, theme), tweens: new TweenManager(), reducedMotion };
+  return { theme, atlas: new IconAtlas(null, theme), tiles: new TileAtlas(null), tweens: new TweenManager(), reducedMotion };
 };
 
 describe('FxLayer', () => {
@@ -6675,6 +7310,7 @@ import { describe, it, expect } from 'vitest';
 import { Container } from 'pixi.js';
 import { LabelsLayer, labelAlpha, LABEL_SCREEN_SIZE } from '../src/engine/map/layers/labels-layer';
 import { IconAtlas } from '../src/engine/map/scene/icon-atlas';
+import { TileAtlas } from '../src/engine/map/scene/tile-atlas';
 import { TweenManager } from '../src/engine/map/anim/tween';
 import { getMapTheme } from '../src/domain/map-themes';
 import { projectTemporalMap } from '../src/projections/temporal-map';
@@ -6712,7 +7348,7 @@ describe('LabelsLayer (Text fallback)', () => {
 
   it('labels regions and discovered locations but never KNOWN ones', () => {
     const theme = getMapTheme('reverend-insanity');
-    const layer = new LabelsLayer(new Container(), { theme, atlas: new IconAtlas(null, theme), tweens: new TweenManager(), reducedMotion: false }, false);
+    const layer = new LabelsLayer(new Container(), { theme, atlas: new IconAtlas(null, theme), tiles: new TileAtlas(null), tweens: new TweenManager(), reducedMotion: false }, false);
     layer.sync(projectTemporalMap(def, 10));
     expect([...layer.labels.keys()].sort()).toEqual(['loc:big', 'loc:small', 'region:r']);
 
@@ -6904,13 +7540,14 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 - Modify: `tests/pixi-renderer.test.ts` (append a new `describe`)
 
 **Interfaces:**
-- Consumes: everything from Tasks 2–18.
+- Consumes: everything from Tasks 2–18 (notably `TileAtlas`/`assetsLoader` from Task 6, `getUniverseLook` from Task 7, `buildPlaneLayout`/`PIXELS_PER_WORLD`/`paintPlane` from Task 12).
 - Produces (public API of `PixiWorldRenderer`):
   - Unchanged: the 9 containers, `camera`, `worldContainer`, `app`, `mode`, `onSelectLocation/Region/Event`, `setMode()`, `toggleLayer()`, `flyTo()`, `resize()`, `syncCameraTransform()`, `destroy()`, `renderSnapshot(snapshot, theme, options?)` (now forces a full sync).
   - New options: `reducedMotion?: boolean`, `heroAvatarUrl?: string`, `onHover?: (info: HoverInfo | null) => void`, `onCameraChange?: (view: CameraView) => void`, `onDiscover?: (locationIds: string[]) => void`.
   - New types: `interface HoverInfo { target: PickTarget; screenX: number; screenY: number }`, `interface CameraView { x: number; y: number; zoom: number; viewWidth: number; viewHeight: number; worldWidth: number; worldHeight: number }`.
   - New methods: `applySnapshot(snapshot, theme, options?): Promise<void>` (diff-driven; auto-upgrades to full on plane/map/theme change), `setHeroAvatar(url: string | undefined): void`, `warpTo(x: number, y: number, zoom?: number): void`, `hoverAt(screenX: number, screenY: number): void`, `clickAt(screenX: number, screenY: number): void`, `getCameraView(): CameraView`, `getMinimapImage(): Promise<string | null>`.
-  - New read-only state: `ready: Promise<void>`, `currentSnapshot: ProjectedWorldMapSnapshot | null`, `commitCount: number`, `layerSet: RendererLayers | null`, `tweens: TweenManager`.
+  - New read-only state: `ready: Promise<void>` (Pixi app + tileset sheets loaded), `tiles: TileAtlas`, `currentSnapshot: ProjectedWorldMapSnapshot | null`, `commitCount: number`, `layerSet: RendererLayers | null`, `tweens: TweenManager`.
+  - Static plane bake: `buildPlaneLayout` → `paintPlane` on a fresh `<canvas>` (Canvas 2D, `willReadFrequently`) → `Texture.from(canvas)` with nearest filtering, sprite scaled by `1 / PIXELS_PER_WORLD`; cached per `(mapId, planeId, universe)`; headless mode adds a plain placeholder rectangle instead.
   - Coalescing contract: calls made before the queue drains are collapsed; only the newest snapshot is committed.
 
 - [ ] **Step 1: Write the failing tests**
@@ -7058,7 +7695,7 @@ Replace the entire contents of `src/engine/map/pixi-world-renderer.ts` with:
  * Client-side safe: without a canvas (SSR/tests) everything runs headless.
  */
 
-import { Application, Container, Graphics, Rectangle, Renderer, Sprite, Texture } from 'pixi.js';
+import { Application, Container, Graphics, Renderer, Sprite, Texture } from 'pixi.js';
 import { CameraController } from './camera-controller';
 import { ProjectedWorldMapSnapshot } from '../../projections/temporal-map';
 import { diffMapSnapshots, MapSnapshotDiff } from '../../projections/map-snapshot-diff';
@@ -7068,7 +7705,10 @@ import { TweenManager } from './anim/tween';
 import { GestureEvent, GestureTracker } from './input/gesture-tracker';
 import { pickAt, PickTarget } from './input/picking';
 import { createRendererBaker, IconAtlas } from './scene/icon-atlas';
-import { buildStaticScene } from './scene/static-baker';
+import { buildPlaneLayout, PIXELS_PER_WORLD } from './scene/plane-layout';
+import { paintPlane } from './scene/plane-painter';
+import { TileAtlas, assetsLoader } from './scene/tile-atlas';
+import { getUniverseLook } from './scene/universe-look';
 import { shade } from './scene/pixel-palette';
 import { hashString } from './scene/prng';
 import { LayerContext } from './layers/layer-context';
@@ -7160,7 +7800,8 @@ export class PixiWorldRenderer {
 
   private readonly options: PixiWorldRendererOptions;
   private readonly gestures = new GestureTracker(4);
-  private readonly staticCache = new Map<string, Texture>();
+  private readonly staticCache = new Map<string, { texture: Texture; canvas: HTMLCanvasElement }>();
+  public readonly tiles: TileAtlas;
   private readonly reducedMotion: boolean;
   private heroAvatarUrl: string | undefined;
   private canvas: HTMLCanvasElement | null;
@@ -7217,8 +7858,13 @@ export class PixiWorldRenderer {
     );
     this.syncCameraTransform();
 
-    if (typeof window !== 'undefined' && canvas) {
-      this.ready = this.initPixiApp(canvas, options.width, options.height);
+    const browser = typeof window !== 'undefined' && Boolean(canvas);
+    this.tiles = new TileAtlas(browser ? assetsLoader : null);
+
+    if (browser && canvas) {
+      this.ready = this.initPixiApp(canvas, options.width, options.height).then(() =>
+        this.tiles.load().catch((e) => console.warn('[PixiWorldRenderer] tileset load failed:', e))
+      );
       this.attachCanvasListeners(canvas);
       this.startRenderLoop();
     } else {
@@ -7380,6 +8026,7 @@ export class PixiWorldRenderer {
     const ctx: LayerContext = {
       theme,
       atlas: this.atlas,
+      tiles: this.tiles,
       tweens: this.tweens,
       reducedMotion: this.reducedMotion,
     };
@@ -7413,7 +8060,7 @@ export class PixiWorldRenderer {
     this.tweens.clear();
     this.atlas?.destroy();
     this.atlas = null;
-    for (const texture of this.staticCache.values()) texture.destroy(true);
+    for (const entry of this.staticCache.values()) entry.texture.destroy(true);
     this.staticCache.clear();
     this.bakedKey = null;
     this.hovered = null;
@@ -7426,30 +8073,43 @@ export class PixiWorldRenderer {
     if (this.bakedKey === key && this.terrainContainer.children.length > 0) return;
     this.clearContainerAndDestroyChildren(this.terrainContainer);
 
-    const renderer = this.renderer;
-    const atlas = this.atlas as IconAtlas;
-    if (!renderer) {
-      this.terrainContainer.addChild(buildStaticScene({ snapshot, theme, atlas }));
+    if (!this.renderer || typeof document === 'undefined') {
+      // Headless (SSR/tests): plain placeholder so the layer is never empty
+      const placeholder = new Graphics().rect(0, 0, snapshot.width, snapshot.height).fill('#2076aa');
+      this.terrainContainer.addChild(placeholder);
       this.bakedKey = key;
       return;
     }
 
-    let texture = this.staticCache.get(key);
-    if (!texture) {
-      const scene = buildStaticScene({ snapshot, theme, atlas });
-      texture = renderer.generateTexture({
-        target: scene,
-        frame: new Rectangle(0, 0, snapshot.width, snapshot.height),
-        resolution: 0.5,
-        antialias: false,
-      });
+    let entry = this.staticCache.get(key);
+    if (!entry) {
+      const layout = buildPlaneLayout(snapshot);
+      const canvas = document.createElement('canvas');
+      canvas.width = layout.width;
+      canvas.height = layout.height;
+      const ctx = canvas.getContext('2d', { willReadFrequently: true });
+      if (ctx) {
+        paintPlane(
+          ctx,
+          layout,
+          this.tiles,
+          getUniverseLook(theme.slug),
+          (w, h) => {
+            const c = document.createElement('canvas');
+            c.width = w;
+            c.height = h;
+            return c;
+          },
+          hashString(key)
+        );
+      }
+      const texture = Texture.from(canvas);
       texture.source.scaleMode = 'nearest';
-      scene.destroy({ children: true });
-      this.staticCache.set(key, texture);
+      entry = { texture, canvas };
+      this.staticCache.set(key, entry);
     }
-    const sprite = new Sprite(texture);
-    sprite.width = snapshot.width;
-    sprite.height = snapshot.height;
+    const sprite = new Sprite(entry.texture);
+    sprite.scale.set(1 / PIXELS_PER_WORLD);
     this.terrainContainer.addChild(sprite);
     this.bakedKey = key;
   }
@@ -7565,11 +8225,10 @@ export class PixiWorldRenderer {
 
   public async getMinimapImage(): Promise<string | null> {
     await this.ready;
-    const renderer = this.renderer;
-    const texture = this.bakedKey ? this.staticCache.get(this.bakedKey) : undefined;
-    if (!renderer || !texture) return null;
+    const entry = this.bakedKey ? this.staticCache.get(this.bakedKey) : undefined;
+    if (!entry) return null;
     try {
-      return await renderer.extract.base64(texture);
+      return entry.canvas.toDataURL('image/png');
     } catch {
       return null;
     }
@@ -7766,6 +8425,7 @@ export class PixiWorldRenderer {
     this.cleanupListeners();
     this.camera.stopAnimation();
     this.disposeLayers();
+    this.tiles.destroy();
     this.latestSnapshot = null;
 
     if (this.app) {
@@ -7784,7 +8444,7 @@ export class PixiWorldRenderer {
 - [ ] **Step 4: Run tests**
 
 Run: `npx vitest run tests/pixi-renderer.test.ts`
-Expected: PASS — the 11 existing tests plus 7 new ones. Note on the existing `renders snapshot elements into layer containers` test: `markersContainer` always has 3 sub-containers, `terrainContainer` holds the headless static scene, `regionsContainer` holds the territory graphic plus one region, `labelsContainer` holds the `Qing Mao Mountain` label.
+Expected: PASS — the 11 existing tests plus 7 new ones. Note on the existing `renders snapshot elements into layer containers` test: `markersContainer` always has 3 sub-containers, `terrainContainer` holds the headless placeholder rectangle, `regionsContainer` holds the territory graphic plus one region, `labelsContainer` holds the `Qing Mao Mountain` label.
 
 If the "clears hover" test fails because `refreshHover` re-picks the region under the cursor, that is correct behavior (the last hover target becomes region `r`); the assertion only requires it is no longer `l3`.
 
@@ -7824,7 +8484,7 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
   - `visibleRegionNames(def: WorldMapDefinition, userChapter: number): Record<string, string>`
   - `interface WaypointGroup { planeId: string; planeName: string; regions: Array<{ regionId: string | null; regionName: string; waypoints: ProjectedWaypoint[] }> }`, `groupWaypoints(waypoints: ProjectedWaypoint[], planes: ProjectedPlane[], regionNames: Record<string, string>): WaypointGroup[]`
   - `fogCirclesForMinimap(snapshot: ProjectedWorldMapSnapshot): Array<{ x: number; y: number; r: number }>`
-- Produces (components): `AtlasTooltip`, `DiscoveryBanner`, `WaypointPanel`, `AtlasFrame`, `AtlasMinimap` with the props shown in the code below.
+- Produces (components): `AtlasTooltip`, `DiscoveryBanner`, `WaypointPanel`, `AtlasFrame` (with optional `credits` links for the tileset attribution), `AtlasMinimap` with the props shown in the code below.
 
 - [ ] **Step 1: Write the failing test**
 
@@ -8003,6 +8663,11 @@ describe('overlay components', () => {
 
   it('renders the frame and minimap', () => {
     expect(renderToStaticMarkup(React.createElement(AtlasFrame, { accentColor: '#10b981', rune: '🦗' }))).toContain('🦗');
+    const credited = renderToStaticMarkup(
+      React.createElement(AtlasFrame, { accentColor: '#10b981', rune: '🦗', credits: [{ label: 'Puny World tileset by Shade (CC0)', url: 'https://opengameart.org/x' }] })
+    );
+    expect(credited).toContain('Art:');
+    expect(credited).toContain('href="https://opengameart.org/x"');
     const html = renderToStaticMarkup(React.createElement(AtlasMinimap, {
       imageUrl: null, worldWidth: 1000, worldHeight: 1000, fogCircles: [{ x: 100, y: 100, r: 70 }],
       hero: { x: 100, y: 100 }, subscribe: () => () => {}, onPan: () => {}, accentColor: '#10b981', fogColor: '#020705',
@@ -8486,6 +9151,8 @@ import React from 'react';
 export interface AtlasFrameProps {
   accentColor: string;
   rune: string;
+  /** Art attribution (CC-BY requires it); rendered as small links in the bottom-left corner. */
+  credits?: Array<{ label: string; url: string }>;
 }
 
 const CORNERS = [
@@ -8496,7 +9163,7 @@ const CORNERS = [
 ] as const;
 
 /** Ornate iron-and-bone pixel frame with the universe rune in each corner. */
-export function AtlasFrame({ accentColor, rune }: AtlasFrameProps) {
+export function AtlasFrame({ accentColor, rune, credits = [] }: AtlasFrameProps) {
   return (
     <div data-testid="atlas-frame" className="pointer-events-none absolute inset-0 z-20" aria-hidden="true">
       <div
@@ -8515,6 +9182,16 @@ export function AtlasFrame({ accentColor, rune }: AtlasFrameProps) {
           <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[11px] opacity-80">{rune}</span>
         </div>
       ))}
+      {credits.length > 0 && (
+        <div className="pointer-events-auto absolute bottom-2 left-12 flex gap-2 font-mono text-[8px] text-slate-400/80">
+          <span>Art:</span>
+          {credits.map((credit) => (
+            <a key={credit.url} href={credit.url} target="_blank" rel="noreferrer" className="underline hover:text-white">
+              {credit.label}
+            </a>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -8875,6 +9552,8 @@ import {
 } from '../../projections/temporal-map';
 import { CameraView, HoverInfo, PixiWorldRenderer } from '../../engine/map/pixi-world-renderer';
 import { SoundEngine } from '../../lib/sound-effects';
+import { ART_CREDITS } from '../../engine/map/scene/sprite-catalog';
+import { getUniverseLook } from '../../engine/map/scene/universe-look';
 import { MapHudControls, PlaneOption } from './MapHudControls';
 import { MapTimelineBar } from './MapTimelineBar';
 import { MapLocationDrawer } from './MapLocationDrawer';
@@ -9357,17 +10036,17 @@ export function RpgWorldAtlas({
       {/* The renderer effect mounts a fresh <canvas data-testid="rpg-atlas-canvas"> in here */}
       <div ref={canvasHostRef} data-testid="rpg-atlas-canvas-host" className="absolute inset-0" />
 
-      {/* CRT scanlines + gothic vignette */}
+      {/* Soft CRT scanlines + light vignette (kept subtle so the bright tile art reads) */}
       <div
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.2)_50%)] bg-[length:100%_4px] opacity-30 z-10"
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.2)_50%)] bg-[length:100%_4px] opacity-10 z-10"
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_45%,rgba(2,4,10,0.85)_100%)] z-10"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_65%,rgba(2,4,10,0.45)_100%)] z-10"
         aria-hidden="true"
       />
 
-      <AtlasFrame accentColor={accent} rune={rune} />
+      <AtlasFrame accentColor={accent} rune={rune} credits={ART_CREDITS} />
 
       <TooltipHost
         emitter={hoverEmitter}
@@ -9434,7 +10113,7 @@ export function RpgWorldAtlas({
         subscribe={subscribeCamera}
         onPan={(x, y) => rendererRef.current?.flyTo(x, y, undefined, 250)}
         accentColor={accent}
-        fogColor={activeTheme.fogStyle.color ?? '#020705'}
+        fogColor={getUniverseLook(universeSlug).fogColor}
       />
 
       {isDrawerOpen && (
@@ -9528,6 +10207,33 @@ and add `selectedPlaneId` to that effect's dependency array.
               heroAvatarUrl={heroAvatarUrl}
 ```
 
+- [ ] **Step 6b: Fix the Reverend Insanity default protagonist**
+
+The screenshot of the current app shows `/reverend-insanity` loading with `char=linley-baruch` (a Coiling Dragon character), because `defaultProtagonistId` falls through to Linley. In `src/app/[slug]/world-explorer.tsx`, replace the `defaultProtagonistId` memo with:
+
+```tsx
+  const defaultProtagonistId = useMemo(() => {
+    const bySlug: Record<string, string> = {
+      'demonic-emperor': 'zhuo-fan',
+      'one-piece': 'luffy',
+      'solo-leveling': 'sung-jin-woo',
+      'lord-of-the-mysteries': 'klein-moretti',
+      'reverend-insanity': 'fang-yuan',
+      'coiling-dragon': 'linley-baruch',
+    };
+    const preferred = bySlug[graph.series.slug];
+    if (preferred && graph.entities[preferred]) return preferred;
+    // Fall back to the character with the longest mapped journey, then any character
+    const journey = activeMapDefinition.characterPaths
+      .slice()
+      .sort((a, b) => b.waypoints.length - a.waypoints.length)[0]?.characterId;
+    if (journey && graph.entities[journey]) return journey;
+    return Object.values(graph.entities).find((e) => e.type === 'character')?.id ?? '';
+  }, [graph.series.slug, graph.entities, activeMapDefinition]);
+```
+
+(`activeMapDefinition` is declared above this memo.)
+
 - [ ] **Step 7: Update the existing atlas markup assertions**
 
 The canvas is now created per renderer instance at runtime, so server markup contains the canvas host instead. In `tests/rpg-atlas-component.test.ts`:
@@ -9553,7 +10259,7 @@ Headless tests never exercise the baked texture, the fog render target and shade
 1. Start `npm run dev` in the background.
 2. With Claude in Chrome (load the tools in one ToolSearch call as the harness instructs; open a new tab), go to `http://localhost:3000/coiling-dragon?ch=150&tab=map`.
 3. `read_console_messages` with pattern `error|Error|WebGL|shader|GLSL` — must be empty. A shader compile error names the GLSL line; fix it in `fog-material.ts`.
-4. Screenshot: baked terrain with pixel glyphs is visible (not a black rectangle), fog is visibly dithered, Silkscreen labels render, the hero token shows the avatar (or the pixel core fallback), and the RADAR minimap shows the plane image.
+4. Screenshot: the baked plane shows tileset art — grass texture, tree clumps, mountain peaks, shore rim — (not a flat blue rectangle, which would mean the sheets failed to load; check the network tab for `punyworld-overworld-tileset.png` and `mountains.png`), fog is light and dithered, Silkscreen labels render, props (castles/halls/houses/caves) and numbered badges sit on grass clearings, the hero token shows the avatar (or the pixel core fallback), and the RADAR minimap shows the plane image.
 5. Drag-pan slowly and zoom in and out: the fog dither pattern must move **with** the map (world-anchored), not shimmer in place on the screen.
 6. Reload the page twice in dev mode (React StrictMode double-mounts effects): the map must appear on both loads, never blank.
 7. Load `http://localhost:3000/reverend-insanity?ch=1400&tab=map&loc=loc-stone-lotus-island` (the Reverend Insanity data is still the pre-Task-22 single canvas; this checks that the `?loc=` fly-on-mount works): the camera flies to the location and its dossier opens.
@@ -9580,7 +10286,7 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 
 **Interfaces:**
 - Consumes: `chaikinSmooth`, `Vec2` (Task 5); `validateWorldMap` (Task 1); `projectTemporalMap` (Task 2).
-- Produces: `data/reverend-insanity/map.json` with `planes` = `plane-mortal-five-regions` (1600×1100, sea), `plane-two-heavens` (1400×800, sky, revealed ch 400), `plane-river-of-time` (1400×700, abyss, revealed ch 600); every location has `planeId`, `dangerLevel`, `waypoint`; 6 landmark glyphs; regional walls as cliff-edged mountain ranges. Existing ids, names, descriptions, chapters, events, factions and notes are preserved. The script is idempotent (placements come from tables keyed by id, never from previous coordinates).
+- Produces: `data/reverend-insanity/map.json` with `planes` = `plane-mortal-five-regions` (1600×1100, sea), `plane-two-heavens` (1400×800, sky, revealed ch 400), `plane-river-of-time` (1400×700, abyss, revealed ch 600); every location has `planeId`, `dangerLevel`, `waypoint`; 6 landmark glyphs; regional walls as winding mountain ribbons with passes; two rivers with bridges; Crescent Lake and a desert oasis. Existing ids, names, descriptions, chapters, events, factions and notes are preserved. The script is idempotent (placements come from tables keyed by id, never from previous coordinates).
 
 - [ ] **Step 1: Write the failing tests**
 
@@ -9606,7 +10312,10 @@ Append inside the top-level `describe` of `tests/reverend-insanity.test.ts` (add
       const terrain = mapData.terrain.find((t: { id: string }) => t.id === id);
       expect(terrain.polygon.length, id).toBeGreaterThanOrEqual(60);
     }
-    expect(mapData.terrain.filter((t: { edgeStyle?: string }) => t.edgeStyle === 'cliff').length).toBeGreaterThanOrEqual(4);
+    expect(mapData.terrain.filter((t: { type: string; planeId: string }) => t.type === 'mountain' && t.planeId === 'plane-mortal-five-regions').length).toBeGreaterThanOrEqual(8);
+    expect(mapData.terrain.some((t: { id: string }) => t.id === 'terrain-crescent-lake')).toBe(true);
+    expect(mapData.rivers.map((r: { id: string }) => r.id)).toEqual(['river-reverse-flow', 'river-southern-karst']);
+    for (const river of mapData.rivers) expect(river.bridges.length).toBeGreaterThanOrEqual(1);
     expect(mapData.locations.filter((l: { waypoint?: boolean }) => l.waypoint).length).toBeGreaterThanOrEqual(8);
     expect(mapData.landmarkGlyphs.length).toBeGreaterThanOrEqual(6);
     expect(() => validateWorldMap(mapData)).not.toThrow();
@@ -9651,7 +10360,7 @@ Create `scripts/author-reverend-insanity-map.ts`:
 
 ```ts
 /**
- * Authoring script for the Reverend Insanity pixel-gothic atlas.
+ * Authoring script for the Reverend Insanity level-select atlas.
  *
  * Hand-placed control points are smoothed with Chaikin corner cutting into
  * organic polygons and written to data/reverend-insanity/map.json.
@@ -9672,6 +10381,7 @@ import {
   MapLocation,
   MapPlane,
   MapRegion,
+  MapRiver,
   MapRoute,
   TerrainLayer,
   WorldMapDefinition,
@@ -9739,10 +10449,16 @@ const CENTRAL: Vec2[] = [[440, 370], [700, 350], [900, 360], [1080, 350], [1130,
 const SOUTHERN: Vec2[] = [[330, 800], [460, 770], [620, 790], [800, 790], [980, 780], [1100, 760], [1130, 860], [1080, 960], [920, 1030], [700, 1050], [480, 1030], [330, 970], [280, 880]];
 const EASTERN_SEA: Vec2[] = [[1180, 90], [1540, 70], [1560, 1060], [1140, 1060], [1150, 900], [1190, 760], [1210, 560], [1190, 380], [1280, 300], [1300, 180]];
 
-const NORTH_WALL: Vec2[] = [[420, 335], [700, 322], [1000, 328], [1130, 340], [1130, 374], [1000, 362], [700, 358], [420, 370]];
-const WEST_WALL: Vec2[] = [[412, 385], [455, 385], [462, 560], [452, 745], [412, 745], [404, 560]];
-const SOUTH_WALL: Vec2[] = [[455, 748], [760, 758], [1110, 742], [1110, 778], [760, 794], [455, 784]];
-const EAST_WALL: Vec2[] = [[1105, 385], [1150, 385], [1168, 560], [1140, 745], [1098, 745], [1122, 560]];
+// Regional walls: winding mountain ribbons around spine lines, broken by passes
+// (gaps) where the canon journey crosses between regions — never a square ring.
+const WALL_SPINES: Array<{ id: string; name: string; spine: Vec2[]; half: number }> = [
+  { id: 'terrain-wall-north-west', name: 'Northern Regional Wall (West)', spine: [[420, 352], [500, 338], [560, 350]], half: 16 },
+  { id: 'terrain-wall-north-east', name: 'Northern Regional Wall (East)', spine: [[620, 356], [700, 362], [860, 340], [1000, 366], [1130, 346]], half: 18 },
+  { id: 'terrain-wall-west', name: 'Western Regional Wall', spine: [[432, 392], [450, 520], [424, 640], [446, 742]], half: 15 },
+  { id: 'terrain-wall-south-west', name: 'Southern Regional Wall (West)', spine: [[462, 770], [560, 758], [620, 764]], half: 15 },
+  { id: 'terrain-wall-south-east', name: 'Southern Regional Wall (East)', spine: [[690, 772], [780, 780], [940, 758], [1100, 774]], half: 17 },
+  { id: 'terrain-wall-east', name: 'Eastern Regional Wall', spine: [[1126, 392], [1146, 520], [1116, 640], [1134, 744]], half: 16 },
+];
 
 const KARST_WEST: Vec2[] = [[360, 840], [520, 820], [560, 880], [480, 930], [380, 910]];
 const KARST_EAST: Vec2[] = [[820, 850], [980, 830], [1040, 900], [900, 960], [800, 920]];
@@ -9769,25 +10485,48 @@ const BLACK_HEAVEN = [
 const RIVER_BAND = ribbon([[60, 350], [250, 250], [450, 420], [650, 300], [850, 420], [1050, 280], [1340, 360]], 45);
 const STONE_LOTUS = blob(980, 330, 40, 26, [0.1, -0.1, 0.2, 0, -0.15, 0.1, 0.05, -0.05]);
 
+// Lakes (ocean-typed polygons painted after the land they sit in)
+const CRESCENT_LAKE = blob(556, 204, 30, 13, [0.1, 0.2, 0, -0.3, -0.4, -0.2, 0.1, 0.2]);
+const DESERT_OASIS = blob(220, 560, 24, 15, [0.1, -0.1, 0.15, 0, -0.1, 0.1, 0.05, -0.05]);
+
+// Rivers (world units) with bridges where the journey path crosses
+const RIVERS: MapRiver[] = [
+  {
+    id: 'river-reverse-flow',
+    name: 'Reverse Flow River',
+    points: [[1060, 330], [990, 290], [900, 262], [780, 270], [660, 252], [566, 260], [430, 262], [330, 236], [262, 200]],
+    width: 14,
+    planeId: MORTAL,
+    bridges: [[566, 260]],
+  },
+  {
+    id: 'river-southern-karst',
+    name: 'Southern Karst River',
+    points: [[700, 800], [716, 870], [704, 912], [694, 950], [712, 1046]],
+    width: 12,
+    planeId: MORTAL,
+    bridges: [[704, 912]],
+  },
+];
+
 // ---------------------------------------------------------------- terrain
 
 const terrain: TerrainLayer[] = [
-  { id: 'terrain-eastern-sea', type: 'ocean', name: 'Eastern Sea Infinite Waters', polygon: smooth(EASTERN_SEA, 3), elevation: 0, edgeStyle: 'soft', planeId: MORTAL },
-  { id: 'terrain-northern-plains', type: 'plains', name: 'Northern Plains Grassland Expanses', polygon: smooth(NORTHERN), elevation: 1, edgeStyle: 'coast', planeId: MORTAL },
-  { id: 'terrain-western-desert', type: 'desert', name: 'Western Desert Endless Dunes', polygon: smooth(WESTERN, 3), elevation: 1, edgeStyle: 'coast', planeId: MORTAL },
-  { id: 'terrain-central-continent', type: 'plains', name: 'Central Continent Vast Basin', polygon: smooth(CENTRAL, 3), elevation: 2, edgeStyle: 'coast', planeId: MORTAL },
-  { id: 'terrain-southern-border', type: 'forest', name: 'Southern Border Karst Jungles', polygon: smooth(SOUTHERN, 3), elevation: 1, edgeStyle: 'coast', planeId: MORTAL },
-  { id: 'terrain-karst-west', type: 'mountain', name: 'Qing Mao Karst Spires', polygon: smooth(KARST_WEST, 2), elevation: 2, edgeStyle: 'soft', planeId: MORTAL },
-  { id: 'terrain-karst-east', type: 'mountain', name: 'Yi Tian Karst Spires', polygon: smooth(KARST_EAST, 2), elevation: 2, edgeStyle: 'soft', planeId: MORTAL },
-  { id: 'terrain-wall-north', type: 'mountain', name: 'Northern Regional Wall', polygon: smooth(NORTH_WALL, 2), elevation: 3, edgeStyle: 'cliff', planeId: MORTAL },
-  { id: 'terrain-wall-west', type: 'mountain', name: 'Western Regional Wall', polygon: smooth(WEST_WALL, 2), elevation: 3, edgeStyle: 'cliff', planeId: MORTAL },
-  { id: 'terrain-wall-south', type: 'mountain', name: 'Southern Regional Wall', polygon: smooth(SOUTH_WALL, 2), elevation: 3, edgeStyle: 'cliff', planeId: MORTAL },
-  { id: 'terrain-wall-east', type: 'mountain', name: 'Eastern Regional Wall', polygon: smooth(EAST_WALL, 2), elevation: 3, edgeStyle: 'cliff', planeId: MORTAL },
-  ...ISLANDS.map((isle) => ({ id: isle.id, type: 'forest' as const, name: isle.name, polygon: smooth(isle.points, 2), elevation: 1, edgeStyle: 'coast' as const, planeId: MORTAL })),
-  ...WHITE_HEAVEN.map((points, i) => ({ id: `terrain-white-heaven-${i + 1}`, type: 'ice' as const, name: 'White Heaven Isle', polygon: smooth(points, 2), elevation: 2, edgeStyle: 'cliff' as const, planeId: HEAVENS })),
-  ...BLACK_HEAVEN.map((points, i) => ({ id: `terrain-black-heaven-${i + 1}`, type: 'void' as const, name: 'Black Heaven Isle', polygon: smooth(points, 2), elevation: 2, edgeStyle: 'cliff' as const, planeId: HEAVENS })),
-  { id: 'terrain-river-of-time', type: 'river', name: 'Cosmic River of Time Temporal Flow', polygon: smooth(RIVER_BAND, 1), elevation: 0, edgeStyle: 'coast', planeId: RIVER },
-  { id: 'terrain-stone-lotus', type: 'forest', name: 'Stone Lotus Islands', polygon: smooth(STONE_LOTUS, 2), elevation: 1, edgeStyle: 'coast', planeId: RIVER },
+  { id: 'terrain-eastern-sea', type: 'ocean', name: 'Eastern Sea Infinite Waters', polygon: smooth(EASTERN_SEA, 3), planeId: MORTAL },
+  { id: 'terrain-northern-plains', type: 'plains', name: 'Northern Plains Grassland Expanses', polygon: smooth(NORTHERN), planeId: MORTAL },
+  { id: 'terrain-western-desert', type: 'desert', name: 'Western Desert Endless Dunes', polygon: smooth(WESTERN, 3), planeId: MORTAL },
+  { id: 'terrain-central-continent', type: 'plains', name: 'Central Continent Vast Basin', polygon: smooth(CENTRAL, 3), planeId: MORTAL },
+  { id: 'terrain-southern-border', type: 'forest', name: 'Southern Border Karst Jungles', polygon: smooth(SOUTHERN, 3), planeId: MORTAL },
+  ...ISLANDS.map((isle) => ({ id: isle.id, type: 'forest' as const, name: isle.name, polygon: smooth(isle.points, 2), planeId: MORTAL })),
+  { id: 'terrain-crescent-lake', type: 'ocean', name: 'Crescent Lake', polygon: smooth(CRESCENT_LAKE, 2), planeId: MORTAL },
+  { id: 'terrain-desert-oasis', type: 'ocean', name: 'Western Desert Oasis', polygon: smooth(DESERT_OASIS, 2), planeId: MORTAL },
+  { id: 'terrain-karst-west', type: 'mountain', name: 'Qing Mao Karst Spires', polygon: smooth(KARST_WEST, 2), planeId: MORTAL },
+  { id: 'terrain-karst-east', type: 'mountain', name: 'Yi Tian Karst Spires', polygon: smooth(KARST_EAST, 2), planeId: MORTAL },
+  ...WALL_SPINES.map((wall) => ({ id: wall.id, type: 'mountain' as const, name: wall.name, polygon: smooth(ribbon(wall.spine, wall.half), 1), planeId: MORTAL })),
+  ...WHITE_HEAVEN.map((points, i) => ({ id: `terrain-white-heaven-${i + 1}`, type: 'ice' as const, name: 'White Heaven Isle', polygon: smooth(points, 2), planeId: HEAVENS })),
+  ...BLACK_HEAVEN.map((points, i) => ({ id: `terrain-black-heaven-${i + 1}`, type: 'void' as const, name: 'Black Heaven Isle', polygon: smooth(points, 2), planeId: HEAVENS })),
+  { id: 'terrain-river-of-time', type: 'river', name: 'Cosmic River of Time Temporal Flow', polygon: smooth(RIVER_BAND, 1), planeId: RIVER },
+  { id: 'terrain-stone-lotus', type: 'forest', name: 'Stone Lotus Islands', polygon: smooth(STONE_LOTUS, 2), planeId: RIVER },
 ];
 
 // ---------------------------------------------------------------- regions (keep metadata, replace geometry)
@@ -9927,12 +10666,13 @@ function main(): void {
     territories,
     characterPaths,
     landmarkGlyphs,
+    rivers: RIVERS,
   };
 
   validateWorldMap(def);
   fs.writeFileSync(MAP_PATH, `${JSON.stringify(def, null, 2)}\n`);
   console.log(
-    `Wrote ${MAP_PATH}: ${planes.length} planes, ${terrain.length} terrain layers, ${locations.length} locations, ${landmarkGlyphs.length} landmark glyphs`
+    `Wrote ${MAP_PATH}: ${planes.length} planes, ${terrain.length} terrain layers, ${RIVERS.length} rivers, ${locations.length} locations, ${landmarkGlyphs.length} landmark glyphs`
   );
 }
 
@@ -9942,7 +10682,7 @@ main();
 - [ ] **Step 4: Run the script**
 
 Run: `npx tsx scripts/author-reverend-insanity-map.ts`
-Expected: `Wrote …/map.json: 3 planes, 22 terrain layers, 18 locations, 6 landmark glyphs`. If it throws `No placement for location …` or `No shape for route …`, the existing file has an id not listed above — add a placement/shape for it using the same regional layout (north y < 330, central 370–750, south 780–1040, west x < 440, sea x > 1150) rather than deleting data.
+Expected: `Wrote …/map.json: 3 planes, 26 terrain layers, 2 rivers, 18 locations, 6 landmark glyphs`. If it throws `No placement for location …` or `No shape for route …`, the existing file has an id not listed above — add a placement/shape for it using the same regional layout (north y < 330, central 370–750, south 780–1040, west x < 440, sea x > 1150) rather than deleting data.
 
 - [ ] **Step 5: Run the script a second time to prove idempotency**
 
@@ -9972,60 +10712,47 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 
 ---
 
-### Task 23: Documentation, full verification and in-browser review
+### Task 23: Documentation, full verification and in-browser review against the reference
 
 **Files:**
-- Modify: `ARCHITECTURE.md` (§5), `DESIGN_SYSTEM.md` (new §6), `TODO.md`, `docs/superpowers/specs/2026-09-29-diablo-atlas-design.md`
+- Modify: `ARCHITECTURE.md` (§5), `DESIGN_SYSTEM.md` (new §6), `TODO.md`, `docs/superpowers/specs/2026-09-29-diablo-atlas-design.md` (§12 only if new deviations appear)
 
 **Interfaces:**
 - Consumes: the finished feature.
-- Produces: updated docs, a verified build, and screenshots/GIF of the atlas.
+- Produces: updated docs, a verified build, screenshots and a GIF of the atlas, and a side-by-side check against the user's "LEVEL SELECT / WORLD 1" reference.
 
-- [ ] **Step 1: Update the spec with the recorded deviations**
+- [ ] **Step 1: Record any new deviations**
 
-Append to `docs/superpowers/specs/2026-09-29-diablo-atlas-design.md`:
-
-```markdown
----
-
-## 12. Implementation Deviations (recorded 2026-09-29)
-
-1. Hover glow uses an additive, accent-tinted back-sprite instead of a separate outline filter.
-2. Glyph exclusion around markers was replaced by a dark clearing ellipse under each *visible* marker; baking gaps around all locations would reveal future locations when fog is toggled off.
-3. `LocationEntity` has no danger field, so adapter-generated maps leave `dangerLevel` undefined.
-4. Secret routes are chapter-filtered in the projection (require `revealedAtChapter <= userChapter`).
-5. Fog is rendered by a custom world-space Mesh shader (not a Filter) so the Bayer dither stays locked to the map; WebGL/GLSL only (`preference: 'webgl'`).
-6. Rivers are authored as ribbon polygons (the schema has no polyline terrain).
-7. The animated coast foam ring is replaced by a static shallow-water halo; sea-lane dashes carry the water motion.
-8. One Piece gulls are omitted; sea-spray particles only.
-```
+Spec v2 §12 already lists deviations 1–6. If implementation departed from the spec anywhere else (for example a lowered noise threshold or a changed sprite rectangle), append a numbered line to §12 describing what and why. If nothing new, leave the spec unchanged.
 
 - [ ] **Step 2: Update ARCHITECTURE.md §5**
 
-Replace the body of "## 🗺️ 5. Map Engine v2 & PixiJS Cartography Architecture" (keep the heading, renamed to "Map Engine v3 — Pixel-Gothic Retained Atlas") with a description matching the implemented system:
-- The data flow `map.json | adaptGraphToWorldMap → projectTemporalMap(def, ch, { planeId }) → diffMapSnapshots(prev, next) → PixiWorldRenderer.applySnapshot()` as a mermaid flowchart.
-- The 9 containers table from the spec §3.3.
-- A module list with clickable `file:///Users/deepaknaik/Downloads/world-building/omni-lore/...` links for every file in `src/engine/map/**`, `src/projections/map-snapshot-diff.ts`, `src/domain/map-planes.ts`, and the new components in `src/components/map/`.
-- The coalescing queue contract (only the newest snapshot commits).
-- Multi-plane rules (first plane always revealed; sealed/unknown `?plane=` falls back and is rewritten).
-- Zero-spoiler rules from spec §7.
-
-Also update §9 test counts to the number printed by `npm test` in Step 5.
+Replace the body of "## 🗺️ 5. Map Engine v2 & PixiJS Cartography Architecture" (rename the heading to "Map Engine v3 — Level-Select Tileset Atlas") with a description matching the implemented system:
+- Mermaid flowchart: `map.json | adaptGraphToWorldMap → projectTemporalMap(def, ch, { planeId }) → diffMapSnapshots → PixiWorldRenderer.applySnapshot()`, plus the static branch `buildPlaneLayout → paintPlane (Canvas 2D, tilesets, universe grade) → Texture` cached per plane.
+- The 9 containers and what lives in each (terrain = baked plane sprite).
+- Module list with clickable `file:///Users/deepaknaik/Downloads/world-building/omni-lore/...` links for every file in `src/engine/map/**`, `src/projections/map-snapshot-diff.ts`, `src/projections/journey-numbers.ts`, `src/domain/map-planes.ts`, and the new components in `src/components/map/`.
+- Coalescing queue contract; multi-plane rules; rivers; zero-spoiler rules (spec §7), including "no bake-time clearings".
+- Update §9 test counts to the number printed by `npm test` in Step 5.
 
 - [ ] **Step 3: Update DESIGN_SYSTEM.md**
 
-Add "## 🗺️ 6. Pixel-Gothic Atlas" covering: biome ramps (4 tones, 15% parchment-shadow pull), 2-unit pixel grid and 0.5-resolution bake, sprite legend (`o d b l h s a w`), `DANGER_COLORS` table (EX `#dc2626`, S `#f97316`, A `#f59e0b`, B `#64748b`, Safe `#10b981`), Bayer-dithered fog, hover tooltip anatomy, discovery banner, waypoint panel, frame and minimap, and the reduced-motion rules. Replace the old `PixelMapCanvas` fog description in §4.4 with a pointer to §6.
+Add "## 🗺️ 6. Level-Select Tileset Atlas" covering:
+- Art sources and licenses (Puny World CC0; MrBeast mountains CC-BY 3.0) and where credits appear (`CREDITS.md`, atlas frame "Art:" links).
+- Scale: 0.5 px per world unit, 16 px tiles = 32 world units, sprites at scale 2 on live layers.
+- Paint order (backdrop → coast shelf/shallows/foam/sand → fills → patches → rivers → bridges → stamps → grade).
+- The `UNIVERSE_LOOKS` table (tint, amount, saturation, fog color) from spec §5.4.
+- Markers: tileset props per location type, code-drawn fallback icons, grass clearings, KNOWN silhouettes, numbered journey badges, `DANGER_COLORS`.
+- Dirt-path roads and hero trail colors (`#6e4824` edge, `#d4a860`/`#e0b86a` center); light dithered cloud fog; tooltip, banner, waypoint panel, frame, minimap; reduced-motion rules.
+Replace the old `PixelMapCanvas` fog description in §4.4 with a pointer to §6.
 
 - [ ] **Step 4: Update TODO.md**
 
-- Add under P2 a completed item "Map Engine v3 — Pixel-Gothic Diablo Atlas" with sub-bullets (retained diff renderer, multi-plane, hero walk, dithered fog, waypoints, tooltips, minimap, Reverend Insanity 3-plane re-author).
+- Add under P2 a completed item "Map Engine v3 — Level-Select Tileset Atlas" with sub-bullets (retained diff renderer, tileset plane compositor, per-universe looks, multi-plane + `?plane=`, rivers, hero dirt-path walk, dithered cloud fog, waypoints, tooltips, badges, minimap, Reverend Insanity 3-plane re-author, art credits).
 - Mark "Mobile Touch Optimization" done (pinch zoom via `GestureTracker`).
-- Add a new open item "Spec 2: Hand-author organic map.json for Coiling Dragon, Demonic Emperor, Lord of the Mysteries, One Piece, Solo Leveling".
+- Add open item "Spec 2: Hand-author organic map.json (with rivers and lakes) for Coiling Dragon, Demonic Emperor, Lord of the Mysteries, One Piece, Solo Leveling".
 - Update the verification-commands comment with the new test count.
 
 - [ ] **Step 5: Full verification**
-
-Run each and record the output:
 
 ```bash
 npm test
@@ -10036,25 +10763,23 @@ npm run build:extension
 
 Expected: all tests pass (count recorded in docs), typecheck clean, Next build succeeds, extension build succeeds (untouched).
 
-- [ ] **Step 6: In-browser review (real WebGL)**
+- [ ] **Step 6: In-browser review (real WebGL) against the reference**
 
-1. Run `npm run dev` in the background.
-2. Using Claude in Chrome (load tools per the harness instructions), open a new tab to `http://localhost:3000/reverend-insanity?ch=1&tab=map` and capture a screenshot. Verify: organic continent on a sea backdrop, cliff walls between regions, scattered pixel peaks/pines/dunes, pixel icons, frame with 🦗 runes, dithered fog covering everything except Qing Mao, hero token with torch-light.
-3. Record a GIF (`ri_chapter_scrub.gif`) while scrubbing the timeline from ch 1 → 700: the hero must walk, fog must dissolve open with bursts, and the "NEW AREA DISCOVERED" banner must coalesce with `+N MORE`.
-4. Hover a landmark: tooltip with type, danger, faction, first-seen chapter; hover a KNOWN location: `??? UNCHARTED`.
-5. Press `M`, choose "Stone Lotus Island" at ch ≥ 1350: plane warp to River of Time, drawer opens, URL contains `plane=plane-river-of-time&loc=loc-stone-lotus-island`.
-6. Load `http://localhost:3000/reverend-insanity?ch=100&tab=map&plane=plane-river-of-time`: the map shows the Mortal plane and the URL is rewritten to `plane=plane-mortal-five-regions`.
-7. Visit each other universe (`/coiling-dragon`, `/demonic-emperor`, `/lord-of-the-mysteries`, `/one-piece`, `/solo-leveling`) at `?tab=map`: no console errors (`read_console_messages` with pattern `error|Error`), icons/fog/hero/frame render on the rectangular adapter maps.
-8. Emulate reduced motion (DevTools rendering panel or `matchMedia` override via `javascript_tool`) and confirm no walking/bursts/particles.
-9. Resize the browser to 390 px wide: atlas stays usable; pinch/drag via touch emulation works.
-
-Fix any defect found with a failing test first (TDD), then re-run Step 5.
+1. Run `npm run dev` in the background (reuse the server if one already listens on port 3000).
+2. Using Claude in Chrome (load tools in one ToolSearch call; open a new tab), go to `http://localhost:3000/reverend-insanity?ch=1&tab=map`. Screenshot. Compare against the user's reference ("LEVEL SELECT / WORLD 1": textured grass, dense tree clumps, snowy mountain ranges, shaded water with shore, river + bridge, castle/cave props, winding dirt path, numbered nodes, framed border) and against the spike preview images in the session scratchpad (`preview/ri-jade.png`, `preview/ri-jade-zoom.png`). Every element of that list must be present; note any gap and fix it (test-first where testable) before continuing.
+3. Record `ri_chapter_scrub.gif` while scrubbing ch 1 → 700: hero walks the dirt path, cloud fog parts with bursts, the "NEW AREA DISCOVERED" banner coalesces (`+N MORE`), new stage badges appear in visit order.
+4. Hover a landmark: tooltip shows type, danger, faction, first-seen chapter; hover a KNOWN location: `??? UNCHARTED`, dark silhouette, no badge, no pylon.
+5. Press `M`, choose "Stone Lotus Island" at ch ≥ 1350: warp to the River of Time plane; drawer opens; URL contains `plane=plane-river-of-time&loc=loc-stone-lotus-island`.
+6. Load `http://localhost:3000/reverend-insanity?ch=100&tab=map&plane=plane-river-of-time`: the map shows the Mortal plane and the URL is rewritten to `plane=plane-mortal-five-regions`; `char=fang-yuan` (not `linley-baruch`).
+7. Visit `/coiling-dragon`, `/demonic-emperor`, `/lord-of-the-mysteries`, `/one-piece`, `/solo-leveling` at `?tab=map`: no console errors (`read_console_messages` pattern `error|Error`), coasts are roughened (no rectangles), each universe's tint is distinct, art credits are visible in the frame.
+8. Emulate reduced motion (`javascript_tool` overriding `matchMedia`, then reload) and confirm no walking, bursts or particles.
+9. Resize to 390 px wide: atlas usable; touch drag and pinch work.
 
 - [ ] **Step 7: Commit**
 
 ```bash
 git add ARCHITECTURE.md DESIGN_SYSTEM.md TODO.md docs/superpowers/specs/2026-09-29-diablo-atlas-design.md
-git commit -m "docs(map): document pixel-gothic atlas engine v3 and record spec deviations
+git commit -m "docs(map): document level-select tileset atlas engine v3
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 ```
