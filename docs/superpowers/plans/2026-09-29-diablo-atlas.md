@@ -6,7 +6,7 @@
 
 **Architecture:** Pure layers stay pure: `projectTemporalMap` (now plane-aware) produces a zero-spoiler snapshot, and a new pure `diffMapSnapshots` compares consecutive snapshots. `PixiWorldRenderer` becomes a thin facade over focused modules: a static baker (terrain + scattered glyphs baked to one nearest-scaled texture per plane) plus retained dynamic layers (markers, routes, hero, fog with a Bayer-dither shader, FX, atmosphere, labels) that animate diffs instead of redrawing. React hosts DOM overlays (frame, tooltip, banner, waypoint panel, minimap).
 
-**Tech Stack:** Next.js 16 (App Router, client component), React 19, PixiJS 8.21 (WebGL preference, custom GLSL `Filter`), Zod 3, Vitest 3, TypeScript 5 strict, Tailwind 3.
+**Tech Stack:** Next.js 16 (App Router, client component), React 19, PixiJS 8.21 (WebGL preference, custom GLSL Mesh shader), Zod 3, Vitest 3, TypeScript 5 strict, Tailwind 3.
 
 **Spec:** `docs/superpowers/specs/2026-09-29-diablo-atlas-design.md`
 
@@ -32,7 +32,7 @@
 2. **Glyph exclusion around markers** is replaced by a dark "clearing" ellipse drawn under each *visible* marker. Baking gaps around *all* locations would leak where future (undiscovered) locations are when fog is toggled off.
 3. **Adapter `dangerLevel`**: `LocationEntity` has no `danger_level` field, so adapter-generated maps leave `dangerLevel` undefined (no ring). Hand-authored maps set it.
 4. **Secret routes** are filtered in the projection (`routeType === 'secret'` requires `revealedAtChapter <= userChapter`) rather than in the renderer.
-5. **Renderer is forced to WebGL** (`preference: 'webgl'`), so the fog filter ships GLSL only.
+5. **Fog is a custom Mesh shader, not a `Filter`,** so its dither is anchored to world space (2-unit cells) and does not crawl while panning; the renderer is forced to WebGL (`preference: 'webgl'`) and the shader ships GLSL only.
 6. **Rivers are ribbon polygons.** The schema has no polyline terrain, so the River of Time is authored as a smoothed band polygon rather than a 3 px polyline.
 7. **Coast foam ring** (spec §5.2) is replaced by a static shallow-water halo painted into the baked layer; the animated marching dashes on sea lanes carry the "moving water" cue.
 8. **One Piece gulls** (spec §5.7) are omitted; One Piece uses swirling sea-spray particles only.
@@ -41,7 +41,7 @@
 
 1. **Rapid scrubbing** (slider dragged across hundreds of chapters per second): renderer must coalesce to the newest snapshot, never queue animations, and end in exactly the last chapter's state — pinned in Task 19.
 2. **`?plane=` pointing at a sealed or unknown plane**: projection must fall back to the first plane and the atlas must report the fallback so the URL is rewritten — fallback pinned by unit tests in Task 2; the URL rewrite (a React effect, not reachable from SSR tests) is verified in the browser in Task 23 Step 6.6.
-3. **`?loc=` for a location on another plane**: atlas must switch to that location's plane before flying to it — pinned in Task 21 (`planeForLocation`).
+3. **`?loc=` for a location on another plane, present on first mount**: atlas must switch to that location's plane and fly to it — the decision is pinned by `planeSwitchForLocation` tests in Task 21; the mount-time handling (a ref that starts `undefined`) is verified in the browser in Task 21 Step 10.7 and Task 23 Step 6.5.
 4. **No hero on the current plane / selected character has no path**: no hero token, no crash, no "HERO IN" chip for a character with no waypoints — pinned in Task 4 and Task 15.
 5. **Zero-size container** (tab hidden via `display:none`, then shown): `resize(0, 0)` must be ignored so camera math never divides by zero — pinned in Task 10.
 
@@ -83,7 +83,7 @@ src/engine/map/
   layers/fx-layer.ts          CREATE
   layers/atmosphere-layer.ts  CREATE
   layers/labels-layer.ts      CREATE
-  filters/dither-fog-filter.ts CREATE GLSL Bayer dither fog
+  layers/fog-material.ts      CREATE  world-anchored GLSL Bayer dither fog (custom Mesh shader)
 src/components/map/
   atlas-ui-state.ts           CREATE  pure UI helpers (banner reducer, tooltip model, waypoint grouping)
   AtlasTooltip.tsx            CREATE
@@ -2547,7 +2547,7 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
   - `LANDMARK_SPRITES: Record<LandmarkGlyphKind, string[]>` — 12×12 grids.
   - `WAYPOINT_PYLON: string[]` — 8 wide × 9 tall.
   - `PIXEL_GRID_CHARS: ReadonlySet<string>` = `. o d b l h s a w`.
-  - `drawPixelGrid(g: Graphics, grid: string[], palette: PixelSpritePalette, originX?: number, originY?: number, pixelSize?: number, alpha?: number): void` — draws one filled rect per non-`.` cell.
+  - `drawPixelGrid(g: Graphics, grid: string[], palette: PixelSpritePalette, originX?: number, originY?: number, pixelSize?: number, alpha?: number): void` — draws one rect per non-`.` cell, batched into a single `fill()` per palette color.
   - Grid legend: `.` transparent, `o` outline, `d` dark, `b` base, `l` light, `h` highlight, `s` stone/bone, `a` accent (glow, lava, danger), `w` white.
 
 - [ ] **Step 1: Write the failing test**
@@ -2649,16 +2649,23 @@ export function drawPixelGrid(
   pixelSize = 1,
   alpha = 1
 ): void {
+  // Batch by palette character: one fill() per color keeps bake cost low
+  const cellsByChar = new Map<PixelChar, Array<[number, number]>>();
   for (let y = 0; y < grid.length; y++) {
     const row = grid[y];
     for (let x = 0; x < row.length; x++) {
       const ch = row[x];
       if (ch === '.') continue;
-      g.rect(originX + x * pixelSize, originY + y * pixelSize, pixelSize, pixelSize).fill({
-        color: palette[ch as PixelChar],
-        alpha,
-      });
+      const list = cellsByChar.get(ch as PixelChar) ?? [];
+      list.push([x, y]);
+      cellsByChar.set(ch as PixelChar, list);
     }
+  }
+  for (const [ch, cells] of cellsByChar) {
+    for (const [x, y] of cells) {
+      g.rect(originX + x * pixelSize, originY + y * pixelSize, pixelSize, pixelSize);
+    }
+    g.fill({ color: palette[ch], alpha });
   }
 }
 
@@ -3544,7 +3551,7 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
   - `class GestureTracker { constructor(dragThreshold?: number /* 4 */); readonly isDragging: boolean; down(id: number, x: number, y: number): void; move(id: number, x: number, y: number): GestureEvent | null; up(id: number, x: number, y: number): GestureEvent | null; cancel(): void }`
   - `type PickTarget = { kind: 'location'; id: string } | { kind: 'event'; id: string } | { kind: 'region'; id: string }`
   - `pickAt(snapshot: ProjectedWorldMapSnapshot, worldX: number, worldY: number, zoom: number): PickTarget | null` — events first, then nearest non-UNKNOWN location within `max(16, 12 / zoom)` world units (critical: `max(20, 14 / zoom)`), then the last region polygon containing the point.
-  - Constants exported from `picking.ts`: `EVENT_FLAG_OFFSET = { x: 10, y: -26 }` (event flag position relative to its location; reused by the markers layer).
+  - Constants exported from `picking.ts`: `EVENT_FLAG_OFFSET = { x: 10, y: -26 }` (event flag position relative to its location; reused by the markers layer) and `PICK_CENTER_OFFSET_Y = 10` (location pick circles are centered 10 units above the point, on the bottom-anchored icon).
 
 - [ ] **Step 1: Write the failing test**
 
@@ -3675,8 +3682,14 @@ describe('pickAt', () => {
   });
 
   it('widens the pick radius when zoomed out', () => {
-    expect(pickAt(snap, 100, 120, 1)).toEqual({ kind: 'region', id: 'big' });
-    expect(pickAt(snap, 100, 120, 0.5)).toEqual({ kind: 'location', id: 'near' });
+    expect(pickAt(snap, 100, 110, 1)).toEqual({ kind: 'region', id: 'big' });
+    expect(pickAt(snap, 100, 110, 0.5)).toEqual({ kind: 'location', id: 'near' });
+  });
+
+  it('centers the pick circle on the bottom-anchored icon', () => {
+    // 14 units above the point is inside the icon; 14 below is not
+    expect(pickAt(snap, 100, 86, 1)).toEqual({ kind: 'location', id: 'near' });
+    expect(pickAt(snap, 100, 114, 1)).toEqual({ kind: 'region', id: 'big' });
   });
 });
 ```
@@ -3860,6 +3873,8 @@ export type PickTarget =
 
 /** Event flag position relative to its location (world units). */
 export const EVENT_FLAG_OFFSET = { x: 10, y: -26 } as const;
+/** Icons are bottom-anchored and drawn above the point: pick around the icon's visual center. */
+export const PICK_CENTER_OFFSET_Y = 10;
 const EVENT_FLAG_RADIUS = 7;
 
 export function pickAt(
@@ -3886,7 +3901,7 @@ export function pickAt(
     if (loc.fogStatus === FogStatus.UNKNOWN) continue;
     const radius =
       loc.importance === 'critical' ? Math.max(20, 14 / safeZoom) : Math.max(16, 12 / safeZoom);
-    const distance = Math.hypot(worldX - loc.x, worldY - loc.y);
+    const distance = Math.hypot(worldX - loc.x, worldY - (loc.y - PICK_CENTER_OFFSET_Y));
     if (distance <= radius && (!best || distance < best.distance)) best = { id: loc.id, distance };
   }
   if (best) return { kind: 'location', id: best.id };
@@ -3913,7 +3928,7 @@ export function pickAt(
 - [ ] **Step 6: Run tests**
 
 Run: `npx vitest run tests/map-input.test.ts tests/pixi-renderer.test.ts`
-Expected: PASS. Pick radius check: at zoom 1, non-critical radius = `max(16, 12)` = 16, so `(100,120)` (distance 20) is a region; at zoom 0.5 radius = `max(16, 24)` = 24 → location `near`.
+Expected: PASS. Pick geometry: the pick center for `near` is `(100, 90)`. At zoom 1 the non-critical radius is `max(16, 12)` = 16, so `(100,110)` (distance 20) is a region; at zoom 0.5 the radius is `max(16, 24)` = 24 → location `near`. `(100,86)` is 4 away (location), `(100,114)` is 24 away (region).
 
 - [ ] **Step 7: Typecheck and commit**
 
@@ -4282,7 +4297,10 @@ describe('buildStaticScene', () => {
     expect(peaksOnRight).toEqual([]);
     expect(glyphs.some((g) => g.label.startsWith('peak'))).toBe(true);
     expect(glyphs.some((g) => g.label.startsWith('tuft'))).toBe(true);
-    expect(glyphs[0].scale.x).toBeGreaterThanOrEqual(GLYPH_SCALE * 0.85);
+    for (const g of glyphs) {
+      expect(Math.abs(g.scale.x)).toBe(GLYPH_SCALE);
+      expect(g.scale.y).toBe(GLYPH_SCALE);
+    }
   });
 });
 ```
@@ -4362,11 +4380,18 @@ export function paintBackdrop(
   const light = shade(base, 0.08);
   const dark = shade(base, -0.25);
   const specks = Math.floor((width * height) / 900);
+  const lightCells: Array<[number, number]> = [];
+  const darkCells: Array<[number, number]> = [];
   for (let i = 0; i < specks; i++) {
     const x = Math.floor((rng() * width) / PIXEL) * PIXEL;
     const y = Math.floor((rng() * height) / PIXEL) * PIXEL;
-    g.rect(x, y, PIXEL, PIXEL).fill(rng() < 0.5 ? light : dark);
+    (rng() < 0.5 ? lightCells : darkCells).push([x, y]);
   }
+  // One fill() per color batches thousands of speck rects
+  for (const [x, y] of lightCells) g.rect(x, y, PIXEL, PIXEL);
+  g.fill(light);
+  for (const [x, y] of darkCells) g.rect(x, y, PIXEL, PIXEL);
+  g.fill(dark);
 
   // In-world iron frame
   g.rect(0, 0, width, height).stroke({ color: shade(theme.palette.background, -0.6), width: 6 });
@@ -4396,8 +4421,10 @@ export function paintTerrain(g: Graphics, terrain: TerrainLayer, theme: MapTheme
     const inner = scalePolygon(poly, 1 - 0.16 * i);
     const tone = mix(ramp[1], ramp[2], i / steps);
     g.poly(flattenPoly(inner)).fill(tone);
-    for (const [x, y] of ditherEdgePixels(inner)) {
-      g.rect(x, y, PIXEL, PIXEL).fill(previousTone);
+    const cells = ditherEdgePixels(inner);
+    if (cells.length > 0) {
+      for (const [x, y] of cells) g.rect(x, y, PIXEL, PIXEL);
+      g.fill(previousTone);
     }
     previousTone = tone;
   }
@@ -4480,7 +4507,9 @@ export function buildStaticScene({ snapshot, theme, atlas }: StaticSceneInput): 
       sprite.label = `${glyph.kind}:${glyph.variant}`;
       sprite.anchor.set(0.5, 1);
       sprite.position.set(glyph.x, glyph.y);
-      sprite.scale.set(GLYPH_SCALE * glyph.scale);
+      // Integer scale keeps 1 texel per grid cell in the 0.5-resolution bake;
+      // the scatter's scale jitter becomes a pixel-safe horizontal mirror instead
+      sprite.scale.set(glyph.scale >= 1 ? GLYPH_SCALE : -GLYPH_SCALE, GLYPH_SCALE);
       glyphs.addChild(sprite);
     }
   });
@@ -4515,7 +4544,7 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 - Consumes: `LayerContext` (Task 11), `EVENT_FLAG_OFFSET` (Task 10), `DANGER_COLORS`, `shade` (Task 7), `isDiscoveredStatus` (Task 4), `ProjectedWorldMapSnapshot`, `FogStatus`, `MapMode`.
 - Produces:
   - `class RegionsLayer { constructor(container: Container, ctx: LayerContext); sync(snapshot: ProjectedWorldMapSnapshot): void; setHovered(id: string | null): void; readonly regionCount: number; destroy(): void }`
-  - `ICON_SCALE = 2`, `CRITICAL_ICON_SCALE = 2.5`, `LANDMARK_SCALE = 3`
+  - `ICON_SCALE = 2`, `CRITICAL_ICON_SCALE = 3`, `LANDMARK_SCALE = 3` (integers: 1 grid cell = whole world units, so nearest filtering stays crisp); hover adds exactly +1 to the scale. KNOWN markers never show a waypoint pylon.
   - `interface MarkerView { root: Container; glow: Sprite; icon: Sprite; clearing: Graphics; ring: Graphics; halo: Graphics; pylon: Sprite | null; status: FogStatus; critical: boolean; baseScale: number; hover: number; phase: number }`
   - `class MarkersLayer { constructor(container: Container, ctx: LayerContext); readonly markers: Map<string, MarkerView>; readonly landmarks: Map<string, Sprite>; readonly eventFlags: Map<string, Graphics>; sync(snapshot: ProjectedWorldMapSnapshot, animate: boolean): void; setHovered(id: string | null): void; readonly hoveredId: string | null; setZoom(zoom: number): void; setMode(mode: MapMode): void; update(dtMs: number): void; destroy(): void }`
 
@@ -4541,7 +4570,7 @@ const def: WorldMapDefinition = {
   regions: [{ id: 'reg', name: 'Region', geometry: { type: 'Polygon', coordinates: [[[0, 0], [500, 0], [500, 500]]] } }],
   locations: [
     { id: 'home', name: 'Home', x: 100, y: 100, type: 'village', importance: 'critical', firstAppearanceChapter: 1, revealedAtChapter: 1, waypoint: true, dangerLevel: 'Safe' },
-    { id: 'rumor', name: 'Rumored Keep', x: 300, y: 300, type: 'castle', importance: 'major', firstAppearanceChapter: 50, revealedAtChapter: 10 },
+    { id: 'rumor', name: 'Rumored Keep', x: 300, y: 300, type: 'castle', importance: 'major', firstAppearanceChapter: 50, revealedAtChapter: 10, waypoint: true },
     { id: 'later', name: 'Later', x: 600, y: 600, type: 'dungeon', importance: 'minor', firstAppearanceChapter: 80, revealedAtChapter: 80, dangerLevel: 'EX' },
   ],
   routes: [],
@@ -4563,6 +4592,9 @@ describe('MarkersLayer', () => {
     expect([...layer.markers.keys()].sort()).toEqual(['home', 'rumor']);
     expect(layer.markers.get('rumor')!.status).toBe(FogStatus.KNOWN);
     expect(layer.markers.get('home')!.pylon).not.toBeNull();
+    expect(layer.markers.get('home')!.pylon!.visible).toBe(true);
+    // KNOWN waypoint: pylon hidden so fast-travel status does not leak
+    expect(layer.markers.get('rumor')!.pylon!.visible).toBe(false);
     expect(layer.markers.get('home')!.baseScale).toBe(CRITICAL_ICON_SCALE);
     expect(layer.markers.get('rumor')!.baseScale).toBe(ICON_SCALE);
   });
@@ -4598,11 +4630,11 @@ describe('MarkersLayer', () => {
     expect(layer.hoveredId).toBe('home');
     c.tweens.tick(200);
     const home = layer.markers.get('home')!;
-    expect(home.icon.scale.x).toBeCloseTo(CRITICAL_ICON_SCALE * 1.25);
+    expect(home.icon.scale.x).toBe(CRITICAL_ICON_SCALE + 1);
     expect(home.glow.alpha).toBeGreaterThan(0.5);
     layer.setHovered(null);
     c.tweens.tick(200);
-    expect(home.icon.scale.x).toBeCloseTo(CRITICAL_ICON_SCALE);
+    expect(home.icon.scale.x).toBe(CRITICAL_ICON_SCALE);
   });
 
   it('hides danger rings when zoomed out', () => {
@@ -4770,7 +4802,7 @@ import { DANGER_COLORS, shade } from '../scene/pixel-palette';
 import { LayerContext } from './layer-context';
 
 export const ICON_SCALE = 2;
-export const CRITICAL_ICON_SCALE = 2.5;
+export const CRITICAL_ICON_SCALE = 3;
 export const LANDMARK_SCALE = 3;
 
 export interface MarkerView {
@@ -4967,7 +4999,11 @@ export class MarkersLayer {
     }
     view.ring.visible = this.zoom >= 1;
 
-    if (view.pylon) view.pylon.texture = this.ctx.atlas.pylon(isDiscoveredStatus(loc.fogStatus));
+    if (view.pylon) {
+      // A pylon on an undiscovered (KNOWN) place would leak that it is a fast-travel point
+      view.pylon.visible = !known;
+      view.pylon.texture = this.ctx.atlas.pylon(isDiscoveredStatus(loc.fogStatus));
+    }
     this.applyHover(view);
   }
 
@@ -4986,8 +5022,10 @@ export class MarkersLayer {
   }
 
   private applyHover(view: MarkerView): void {
-    view.icon.scale.set(view.baseScale * (1 + 0.25 * view.hover));
-    view.glow.scale.set(view.baseScale * (1.25 + 0.25 * view.hover));
+    // Integer scale at rest and at full hover (base -> base + 1)
+    const scale = view.hover >= 1 ? view.baseScale + 1 : view.baseScale + view.hover;
+    view.icon.scale.set(scale);
+    view.glow.scale.set(scale + 1);
     view.glow.alpha = 0.85 * view.hover;
   }
 
@@ -5004,7 +5042,7 @@ export class MarkersLayer {
       const sprite = new Sprite(this.ctx.atlas.landmark(glyph.glyph));
       sprite.anchor.set(0.5, 1);
       sprite.position.set(glyph.x, glyph.y);
-      sprite.scale.set(LANDMARK_SCALE * (glyph.scale ?? 1));
+      sprite.scale.set(Math.max(1, Math.round(LANDMARK_SCALE * (glyph.scale ?? 1))));
       sprite.zIndex = glyph.y;
       this.landmarks.set(glyph.id, sprite);
       this.landmarkLayer.addChild(sprite);
@@ -5688,7 +5726,7 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 
 **Files:**
 - Create: `src/engine/map/layers/fog-apertures.ts`
-- Create: `src/engine/map/filters/dither-fog-filter.ts`
+- Create: `src/engine/map/layers/fog-material.ts`
 - Create: `src/engine/map/layers/fog-layer.ts`
 - Test: `tests/fog-apertures.test.ts`
 
@@ -5699,9 +5737,9 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
   - `computeApertureTargets(snapshot: ProjectedWorldMapSnapshot): Map<string, { x: number; y: number; radius: number }>` — keys `loc:<id>` and `wp:<chapter>:<x>:<y>`.
   - `interface Aperture { id: string; x: number; y: number; radius: number; target: number }`
   - `class ApertureField { readonly apertures: Map<string, Aperture>; sync(targets, animate: boolean): { opened: string[]; closed: string[] }; tick(dtMs: number): boolean; list(): Aperture[]; readonly isAnimating: boolean }` — opening uses exponential approach with τ = 180 ms (≈ 900 ms to settle), closing τ = 90 ms; snaps within 0.5; closed apertures are deleted.
-  - `class DitherFogFilter extends Filter { constructor(options: { color: string; opacity: number }); time: number; cellSize: number }` (GLSL, WebGL only)
+  - `createFogQuad(width: number, height: number): MeshGeometry` and `class DitherFogMaterial { constructor(options: { mask: Texture; color: string; opacity: number; worldWidth: number; worldHeight: number }); readonly shader: Shader; time: number; destroy(): void }` in `src/engine/map/layers/fog-material.ts` — a custom **Mesh** shader (GLSL, WebGL only). The mesh covers the plane in world space, so the 2-world-unit Bayer cells and drift noise are anchored to the map and never crawl while panning (a `Filter` would compute `gl_FragCoord` relative to its temporary screen-clipped target).
   - `FOG_MASK_SCALE = 4`
-  - `class FogLayer { constructor(container: Container, ctx: LayerContext, renderer: Renderer | null); readonly field: ApertureField; resize(width: number, height: number): void; sync(snapshot: ProjectedWorldMapSnapshot, animate: boolean): string[]; update(dtMs: number, cellSize: number): void; destroy(): void }`
+  - `class FogLayer { constructor(container: Container, ctx: LayerContext, renderer: Renderer | null); readonly field: ApertureField; resize(width: number, height: number): void; sync(snapshot: ProjectedWorldMapSnapshot, animate: boolean): string[]; update(dtMs: number): void; destroy(): void }`
 
 - [ ] **Step 1: Write the failing test**
 
@@ -5799,7 +5837,7 @@ describe('FogLayer without a renderer', () => {
     fog.sync(projectTemporalMap(def, 30), false);
     const opened = fog.sync(projectTemporalMap(def, 60), true);
     expect(opened.sort()).toEqual(['loc:b', 'wp:60:700:700']);
-    fog.update(16, 2);
+    fog.update(16);
     fog.destroy();
   });
 });
@@ -5925,31 +5963,53 @@ export class ApertureField {
 }
 ```
 
-- [ ] **Step 4: Implement the dither filter**
+- [ ] **Step 4: Implement the world-anchored dither fog material**
 
-Create `src/engine/map/filters/dither-fog-filter.ts`:
+Create `src/engine/map/layers/fog-material.ts`:
 
 ```ts
 /**
- * Pixel-dithered fog of war. The filtered sprite's texture is the reveal
- * mask (alpha = revealed); the shader thresholds the fog density against a
- * 4x4 Bayer matrix in screen-space pixel cells, with slow drifting noise.
+ * Pixel-dithered fog of war as a custom Mesh shader.
  *
- * WebGL only (the renderer is created with preference: 'webgl').
+ * The mesh is a quad covering the plane in world space. Its UVs sample the
+ * low-resolution reveal mask (alpha = revealed) and also give world
+ * coordinates, so the 4x4 Bayer dither cells (2 world units each) and the
+ * drifting noise are locked to the map: they scale with zoom like the rest
+ * of the pixel art and never crawl while panning.
+ *
+ * WebGL only (the renderer is created with preference: 'webgl'). Pixi binds
+ * uProjectionMatrix / uWorldTransformMatrix (global group) and
+ * uTransformMatrix (local group) for custom mesh shaders.
  */
 
-import { Filter, GlProgram, UniformGroup, defaultFilterVert } from 'pixi.js';
+import { MeshGeometry, Shader, Texture, UniformGroup } from 'pixi.js';
 import { hexToRgb01 } from '../scene/pixel-palette';
 
+const vertex = `
+in vec2 aPosition;
+in vec2 aUV;
+out vec2 vUV;
+
+uniform mat3 uProjectionMatrix;
+uniform mat3 uWorldTransformMatrix;
+uniform mat3 uTransformMatrix;
+
+void main() {
+  mat3 mvp = uProjectionMatrix * uWorldTransformMatrix * uTransformMatrix;
+  gl_Position = vec4((mvp * vec3(aPosition, 1.0)).xy, 0.0, 1.0);
+  vUV = aUV;
+}
+`;
+
 const fragment = `
-in vec2 vTextureCoord;
+in vec2 vUV;
 out vec4 finalColor;
 
 uniform sampler2D uTexture;
 uniform vec3 uFogColor;
 uniform float uOpacity;
 uniform float uTime;
-uniform float uCellSize;
+uniform vec2 uWorldSize;
 
 float bayer4(vec2 p) {
   int x = int(mod(p.x, 4.0));
@@ -5975,9 +6035,10 @@ float noise(vec2 p) {
 }
 
 void main() {
-  float reveal = texture(uTexture, vTextureCoord).a;
-  vec2 cell = floor(gl_FragCoord.xy / max(uCellSize, 1.0));
-  float drift = noise(cell * 0.08 + vec2(uTime * 0.05, uTime * 0.02));
+  vec2 world = vUV * uWorldSize;
+  vec2 cell = floor(world / 2.0);
+  float reveal = texture(uTexture, vUV).a;
+  float drift = noise(world * 0.012 + vec2(uTime * 0.05, uTime * 0.02));
   float fog = clamp(1.0 - reveal, 0.0, 1.0);
   float density = fog * (0.82 + 0.18 * drift);
   float visible = step(bayer4(cell), density);
@@ -5986,48 +6047,58 @@ void main() {
 }
 `;
 
-export interface DitherFogOptions {
-  color: string;
-  opacity: number;
+export function createFogQuad(width: number, height: number): MeshGeometry {
+  return new MeshGeometry({
+    positions: new Float32Array([0, 0, width, 0, width, height, 0, height]),
+    uvs: new Float32Array([0, 0, 1, 0, 1, 1, 0, 1]),
+    indices: new Uint32Array([0, 1, 2, 0, 2, 3]),
+  });
 }
 
-export class DitherFogFilter extends Filter {
+export interface DitherFogOptions {
+  mask: Texture;
+  color: string;
+  opacity: number;
+  worldWidth: number;
+  worldHeight: number;
+}
+
+export class DitherFogMaterial {
+  public readonly shader: Shader;
+  private readonly uniforms: UniformGroup;
+
   constructor(options: DitherFogOptions) {
-    const fogUniforms = new UniformGroup({
+    this.uniforms = new UniformGroup({
       uFogColor: { value: new Float32Array(hexToRgb01(options.color)), type: 'vec3<f32>' },
       uOpacity: { value: options.opacity, type: 'f32' },
       uTime: { value: 0, type: 'f32' },
-      uCellSize: { value: 2, type: 'f32' },
+      uWorldSize: { value: new Float32Array([options.worldWidth, options.worldHeight]), type: 'vec2<f32>' },
     });
-    super({
-      glProgram: GlProgram.from({ vertex: defaultFilterVert, fragment, name: 'omnilore-dither-fog' }),
-      resources: { fogUniforms },
+    this.shader = Shader.from({
+      gl: { vertex, fragment, name: 'omnilore-dither-fog' },
+      resources: {
+        uTexture: options.mask.source,
+        uSampler: options.mask.source.style,
+        fogUniforms: this.uniforms,
+      },
     });
-  }
-
-  private get uniforms(): { uTime: number; uCellSize: number } {
-    return this.resources.fogUniforms.uniforms;
-  }
-
-  public set time(seconds: number) {
-    this.uniforms.uTime = seconds;
   }
 
   public get time(): number {
-    return this.uniforms.uTime;
+    return this.uniforms.uniforms.uTime as number;
   }
 
-  public set cellSize(pixels: number) {
-    this.uniforms.uCellSize = pixels;
+  public set time(seconds: number) {
+    this.uniforms.uniforms.uTime = seconds;
   }
 
-  public get cellSize(): number {
-    return this.uniforms.uCellSize;
+  public destroy(): void {
+    this.shader.destroy();
   }
 }
 ```
 
-If `defaultFilterVert` is not exported from the `pixi.js` root in this version, run `grep -n "defaultFilterVert" node_modules/pixi.js/lib/index.d.ts`; if absent, copy the vertex source from `node_modules/pixi.js/lib/filters/defaults/defaultFilter.vert.mjs` into a local `const vertex = \`...\`` string and use that.
+If TypeScript rejects `name` inside `gl: {...}`, drop the `name` property (it is only a debugging label).
 
 - [ ] **Step 5: Implement the fog layer**
 
@@ -6036,14 +6107,15 @@ Create `src/engine/map/layers/fog-layer.ts`:
 ```ts
 /**
  * Fog of war: a low-resolution reveal mask (soft discs per aperture)
- * rendered into a RenderTexture and shown through the Bayer dither filter.
+ * rendered into a RenderTexture and shown through a world-anchored
+ * Bayer-dither mesh shader.
  */
 
-import { Container, RenderTexture, Renderer, Sprite } from 'pixi.js';
+import { Container, Mesh, RenderTexture, Renderer, Sprite } from 'pixi.js';
 import { ProjectedWorldMapSnapshot } from '../../../projections/temporal-map';
-import { DitherFogFilter } from '../filters/dither-fog-filter';
 import { SOFT_DISC_RADIUS } from '../scene/icon-atlas';
 import { ApertureField, computeApertureTargets } from './fog-apertures';
+import { createFogQuad, DitherFogMaterial } from './fog-material';
 import { LayerContext } from './layer-context';
 
 export const FOG_MASK_SCALE = 4;
@@ -6055,8 +6127,8 @@ export class FogLayer {
   private readonly maskRoot = new Container();
   private readonly discs: Sprite[] = [];
   private renderTexture: RenderTexture | null = null;
-  private sprite: Sprite | null = null;
-  private filter: DitherFogFilter | null = null;
+  private mesh: Mesh | null = null;
+  private material: DitherFogMaterial | null = null;
   private dirty = true;
   private time = 0;
 
@@ -6068,20 +6140,20 @@ export class FogLayer {
 
   public resize(width: number, height: number): void {
     if (!this.renderer) return;
-    this.sprite?.destroy();
-    this.renderTexture?.destroy(true);
+    this.disposeGpu();
     this.renderTexture = RenderTexture.create({
       width: Math.ceil(width / FOG_MASK_SCALE),
       height: Math.ceil(height / FOG_MASK_SCALE),
     });
-    this.sprite = new Sprite(this.renderTexture);
-    this.sprite.scale.set(FOG_MASK_SCALE);
-    this.filter ??= new DitherFogFilter({
+    this.material = new DitherFogMaterial({
+      mask: this.renderTexture,
       color: this.ctx.theme.fogStyle.color ?? '#020705',
       opacity: this.ctx.theme.fogStyle.opacity ?? 0.85,
+      worldWidth: width,
+      worldHeight: height,
     });
-    this.sprite.filters = [this.filter];
-    this.container.addChild(this.sprite);
+    this.mesh = new Mesh({ geometry: createFogQuad(width, height), shader: this.material.shader });
+    this.container.addChild(this.mesh);
     this.dirty = true;
   }
 
@@ -6092,25 +6164,26 @@ export class FogLayer {
     return opened;
   }
 
-  public update(dtMs: number, cellSize: number): void {
+  public update(dtMs: number): void {
     const changed = this.field.tick(dtMs);
     if (!this.ctx.reducedMotion) this.time += dtMs;
-    if (this.filter) {
-      this.filter.time = this.time / 1000;
-      this.filter.cellSize = cellSize;
-    }
+    if (this.material) this.material.time = this.time / 1000;
     if (changed || this.dirty) this.redrawMask();
   }
 
   public destroy(): void {
-    this.container.removeChildren();
-    this.sprite?.destroy();
-    this.renderTexture?.destroy(true);
-    this.filter?.destroy();
+    this.disposeGpu();
     this.maskRoot.destroy({ children: true });
-    this.sprite = null;
+  }
+
+  private disposeGpu(): void {
+    this.container.removeChildren();
+    this.mesh?.destroy();
+    this.material?.destroy();
+    this.renderTexture?.destroy(true);
+    this.mesh = null;
+    this.material = null;
     this.renderTexture = null;
-    this.filter = null;
   }
 
   private redrawMask(): void {
@@ -6141,7 +6214,7 @@ Run: `npx vitest run tests/fog-apertures.test.ts && npx tsc --noEmit`
 Expected: PASS (7 tests), clean. Check the "grows over ~900ms" test: after 6 × 16 ms, radius ≈ 70·(1 − e^(−96/180)) ≈ 29 (between 0 and 70); after 66 ticks (1056 ms) the gap is < 0.5 and snaps to 70.
 
 ```bash
-git add src/engine/map/layers/fog-apertures.ts src/engine/map/filters/dither-fog-filter.ts src/engine/map/layers/fog-layer.ts tests/fog-apertures.test.ts
+git add src/engine/map/layers/fog-apertures.ts src/engine/map/layers/fog-material.ts src/engine/map/layers/fog-layer.ts tests/fog-apertures.test.ts
 git commit -m "feat(map): add bayer-dithered animated fog of war
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
@@ -6836,7 +6909,7 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
   - Unchanged: the 9 containers, `camera`, `worldContainer`, `app`, `mode`, `onSelectLocation/Region/Event`, `setMode()`, `toggleLayer()`, `flyTo()`, `resize()`, `syncCameraTransform()`, `destroy()`, `renderSnapshot(snapshot, theme, options?)` (now forces a full sync).
   - New options: `reducedMotion?: boolean`, `heroAvatarUrl?: string`, `onHover?: (info: HoverInfo | null) => void`, `onCameraChange?: (view: CameraView) => void`, `onDiscover?: (locationIds: string[]) => void`.
   - New types: `interface HoverInfo { target: PickTarget; screenX: number; screenY: number }`, `interface CameraView { x: number; y: number; zoom: number; viewWidth: number; viewHeight: number; worldWidth: number; worldHeight: number }`.
-  - New methods: `applySnapshot(snapshot, theme, options?): Promise<void>` (diff-driven; auto-upgrades to full on plane/map/theme change), `warpTo(x: number, y: number, zoom?: number): void`, `hoverAt(screenX: number, screenY: number): void`, `clickAt(screenX: number, screenY: number): void`, `getCameraView(): CameraView`, `getMinimapImage(): Promise<string | null>`.
+  - New methods: `applySnapshot(snapshot, theme, options?): Promise<void>` (diff-driven; auto-upgrades to full on plane/map/theme change), `setHeroAvatar(url: string | undefined): void`, `warpTo(x: number, y: number, zoom?: number): void`, `hoverAt(screenX: number, screenY: number): void`, `clickAt(screenX: number, screenY: number): void`, `getCameraView(): CameraView`, `getMinimapImage(): Promise<string | null>`.
   - New read-only state: `ready: Promise<void>`, `currentSnapshot: ProjectedWorldMapSnapshot | null`, `commitCount: number`, `layerSet: RendererLayers | null`, `tweens: TweenManager`.
   - Coalescing contract: calls made before the queue drains are collapsed; only the newest snapshot is committed.
 
@@ -7089,6 +7162,7 @@ export class PixiWorldRenderer {
   private readonly gestures = new GestureTracker(4);
   private readonly staticCache = new Map<string, Texture>();
   private readonly reducedMotion: boolean;
+  private heroAvatarUrl: string | undefined;
   private canvas: HTMLCanvasElement | null;
   private isDestroyed = false;
 
@@ -7120,6 +7194,7 @@ export class PixiWorldRenderer {
     this.onSelectRegion = options.onSelectRegion;
     this.onSelectEvent = options.onSelectEvent;
     this.reducedMotion = Boolean(options.reducedMotion);
+    this.heroAvatarUrl = options.heroAvatarUrl;
     if (options.mode) this.mode = normalizeMode(options.mode);
 
     this.camera = new CameraController({
@@ -7321,7 +7396,7 @@ export class PixiWorldRenderer {
     };
     layers.markers.setMode(this.mode);
     layers.hero.setMode(this.mode);
-    void layers.hero.setAvatar(this.options.heroAvatarUrl);
+    void layers.hero.setAvatar(this.heroAvatarUrl);
 
     this.layers = layers;
     this.layerTheme = theme;
@@ -7453,6 +7528,13 @@ export class PixiWorldRenderer {
     this.fogContainer.visible = isVisible('fog') || isVisible('fogOfWar');
     this.atmosphereContainer.visible = isVisible('atmosphere') || isVisible('particles');
     this.labelsContainer.visible = isVisible('labels');
+  }
+
+  /** Swap the hero portrait without recreating the renderer. */
+  public setHeroAvatar(url: string | undefined): void {
+    if (url === this.heroAvatarUrl) return;
+    this.heroAvatarUrl = url;
+    void this.layers?.hero.setAvatar(url);
   }
 
   public flyTo(targetX: number, targetY: number, targetZoom?: number, durationMs: number = 500): void {
@@ -7616,11 +7698,6 @@ export class PixiWorldRenderer {
     );
   }
 
-  private fogCellSize(): number {
-    const resolution = this.renderer?.resolution ?? 1;
-    return Math.max(1, Math.round(2 * this.camera.zoom * resolution));
-  }
-
   private emitCameraChange(): void {
     if (!this.options.onCameraChange) return;
     const c = this.camera;
@@ -7649,7 +7726,7 @@ export class PixiWorldRenderer {
         layers.markers.update(dt);
         layers.routes.update(dt);
         layers.hero.update(dt);
-        layers.fog.update(dt, this.fogCellSize());
+        layers.fog.update(dt);
         layers.fx.update(dt);
         layers.atmosphere.update(dt);
       }
@@ -8856,17 +8933,17 @@ const DEFAULT_VISIBLE_LAYERS: MapVisibleLayers = {
   labels: true,
 };
 
-function usePrefersReducedMotion(): boolean {
-  const [reduced, setReduced] = useState(false);
-  useEffect(() => {
-    if (typeof window === 'undefined' || !window.matchMedia) return;
-    const query = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setReduced(query.matches);
-    const onChange = () => setReduced(query.matches);
-    query.addEventListener('change', onChange);
-    return () => query.removeEventListener('change', onChange);
-  }, []);
-  return reduced;
+/**
+ * Read once, synchronously: the atlas is client-only (dynamic import with
+ * ssr:false), so the first render already knows the preference and the
+ * renderer is never recreated because of it. Guarded for SSR tests.
+ */
+function readPrefersReducedMotion(): boolean {
+  return (
+    typeof window !== 'undefined' &&
+    typeof window.matchMedia === 'function' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  );
 }
 
 function TooltipHost({
@@ -8920,15 +8997,18 @@ export function RpgWorldAtlas({
   onShowInRoster,
 }: RpgWorldAtlasProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const canvasHostRef = useRef<HTMLDivElement | null>(null);
   const rendererRef = useRef<PixiWorldRenderer | null>(null);
+  const handledLocPropRef = useRef<string | null | undefined>(undefined);
   const pendingFlyRef = useRef<{ x: number; y: number } | null>(null);
   const minimapKeyRef = useRef<string | null>(null);
 
   const universeSlug = universeSlugProp || mapDefinition.universeId || 'reverend-insanity';
   const activeTheme = useMemo(() => themeProp || getMapTheme(universeSlug), [themeProp, universeSlug]);
   const rune = useMemo(() => getUniverseTheme(universeSlug).runeSymbol, [universeSlug]);
-  const reducedMotion = usePrefersReducedMotion();
+  const [reducedMotion] = useState(readPrefersReducedMotion);
+  const heroAvatarRef = useRef(heroAvatarUrl);
+  heroAvatarRef.current = heroAvatarUrl;
 
   const [mode, setMode] = useState<MapMode>(initialMode);
   const [visibleLayers, setVisibleLayers] = useState<MapVisibleLayers>(DEFAULT_VISIBLE_LAYERS);
@@ -8985,6 +9065,8 @@ export function RpgWorldAtlas({
   // Selection handlers
   const handleSelectLocation = useCallback(
     (id: string | null, fly: boolean = true) => {
+      // Our own selection echoes back through the prop: mark it handled
+      handledLocPropRef.current = id;
       setSelectedLocationId(id);
       setSelectedRegionId(null);
       setSelectedEventId(null);
@@ -9037,36 +9119,51 @@ export function RpgWorldAtlas({
   const handlersRef = useRef({ handleSelectLocation, handleSelectRegion, handleSelectEvent, handleDiscover });
   handlersRef.current = { handleSelectLocation, handleSelectRegion, handleSelectEvent, handleDiscover };
 
-  // Controlled selectedLocationId: switch plane if needed, then fly
+  // Controlled selectedLocationId (e.g. ?loc= deep link, "SHOW ON MAP"):
+  // switch plane if needed, then fly. Tracked with a ref that starts undefined,
+  // so a deep link present on mount is handled too.
   useEffect(() => {
-    if (selectedLocationIdProp === undefined || selectedLocationIdProp === selectedLocationId) return;
+    if (selectedLocationIdProp === undefined || selectedLocationIdProp === handledLocPropRef.current) return;
+    handledLocPropRef.current = selectedLocationIdProp;
     setSelectedLocationId(selectedLocationIdProp);
     if (!selectedLocationIdProp) return;
-    const target = planeSwitchForLocation(mapDefinition, snapshotRef.current, selectedLocationIdProp);
     const loc = mapDefinition.locations.find((l) => l.id === selectedLocationIdProp);
-    if (target && loc) {
+    if (!loc) return;
+    const target = planeSwitchForLocation(mapDefinition, snapshotRef.current, selectedLocationIdProp);
+    if (target) {
       pendingFlyRef.current = { x: loc.x, y: loc.y };
       switchPlane(target);
       return;
     }
+    const renderer = rendererRef.current;
     const onPlane = snapshotRef.current.locations.find((l) => l.id === selectedLocationIdProp);
-    if (onPlane) rendererRef.current?.flyTo(onPlane.x, onPlane.y, 1.8, 450);
-  }, [selectedLocationIdProp]); // eslint-disable-line react-hooks/exhaustive-deps
+    if (!onPlane) return;
+    if (renderer?.currentSnapshot) renderer.flyTo(onPlane.x, onPlane.y, 1.8, 450);
+    else pendingFlyRef.current = { x: onPlane.x, y: onPlane.y }; // renderer not ready yet: fly after first commit
+  }, [selectedLocationIdProp, mapDefinition, switchPlane]);
 
-  // Renderer lifecycle
+  // Renderer lifecycle. Pixi's destroy() calls WEBGL_lose_context, so a canvas
+  // can never be reused: every renderer instance gets its own fresh canvas
+  // (this also keeps React StrictMode's double mount working).
   useEffect(() => {
-    if (!canvasRef.current || typeof window === 'undefined') return;
+    const host = canvasHostRef.current;
+    if (!host || typeof window === 'undefined') return;
     const container = containerRef.current;
     const width = container?.clientWidth || 800;
     const height = container?.clientHeight || 600;
     setViewport({ width, height });
 
-    const renderer = new PixiWorldRenderer(canvasRef.current, {
+    const canvas = document.createElement('canvas');
+    canvas.dataset.testid = 'rpg-atlas-canvas';
+    canvas.className = 'w-full h-full block touch-none cursor-grab active:cursor-grabbing';
+    host.appendChild(canvas);
+
+    const renderer = new PixiWorldRenderer(canvas, {
       width,
       height,
       mode: modeRef.current,
       reducedMotion,
-      heroAvatarUrl,
+      heroAvatarUrl: heroAvatarRef.current,
       onSelectLocation: (id) => handlersRef.current.handleSelectLocation(id),
       onSelectRegion: (id) => handlersRef.current.handleSelectRegion(id),
       onSelectEvent: (id) => handlersRef.current.handleSelectEvent(id),
@@ -9098,9 +9195,15 @@ export function RpgWorldAtlas({
     return () => {
       resizeObserver?.disconnect();
       renderer.destroy(true);
+      canvas.remove();
       rendererRef.current = null;
     };
-  }, [reducedMotion, heroAvatarUrl, hoverEmitter, cameraEmitter]);
+  }, [reducedMotion, hoverEmitter, cameraEmitter]);
+
+  // Swap the hero portrait in place (no renderer recreation)
+  useEffect(() => {
+    rendererRef.current?.setHeroAvatar(heroAvatarUrl);
+  }, [heroAvatarUrl]);
 
   // Diff-driven snapshot sync
   useEffect(() => {
@@ -9251,11 +9354,8 @@ export function RpgWorldAtlas({
       className={`relative w-full h-[650px] lg:h-[750px] bg-[#040814] overflow-hidden rounded-2xl border-2 border-slate-800 shadow-2xl select-none outline-none focus-visible:ring-2 focus-visible:ring-white/30 ${className}`}
       style={{ boxShadow: `0 0 35px ${accent}15` }}
     >
-      <canvas
-        ref={canvasRef}
-        data-testid="rpg-atlas-canvas"
-        className="w-full h-full block touch-none cursor-grab active:cursor-grabbing"
-      />
+      {/* The renderer effect mounts a fresh <canvas data-testid="rpg-atlas-canvas"> in here */}
+      <div ref={canvasHostRef} data-testid="rpg-atlas-canvas-host" className="absolute inset-0" />
 
       {/* CRT scanlines + gothic vignette */}
       <div
@@ -9428,18 +9528,42 @@ and add `selectedPlaneId` to that effect's dependency array.
               heroAvatarUrl={heroAvatarUrl}
 ```
 
-- [ ] **Step 7: Run tests**
+- [ ] **Step 7: Update the existing atlas markup assertions**
+
+The canvas is now created per renderer instance at runtime, so server markup contains the canvas host instead. In `tests/rpg-atlas-component.test.ts`:
+- in `renders full atlas layout with canvas, HUD controls, scanlines and timeline bar`, replace
+  `expect(html).toContain('<canvas');` and `expect(html).toContain('data-testid="rpg-atlas-canvas"');`
+  with `expect(html).toContain('data-testid="rpg-atlas-canvas-host"');`
+- in `accepts custom theme and initial mode`, replace `expect(html).toContain('<canvas');` with `expect(html).toContain('data-testid="rpg-atlas-canvas-host"');`
+
+- [ ] **Step 8: Run tests**
 
 Run: `npx vitest run tests/atlas-wiring.test.ts tests/rpg-atlas-component.test.ts && npm test`
 Expected: PASS. In `rpg-atlas-component.test.ts`, the mock has no `planes`, so the HUD shows no plane selector (single implicit plane) — if the existing test `renders cosmological plane options when provided` renders `MapHudControls` directly with a `planes` prop it still passes because `MapHudControls` is unchanged for non-locked planes. The `'Fang Yuan'` timeline assertion passes via the `characterPaths` lookup.
 
-- [ ] **Step 8: Typecheck, build, commit**
+- [ ] **Step 9: Typecheck and build**
 
 Run: `npx tsc --noEmit && npm run build`
 Expected: clean typecheck; Next build succeeds.
 
+- [ ] **Step 10: Browser smoke check of every WebGL path (before any more data work)**
+
+Headless tests never exercise the baked texture, the fog render target and shader, the bitmap font, avatar loading or the minimap image. Check them now:
+
+1. Start `npm run dev` in the background.
+2. With Claude in Chrome (load the tools in one ToolSearch call as the harness instructs; open a new tab), go to `http://localhost:3000/coiling-dragon?ch=150&tab=map`.
+3. `read_console_messages` with pattern `error|Error|WebGL|shader|GLSL` — must be empty. A shader compile error names the GLSL line; fix it in `fog-material.ts`.
+4. Screenshot: baked terrain with pixel glyphs is visible (not a black rectangle), fog is visibly dithered, Silkscreen labels render, the hero token shows the avatar (or the pixel core fallback), and the RADAR minimap shows the plane image.
+5. Drag-pan slowly and zoom in and out: the fog dither pattern must move **with** the map (world-anchored), not shimmer in place on the screen.
+6. Reload the page twice in dev mode (React StrictMode double-mounts effects): the map must appear on both loads, never blank.
+7. Load `http://localhost:3000/reverend-insanity?ch=1400&tab=map&loc=loc-stone-lotus-island` (the Reverend Insanity data is still the pre-Task-22 single canvas; this checks that the `?loc=` fly-on-mount works): the camera flies to the location and its dossier opens.
+
+Fix every defect with a failing test first where testable, re-run Steps 8–9, then continue.
+
+- [ ] **Step 11: Commit**
+
 ```bash
-git add src/components/map/atlas-ui-state.ts src/components/map/MapHudControls.tsx src/components/map/RpgWorldAtlas.tsx "src/app/[slug]/world-explorer.tsx" tests/atlas-wiring.test.ts
+git add src/components/map/atlas-ui-state.ts src/components/map/MapHudControls.tsx src/components/map/RpgWorldAtlas.tsx "src/app/[slug]/world-explorer.tsx" tests/atlas-wiring.test.ts tests/rpg-atlas-component.test.ts
 git commit -m "feat(map): wire retained atlas with planes, waypoints, tooltip, banner and plane deep links
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
@@ -9870,7 +9994,7 @@ Append to `docs/superpowers/specs/2026-09-29-diablo-atlas-design.md`:
 2. Glyph exclusion around markers was replaced by a dark clearing ellipse under each *visible* marker; baking gaps around all locations would reveal future locations when fog is toggled off.
 3. `LocationEntity` has no danger field, so adapter-generated maps leave `dangerLevel` undefined.
 4. Secret routes are chapter-filtered in the projection (require `revealedAtChapter <= userChapter`).
-5. The renderer is created with `preference: 'webgl'`; the fog filter ships GLSL only.
+5. Fog is rendered by a custom world-space Mesh shader (not a Filter) so the Bayer dither stays locked to the map; WebGL/GLSL only (`preference: 'webgl'`).
 6. Rivers are authored as ribbon polygons (the schema has no polyline terrain).
 7. The animated coast foam ring is replaced by a static shallow-water halo; sea-lane dashes carry the water motion.
 8. One Piece gulls are omitted; sea-spray particles only.
