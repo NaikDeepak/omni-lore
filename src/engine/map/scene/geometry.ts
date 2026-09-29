@@ -2,6 +2,8 @@
  * Pure 2D geometry helpers for the map engine (no Pixi imports).
  */
 
+import { mulberry32 } from './prng';
+
 export type Vec2 = [number, number];
 
 export interface Pt {
@@ -163,14 +165,7 @@ export function distanceToPolyline(x: number, y: number, points: Vec2[]): number
  * Turns hand-authored or rectangular outlines into natural coastlines.
  */
 export function jagPolygon(poly: Vec2[], seed: number, amplitude: number, iterations = 4): Vec2[] {
-  let a = seed >>> 0;
-  const rand = () => {
-    a = (a + 0x6d2b79f5) >>> 0;
-    let t = a;
-    t = Math.imul(t ^ (t >>> 15), t | 1);
-    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
+  const rand = mulberry32(seed);
   let pts = poly.map(([x, y]) => [x, y] as Vec2);
   for (let k = 0; k < iterations; k++) {
     const out: Vec2[] = [];
