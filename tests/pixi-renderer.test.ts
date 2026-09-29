@@ -115,6 +115,12 @@ describe('PixiWorldRenderer', () => {
     width: 1000,
     height: 1000,
     userChapter: 100,
+    planeId: 'main',
+    planes: [{ id: 'main', name: 'World', width: 1000, height: 1000, backdrop: 'void', isRevealed: true }],
+    landmarkGlyphs: [],
+    waypoints: [],
+    heroPosition: { x: 200, y: 200, locationId: 'loc-qing-mao', planeId: 'main', chapter: 1 },
+    rivers: [],
     terrain: [
       {
         id: 'ter-1',

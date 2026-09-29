@@ -19,7 +19,12 @@ import {
   CharacterWaypoint,
   TerrainLayer,
   CoordinateSystem,
+  LandmarkGlyph,
+  LocationType,
+  MapRiver,
+  PlaneBackdrop,
 } from '../domain/map-types';
+import { getMapPlanes, planeIdOf } from '../domain/map-planes';
 import { CanonicalLoreGraph } from '../domain/types';
 
 /**
@@ -44,6 +49,34 @@ export interface ProjectedFactionTerritory extends FactionTerritory {
   currentInfluencePct: number;
 }
 
+export interface ProjectedPlane {
+  id: string;
+  name: string;
+  width: number;
+  height: number;
+  backdrop: PlaneBackdrop;
+  isRevealed: boolean;
+}
+
+export interface ProjectedWaypoint {
+  locationId: string;
+  name: string;
+  planeId: string;
+  regionId?: string;
+  x: number;
+  y: number;
+  type: LocationType;
+  isCurrent: boolean;
+}
+
+export interface HeroPosition {
+  x: number;
+  y: number;
+  locationId?: string;
+  planeId: string;
+  chapter: number;
+}
+
 export interface ProjectedWorldMapSnapshot {
   id: string;
   mapId: string;
@@ -52,6 +85,12 @@ export interface ProjectedWorldMapSnapshot {
   width: number;
   height: number;
   userChapter: number;
+  planeId: string;
+  planes: ProjectedPlane[];
+  landmarkGlyphs: LandmarkGlyph[];
+  waypoints: ProjectedWaypoint[];
+  heroPosition: HeroPosition | null;
+  rivers: MapRiver[];
   activeCharacterId?: string;
   currentPosition?: { x: number; y: number; locationId?: string } | null;
   terrain: TerrainLayer[];
@@ -69,6 +108,7 @@ export interface TemporalMapOptions {
   activeCharacterId?: string;
   graph?: CanonicalLoreGraph;
   includeUnknown?: boolean;
+  planeId?: string;
 }
 
 /**
@@ -184,52 +224,79 @@ export function projectTemporalMap(
     options = { graph };
   }
 
-  // 1. Sliced Character Paths (Zero Spoilers: only waypoints up to userChapter)
+  // 1. Resolve planes (first plane is always revealed)
+  const allPlanes = getMapPlanes(map);
+  const firstPlaneId = allPlanes[0].id;
+  const projectedPlanes: ProjectedPlane[] = allPlanes.map((plane) => ({
+    id: plane.id,
+    name: plane.name,
+    width: plane.width,
+    height: plane.height,
+    backdrop: plane.backdrop,
+    isRevealed: plane.id === firstPlaneId || plane.revealedAtChapter <= userChapter,
+  }));
+  const activePlane =
+    projectedPlanes.find((p) => p.id === options.planeId && p.isRevealed) ?? projectedPlanes[0];
+
+  const locationPlane = new Map(
+    (map.locations || []).map((loc) => [loc.id, planeIdOf(loc, allPlanes)])
+  );
+  const waypointPlaneId = (wp: CharacterWaypoint): string =>
+    wp.planeId ?? (wp.locationId ? locationPlane.get(wp.locationId) : undefined) ?? firstPlaneId;
+  const onActivePlane = (entity: { planeId?: string }): boolean =>
+    planeIdOf(entity, allPlanes) === activePlane.id;
+
+  // 2. Sliced Character Paths (Zero Spoilers: only waypoints up to userChapter, on this plane)
   const projectedCharacterPaths: CharacterPath[] = (map.characterPaths || [])
-    .map(path => ({
+    .map((path) => ({
       characterId: path.characterId,
       characterName: path.characterName,
       waypoints: (path.waypoints || [])
-        .filter(wp => wp.chapter <= userChapter)
+        .filter((wp) => wp.chapter <= userChapter && waypointPlaneId(wp) === activePlane.id)
         .sort((a, b) => a.chapter - b.chapter),
     }))
-    .filter(path => path.waypoints.length > 0);
+    .filter((path) => path.waypoints.length > 0);
 
-  // 2. Resolve Active Character Path for Fog of War calculation
+  // 3. Resolve Active Character Path for Fog of War calculation
   const activeCharId =
     options.activeCharacterId ||
     map.characterPaths?.[0]?.characterId ||
     projectedCharacterPaths[0]?.characterId;
 
-  const activePath = map.characterPaths?.find(
-    p => p.characterId === activeCharId
-  ) ?? null;
+  const activePath = map.characterPaths?.find((p) => p.characterId === activeCharId) ?? null;
 
-  // 3. Resolve Current Protagonist Position
-  let currentPosition: { x: number; y: number; locationId?: string } | null = null;
+  // 4. Resolve hero position (any plane) and current position (this plane only)
+  let heroPosition: HeroPosition | null = null;
   if (activePath && activePath.waypoints.length > 0) {
     const validWaypoints = activePath.waypoints
-      .filter(w => w.chapter <= userChapter)
+      .filter((w) => w.chapter <= userChapter)
       .sort((a, b) => a.chapter - b.chapter);
-
-    if (validWaypoints.length > 0) {
-      const latest = validWaypoints[validWaypoints.length - 1];
-      currentPosition = {
+    const latest = validWaypoints[validWaypoints.length - 1];
+    if (latest) {
+      heroPosition = {
         x: latest.x,
         y: latest.y,
         locationId: latest.locationId,
+        planeId: waypointPlaneId(latest),
+        chapter: latest.chapter,
       };
     }
   }
 
-  // 4. Project Locations with Fog Status & Filter by Canon Visibility
+  const currentPosition: { x: number; y: number; locationId?: string } | null =
+    heroPosition && heroPosition.planeId === activePlane.id
+      ? { x: heroPosition.x, y: heroPosition.y, locationId: heroPosition.locationId }
+      : null;
+
+  // 5. Project Locations with Fog Status & Filter by Canon Visibility
   const projectedLocations: ProjectedLocation[] = [];
 
   for (const loc of map.locations || []) {
+    if (!onActivePlane(loc)) continue;
     const fogStatus = getLocationFogStatus(loc, userChapter, activePath);
     const isVisible =
-      (loc.firstAppearanceChapter <= userChapter ||
-        loc.revealedAtChapter <= userChapter) ||
+      loc.firstAppearanceChapter <= userChapter ||
+      loc.revealedAtChapter <= userChapter ||
       Boolean(options.includeUnknown);
 
     if (isVisible) {
@@ -237,28 +304,61 @@ export function projectTemporalMap(
         ...loc,
         fogStatus,
         isCurrentPosition:
-          currentPosition?.locationId === loc.id ||
-          (currentPosition?.x === loc.x && currentPosition?.y === loc.y),
+          currentPosition !== null &&
+          (currentPosition.locationId === loc.id ||
+            (currentPosition.x === loc.x && currentPosition.y === loc.y)),
       });
     }
   }
 
-  // 5. Filter Events (strictly chapter <= userChapter)
+  // 6. Fast-travel waypoints: discovered waypoint locations on every revealed plane
+  const revealedPlaneIds = new Set(projectedPlanes.filter((p) => p.isRevealed).map((p) => p.id));
+  const waypoints: ProjectedWaypoint[] = [];
+  for (const loc of map.locations || []) {
+    if (!loc.waypoint) continue;
+    const planeId = planeIdOf(loc, allPlanes);
+    if (!revealedPlaneIds.has(planeId)) continue;
+    const status = getLocationFogStatus(loc, userChapter, activePath);
+    if (
+      status !== FogStatus.CURRENT &&
+      status !== FogStatus.DISCOVERED &&
+      status !== FogStatus.REVEALED
+    ) {
+      continue;
+    }
+    waypoints.push({
+      locationId: loc.id,
+      name: loc.name,
+      planeId,
+      regionId: loc.regionId,
+      x: loc.x,
+      y: loc.y,
+      type: loc.type,
+      isCurrent: heroPosition?.locationId === loc.id,
+    });
+  }
+
+  // 7. Filter Events (strictly chapter <= userChapter; plane-agnostic for the timeline)
   const projectedEvents: MapEvent[] = (map.events || [])
-    .filter(ev => ev.chapter <= userChapter)
+    .filter((ev) => ev.chapter <= userChapter)
     .sort((a, b) => a.chapter - b.chapter);
 
-  // 6. Filter Routes (visibleFromChapter <= userChapter)
-  const projectedRoutes: MapRoute[] = (map.routes || []).filter(
-    route =>
+  // 8. Filter Routes (secret routes need an explicit reveal)
+  const projectedRoutes: MapRoute[] = (map.routes || []).filter((route) => {
+    if (!onActivePlane(route)) return false;
+    if (route.routeType === 'secret') {
+      return route.revealedAtChapter !== undefined && route.revealedAtChapter <= userChapter;
+    }
+    return (
       route.visibleFromChapter <= userChapter ||
-      (route.revealedAtChapter !== undefined &&
-        route.revealedAtChapter <= userChapter)
-  );
+      (route.revealedAtChapter !== undefined && route.revealedAtChapter <= userChapter)
+    );
+  });
 
-  // 7. Active Faction Territories (calculate current influence percentage)
+  // 9. Active Faction Territories (calculate current influence percentage)
   const projectedTerritories: ProjectedFactionTerritory[] = [];
   for (const territory of map.territories || []) {
+    if (!onActivePlane(territory)) continue;
     const influence = getTerritoryInfluence(territory, userChapter);
     if (influence > 0) {
       projectedTerritories.push({
@@ -268,34 +368,48 @@ export function projectTemporalMap(
     }
   }
 
-  // 8. Filter Regions bounded by visibility
+  // 10. Filter Regions bounded by visibility
   const projectedRegions: MapRegion[] = (map.regions || []).filter(
-    reg =>
-      reg.visibleFromChapter === undefined ||
-      reg.visibleFromChapter <= userChapter ||
-      (reg.revealedAtChapter !== undefined &&
-        reg.revealedAtChapter <= userChapter)
+    (reg) =>
+      onActivePlane(reg) &&
+      (reg.visibleFromChapter === undefined ||
+        reg.visibleFromChapter <= userChapter ||
+        (reg.revealedAtChapter !== undefined && reg.revealedAtChapter <= userChapter))
   );
 
-  // 9. Calculate Discovered Counts
+  // 11. Landmark glyphs (chapter-gated decorations)
+  const landmarkGlyphs: LandmarkGlyph[] = (map.landmarkGlyphs || []).filter(
+    (glyph) => glyph.revealedAtChapter <= userChapter && onActivePlane(glyph)
+  );
+
+  // 12. Calculate Discovered Counts (active plane)
   const discoveredCount = projectedLocations.filter(
-    l =>
+    (l) =>
       l.fogStatus === FogStatus.CURRENT ||
       l.fogStatus === FogStatus.DISCOVERED ||
       l.fogStatus === FogStatus.REVEALED
   ).length;
+
+  const terrain: TerrainLayer[] = (map.terrain || []).filter(onActivePlane);
+  const rivers: MapRiver[] = (map.rivers || []).filter(onActivePlane);
 
   return {
     id: map.id,
     mapId: map.id,
     universeId: map.universeId,
     coordinateSystem: map.coordinateSystem,
-    width: map.width,
-    height: map.height,
+    width: activePlane.width,
+    height: activePlane.height,
     userChapter,
+    planeId: activePlane.id,
+    planes: projectedPlanes,
+    landmarkGlyphs,
+    waypoints,
+    heroPosition,
+    rivers,
     activeCharacterId: activeCharId,
     currentPosition,
-    terrain: map.terrain || [],
+    terrain,
     regions: projectedRegions,
     locations: projectedLocations,
     routes: projectedRoutes,
@@ -303,6 +417,6 @@ export function projectTemporalMap(
     events: projectedEvents,
     characterPaths: projectedCharacterPaths,
     discoveredCount,
-    totalLocationsCount: map.locations ? map.locations.length : 0,
+    totalLocationsCount: (map.locations || []).filter(onActivePlane).length,
   };
 }
