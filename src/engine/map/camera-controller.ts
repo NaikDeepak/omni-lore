@@ -226,11 +226,48 @@ export class CameraController {
   }
 
   /**
-   * Resize viewport dimensions
+   * Resize viewport dimensions (ignores zero/negative sizes from hidden containers)
    */
   public resize(viewWidth: number, viewHeight: number): void {
+    if (viewWidth <= 0 || viewHeight <= 0) return;
     this.viewWidth = viewWidth;
     this.viewHeight = viewHeight;
+  }
+
+  /**
+   * Change the world (plane) size and re-clamp the camera
+   */
+  public setWorldSize(width: number, height: number): void {
+    this.worldWidth = width;
+    this.worldHeight = height;
+    this.clampPosition();
+  }
+
+  /**
+   * Zoom level at which the whole world fits the viewport
+   */
+  public fitZoom(padding: number = 0.92): number {
+    const fit = Math.min(this.viewWidth / this.worldWidth, this.viewHeight / this.worldHeight);
+    return this.clampZoom(fit * padding);
+  }
+
+  /**
+   * Center the world and fit it in the viewport
+   */
+  public fitWorld(): void {
+    this.stopAnimation();
+    this.zoom = this.fitZoom();
+    this.x = this.worldWidth / 2;
+    this.y = this.worldHeight / 2;
+  }
+
+  /**
+   * Visible world-space rectangle
+   */
+  public getViewBounds(): { minX: number; minY: number; maxX: number; maxY: number } {
+    const halfW = this.viewWidth / 2 / this.zoom;
+    const halfH = this.viewHeight / 2 / this.zoom;
+    return { minX: this.x - halfW, minY: this.y - halfH, maxX: this.x + halfW, maxY: this.y + halfH };
   }
 
   /**
