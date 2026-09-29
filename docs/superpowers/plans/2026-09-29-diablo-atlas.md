@@ -1094,6 +1094,7 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 - Consumes: `MapPlane`, `PlaneBackdrop`, `CharacterWaypoint` (Task 1).
 - Produces:
   - `export function isWaypointLocation(loc: Pick<MapLocation, 'importance' | 'type'>): boolean` — true when `importance === 'critical'` or `type ∈ {city, sect, portal, castle, temple}`.
+  - Land guarantee: every plane region/terrain that holds locations is a land type (water inferences become `plains`; slug-based `mountain`/`ocean` fallbacks are removed), and the whole-plane base is `plains` — or omitted on sea-backdrop universes (One Piece, Lord of the Mysteries), where plane regions become islands. `inferBaseTerrain` is deleted.
   - `adaptGraphToWorldMap` output: `planes` = graph planes that contain at least one location (sorted by `tier_order`, `order` = index, `width`/`height` = 1000, `backdrop` by universe); every location/region/terrain/route/territory/waypoint carries `planeId` when planes exist; `waypoint` set by rule; one journey route per plane (first keeps id `route-<charId>-path`, later ones `route-<charId>-path-<n>`); base terrain per plane (first keeps id `terrain-base`).
 
 - [ ] **Step 1: Write the failing tests**
@@ -1137,6 +1138,20 @@ Append to `tests/map-adapter.test.ts` (inside the existing top-level `describe`,
     expect(isWaypointLocation({ importance: 'minor', type: 'city' })).toBe(true);
     expect(isWaypointLocation({ importance: 'major', type: 'portal' })).toBe(true);
     expect(isWaypointLocation({ importance: 'major', type: 'dungeon' })).toBe(false);
+  });
+
+  it('keeps every location on land and never floods or mountain-fills whole planes', async () => {
+    for (const slug of ['coiling-dragon', 'solo-leveling', 'lord-of-the-mysteries', 'one-piece', 'demonic-emperor']) {
+      const graph = await store.getSeriesGraph(slug);
+      const mapDef = adaptGraphToWorldMap(graph!);
+      for (const t of mapDef.terrain) expect(['ocean', 'river'], `${slug} ${t.id}`).not.toContain(t.type);
+      const bases = mapDef.terrain.filter((t) => t.id.startsWith('terrain-base'));
+      for (const b of bases) expect(b.type).toBe('plains');
+      if ((slug === 'one-piece' || slug === 'lord-of-the-mysteries') && (mapDef.planes ?? []).length > 0) {
+        expect(bases).toHaveLength(0);
+      }
+      expect(mapDef.terrain.length).toBeGreaterThan(0);
+    }
   });
 
   it('only creates planes that contain locations', async () => {
@@ -1209,14 +1224,18 @@ export function isWaypointLocation(loc: Pick<MapLocation, 'importance' | 'type'>
 
 4. In the location loop, extend the `mapLoc` literal with `planeId: resolvePlaneId(loc.plane_id),` and, right after the literal, add `mapLoc.waypoint = isWaypointLocation(mapLoc);`.
 
-5. Replace the single "Universal Base Terrain Layer" `terrain.push({...})` with:
+5. Replace the single "Universal Base Terrain Layer" `terrain.push({...})` with the block below, and **delete the `inferBaseTerrain` function** (a whole-plane `ocean` base would drown every location and a whole-plane `mountain` base would cover the plane in peaks once the tileset painter decorates terrain):
 
 ```ts
-  const basePlanes: Array<MapPlane | null> = mapPlanes.length > 0 ? mapPlanes : [null];
+  // Whole-plane base ground. On sea backdrops the plane regions below become islands,
+  // so no base; elsewhere a plains base so every marker stands on land.
+  const backdrop = inferBackdrop(slug);
+  const basePlanes: Array<MapPlane | null> =
+    mapPlanes.length === 0 ? [null] : backdrop === 'sea' ? [] : mapPlanes;
   basePlanes.forEach((plane, idx) => {
     terrain.push({
       id: idx === 0 ? 'terrain-base' : `terrain-base-${plane!.id}`,
-      type: inferBaseTerrain(slug),
+      type: 'plains',
       name: plane ? `${plane.name} Prime Domain` : `${graph.series.title} Prime Domain`,
       polygon: [
         [20, 20],
@@ -1230,7 +1249,18 @@ export function isWaypointLocation(loc: Pick<MapLocation, 'importance' | 'type'>
   });
 ```
 
-6. Change `if (sortedPlanes.length === 0) {` to `if (planesWithLocations.length === 0) {` and `sortedPlanes.forEach((plane, idx) => {` to `planesWithLocations.forEach((plane, idx) => {`. Inside that loop add `planeId: plane.id,` to both the `regions.push({...})` and the `terrain.push({...})` literals.
+6. Change `if (sortedPlanes.length === 0) {` to `if (planesWithLocations.length === 0) {` and `sortedPlanes.forEach((plane, idx) => {` to `planesWithLocations.forEach((plane, idx) => {`. Inside that loop add `planeId: plane.id,` to both the `regions.push({...})` and the `terrain.push({...})` literals, and replace `const planeTerrainType = inferTerrainType(plane.name, slug);` with `const planeTerrainType = asLandTerrain(inferTerrainType(plane.name, slug));`.
+
+6b. Planes that hold locations must be land. Add next to `inferTerrainType`:
+
+```ts
+/** Plane regions contain locations, so they are always painted as land. */
+function asLandTerrain(type: TerrainType): TerrainType {
+  return type === 'ocean' || type === 'river' ? 'plains' : type;
+}
+```
+
+and delete the four slug-based fallback lines at the end of `inferTerrainType` (`one-piece` → ocean, `coiling-dragon` → mountain, `demonic-emperor` → mountain, `lord-of-the-mysteries` → ocean) so unnamed planes fall back to `'plains'`. Name-based matches (e.g. a plane literally named "… Mountain Range …") still yield their biome.
 
 7. In character-path synthesis, change the waypoint object to include the plane:
 
@@ -4292,8 +4322,9 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 - Consumes: `jagPolygon`, `pointInPolygon`, `distanceToPolygonEdge`, `distanceToPolyline`, `polygonBounds`, `polygonCentroid`, `Vec2` (Task 5); `fbm2D` (Task 5); `hashString`, `mulberry32` (Task 5); `SPRITES`, sprite groups, `SheetId`, `SpriteName` (Task 6); `UniverseLook`, `gradePixels` (Task 7); `ProjectedWorldMapSnapshot` (Task 2).
 - Produces (`plane-layout.ts`, pure):
   - `PIXELS_PER_WORLD = 0.5`
-  - `type GroundKind = 'grass' | 'sand' | 'snow' | 'ash' | 'bog' | 'voidstone'`, `type FillKind = GroundKind | 'water'`
-  - `interface LayoutFill { kind: FillKind; terrainType: TerrainType; ring: Vec2[] }`
+  - `type GroundKind = 'grass' | 'sand' | 'snow' | 'ash' | 'bog' | 'voidstone'`, `type FillKind = GroundKind | 'water' | 'lake'` — `lake` = a water fill whose centroid lies inside a land fill (sand rim + shallows); `water` = open water (plain sea color, painted before the coast so shores stay intact)
+  - `interface LayoutFill { id: string; kind: FillKind; terrainType: TerrainType; ring: Vec2[]; bounds: Bounds }`
+  - Coast roughening is capped: `jagPolygon` iterations = `clamp(floor(log2(256 / ring.length)), 0, 4)`, so smoothed hand-authored rings stay ≤ ~256 vertices; `surfaceAt` rejects fills by bounding box before point-in-polygon.
   - `interface Stamp { sprite: SpriteName; x: number; y: number; flip: boolean }` (pixel space, bottom-center anchor)
   - `interface Patch { x: number; y: number; rx: number; ry: number }`
   - `interface LayoutRiver { points: Vec2[]; width: number }`
@@ -4304,7 +4335,7 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
   - `type CanvasFactory = (width: number, height: number) => HTMLCanvasElement`
   - `paintPlane(ctx: CanvasRenderingContext2D, layout: PlaneLayout, sheets: SheetImages, look: UniverseLook, createCanvas: CanvasFactory, seed: number): void`
 
-Paint order (spec §3.2): backdrop → coast strokes around land → fills in terrain order (ground or water) → grass tone patches → rivers → bridges → y-sorted stamps → color grade.
+Paint order (spec §3.2): backdrop → open-water fills → coast strokes around land → land and lake fills in terrain order → grass tone patches → rivers → bridges → y-sorted stamps → color grade.
 
 - [ ] **Step 1: Write the failing layout test**
 
@@ -4353,7 +4384,8 @@ describe('buildPlaneLayout', () => {
   });
 
   it('keeps fills in terrain order and marks water', () => {
-    expect(layout.fills.map((f) => f.kind)).toEqual(['grass', 'grass', 'grass', 'sand', 'water', 'water']);
+    expect(layout.fills.map((f) => f.kind)).toEqual(['grass', 'grass', 'grass', 'sand', 'lake', 'lake']);
+    expect(layout.fills.map((f) => f.id)).toEqual(['plains', 'woods', 'range', 'sands', 'oasis', 'lake']);
     expect(layout.land).toHaveLength(4);
   });
 
@@ -4379,7 +4411,7 @@ describe('buildPlaneLayout', () => {
   });
 
   it('never stamps on water or rivers', () => {
-    const waters = layout.fills.filter((f) => f.kind === 'water');
+    const waters = layout.fills.filter((f) => f.kind === 'water' || f.kind === 'lake');
     for (const s of layout.stamps) {
       if (PALMS.includes(s.sprite)) continue;
       for (const w of waters) expect(pointInPolygon(s.x, s.y, w.ring)).toBe(false);
@@ -4390,6 +4422,25 @@ describe('buildPlaneLayout', () => {
   it('sorts stamps top-to-bottom and adds grass tone patches', () => {
     for (let i = 1; i < layout.stamps.length; i++) expect(layout.stamps[i].y).toBeGreaterThanOrEqual(layout.stamps[i - 1].y);
     expect(layout.patches.length).toBeGreaterThan(5);
+  });
+
+  it('treats ocean outside land as open water', () => {
+    const withSea = {
+      ...def,
+      terrain: [{ id: 'sea', type: 'ocean' as const, name: 'Sea', polygon: [[0, 0], [1200, 0], [1200, 800], [0, 800]] as [number, number][], planeId: 'mortal' }, ...def.terrain],
+    };
+    const l = buildPlaneLayout(projectTemporalMap(withSea, 1));
+    expect(l.fills[0].kind).toBe('water');
+    expect(l.land).toHaveLength(4);
+  });
+
+  it('caps roughening on already-dense rings', () => {
+    const dense = Array.from({ length: 200 }, (_, i) => {
+      const a = (i / 200) * Math.PI * 2;
+      return [600 + Math.cos(a) * 300, 400 + Math.sin(a) * 300] as [number, number];
+    });
+    const l = buildPlaneLayout(projectTemporalMap({ ...def, terrain: [{ id: 'd', type: 'plains', name: 'D', polygon: dense, planeId: 'mortal' }], rivers: [] }, 1));
+    expect(l.fills[0].ring.length).toBe(200);
   });
 
   it('roughens rectangles from adapter maps too', () => {
@@ -4490,6 +4541,22 @@ describe('paintPlane', () => {
     expect(widths).toContain(layout.rivers[0].width); // river water
   });
 
+  it('paints open water plainly before the coast strokes', () => {
+    const seaDef = {
+      ...def,
+      terrain: [{ id: 'open', type: 'ocean' as const, name: 'Open', polygon: [[650, 50], [790, 50], [790, 590], [650, 590]] as [number, number][] }, ...def.terrain],
+    };
+    const seaLayout = buildPlaneLayout(projectTemporalMap(seaDef, 1));
+    expect(seaLayout.fills[0].kind).toBe('water');
+    const { ctx, calls } = recordingContext(seaLayout.width, seaLayout.height);
+    paintPlane(ctx, seaLayout, withSheets, look, fakeCanvas, 42);
+    const names = calls.map((c) => `${c.name}:${String(c.args[0])}`);
+    const lastSeaFill = names.lastIndexOf(`set:fillStyle:${look.sea}`);
+    const firstShelf = names.indexOf('set:lineWidth:28');
+    expect(lastSeaFill).toBeGreaterThan(0);
+    expect(lastSeaFill).toBeLessThan(firstShelf);
+  });
+
   it('still paints terrain when the sheets are not loaded', () => {
     const { ctx, calls } = recordingContext(layout.width, layout.height);
     expect(() => paintPlane(ctx, layout, noSheets, look, fakeCanvas, 42)).not.toThrow();
@@ -4521,6 +4588,7 @@ Create `src/engine/map/scene/plane-layout.ts`:
 import { PlaneBackdrop, TerrainType } from '../../../domain/map-types';
 import { ProjectedWorldMapSnapshot } from '../../../projections/temporal-map';
 import {
+  Bounds,
   distanceToPolygonEdge,
   distanceToPolyline,
   jagPolygon,
@@ -4545,12 +4613,14 @@ import {
 export const PIXELS_PER_WORLD = 0.5;
 
 export type GroundKind = 'grass' | 'sand' | 'snow' | 'ash' | 'bog' | 'voidstone';
-export type FillKind = GroundKind | 'water';
+export type FillKind = GroundKind | 'water' | 'lake';
 
 export interface LayoutFill {
+  id: string;
   kind: FillKind;
   terrainType: TerrainType;
   ring: Vec2[];
+  bounds: Bounds;
 }
 
 export interface Stamp {
@@ -4611,15 +4681,27 @@ export function buildPlaneLayout(snapshot: ProjectedWorldMapSnapshot): PlaneLayo
 
   const fills: LayoutFill[] = snapshot.terrain
     .filter((t) => t.polygon.length >= 3)
-    .map((t) => ({
-      kind: FILL_KIND[t.type],
-      terrainType: t.type,
-      ring: jagPolygon(
+    .map((t) => {
+      // Cap roughening so dense (already smoothed) rings stay <= ~256 vertices
+      const iterations = Math.max(0, Math.min(4, Math.floor(Math.log2(256 / t.polygon.length))));
+      const ring = jagPolygon(
         t.polygon.map(([x, y]) => [x * s, y * s] as Vec2),
         hashString(`${snapshot.mapId}:${t.id}`),
-        amplitude
-      ),
-    }));
+        amplitude,
+        iterations
+      );
+      return { id: t.id, kind: FILL_KIND[t.type], terrainType: t.type, ring, bounds: polygonBounds(ring) };
+    });
+
+  // Water enclosed by land is a lake (rimmed); other water is open sea (plain, under the coast)
+  for (const fill of fills) {
+    if (fill.kind !== 'water') continue;
+    const c = polygonCentroid(fill.ring);
+    const enclosed = fills.some(
+      (other) => other !== fill && other.kind !== 'water' && other.kind !== 'lake' && pointInPolygon(c.x, c.y, other.ring)
+    );
+    if (enclosed) fill.kind = 'lake';
+  }
 
   const rivers: LayoutRiver[] = (snapshot.rivers ?? []).map((r) => ({
     points: r.points.map(([x, y]) => [x * s, y * s] as Vec2),
@@ -4632,6 +4714,8 @@ export function buildPlaneLayout(snapshot: ProjectedWorldMapSnapshot): PlaneLayo
   /** Top-most fill under a point (terrain order = paint order), or null for backdrop. */
   const surfaceAt = (x: number, y: number): LayoutFill | null => {
     for (let i = fills.length - 1; i >= 0; i--) {
+      const b = fills[i].bounds;
+      if (x < b.minX || x > b.maxX || y < b.minY || y > b.maxY) continue;
       if (pointInPolygon(x, y, fills[i].ring)) return fills[i];
     }
     return null;
@@ -4656,7 +4740,7 @@ export function buildPlaneLayout(snapshot: ProjectedWorldMapSnapshot): PlaneLayo
       const roll = rng();
       if (x < 0 || y < 0 || x >= width || y >= height) continue;
       const surface = surfaceAt(x, y);
-      if (!surface || surface.kind === 'water' || nearRiver(x, y)) continue;
+      if (!surface || surface.kind === 'water' || surface.kind === 'lake' || nearRiver(x, y)) continue;
       const n = forestNoise(x, y);
 
       switch (surface.terrainType) {
@@ -4694,7 +4778,7 @@ export function buildPlaneLayout(snapshot: ProjectedWorldMapSnapshot): PlaneLayo
 
   // Palms ring any water that sits inside sand (oases)
   for (const fill of fills) {
-    if (fill.kind !== 'water') continue;
+    if (fill.kind !== 'lake') continue;
     const c = polygonCentroid(fill.ring);
     const around = fills.find((f) => f !== fill && f.kind === 'sand' && pointInPolygon(c.x, c.y, f.ring));
     if (!around) continue;
@@ -4718,7 +4802,7 @@ export function buildPlaneLayout(snapshot: ProjectedWorldMapSnapshot): PlaneLayo
     width,
     height,
     backdrop,
-    land: fills.filter((f) => f.kind !== 'water').map((f) => f.ring),
+    land: fills.filter((f) => f.kind !== 'water' && f.kind !== 'lake').map((f) => f.ring),
     fills,
     patches,
     rivers,
@@ -4887,6 +4971,14 @@ export function paintPlane(
     }
   }
 
+  // 1b. Open water (sea polygons) before the coast so shores stay intact
+  ctx.fillStyle = look.sea;
+  for (const fill of layout.fills) {
+    if (fill.kind !== 'water') continue;
+    tracePath(ctx, fill.ring);
+    ctx.fill();
+  }
+
   // 2. Coast treatment around land
   for (const ring of layout.land) {
     tracePath(ctx, ring);
@@ -4920,8 +5012,9 @@ export function paintPlane(
   // 3. Fills in terrain order
   const grass = grassPattern(ctx, sheets, createCanvas, rng);
   for (const fill of layout.fills) {
+    if (fill.kind === 'water') continue; // painted in step 1b
     tracePath(ctx, fill.ring);
-    if (fill.kind === 'water') {
+    if (fill.kind === 'lake') {
       ctx.strokeStyle = look.sand;
       ctx.lineWidth = 4;
       ctx.stroke();
@@ -5009,7 +5102,7 @@ Note: the painter test's "grade is the last call" check requires nothing after `
 - [ ] **Step 6: Run tests**
 
 Run: `npx vitest run tests/plane-layout.test.ts tests/plane-painter.test.ts`
-Expected: PASS (8 + 3 tests). Fixture arithmetic for the layout test (pixel space = world × 0.5): woods 75–225, range x 250–325, sands x 375–550, oasis centered (460, 205), river width 10, bridge (200, 235). If "puts trees in the forest" fails because the noise threshold leaves too few trees in the 120×120 px sample window, lower the forest threshold from `0.42` to `0.38` (keep plains at `0.62`) and re-run.
+Expected: PASS (10 + 4 tests). Fixture arithmetic for the layout test (pixel space = world × 0.5): woods 75–225, range x 250–325, sands x 375–550, oasis centered (460, 205), river width 10, bridge (200, 235). If "puts trees in the forest" fails because the noise threshold leaves too few trees in the 120×120 px sample window, lower the forest threshold from `0.42` to `0.38` (keep plains at `0.62`) and re-run.
 
 - [ ] **Step 7: Typecheck and commit**
 
@@ -10262,7 +10355,8 @@ Headless tests never exercise the baked texture, the fog render target and shade
 4. Screenshot: the baked plane shows tileset art — grass texture, tree clumps, mountain peaks, shore rim — (not a flat blue rectangle, which would mean the sheets failed to load; check the network tab for `punyworld-overworld-tileset.png` and `mountains.png`), fog is light and dithered, Silkscreen labels render, props (castles/halls/houses/caves) and numbered badges sit on grass clearings, the hero token shows the avatar (or the pixel core fallback), and the RADAR minimap shows the plane image.
 5. Drag-pan slowly and zoom in and out: the fog dither pattern must move **with** the map (world-anchored), not shimmer in place on the screen.
 6. Reload the page twice in dev mode (React StrictMode double-mounts effects): the map must appear on both loads, never blank.
-7. Load `http://localhost:3000/reverend-insanity?ch=1400&tab=map&loc=loc-stone-lotus-island` (the Reverend Insanity data is still the pre-Task-22 single canvas; this checks that the `?loc=` fly-on-mount works): the camera flies to the location and its dossier opens.
+7. Visit `/one-piece?ch=500&tab=map` and `/demonic-emperor?ch=500&tab=map`: One Piece shows grass islands on the sea (not an ocean-only plane), Demonic Emperor shows grass land with mountain ranges only where terrain says mountain (not a plane covered in peaks), and every marker stands on land.
+8. Load `http://localhost:3000/reverend-insanity?ch=1400&tab=map&loc=loc-stone-lotus-island` (the Reverend Insanity data is still the pre-Task-22 single canvas; this checks that the `?loc=` fly-on-mount works): the camera flies to the location and its dossier opens.
 
 Fix every defect with a failing test first where testable, re-run Steps 8–9, then continue.
 
@@ -10290,7 +10384,7 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 
 - [ ] **Step 1: Write the failing tests**
 
-Append inside the top-level `describe` of `tests/reverend-insanity.test.ts` (add `import { projectTemporalMap } from '../src/projections/temporal-map';` at the top if not already imported):
+Append inside the top-level `describe` of `tests/reverend-insanity.test.ts` (add `import { projectTemporalMap } from '../src/projections/temporal-map';`, `import { buildPlaneLayout } from '../src/engine/map/scene/plane-layout';` and `import { pointInPolygon } from '../src/engine/map/scene/geometry';` at the top if not already imported):
 
 ```ts
   it('defines three organic planes with every location placed on a declared plane', () => {
@@ -10337,6 +10431,24 @@ Append inside the top-level `describe` of `tests/reverend-insanity.test.ts` (add
     expect(ids(949)).not.toContain('lg-yi-tian-spire');
     expect(ids(950)).toContain('lg-yi-tian-spire');
     expect(ids(1)).toEqual([]);
+  });
+
+  it('lays out the real mortal plane within budget with sensible decoration', () => {
+    const mapData = validateWorldMap(JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'data/reverend-insanity/map.json'), 'utf-8')));
+    const snap = projectTemporalMap(mapData, 1);
+    const t0 = performance.now();
+    const layout = buildPlaneLayout(snap);
+    const elapsed = performance.now() - t0;
+    expect(elapsed).toBeLessThan(250);
+    const trees = layout.stamps.filter((st) => st.sprite.startsWith('conifer') || st.sprite.startsWith('tree'));
+    const peaks = layout.stamps.filter((st) => st.sprite.startsWith('peak'));
+    expect(trees.length).toBeGreaterThan(300);
+    expect(peaks.length).toBeGreaterThan(150);
+    expect(layout.fills.find((f) => f.id === 'terrain-eastern-sea')!.kind).toBe('water');
+    const lake = layout.fills.find((f) => f.id === 'terrain-crescent-lake')!;
+    expect(lake.kind).toBe('lake');
+    expect(layout.stamps.some((st) => pointInPolygon(st.x, st.y, lake.ring))).toBe(false);
+    for (const fill of layout.fills) expect(fill.ring.length).toBeLessThanOrEqual(260);
   });
 
   it('keeps the River of Time plane sealed until chapter 600', () => {

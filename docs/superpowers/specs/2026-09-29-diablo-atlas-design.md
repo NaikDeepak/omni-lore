@@ -72,8 +72,10 @@ snapshot.terrain / rivers / plane  (never chapter-gated)
       ▼
 buildPlaneLayout(snapshot)            PURE, deterministic, node-testable
   • world → pixel space (0.5 px per world unit; 1 tile = 32 world units)
-  • coast roughening: fractal midpoint displacement of every terrain ring
-  • fills in terrain order (ground kinds or water)
+  • coast roughening: fractal midpoint displacement of every terrain ring,
+    capped at ~256 vertices per ring (dense hand-smoothed rings get fewer iterations)
+  • fills in terrain order: ground kinds, `lake` (water enclosed by land) or
+    `water` (open sea); fills carry bounding boxes for fast point queries
   • grass tone patches, forest/lone trees, mountain peaks, desert rocks,
     oasis palms — seeded value-noise + jittered grids, y-sorted
   • rivers + bridges
@@ -81,10 +83,11 @@ buildPlaneLayout(snapshot)            PURE, deterministic, node-testable
       ▼
 paintPlane(ctx2d, layout, sheets, look)   browser only; tested with a recording fake context
   • backdrop (sea/sky/abyss/void/river) with deep-water blobs and wave glints
+  • open-water fills in plain sea color (before the coast, so shores stay intact)
   • shelf / shallows / sand rim / foam strokes around land (sea & river backdrops),
     cloud rim (sky), drop shadow (abyss/void)
   • ground fills (grass tile pattern, sand, snow, ash, bog, voidstone)
-  • water fills with sand rim (lakes, oases, river polygons)
+  • lake fills with sand rim (lakes, oases)
   • river strokes + bridges
   • stamps (trees, peaks with triangle-masked silhouettes + outline, rocks, palms)
   • per-universe color grade (pure pixel function)
@@ -135,7 +138,8 @@ WorldMapDefinition.rivers?: MapRiver[];
 
 - Zod: `MapRiverSchema`; river points and bridges bounds-checked against their plane.
 - Projection: `snapshot.rivers` = rivers on the active plane (not chapter-gated: rivers are geography).
-- Lakes/oases: `ocean`-typed terrain polygons placed after the land they sit in (terrain order = paint order).
+- Lakes/oases: `ocean`/`river`-typed terrain polygons whose centroid lies inside a land fill become **lakes** (sand rim, shallows). Other water polygons are **open sea**, painted plain and under the coastline.
+- Adapter (fallback) maps: plane regions hold locations, so they are always land (water inferences become `plains`, slug-based mountain/ocean fallbacks removed); the whole-plane base is `plains`, or omitted on sea-backdrop universes (One Piece, Lord of the Mysteries) so plane regions read as islands.
 - Mountain ranges: thin winding `mountain` polygons (hand-authored as ribbons around spine lines).
 
 Terrain type → paint class:
@@ -203,8 +207,8 @@ Unchanged from v1: hover tooltips with glow, click → dossier + fly, walking he
 ---
 
 ## 7. Zero-Spoiler Rules
-1. The baked layer contains only never-gated geography (terrain, rivers, bridges, decoration).
-2. No bake-time clearing around locations; clearings are drawn by visible markers only.
+1. **Geography is intentionally ungated; names are gated.** The baked layer contains the physical world — terrain, coastlines, lakes, rivers, bridges, decoration — from chapter 1, because the shape of the land is not a narrative spoiler (a real atlas shows the whole continent). Everything that carries story information stays chapter-gated in the projection: location markers and names, labels, region names in tooltips and the waypoint list, events, routes, the hero trail, territories, landmark glyphs, planes.
+2. No bake-time clearing around locations (that would pin down *where* unrevealed places are); clearings are drawn by visible markers only.
 3. Tooltips, labels, badges, waypoint list, banner, minimap and plane list come only from the snapshot/diff.
 4. KNOWN locations: silhouette, `??? UNCHARTED`, no pylon, no badge.
 5. Hero position never interpolated past the projected position; badges only for visits ≤ chapter.
@@ -213,7 +217,7 @@ Unchanged from v1: hover tooltips with glow, click → dossier + fly, walking he
 ---
 
 ## 8. Performance
-- Layout: O(candidates × rings); RI mortal ≈ 8k candidates — well under 50 ms.
+- Layout: ≈ 8k candidates on the RI mortal plane; bounding-box rejection plus the ~256-vertex ring cap keep it well under the tested budget of 250 ms in node (typically tens of ms in the browser).
 - Paint: one Canvas 2D pass per plane (≈ 800×550 px) + one `getImageData`/`putImageData` grade; cached per `(map, plane, universe)`.
 - Live layers unchanged from v1 (pooled, keyed, diff-driven).
 - Sheets loaded once through Pixi `Assets` and shared by painter and markers.
