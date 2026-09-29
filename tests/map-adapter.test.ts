@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import * as path from 'path';
-import { adaptGraphToWorldMap } from '../src/projections/map-adapter';
+import { adaptGraphToWorldMap, isWaypointLocation } from '../src/projections/map-adapter';
 import { LocalGitDataStore } from '../src/datastore/local-git-store';
 import { validateWorldMap, WorldMapSchema } from '../src/domain/map-schema';
 import { CanonicalLoreGraph } from '../src/domain/types';
@@ -154,5 +154,65 @@ describe('Map Engine v2 Fallback Adapter', () => {
 
     const parseResult = WorldMapSchema.safeParse(mapDef);
     expect(parseResult.success).toBe(true);
+  });
+
+  it('emits planes with planeIds on every spatial entity for all legacy universes', async () => {
+    for (const slug of ['coiling-dragon', 'solo-leveling', 'lord-of-the-mysteries', 'one-piece', 'demonic-emperor']) {
+      const graph = await store.getSeriesGraph(slug);
+      const mapDef = adaptGraphToWorldMap(graph!);
+      const planeIds = new Set((mapDef.planes ?? []).map((p) => p.id));
+      if (planeIds.size === 0) continue;
+
+      for (const loc of mapDef.locations) expect(planeIds.has(loc.planeId!), `${slug} ${loc.id}`).toBe(true);
+      for (const t of mapDef.terrain) expect(planeIds.has(t.planeId!)).toBe(true);
+      for (const r of mapDef.regions) expect(planeIds.has(r.planeId!)).toBe(true);
+      for (const r of mapDef.routes) expect(planeIds.has(r.planeId!)).toBe(true);
+      for (const t of mapDef.territories) expect(planeIds.has(t.planeId!)).toBe(true);
+      for (const cp of mapDef.characterPaths) {
+        for (const wp of cp.waypoints) {
+          const loc = mapDef.locations.find((l) => l.id === wp.locationId)!;
+          expect(wp.planeId).toBe(loc.planeId);
+        }
+      }
+      expect(WorldMapSchema.safeParse(mapDef).success).toBe(true);
+    }
+  });
+
+  it('flags waypoint locations by the derivation rule', async () => {
+    const graph = await store.getSeriesGraph('coiling-dragon');
+    const mapDef = adaptGraphToWorldMap(graph!);
+    for (const loc of mapDef.locations) {
+      expect(loc.waypoint).toBe(isWaypointLocation(loc));
+    }
+    expect(mapDef.locations.some((l) => l.waypoint)).toBe(true);
+  });
+
+  it('derives waypoints from importance and type', () => {
+    expect(isWaypointLocation({ importance: 'critical', type: 'cave' })).toBe(true);
+    expect(isWaypointLocation({ importance: 'minor', type: 'city' })).toBe(true);
+    expect(isWaypointLocation({ importance: 'major', type: 'portal' })).toBe(true);
+    expect(isWaypointLocation({ importance: 'major', type: 'dungeon' })).toBe(false);
+  });
+
+  it('keeps every location on land and never floods or mountain-fills whole planes', async () => {
+    for (const slug of ['coiling-dragon', 'solo-leveling', 'lord-of-the-mysteries', 'one-piece', 'demonic-emperor']) {
+      const graph = await store.getSeriesGraph(slug);
+      const mapDef = adaptGraphToWorldMap(graph!);
+      for (const t of mapDef.terrain) expect(['ocean', 'river'], `${slug} ${t.id}`).not.toContain(t.type);
+      const bases = mapDef.terrain.filter((t) => t.id.startsWith('terrain-base'));
+      for (const b of bases) expect(b.type).toBe('plains');
+      if ((slug === 'one-piece' || slug === 'lord-of-the-mysteries') && (mapDef.planes ?? []).length > 0) {
+        expect(bases).toHaveLength(0);
+      }
+      expect(mapDef.terrain.length).toBeGreaterThan(0);
+    }
+  });
+
+  it('only creates planes that contain locations', async () => {
+    const graph = await store.getSeriesGraph('coiling-dragon');
+    const mapDef = adaptGraphToWorldMap(graph!);
+    for (const plane of mapDef.planes ?? []) {
+      expect(mapDef.locations.some((l) => l.planeId === plane.id)).toBe(true);
+    }
   });
 });
