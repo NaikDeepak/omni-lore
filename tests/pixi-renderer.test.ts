@@ -403,4 +403,30 @@ describe('PixiWorldRenderer v3 (retained, diff-driven)', () => {
     r.destroy();
     expect(r.layerSet).toBeNull();
   });
+
+  it('recovers from a commit that throws without wedging the queue', async () => {
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const r = new PixiWorldRenderer(null, { width: 800, height: 600 });
+    const bakeSpy = vi.spyOn(r as any, 'bakeStatic').mockImplementationOnce(() => {
+      throw new Error('boom');
+    });
+
+    await r.renderSnapshot(projectTemporalMap(def, 10, { planeId: 'a' }), riTheme);
+    expect(r.commitCount).toBe(0);
+    expect(consoleErrorSpy).toHaveBeenCalledWith('[PixiWorldRenderer] commit failed:', expect.any(Error));
+
+    await r.applySnapshot(projectTemporalMap(def, 10, { planeId: 'a' }), riTheme);
+    expect(r.commitCount).toBe(1);
+    expect(r.currentSnapshot?.userChapter).toBe(10);
+
+    bakeSpy.mockRestore();
+    consoleErrorSpy.mockRestore();
+  });
+
+  it('does not commit after destroy', async () => {
+    const r = new PixiWorldRenderer(null, { width: 800, height: 600 });
+    r.destroy();
+    await r.applySnapshot(projectTemporalMap(def, 10, { planeId: 'a' }), riTheme);
+    expect(r.commitCount).toBe(0);
+  });
 });

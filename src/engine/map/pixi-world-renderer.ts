@@ -223,6 +223,7 @@ export class PixiWorldRenderer {
       if (typeof document !== 'undefined' && document.fonts?.load) {
         await document.fonts.load('16px Silkscreen').catch(() => undefined);
       }
+      if (this.isDestroyed) return;
       const app = new Application();
       await app.init({
         canvas,
@@ -283,6 +284,7 @@ export class PixiWorldRenderer {
         try {
           this.commit(snapshot, theme, options ?? {});
         } catch (e) {
+          this.pendingFull = true;
           console.error('[PixiWorldRenderer] commit failed:', e);
         }
       });
@@ -547,6 +549,7 @@ export class PixiWorldRenderer {
 
   public async getMinimapImage(): Promise<string | null> {
     await this.ready;
+    await this.chain;
     const entry = this.bakedKey ? this.staticCache.get(this.bakedKey) : undefined;
     if (!entry) return null;
     try {
