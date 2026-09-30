@@ -22,7 +22,7 @@ export const PIXEL_FONT_NAME = 'OmniPixel';
 let fontInstalled = false;
 
 export function installPixelFont(): void {
-  if (fontInstalled) return;
+  if (fontInstalled || typeof document === 'undefined') return;
   BitmapFont.install({
     name: PIXEL_FONT_NAME,
     style: {
@@ -38,7 +38,7 @@ export function installPixelFont(): void {
 }
 
 export function uninstallPixelFont(): void {
-  if (!fontInstalled) return;
+  if (!fontInstalled || typeof document === 'undefined') return;
   BitmapFont.uninstall(PIXEL_FONT_NAME);
   fontInstalled = false;
 }

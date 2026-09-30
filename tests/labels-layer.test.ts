@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { Container } from 'pixi.js';
-import { LabelsLayer, labelAlpha, LABEL_SCREEN_SIZE } from '../src/engine/map/layers/labels-layer';
+import { LabelsLayer, labelAlpha, LABEL_SCREEN_SIZE, installPixelFont, uninstallPixelFont } from '../src/engine/map/layers/labels-layer';
 import { IconAtlas } from '../src/engine/map/scene/icon-atlas';
 import { TileAtlas } from '../src/engine/map/scene/tile-atlas';
 import { TweenManager } from '../src/engine/map/anim/tween';
@@ -52,6 +52,23 @@ describe('LabelsLayer (Text fallback)', () => {
 
     layer.sync(projectTemporalMap(def, 95));
     expect(layer.labels.has('loc:rumor')).toBe(true);
+    layer.destroy();
+  });
+
+  it('pixel font install/uninstall are browser-only and idempotent', () => {
+    expect(() => installPixelFont()).not.toThrow();
+    expect(() => installPixelFont()).not.toThrow();
+    expect(() => uninstallPixelFont()).not.toThrow();
+    expect(() => uninstallPixelFont()).not.toThrow();
+  });
+
+  it('backward scrub removes labels no longer visible', () => {
+    const theme = getMapTheme('reverend-insanity');
+    const layer = new LabelsLayer(new Container(), { theme, atlas: new IconAtlas(null, theme), tiles: new TileAtlas(null), tweens: new TweenManager(), reducedMotion: false }, false);
+    layer.sync(projectTemporalMap(def, 95));
+    expect(layer.labels.has('loc:rumor')).toBe(true);
+    layer.sync(projectTemporalMap(def, 10));
+    expect(layer.labels.has('loc:rumor')).toBe(false);
     layer.destroy();
   });
 });
