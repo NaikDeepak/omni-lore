@@ -59,6 +59,7 @@ export function AtlasMinimap({
         onClick={() => setCollapsed((c) => !c)}
         className="block w-full border-b border-black px-2 py-0.5 text-left font-pixel text-[8px] tracking-widest"
         style={{ color: accentColor }}
+        aria-expanded={!collapsed}
       >
         {collapsed ? '▸ RADAR' : '▾ RADAR'}
       </button>

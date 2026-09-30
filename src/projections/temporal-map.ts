@@ -136,6 +136,21 @@ export function getTerritoryInfluence(
 }
 
 /**
+ * Determines whether a map region is visible at the given chapter based on
+ * visibleFromChapter and revealedAtChapter gates.
+ */
+export function isRegionVisible(
+  region: Pick<MapRegion, 'visibleFromChapter' | 'revealedAtChapter'>,
+  userChapter: number
+): boolean {
+  return (
+    region.visibleFromChapter === undefined ||
+    region.visibleFromChapter <= userChapter ||
+    (region.revealedAtChapter !== undefined && region.revealedAtChapter <= userChapter)
+  );
+}
+
+/**
  * Computes FogStatus for a single location given the tracked character's waypoints.
  */
 export function getLocationFogStatus(
@@ -372,9 +387,7 @@ export function projectTemporalMap(
   const projectedRegions: MapRegion[] = (map.regions || []).filter(
     (reg) =>
       onActivePlane(reg) &&
-      (reg.visibleFromChapter === undefined ||
-        reg.visibleFromChapter <= userChapter ||
-        (reg.revealedAtChapter !== undefined && reg.revealedAtChapter <= userChapter))
+      isRegionVisible(reg, userChapter)
   );
 
   // 11. Landmark glyphs (chapter-gated decorations)

@@ -175,6 +175,11 @@ describe('overlay components', () => {
     );
     expect(credited).toContain('Art:');
     expect(credited).toContain('href="https://opengameart.org/x"');
+    // Credits block is not inside aria-hidden element (should appear after it closes)
+    const ariaHiddenIndex = credited.indexOf('aria-hidden');
+    const ariaHiddenCloseIndex = credited.indexOf('</div>', ariaHiddenIndex) + '</div>'.length;
+    const artIndex = credited.indexOf('>Art:</');
+    expect(artIndex > ariaHiddenCloseIndex).toBe(true);
     const html = renderToStaticMarkup(React.createElement(AtlasMinimap, {
       imageUrl: null, worldWidth: 1000, worldHeight: 1000, fogCircles: [{ x: 100, y: 100, r: 70 }],
       hero: { x: 100, y: 100 }, subscribe: () => () => {}, onPan: () => {}, accentColor: '#10b981', fogColor: '#020705',

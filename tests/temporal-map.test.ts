@@ -1,6 +1,25 @@
 import { describe, it, expect } from 'vitest';
-import { projectTemporalMap, FogStatus, ProjectedWorldMapSnapshot } from '../src/projections/temporal-map';
+import { projectTemporalMap, FogStatus, ProjectedWorldMapSnapshot, isRegionVisible } from '../src/projections/temporal-map';
 import { WorldMapDefinition } from '../src/domain/map-types';
+
+describe('isRegionVisible', () => {
+  it('returns true when visibleFromChapter is undefined', () => {
+    expect(isRegionVisible({ revealedAtChapter: undefined }, 10)).toBe(true);
+  });
+
+  it('returns true when visibleFromChapter <= userChapter', () => {
+    expect(isRegionVisible({ visibleFromChapter: 5, revealedAtChapter: 5 }, 10)).toBe(true);
+    expect(isRegionVisible({ visibleFromChapter: 10, revealedAtChapter: 10 }, 10)).toBe(true);
+  });
+
+  it('returns false when visibleFromChapter > userChapter', () => {
+    expect(isRegionVisible({ visibleFromChapter: 15, revealedAtChapter: undefined }, 10)).toBe(false);
+  });
+
+  it('returns true when revealedAtChapter <= userChapter', () => {
+    expect(isRegionVisible({ visibleFromChapter: 100, revealedAtChapter: 5 }, 10)).toBe(true);
+  });
+});
 
 describe('Temporal Map Projection Engine', () => {
   const sampleMap: WorldMapDefinition = {

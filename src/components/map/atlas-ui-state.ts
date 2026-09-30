@@ -10,6 +10,7 @@ import {
   ProjectedPlane,
   ProjectedWaypoint,
   ProjectedWorldMapSnapshot,
+  isRegionVisible,
 } from '../../projections/temporal-map';
 import { PickTarget } from '../../engine/map/input/picking';
 
@@ -164,11 +165,7 @@ export function placeTooltip(
 export function visibleRegionNames(def: WorldMapDefinition, userChapter: number): Record<string, string> {
   const names: Record<string, string> = {};
   for (const region of def.regions) {
-    const visible =
-      region.visibleFromChapter === undefined ||
-      region.visibleFromChapter <= userChapter ||
-      (region.revealedAtChapter !== undefined && region.revealedAtChapter <= userChapter);
-    if (visible) names[region.id] = region.name;
+    if (isRegionVisible(region, userChapter)) names[region.id] = region.name;
   }
   return names;
 }
