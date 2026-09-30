@@ -124,4 +124,30 @@ describe('HeroLayer', () => {
     expect(hero.tokenVisible).toBe(false);
     expect(hero.tokenPosition).toBeNull();
   });
+
+  it('keeps the full journey trail when a hero walk completes', () => {
+    const hero = layer();
+    const a = projectTemporalMap(def, 21);
+    hero.sync(a, diffMapSnapshots(null, a));
+
+    const b = projectTemporalMap(def, 41);
+    hero.sync(b, diffMapSnapshots(a, b));
+    expect(hero.walker.isWalking).toBe(true);
+
+    // Mid-walk: the last trail point should equal walker position
+    hero.update(50);
+    expect(hero.trailPoints[hero.trailPoints.length - 1]).toEqual(hero.walker.position);
+
+    // Complete the walk
+    hero.update(2000);
+    expect(hero.walker.isWalking).toBe(false);
+    // Full trail should be visible after walk completes
+    expect(hero.trailPoints).toEqual([
+      { x: 50, y: 100 },
+      { x: 100, y: 100 },
+      { x: 150, y: 100 },
+      { x: 200, y: 100 },
+      { x: 250, y: 100 },
+    ]);
+  });
 });

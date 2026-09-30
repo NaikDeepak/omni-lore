@@ -20,6 +20,7 @@ export class HeroLayer {
   private avatar: Sprite | null = null;
   private avatarMask: Graphics | null = null;
   private trailBase: MapPoint[] = [];
+  private trailFull: MapPoint[] = [];
   private time = 0;
   private trailWidth = 6;
 
@@ -46,6 +47,12 @@ export class HeroLayer {
 
   public get tokenPosition(): MapPoint | null {
     return this.token.visible ? this.walker.position : null;
+  }
+
+  public get trailPoints(): MapPoint[] {
+    return this.walker.isWalking && this.walker.position
+      ? [...this.trailBase, this.walker.position]
+      : this.trailBase;
   }
 
   public async setAvatar(url: string | undefined): Promise<void> {
@@ -82,6 +89,7 @@ export class HeroLayer {
       this.token.visible = false;
       this.walker.teleport(null);
       this.trailBase = all;
+      this.trailFull = all;
       this.redrawTrail();
       return;
     }
@@ -94,6 +102,7 @@ export class HeroLayer {
     if (instant) {
       this.walker.teleport(to);
       this.trailBase = all;
+      this.trailFull = all;
       if (jump && !this.ctx.reducedMotion) {
         this.ctx.tweens.to('hero:alpha', {
           from: 0,
@@ -112,6 +121,7 @@ export class HeroLayer {
         diff.hero.direction === 'forward'
           ? all.slice(0, Math.max(1, all.length - segment.length + 1))
           : all;
+      this.trailFull = all;
       this.walker.walk(segment);
     }
     this.placeToken();
@@ -125,6 +135,9 @@ export class HeroLayer {
     this.placeToken();
     if (!this.ctx.reducedMotion) {
       this.light.alpha = 0.33 + 0.03 * Math.sin(this.time / 97) + 0.02 * Math.sin(this.time / 41);
+    }
+    if (wasWalking && !this.walker.isWalking) {
+      this.trailBase = this.trailFull;
     }
     if (wasWalking) this.redrawTrail();
   }
@@ -148,10 +161,7 @@ export class HeroLayer {
   private redrawTrail(): void {
     const g = this.trail;
     g.clear();
-    const points =
-      this.walker.isWalking && this.walker.position
-        ? [...this.trailBase, this.walker.position]
-        : this.trailBase;
+    const points = this.trailPoints;
     if (points.length >= 2) {
       // Level-select journey path: dark dirt edge, tan center (stage badges come from the markers layer)
       for (const [extra, color] of [[4, '#6e4824'], [0, '#e0b86a']] as const) {
