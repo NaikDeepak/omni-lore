@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest';
-import { Container } from 'pixi.js';
+import { describe, it, expect, vi } from 'vitest';
+import { Container, MeshGeometry, Renderer } from 'pixi.js';
 import { ApertureField, computeApertureTargets, APERTURE_RADIUS } from '../src/engine/map/layers/fog-apertures';
 import { FogLayer } from '../src/engine/map/layers/fog-layer';
 import { IconAtlas } from '../src/engine/map/scene/icon-atlas';
@@ -8,6 +8,17 @@ import { TweenManager } from '../src/engine/map/anim/tween';
 import { getMapTheme } from '../src/domain/map-themes';
 import { projectTemporalMap } from '../src/projections/temporal-map';
 import { WorldMapDefinition } from '../src/domain/map-types';
+
+// The dither shader needs a real GL context to compile; the disposal test only needs the quad.
+vi.mock('../src/engine/map/layers/fog-material', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('../src/engine/map/layers/fog-material')>();
+  class FakeDitherFogMaterial {
+    public shader = null;
+    public time = 0;
+    public destroy(): void {}
+  }
+  return { ...actual, DitherFogMaterial: FakeDitherFogMaterial };
+});
 
 const def: WorldMapDefinition = {
   id: 'fog', universeId: 'reverend-insanity', coordinateSystem: 'world', width: 1000, height: 1000,
@@ -92,5 +103,25 @@ describe('FogLayer without a renderer', () => {
     expect(opened.sort()).toEqual(['loc:b', 'wp:60:700:700']);
     fog.update(16);
     fog.destroy();
+  });
+});
+
+describe('FogLayer GPU disposal', () => {
+  it('destroys the fog quad geometry on resize and destroy', () => {
+    const theme = getMapTheme('reverend-insanity');
+    const destroySpy = vi.spyOn(MeshGeometry.prototype, 'destroy');
+    // A stub renderer is enough: resize only allocates, it never draws
+    const fog = new FogLayer(
+      new Container(),
+      { theme, atlas: new IconAtlas(null, theme), tiles: new TileAtlas(null), tweens: new TweenManager(), reducedMotion: false },
+      {} as Renderer
+    );
+    fog.resize(1000, 1000);
+    const first = destroySpy.mock.instances.length;
+    fog.resize(800, 800);
+    expect(destroySpy.mock.instances.length).toBe(first + 1);
+    fog.destroy();
+    expect(destroySpy.mock.instances.length).toBe(first + 2);
+    destroySpy.mockRestore();
   });
 });

@@ -4,7 +4,7 @@
  * Bayer-dither mesh shader.
  */
 
-import { Container, Mesh, RenderTexture, Renderer, Sprite } from 'pixi.js';
+import { Container, Mesh, MeshGeometry, RenderTexture, Renderer, Sprite } from 'pixi.js';
 import { ProjectedWorldMapSnapshot } from '../../../projections/temporal-map';
 import { SOFT_DISC_RADIUS } from '../scene/icon-atlas';
 import { getUniverseLook } from '../scene/universe-look';
@@ -22,6 +22,8 @@ export class FogLayer {
   private readonly discs: Sprite[] = [];
   private renderTexture: RenderTexture | null = null;
   private mesh: Mesh | null = null;
+  // Mesh.destroy() does not free its geometry, so it is kept and destroyed explicitly
+  private geometry: MeshGeometry | null = null;
   private material: DitherFogMaterial | null = null;
   private dirty = true;
   private time = 0;
@@ -47,7 +49,8 @@ export class FogLayer {
       worldWidth: width,
       worldHeight: height,
     });
-    this.mesh = new Mesh({ geometry: createFogQuad(width, height), shader: this.material.shader as any });
+    this.geometry = createFogQuad(width, height);
+    this.mesh = new Mesh({ geometry: this.geometry, shader: this.material.shader as any });
     this.container.addChild(this.mesh!);
     this.dirty = true;
   }
@@ -74,9 +77,11 @@ export class FogLayer {
   private disposeGpu(): void {
     this.container.removeChildren();
     this.mesh?.destroy();
+    this.geometry?.destroy();
     this.material?.destroy();
     this.renderTexture?.destroy(true);
     this.mesh = null;
+    this.geometry = null;
     this.material = null;
     this.renderTexture = null;
   }
