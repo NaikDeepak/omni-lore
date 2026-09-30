@@ -15,8 +15,9 @@ import { DiscoveryBanner } from '../src/components/map/DiscoveryBanner';
 import { WaypointPanel } from '../src/components/map/WaypointPanel';
 import { AtlasFrame } from '../src/components/map/AtlasFrame';
 import { AtlasMinimap } from '../src/components/map/AtlasMinimap';
+import { MapHudControls } from '../src/components/map/MapHudControls';
 import { projectTemporalMap } from '../src/projections/temporal-map';
-import { WorldMapDefinition } from '../src/domain/map-types';
+import { WorldMapDefinition, MapVisibleLayers } from '../src/domain/map-types';
 
 const def: WorldMapDefinition = {
   id: 'ui', universeId: 'reverend-insanity', coordinateSystem: 'world', width: 1000, height: 1000,
@@ -41,6 +42,11 @@ const def: WorldMapDefinition = {
     { id: 'ev2', name: 'Future War', chapter: 99, locationId: 'loc-qing-mao-mountain', eventType: 'war', importance: 'major' },
   ],
   characterPaths: [{ characterId: 'hero', characterName: 'Hero', waypoints: [{ chapter: 1, locationId: 'loc-qing-mao-mountain', x: 100, y: 100 }] }],
+};
+
+const layers: MapVisibleLayers = {
+  terrain: true, regions: true, routes: true, territories: true, markers: true,
+  events: true, characterPaths: true, fogOfWar: true, labels: true,
 };
 
 describe('createEmitter', () => {
@@ -185,5 +191,28 @@ describe('overlay components', () => {
       hero: { x: 100, y: 100 }, subscribe: () => () => {}, onPan: () => {}, accentColor: '#10b981', fogColor: '#020705',
     }));
     expect(html).toContain('data-testid="atlas-minimap"');
+  });
+
+  it('starts collapsed on narrow screens via defaultCollapsed, with no map image drawn', () => {
+    const html = renderToStaticMarkup(React.createElement(AtlasMinimap, {
+      imageUrl: 'data:image/png;base64,AAAA', worldWidth: 1000, worldHeight: 1000, fogCircles: [{ x: 100, y: 100, r: 70 }],
+      hero: { x: 100, y: 100 }, subscribe: () => () => {}, onPan: () => {}, accentColor: '#10b981', fogColor: '#020705',
+      defaultCollapsed: true,
+    }));
+    expect(html).toContain('▸ RADAR');
+    expect(html).not.toContain('▾ RADAR');
+    expect(html).not.toContain('<img');
+  });
+
+  it('wraps the right-hand HUD cluster so every button stays reachable at phone widths', () => {
+    const html = renderToStaticMarkup(React.createElement(MapHudControls, {
+      mode: 'atlas', onModeChange: () => {}, visibleLayers: layers, onToggleLayer: () => {},
+      onZoomIn: () => {}, onZoomOut: () => {}, onResetZoom: () => {}, onRecenter: () => {},
+      planes: [{ id: 'mortal', name: 'Mortal Realm' }], activePlaneId: 'mortal', onPlaneChange: () => {},
+      onOpenWaypoints: () => {}, waypointCount: 2,
+    }));
+    const clusterMatch = html.match(/<div class="([^"]*)" data-testid="hud-right-cluster"/);
+    expect(clusterMatch).not.toBeNull();
+    expect(clusterMatch?.[1]).toContain('flex-wrap');
   });
 });

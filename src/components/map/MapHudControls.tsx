@@ -155,7 +155,7 @@ export function MapHudControls({
       </div>
 
       {/* Center Controls: Layer Toggles & Plane Selector */}
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center justify-end gap-2" data-testid="hud-right-cluster">
         {/* Plane Selector Dropdown (if multiple planes available) */}
         {planes.length > 0 && (
           <div className="relative">
@@ -167,7 +167,7 @@ export function MapHudControls({
               title="Switch cosmological plane or domain"
             >
               <Globe className="w-3.5 h-3.5 text-cyan-400" />
-              <span className="font-pixel text-[10px] truncate max-w-[120px]">
+              <span className="font-pixel text-[10px] truncate max-w-[70px] sm:max-w-[120px]">
                 {currentPlane?.name || 'PLANES'}
               </span>
               <ChevronDown className="w-3 h-3 text-slate-400" />

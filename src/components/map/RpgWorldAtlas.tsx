@@ -86,6 +86,15 @@ function readPrefersReducedMotion(): boolean {
   );
 }
 
+/**
+ * Read once, synchronously, same SSR-safe pattern as readPrefersReducedMotion:
+ * on a phone-width viewport the expanded minimap radar covers much of the
+ * map, so it starts collapsed. Guarded for SSR tests (no window access).
+ */
+function readNarrowViewport(): boolean {
+  return typeof window !== 'undefined' && window.innerWidth < 640;
+}
+
 function TooltipHost({
   emitter,
   snapshotRef,
@@ -148,6 +157,7 @@ export function RpgWorldAtlas({
   const activeTheme = useMemo(() => themeProp || getMapTheme(universeSlug), [themeProp, universeSlug]);
   const rune = useMemo(() => getUniverseTheme(universeSlug).runeSymbol, [universeSlug]);
   const [reducedMotion] = useState(readPrefersReducedMotion);
+  const [minimapDefaultCollapsed] = useState(readNarrowViewport);
   const heroAvatarRef = useRef(heroAvatarUrl);
   heroAvatarRef.current = heroAvatarUrl;
 
@@ -587,6 +597,7 @@ export function RpgWorldAtlas({
         onPan={(x, y) => rendererRef.current?.flyTo(x, y, undefined, 250)}
         accentColor={accent}
         fogColor={getUniverseLook(universeSlug).fogColor}
+        defaultCollapsed={minimapDefaultCollapsed}
       />
 
       {isDrawerOpen && (

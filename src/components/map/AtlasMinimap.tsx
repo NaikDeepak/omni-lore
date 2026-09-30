@@ -13,6 +13,8 @@ export interface AtlasMinimapProps {
   onPan: (worldX: number, worldY: number) => void;
   accentColor: string;
   fogColor: string;
+  /** Start collapsed (e.g. on narrow screens, so the radar doesn't cover the map). */
+  defaultCollapsed?: boolean;
 }
 
 const WIDTH = 180;
@@ -27,9 +29,10 @@ export function AtlasMinimap({
   onPan,
   accentColor,
   fogColor,
+  defaultCollapsed = false,
 }: AtlasMinimapProps) {
   const [view, setView] = useState<CameraView | null>(null);
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(defaultCollapsed);
   useEffect(() => subscribe(setView), [subscribe]);
 
   const height = Math.round((WIDTH * worldHeight) / worldWidth);
