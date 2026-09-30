@@ -52,7 +52,8 @@ describe('universe looks', () => {
       }
       expect(look.amount).toBeGreaterThanOrEqual(0);
       expect(look.amount).toBeLessThanOrEqual(0.3);
-      expect(look.fogOpacity).toBeGreaterThan(0.5);
+      expect(look.fogOpacity, `${slug}.fogOpacity`).toBeLessThanOrEqual(0.7);
+      expect(look.fogOpacity, `${slug}.fogOpacity`).toBeGreaterThanOrEqual(0.4);
     }
     expect(getUniverseLook('unknown-universe')).toBe(DEFAULT_LOOK);
   });

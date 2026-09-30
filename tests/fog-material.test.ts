@@ -6,6 +6,10 @@ import { FOG_FRAGMENT_SRC, FOG_VERTEX_SRC } from '../src/engine/map/layers/fog-m
 const GLSL3_ONLY = [/\[/, /\buint\b/, /\buvec\d\b/, /<<|>>/, /[^|]\|[^|]/, /[^&]&[^&]/, /\^/, /#version/];
 
 describe('fog shader sources', () => {
+  it('lightens dither density so terrain reads through the fog', () => {
+    expect(FOG_FRAGMENT_SRC).toContain('float density = fog * (0.5 + 0.2 * drift);');
+  });
+
   it('only use GLSL ES 1.00 compatible constructs', () => {
     for (const src of [FOG_VERTEX_SRC, FOG_FRAGMENT_SRC]) {
       for (const pattern of GLSL3_ONLY) expect(src).not.toMatch(pattern);

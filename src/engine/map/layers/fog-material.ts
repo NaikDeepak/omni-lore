@@ -80,7 +80,7 @@ void main() {
   float reveal = texture(uTexture, vUV).a;
   float drift = noise(world * 0.012 + vec2(uTime * 0.05, uTime * 0.02));
   float fog = clamp(1.0 - reveal, 0.0, 1.0);
-  float density = fog * (0.82 + 0.18 * drift);
+  float density = fog * (0.5 + 0.2 * drift);
   float visible = step(bayer4(cell), density);
   float alpha = uOpacity * visible * (0.9 + 0.1 * drift);
   finalColor = vec4(uFogColor * alpha, alpha);

@@ -30,7 +30,7 @@ const BASE = {
   foam: '#eefaff',
   grass: '#6a9c3c',
   fogColor: '#e6ecf2',
-  fogOpacity: 0.94,
+  fogOpacity: 0.62,
 };
 
 export const DEFAULT_LOOK: UniverseLook = { ...BASE, tint: '#ffffff', amount: 0, saturation: 1 };
@@ -41,7 +41,7 @@ export const UNIVERSE_LOOKS: Record<string, UniverseLook> = {
   'coiling-dragon': { ...BASE, tint: '#f0a030', amount: 0.08, saturation: 1.05, fogColor: '#f2eadb' },
   'demonic-emperor': { ...BASE, tint: '#8a1830', amount: 0.16, saturation: 0.75, fogColor: '#d8c8cc' },
   'one-piece': { ...BASE, tint: '#1080d0', amount: 0.05, saturation: 1.1, fogColor: '#e8f2fa' },
-  'solo-leveling': { ...BASE, tint: '#102850', amount: 0.25, saturation: 0.7, fogColor: '#b8c4d8', fogOpacity: 0.96 },
+  'solo-leveling': { ...BASE, tint: '#102850', amount: 0.25, saturation: 0.7, fogColor: '#b8c4d8', fogOpacity: 0.7 },
 };
 
 export function getUniverseLook(slug: string): UniverseLook {
