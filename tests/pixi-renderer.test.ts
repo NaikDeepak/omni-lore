@@ -428,18 +428,32 @@ describe('PixiWorldRenderer v3 (retained, diff-driven)', () => {
   it('recovers from a commit that throws without wedging the queue', async () => {
     const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
     const r = new PixiWorldRenderer(null, { width: 800, height: 600 });
-    const bakeSpy = vi.spyOn(r as any, 'bakeStatic').mockImplementationOnce(() => {
-      throw new Error('boom');
-    });
+    const bakeSpy = vi.spyOn(r as any, 'bakeStatic');
 
-    await r.renderSnapshot(projectTemporalMap(def, 10, { planeId: 'a' }), riTheme);
-    expect(r.commitCount).toBe(0);
-    expect(consoleErrorSpy).toHaveBeenCalledWith('[PixiWorldRenderer] commit failed:', expect.any(Error));
-
+    // 1. A healthy first commit
     await r.applySnapshot(projectTemporalMap(def, 10, { planeId: 'a' }), riTheme);
     expect(r.commitCount).toBe(1);
-    expect(r.currentSnapshot?.userChapter).toBe(10);
+    expect(bakeSpy).toHaveBeenCalledTimes(1);
 
+    // 2. A same-plane (incremental) commit throws midway through the layer syncs
+    const routesSync = vi.spyOn(r.layerSet!.routes, 'sync').mockImplementationOnce(() => {
+      throw new Error('boom');
+    });
+    await r.applySnapshot(projectTemporalMap(def, 30, { planeId: 'a' }), riTheme);
+    expect(consoleErrorSpy).toHaveBeenCalledWith('[PixiWorldRenderer] commit failed:', expect.any(Error));
+    expect(r.commitCount).toBe(1);
+    expect(r.currentSnapshot?.userChapter).toBe(10);
+    expect(bakeSpy).toHaveBeenCalledTimes(1);
+    expect((r as any).pendingFull).toBe(true);
+
+    // 3. The next same-plane commit is upgraded to a full resync (re-bake) and succeeds
+    await r.applySnapshot(projectTemporalMap(def, 30, { planeId: 'a' }), riTheme);
+    expect(r.commitCount).toBe(2);
+    expect(r.currentSnapshot?.userChapter).toBe(30);
+    expect(bakeSpy).toHaveBeenCalledTimes(2);
+    expect((r as any).pendingFull).toBe(false);
+
+    routesSync.mockRestore();
     bakeSpy.mockRestore();
     consoleErrorSpy.mockRestore();
   });

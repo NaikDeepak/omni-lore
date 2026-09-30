@@ -1,4 +1,6 @@
 import { describe, it, expect } from 'vitest';
+import * as fs from 'fs';
+import * as path from 'path';
 import { buildPlaneLayout, PIXELS_PER_WORLD } from '../src/engine/map/scene/plane-layout';
 import { pointInPolygon, distanceToPolyline } from '../src/engine/map/scene/geometry';
 import { CONIFERS, ROUND_TREES, PEAKS_GREY, PEAKS_SNOW, PEAKS_SMALL, PALMS, ROCKS } from '../src/engine/map/scene/sprite-catalog';
@@ -104,5 +106,34 @@ describe('buildPlaneLayout', () => {
     const l = buildPlaneLayout(projectTemporalMap(rect, 1));
     const xs = l.fills[0].ring.map((p) => p[0]);
     expect(new Set(xs.map((x) => Math.round(x))).size).toBeGreaterThan(10);
+  });
+});
+
+describe('buildPlaneLayout ignores the chapter (spec §7: the bake is never chapter-gated)', () => {
+  const ri = JSON.parse(
+    fs.readFileSync(path.resolve(__dirname, '../data/reverend-insanity/map.json'), 'utf-8')
+  ) as WorldMapDefinition;
+  const last = 2334;
+
+  it('produces an identical layout for each plane at its first visible chapter and the final chapter', () => {
+    for (const plane of ri.planes!) {
+      const first = Math.max(1, plane.revealedAtChapter);
+      const early = projectTemporalMap(ri, first, { planeId: plane.id });
+      const late = projectTemporalMap(ri, last, { planeId: plane.id });
+      // Guard against a sealed plane silently falling back to plane 0
+      expect(early.planeId).toBe(plane.id);
+      expect(late.planeId).toBe(plane.id);
+      expect(buildPlaneLayout(early)).toEqual(buildPlaneLayout(late));
+    }
+  });
+
+  it('is identical at chapter 1 and the final chapter for the first plane', () => {
+    const planeId = ri.planes![0].id;
+    const early = projectTemporalMap(ri, 1, { planeId });
+    const late = projectTemporalMap(ri, last, { planeId });
+    // The chapter-gated content really differs between the two snapshots...
+    expect(early.locations.length).toBeLessThan(late.locations.length);
+    // ...but the baked layout does not
+    expect(buildPlaneLayout(early)).toEqual(buildPlaneLayout(late));
   });
 });
