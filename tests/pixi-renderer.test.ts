@@ -2,7 +2,9 @@ import { describe, it, expect, vi } from 'vitest';
 import { CameraController } from '../src/engine/map/camera-controller';
 import { PixiWorldRenderer } from '../src/engine/map/pixi-world-renderer';
 import { ProjectedWorldMapSnapshot } from '../src/projections/temporal-map';
+import { projectTemporalMap } from '../src/projections/temporal-map';
 import { getMapTheme } from '../src/domain/map-themes';
+import { WorldMapDefinition } from '../src/domain/map-types';
 
 describe('Map Camera Controller', () => {
   it('initializes with default viewport center', () => {
@@ -290,5 +292,115 @@ describe('PixiWorldRenderer', () => {
     });
 
     expect(() => renderer.destroy(true)).not.toThrow();
+  });
+});
+
+describe('PixiWorldRenderer v3 (retained, diff-driven)', () => {
+  const def: WorldMapDefinition = {
+    id: 'facade-map',
+    universeId: 'reverend-insanity',
+    coordinateSystem: 'world',
+    width: 1000,
+    height: 1000,
+    planes: [
+      { id: 'a', name: 'Plane A', width: 1000, height: 1000, revealedAtChapter: 0, backdrop: 'sea', order: 0 },
+      { id: 'b', name: 'Plane B', width: 500, height: 400, revealedAtChapter: 0, backdrop: 'sky', order: 1 },
+    ],
+    terrain: [
+      { id: 'land', type: 'forest', name: 'Land', polygon: [[50, 50], [950, 50], [950, 950], [50, 950]], planeId: 'a', edgeStyle: 'coast' },
+      { id: 'cloud', type: 'void', name: 'Cloud', polygon: [[20, 20], [480, 20], [480, 380], [20, 380]], planeId: 'b' },
+    ],
+    regions: [{ id: 'r', name: 'Realm', geometry: { type: 'Polygon', coordinates: [[[50, 50], [950, 50], [950, 950], [50, 950]]] }, planeId: 'a' }],
+    locations: [
+      { id: 'l1', name: 'Start', x: 100, y: 100, type: 'village', importance: 'critical', firstAppearanceChapter: 1, revealedAtChapter: 1, planeId: 'a', waypoint: true },
+      { id: 'l2', name: 'Mid', x: 500, y: 500, type: 'city', importance: 'major', firstAppearanceChapter: 20, revealedAtChapter: 20, planeId: 'a' },
+      { id: 'l3', name: 'End', x: 900, y: 900, type: 'castle', importance: 'major', firstAppearanceChapter: 40, revealedAtChapter: 40, planeId: 'a' },
+      { id: 'sky', name: 'Sky', x: 250, y: 200, type: 'temple', importance: 'critical', firstAppearanceChapter: 1, revealedAtChapter: 1, planeId: 'b' },
+    ],
+    routes: [],
+    territories: [],
+    events: [],
+    characterPaths: [{ characterId: 'hero', characterName: 'Hero', waypoints: [
+      { chapter: 1, locationId: 'l1', x: 100, y: 100 },
+      { chapter: 20, locationId: 'l2', x: 500, y: 500 },
+      { chapter: 40, locationId: 'l3', x: 900, y: 900 },
+    ] }],
+  };
+  const riTheme = getMapTheme('reverend-insanity');
+
+  it('coalesces rapid snapshots and commits only the newest', async () => {
+    const r = new PixiWorldRenderer(null, { width: 800, height: 600 });
+    const pending = Array.from({ length: 40 }, (_, i) =>
+      r.applySnapshot(projectTemporalMap(def, i + 1, { planeId: 'a' }), riTheme)
+    );
+    await Promise.all(pending);
+    expect(r.currentSnapshot?.userChapter).toBe(40);
+    expect(r.commitCount).toBe(1);
+  });
+
+  it('switches planes with a full re-sync and refits the camera', async () => {
+    const r = new PixiWorldRenderer(null, { width: 800, height: 600 });
+    await r.applySnapshot(projectTemporalMap(def, 10, { planeId: 'a' }), riTheme);
+    await r.applySnapshot(projectTemporalMap(def, 10, { planeId: 'b' }), riTheme);
+    expect(r.currentSnapshot?.planeId).toBe('b');
+    expect(r.camera.worldWidth).toBe(500);
+    expect(r.camera.x).toBe(250);
+    expect(r.layerSet!.markers.markers.has('sky')).toBe(true);
+    expect(r.layerSet!.markers.markers.has('l1')).toBe(false);
+  });
+
+  it('reports newly discovered locations on forward scrubs only', async () => {
+    const onDiscover = vi.fn();
+    const r = new PixiWorldRenderer(null, { width: 800, height: 600, onDiscover });
+    await r.applySnapshot(projectTemporalMap(def, 10, { planeId: 'a' }), riTheme);
+    expect(onDiscover).not.toHaveBeenCalled();
+    await r.applySnapshot(projectTemporalMap(def, 45, { planeId: 'a' }), riTheme);
+    expect(onDiscover).toHaveBeenCalledWith(['l2', 'l3']);
+    await r.applySnapshot(projectTemporalMap(def, 10, { planeId: 'a' }), riTheme);
+    expect(onDiscover).toHaveBeenCalledTimes(1);
+  });
+
+  it('rebuilds layers when the theme changes', async () => {
+    const r = new PixiWorldRenderer(null, { width: 800, height: 600 });
+    const snap = projectTemporalMap(def, 10, { planeId: 'a' });
+    await r.applySnapshot(snap, riTheme);
+    const first = r.layerSet;
+    await r.applySnapshot(snap, getMapTheme('one-piece'));
+    expect(r.layerSet).not.toBe(first);
+    expect(r.commitCount).toBe(2);
+  });
+
+  it('hovers and clicks locations through deterministic picking', async () => {
+    const onHover = vi.fn();
+    const onSelectLocation = vi.fn();
+    const r = new PixiWorldRenderer(null, { width: 800, height: 600, onHover, onSelectLocation });
+    await r.applySnapshot(projectTemporalMap(def, 10, { planeId: 'a' }), riTheme);
+    const screen = r.camera.worldToScreen(100, 100);
+    r.hoverAt(screen.x, screen.y);
+    expect(onHover).toHaveBeenLastCalledWith({ target: { kind: 'location', id: 'l1' }, screenX: screen.x, screenY: screen.y });
+    expect(r.layerSet!.markers.hoveredId).toBe('l1');
+    r.clickAt(screen.x, screen.y);
+    expect(onSelectLocation).toHaveBeenCalledWith('l1');
+  });
+
+  it('clears hover when the hovered marker disappears after a scrub', async () => {
+    const onHover = vi.fn();
+    const r = new PixiWorldRenderer(null, { width: 800, height: 600, onHover });
+    await r.applySnapshot(projectTemporalMap(def, 45, { planeId: 'a' }), riTheme);
+    const screen = r.camera.worldToScreen(900, 900);
+    r.hoverAt(screen.x, screen.y);
+    expect(r.layerSet!.markers.hoveredId).toBe('l3');
+    await r.applySnapshot(projectTemporalMap(def, 10, { planeId: 'a' }), riTheme);
+    expect(r.layerSet!.markers.hoveredId).toBeNull();
+    expect(onHover.mock.calls[onHover.mock.calls.length - 1][0]?.target?.id).not.toBe('l3');
+  });
+
+  it('exposes the camera view and tears down cleanly', async () => {
+    const r = new PixiWorldRenderer(null, { width: 800, height: 600 });
+    await r.applySnapshot(projectTemporalMap(def, 10, { planeId: 'a' }), riTheme);
+    expect(r.getCameraView()).toMatchObject({ viewWidth: 800, viewHeight: 600, worldWidth: 1000, worldHeight: 1000 });
+    expect(await r.getMinimapImage()).toBeNull();
+    r.destroy();
+    expect(r.layerSet).toBeNull();
   });
 });

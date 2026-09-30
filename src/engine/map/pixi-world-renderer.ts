@@ -1,37 +1,76 @@
 /**
- * OmniLore Map Engine v2 - PixiJS World Renderer
+ * OmniLore Map Engine v3 - PixiJS World Renderer (facade)
  *
- * Implements a 9-layer isolated scene graph using PixiJS v8:
- *  1. backgroundContainer: Map boundary, coordinate grid, background fill
- *  2. terrainContainer: Filled vector polygons for mountains, plains, ocean, etc.
- *  3. regionsContainer: GeoJSON polygon boundaries and faction territory spheres
- *  4. routesContainer: Polyline roads, maritime sea lanes, flight paths
- *  5. characterPathContainer: Sliced zero-spoiler protagonist journey routes
- *  6. markersContainer: Multi-shape interactive landmark & event glyphs
- *  7. fogContainer: Fog of War overlay with discovered circular apertures
- *  8. atmosphereContainer: Animated atmospheric particle motes
- *  9. labelsContainer: Crisp typography labels with level-of-detail scaling
+ * Retained, diff-driven scene graph over 9 top-level containers:
+ *  1. backgroundContainer    - void beyond the plane edges
+ *  2. terrainContainer       - baked static plane (backdrop + terrain + glyphs)
+ *  3. regionsContainer       - region borders & faction territories
+ *  4. routesContainer        - animated travel routes
+ *  5. characterPathContainer - hero trail + walking hero token
+ *  6. markersContainer       - location markers, landmark glyphs, event flags
+ *  7. fogContainer           - bayer-dithered fog of war
+ *  8. atmosphereContainer    - particles, clouds, cursor light, FX
+ *  9. labelsContainer        - Silkscreen labels with level of detail
  *
- * Client-side safe: Supports SSR/test environments without WebGL context.
+ * Snapshots go through a coalescing queue: only the newest pending snapshot
+ * is committed, so rapid chapter scrubbing never builds up work.
+ * Client-side safe: without a canvas (SSR/tests) everything runs headless.
  */
 
-import { Application, Container, Graphics, Text } from 'pixi.js';
+import { Application, Container, Graphics, Renderer, Sprite, Texture } from 'pixi.js';
 import { CameraController } from './camera-controller';
-import {
-  ProjectedWorldMapSnapshot,
-  ProjectedLocation,
-  FogStatus,
-} from '../../projections/temporal-map';
+import { ProjectedWorldMapSnapshot } from '../../projections/temporal-map';
+import { diffMapSnapshots, MapSnapshotDiff } from '../../projections/map-snapshot-diff';
 import { MapTheme } from '../../domain/map-themes';
 import { MapMode, MapVisibleLayers } from '../../domain/map-types';
+import { TweenManager } from './anim/tween';
+import { GestureEvent, GestureTracker } from './input/gesture-tracker';
+import { pickAt, PickTarget } from './input/picking';
+import { createRendererBaker, IconAtlas } from './scene/icon-atlas';
+import { buildPlaneLayout, PIXELS_PER_WORLD } from './scene/plane-layout';
+import { paintPlane } from './scene/plane-painter';
+import { TileAtlas, assetsLoader } from './scene/tile-atlas';
+import { getUniverseLook } from './scene/universe-look';
+import { shade } from './scene/pixel-palette';
+import { hashString } from './scene/prng';
+import { LayerContext } from './layers/layer-context';
+import { RegionsLayer } from './layers/regions-layer';
+import { RoutesLayer } from './layers/routes-layer';
+import { MarkersLayer } from './layers/markers-layer';
+import { HeroLayer } from './layers/hero-layer';
+import { FogLayer } from './layers/fog-layer';
+import { FxLayer } from './layers/fx-layer';
+import { AtmosphereLayer } from './layers/atmosphere-layer';
+import { LabelsLayer, installPixelFont, uninstallPixelFont } from './layers/labels-layer';
+
+export interface HoverInfo {
+  target: PickTarget;
+  screenX: number;
+  screenY: number;
+}
+
+export interface CameraView {
+  x: number;
+  y: number;
+  zoom: number;
+  viewWidth: number;
+  viewHeight: number;
+  worldWidth: number;
+  worldHeight: number;
+}
 
 export interface PixiWorldRendererOptions {
   width: number;
   height: number;
   mode?: MapMode | 'ATLAS' | 'ADVENTURE' | 'LORE' | string;
+  reducedMotion?: boolean;
+  heroAvatarUrl?: string;
   onSelectLocation?: (id: string) => void;
   onSelectRegion?: (id: string) => void;
   onSelectEvent?: (id: string) => void;
+  onHover?: (info: HoverInfo | null) => void;
+  onCameraChange?: (view: CameraView) => void;
+  onDiscover?: (locationIds: string[]) => void;
 }
 
 export interface RenderSnapshotOptions {
@@ -40,63 +79,87 @@ export interface RenderSnapshotOptions {
   includeUnknown?: boolean;
 }
 
-interface Particle {
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
-  size: number;
-  alpha: number;
+export interface RendererLayers {
+  regions: RegionsLayer;
+  routes: RoutesLayer;
+  hero: HeroLayer;
+  markers: MarkersLayer;
+  fog: FogLayer;
+  atmosphere: AtmosphereLayer;
+  fx: FxLayer;
+  labels: LabelsLayer;
+}
+
+const MAX_DISCOVERY_BURSTS = 6;
+
+function normalizeMode(mode: string): MapMode {
+  const m = mode.toLowerCase();
+  return m === 'adventure' || m === 'lore' ? m : 'atlas';
 }
 
 export class PixiWorldRenderer {
   public readonly camera: CameraController;
-  public readonly worldContainer: Container;
+  public readonly worldContainer = new Container();
 
-  // 9 isolated scene graph layer containers
-  public readonly backgroundContainer: Container;
-  public readonly terrainContainer: Container;
-  public readonly regionsContainer: Container;
-  public readonly routesContainer: Container;
-  public readonly characterPathContainer: Container;
-  public readonly markersContainer: Container;
-  public readonly fogContainer: Container;
-  public readonly atmosphereContainer: Container;
-  public readonly labelsContainer: Container;
+  public readonly backgroundContainer = new Container();
+  public readonly terrainContainer = new Container();
+  public readonly regionsContainer = new Container();
+  public readonly routesContainer = new Container();
+  public readonly characterPathContainer = new Container();
+  public readonly markersContainer = new Container();
+  public readonly fogContainer = new Container();
+  public readonly atmosphereContainer = new Container();
+  public readonly labelsContainer = new Container();
 
   public app: Application | null = null;
   public mode: MapMode = 'atlas';
+  public readonly tweens = new TweenManager();
+  public readonly ready: Promise<void>;
 
   public onSelectLocation?: (id: string) => void;
   public onSelectRegion?: (id: string) => void;
   public onSelectEvent?: (id: string) => void;
 
-  private canvas: HTMLCanvasElement | null = null;
+  private readonly options: PixiWorldRendererOptions;
+  private readonly gestures = new GestureTracker(4);
+  private readonly staticCache = new Map<string, { texture: Texture; canvas: HTMLCanvasElement }>();
+  public readonly tiles: TileAtlas;
+  private readonly reducedMotion: boolean;
+  private heroAvatarUrl: string | undefined;
+  private canvas: HTMLCanvasElement | null;
   private isDestroyed = false;
-  private isDragging = false;
-  private lastDragX = 0;
-  private lastDragY = 0;
+
+  private layers: RendererLayers | null = null;
+  private atlas: IconAtlas | null = null;
+  private layerTheme: MapTheme | null = null;
+  private bakedKey: string | null = null;
 
   private latestSnapshot: ProjectedWorldMapSnapshot | null = null;
   private latestTheme: MapTheme | null = null;
-  private latestOptions: RenderSnapshotOptions | null = null;
+  private lastDiff: MapSnapshotDiff | null = null;
+  private commits = 0;
+  private requestSeq = 0;
+  private pendingFull = false;
+  private chain: Promise<void> = Promise.resolve();
 
-  private particles: Particle[] = [];
-  private particleGraphics: Graphics | null = null;
+  private hovered: PickTarget | null = null;
+  private hoverScreen: { x: number; y: number } | null = null;
+  private lastZoom = -1;
+  private lastCameraSignature = '';
   private animationFrameId: number | null = null;
   private lastTickTime = 0;
+  private cleanupListeners: () => void = () => {};
 
   constructor(canvas: HTMLCanvasElement | null, options: PixiWorldRendererOptions) {
     this.canvas = canvas;
+    this.options = options;
     this.onSelectLocation = options.onSelectLocation;
     this.onSelectRegion = options.onSelectRegion;
     this.onSelectEvent = options.onSelectEvent;
+    this.reducedMotion = Boolean(options.reducedMotion);
+    this.heroAvatarUrl = options.heroAvatarUrl;
+    if (options.mode) this.mode = normalizeMode(options.mode);
 
-    if (options.mode) {
-      this.mode = options.mode.toLowerCase() as MapMode;
-    }
-
-    // Initialize Camera Controller
     this.camera = new CameraController({
       worldWidth: options.width,
       worldHeight: options.height,
@@ -104,89 +167,298 @@ export class PixiWorldRenderer {
       viewHeight: options.height,
     });
 
-    // Root world container scaled & translated by camera
-    this.worldContainer = new Container();
-
-    // Instantiate 9 discrete layer containers
-    this.backgroundContainer = new Container();
-    this.terrainContainer = new Container();
-    this.regionsContainer = new Container();
-    this.routesContainer = new Container();
-    this.characterPathContainer = new Container();
-    this.markersContainer = new Container();
-    this.fogContainer = new Container();
-    this.atmosphereContainer = new Container();
-    this.labelsContainer = new Container();
-
-    // Assemble layer stack
-    this.worldContainer.addChild(this.backgroundContainer);
-    this.worldContainer.addChild(this.terrainContainer);
-    this.worldContainer.addChild(this.regionsContainer);
-    this.worldContainer.addChild(this.routesContainer);
-    this.worldContainer.addChild(this.characterPathContainer);
-    this.worldContainer.addChild(this.markersContainer);
-    this.worldContainer.addChild(this.fogContainer);
-    this.worldContainer.addChild(this.atmosphereContainer);
-    this.worldContainer.addChild(this.labelsContainer);
-
+    this.worldContainer.addChild(
+      this.backgroundContainer,
+      this.terrainContainer,
+      this.regionsContainer,
+      this.routesContainer,
+      this.characterPathContainer,
+      this.markersContainer,
+      this.fogContainer,
+      this.atmosphereContainer,
+      this.labelsContainer
+    );
     this.syncCameraTransform();
 
-    // Initialize Pixi Application if running in browser with canvas
-    if (typeof window !== 'undefined' && canvas) {
-      this.initPixiApp(canvas, options.width, options.height);
+    const browser = typeof window !== 'undefined' && Boolean(canvas);
+    this.tiles = new TileAtlas(browser ? assetsLoader : null);
+
+    if (browser && canvas) {
+      this.ready = this.initPixiApp(canvas, options.width, options.height).then(() =>
+        this.tiles.load().catch((e) => console.warn('[PixiWorldRenderer] tileset load failed:', e))
+      );
       this.attachCanvasListeners(canvas);
       this.startRenderLoop();
+    } else {
+      this.ready = Promise.resolve();
     }
   }
 
-  /**
-   * Asynchronous PixiJS Application initialization
-   */
+  // ---------------------------------------------------------------- state
+
+  public get currentSnapshot(): ProjectedWorldMapSnapshot | null {
+    return this.latestSnapshot;
+  }
+
+  public get commitCount(): number {
+    return this.commits;
+  }
+
+  public get layerSet(): RendererLayers | null {
+    return this.layers;
+  }
+
+  public get lastSnapshotDiff(): MapSnapshotDiff | null {
+    return this.lastDiff;
+  }
+
+  private get renderer(): Renderer | null {
+    return this.app?.renderer ?? null;
+  }
+
+  // ---------------------------------------------------------------- init
+
   private async initPixiApp(canvas: HTMLCanvasElement, width: number, height: number): Promise<void> {
     try {
-      this.app = new Application();
-      await this.app.init({
+      if (typeof document !== 'undefined' && document.fonts?.load) {
+        await document.fonts.load('16px Silkscreen').catch(() => undefined);
+      }
+      const app = new Application();
+      await app.init({
         canvas,
         width,
         height,
-        antialias: true,
+        preference: 'webgl',
+        antialias: false,
         autoDensity: true,
-        resolution: typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1,
+        roundPixels: true,
+        resolution: window.devicePixelRatio || 1,
         backgroundColor: 0x05070f,
       });
-
-      if (!this.isDestroyed && this.app) {
-        this.app.stage.addChild(this.worldContainer);
+      if (this.isDestroyed) {
+        app.destroy(false, { children: true });
+        return;
       }
+      this.app = app;
+      installPixelFont();
+      app.stage.addChild(this.worldContainer);
     } catch (e) {
-      // In SSR or unsupported test context, fallback gracefully
       console.warn('[PixiWorldRenderer] WebGL initialization skipped:', e);
     }
   }
 
-  /**
-   * Set display mode ('atlas' | 'adventure' | 'lore')
-   */
-  public setMode(mode: MapMode | 'ATLAS' | 'ADVENTURE' | 'LORE' | string, triggerRender: boolean = true): void {
-    this.mode = mode.toLowerCase() as MapMode;
-    if (triggerRender && this.latestSnapshot && this.latestTheme) {
-      this.renderSnapshot(this.latestSnapshot, this.latestTheme, {
-        ...this.latestOptions,
-        mode: this.mode,
-      });
-    }
+  // ---------------------------------------------------------------- snapshots
+
+  /** Full re-sync (used on mount; kept for backwards compatibility). */
+  public renderSnapshot(
+    snapshot: ProjectedWorldMapSnapshot,
+    theme: MapTheme,
+    options?: RenderSnapshotOptions
+  ): Promise<void> {
+    return this.enqueue(snapshot, theme, options, true);
   }
 
-  /**
-   * Toggle visibility of a specific layer
-   */
+  /** Diff-driven update; upgrades to a full sync on plane/map/theme change. */
+  public applySnapshot(
+    snapshot: ProjectedWorldMapSnapshot,
+    theme: MapTheme,
+    options?: RenderSnapshotOptions
+  ): Promise<void> {
+    return this.enqueue(snapshot, theme, options, false);
+  }
+
+  private enqueue(
+    snapshot: ProjectedWorldMapSnapshot,
+    theme: MapTheme,
+    options: RenderSnapshotOptions | undefined,
+    full: boolean
+  ): Promise<void> {
+    const seq = ++this.requestSeq;
+    if (full) this.pendingFull = true;
+    this.chain = this.chain
+      .catch(() => undefined)
+      .then(async () => {
+        await this.ready;
+        if (this.isDestroyed || seq !== this.requestSeq) return;
+        try {
+          this.commit(snapshot, theme, options ?? {});
+        } catch (e) {
+          console.error('[PixiWorldRenderer] commit failed:', e);
+        }
+      });
+    return this.chain;
+  }
+
+  private commit(snapshot: ProjectedWorldMapSnapshot, theme: MapTheme, options: RenderSnapshotOptions): void {
+    if (options.mode) this.setMode(options.mode, false);
+    if (options.activeLayers) this.applyActiveLayers(options.activeLayers);
+
+    const prev = this.latestSnapshot;
+    const planeChanged = !prev || prev.planeId !== snapshot.planeId || prev.mapId !== snapshot.mapId;
+    const full = this.pendingFull || planeChanged || this.latestTheme !== theme;
+    this.pendingFull = false;
+
+    const layers = this.ensureLayers(theme);
+    const diff = diffMapSnapshots(full ? null : prev, snapshot);
+
+    if (full) {
+      this.bakeStatic(snapshot, theme);
+      this.drawVoid(snapshot, theme);
+      this.camera.setWorldSize(snapshot.width, snapshot.height);
+      if (planeChanged) this.camera.fitWorld();
+      layers.fog.resize(snapshot.width, snapshot.height);
+      layers.atmosphere.reset(snapshot.width, snapshot.height, hashString(`${snapshot.mapId}:${snapshot.planeId}`));
+      layers.fx.clear();
+      if (prev && planeChanged) layers.fx.warp(snapshot.width / 2, snapshot.height / 2, theme.palette.primaryAccent);
+    }
+
+    layers.regions.sync(snapshot);
+    layers.routes.sync(snapshot);
+    layers.markers.sync(snapshot, !full);
+    layers.hero.sync(snapshot, diff);
+    layers.fog.sync(snapshot, !full);
+    layers.labels.sync(snapshot);
+    layers.markers.setZoom(this.camera.zoom);
+    layers.labels.setZoom(this.camera.zoom);
+
+    if (!full && diff.newlyDiscoveredIds.length > 0) {
+      const accent = theme.palette.primaryAccent;
+      for (const id of diff.newlyDiscoveredIds.slice(-MAX_DISCOVERY_BURSTS)) {
+        const loc = snapshot.locations.find((l) => l.id === id);
+        if (loc) layers.fx.burst(loc.x, loc.y, loc.importance === 'critical' ? 70 : 45, accent);
+      }
+      this.options.onDiscover?.(diff.newlyDiscoveredIds);
+    }
+
+    this.latestSnapshot = snapshot;
+    this.latestTheme = theme;
+    this.lastDiff = diff;
+    this.commits += 1;
+
+    this.refreshHover();
+    this.syncCameraTransform();
+  }
+
+  private ensureLayers(theme: MapTheme): RendererLayers {
+    if (this.layers && this.layerTheme === theme) return this.layers;
+    this.disposeLayers();
+
+    const renderer = this.renderer;
+    this.atlas = new IconAtlas(renderer ? createRendererBaker(renderer) : null, theme);
+    const ctx: LayerContext = {
+      theme,
+      atlas: this.atlas,
+      tiles: this.tiles,
+      tweens: this.tweens,
+      reducedMotion: this.reducedMotion,
+    };
+
+    const layers: RendererLayers = {
+      regions: new RegionsLayer(this.regionsContainer, ctx),
+      routes: new RoutesLayer(this.routesContainer, ctx),
+      hero: new HeroLayer(this.characterPathContainer, ctx),
+      markers: new MarkersLayer(this.markersContainer, ctx),
+      fog: new FogLayer(this.fogContainer, ctx, renderer),
+      atmosphere: new AtmosphereLayer(this.atmosphereContainer, ctx),
+      fx: new FxLayer(this.atmosphereContainer, ctx),
+      labels: new LabelsLayer(this.labelsContainer, ctx, renderer !== null),
+    };
+    layers.markers.setMode(this.mode);
+    layers.hero.setMode(this.mode);
+    void layers.hero.setAvatar(this.heroAvatarUrl);
+
+    this.layers = layers;
+    this.layerTheme = theme;
+    this.bakedKey = null;
+    return layers;
+  }
+
+  private disposeLayers(): void {
+    if (this.layers) {
+      for (const layer of Object.values(this.layers)) layer.destroy();
+    }
+    this.layers = null;
+    this.layerTheme = null;
+    this.tweens.clear();
+    this.atlas?.destroy();
+    this.atlas = null;
+    for (const entry of this.staticCache.values()) entry.texture.destroy(true);
+    this.staticCache.clear();
+    this.bakedKey = null;
+    this.hovered = null;
+    this.clearContainerAndDestroyChildren(this.terrainContainer);
+    this.clearContainerAndDestroyChildren(this.backgroundContainer);
+  }
+
+  private bakeStatic(snapshot: ProjectedWorldMapSnapshot, theme: MapTheme): void {
+    const key = `${snapshot.mapId}:${snapshot.planeId}:${theme.slug}`;
+    if (this.bakedKey === key && this.terrainContainer.children.length > 0) return;
+    this.clearContainerAndDestroyChildren(this.terrainContainer);
+
+    if (!this.renderer || typeof document === 'undefined') {
+      // Headless (SSR/tests): plain placeholder so the layer is never empty
+      const placeholder = new Graphics().rect(0, 0, snapshot.width, snapshot.height).fill('#2076aa');
+      this.terrainContainer.addChild(placeholder);
+      this.bakedKey = key;
+      return;
+    }
+
+    let entry = this.staticCache.get(key);
+    if (!entry) {
+      const layout = buildPlaneLayout(snapshot);
+      const canvas = document.createElement('canvas');
+      canvas.width = layout.width;
+      canvas.height = layout.height;
+      const ctx = canvas.getContext('2d', { willReadFrequently: true });
+      if (ctx) {
+        paintPlane(
+          ctx,
+          layout,
+          this.tiles,
+          getUniverseLook(theme.slug),
+          (w, h) => {
+            const c = document.createElement('canvas');
+            c.width = w;
+            c.height = h;
+            return c;
+          },
+          hashString(key)
+        );
+      }
+      const texture = Texture.from(canvas);
+      texture.source.scaleMode = 'nearest';
+      entry = { texture, canvas };
+      this.staticCache.set(key, entry);
+    }
+    const sprite = new Sprite(entry.texture);
+    sprite.scale.set(1 / PIXELS_PER_WORLD);
+    this.terrainContainer.addChild(sprite);
+    this.bakedKey = key;
+  }
+
+  private drawVoid(snapshot: ProjectedWorldMapSnapshot, theme: MapTheme): void {
+    this.clearContainerAndDestroyChildren(this.backgroundContainer);
+    const pad = 4000;
+    const g = new Graphics();
+    g.rect(-pad, -pad, snapshot.width + pad * 2, snapshot.height + pad * 2).fill(
+      shade(theme.palette.background, -0.55)
+    );
+    this.backgroundContainer.addChild(g);
+  }
+
+  // ---------------------------------------------------------------- controls
+
+  public setMode(mode: MapMode | 'ATLAS' | 'ADVENTURE' | 'LORE' | string, _triggerRender: boolean = true): void {
+    this.mode = normalizeMode(mode);
+    this.layers?.markers.setMode(this.mode);
+    this.layers?.hero.setMode(this.mode);
+  }
+
   public toggleLayer(layerName: string, visible?: boolean): void {
-    const targetLayer = layerName.toLowerCase();
     const setVis = (c: Container) => {
       c.visible = visible !== undefined ? visible : !c.visible;
     };
-
-    switch (targetLayer) {
+    switch (layerName.toLowerCase()) {
       case 'background':
         setVis(this.backgroundContainer);
         break;
@@ -224,106 +496,11 @@ export class PixiWorldRenderer {
     }
   }
 
-  /**
-   * Cinematic camera transition
-   */
-  public flyTo(
-    targetX: number,
-    targetY: number,
-    targetZoom?: number,
-    durationMs: number = 500
-  ): void {
-    this.camera.flyTo(targetX, targetY, targetZoom, durationMs);
-  }
-
-  /**
-   * Render Projected Snapshot with Universe Theme
-   */
-  public async renderSnapshot(
-    snapshot: ProjectedWorldMapSnapshot,
-    theme: MapTheme,
-    options?: RenderSnapshotOptions
-  ): Promise<void> {
-    this.latestSnapshot = snapshot;
-    this.latestTheme = theme;
-    this.latestOptions = options || {};
-
-    if (options?.mode) {
-      this.mode = options.mode.toLowerCase() as MapMode;
-    }
-
-    // Sync camera bounds
-    this.camera.worldWidth = snapshot.width;
-    this.camera.worldHeight = snapshot.height;
-
-    // Apply active layer filter if specified
-    if (options?.activeLayers) {
-      this.applyActiveLayers(options.activeLayers);
-    }
-
-    // Clear all containers
-    this.clearAllContainers();
-
-    // 1. Background Container
-    this.drawBackground(snapshot, theme);
-
-    // 2. Terrain Container
-    this.drawTerrain(snapshot, theme);
-
-    // 3. Regions & Faction Territories
-    this.drawRegionsAndTerritories(snapshot, theme);
-
-    // 4. Routes Container
-    this.drawRoutes(snapshot, theme);
-
-    // 5. Character Paths
-    this.drawCharacterPaths(snapshot, theme);
-
-    // 6. Markers & Lore Events
-    this.drawMarkersAndEvents(snapshot, theme);
-
-    // 7. Fog of War
-    this.drawFogOfWar(snapshot, theme);
-
-    // 8. Atmospheric Particles
-    this.initAtmosphere(snapshot, theme);
-
-    // 9. Text Labels
-    this.drawLabels(snapshot, theme);
-
-    this.syncCameraTransform();
-  }
-
-  private clearContainerAndDestroyChildren(container: Container): void {
-    const children = container.removeChildren();
-    for (const child of children) {
-      try {
-        child.destroy({ children: true });
-      } catch {
-        // Fallback for mock environments
-      }
-    }
-  }
-
-  private clearAllContainers(): void {
-    this.clearContainerAndDestroyChildren(this.backgroundContainer);
-    this.clearContainerAndDestroyChildren(this.terrainContainer);
-    this.clearContainerAndDestroyChildren(this.regionsContainer);
-    this.clearContainerAndDestroyChildren(this.routesContainer);
-    this.clearContainerAndDestroyChildren(this.characterPathContainer);
-    this.clearContainerAndDestroyChildren(this.markersContainer);
-    this.clearContainerAndDestroyChildren(this.fogContainer);
-    this.clearContainerAndDestroyChildren(this.atmosphereContainer);
-    this.clearContainerAndDestroyChildren(this.labelsContainer);
-  }
-
   private applyActiveLayers(activeLayers: Set<string> | MapVisibleLayers | Record<string, boolean>): void {
-    const isVisible = (layer: string): boolean => {
-      if (activeLayers instanceof Set) {
-        return activeLayers.has(layer);
-      }
-      return (activeLayers as Record<string, boolean>)[layer] ?? true;
-    };
+    const isVisible = (layer: string): boolean =>
+      activeLayers instanceof Set
+        ? activeLayers.has(layer)
+        : ((activeLayers as Record<string, boolean>)[layer] ?? true);
 
     this.terrainContainer.visible = isVisible('terrain');
     this.regionsContainer.visible = isVisible('regions') || isVisible('territories');
@@ -335,539 +512,252 @@ export class PixiWorldRenderer {
     this.labelsContainer.visible = isVisible('labels');
   }
 
-  /**
-   * 1. Draw World Background & Grid
-   */
-  private drawBackground(snapshot: ProjectedWorldMapSnapshot, theme: MapTheme): void {
-    const g = new Graphics();
-    const bgCol = theme.palette.background || '#0a1024';
-
-    // Canvas background
-    g.rect(0, 0, snapshot.width, snapshot.height).fill(bgCol);
-
-    // Subtle coordinate grid
-    const gridCol = theme.palette.gridColor || 'rgba(255, 255, 255, 0.08)';
-    const gridSize = 100;
-
-    for (let x = 0; x <= snapshot.width; x += gridSize) {
-      g.moveTo(x, 0).lineTo(x, snapshot.height).stroke({ color: gridCol, width: 1, alpha: 0.4 });
-    }
-    for (let y = 0; y <= snapshot.height; y += gridSize) {
-      g.moveTo(0, y).lineTo(snapshot.width, y).stroke({ color: gridCol, width: 1, alpha: 0.4 });
-    }
-
-    // Outer Map Border
-    const borderCol = theme.palette.primaryAccent || '#f59e0b';
-    g.rect(0, 0, snapshot.width, snapshot.height).stroke({ color: borderCol, width: 2, alpha: 0.8 });
-
-    this.backgroundContainer.addChild(g);
+  /** Swap the hero portrait without recreating the renderer. */
+  public setHeroAvatar(url: string | undefined): void {
+    if (url === this.heroAvatarUrl) return;
+    this.heroAvatarUrl = url;
+    void this.layers?.hero.setAvatar(url);
   }
 
-  /**
-   * 2. Draw Vector Terrain Polygons
-   */
-  private drawTerrain(snapshot: ProjectedWorldMapSnapshot, theme: MapTheme): void {
-    if (!snapshot.terrain || snapshot.terrain.length === 0) return;
-
-    for (const terrain of snapshot.terrain) {
-      if (!terrain.polygon || terrain.polygon.length < 3) continue;
-
-      const g = new Graphics();
-      const flatPoints: number[] = [];
-      for (const [px, py] of terrain.polygon) {
-        flatPoints.push(px, py);
-      }
-
-      let fillColor = terrain.colorOverride;
-      if (!fillColor) {
-        switch (terrain.type) {
-          case 'ocean':
-            fillColor = (theme.palette.seaColor as string) || '#0a1024';
-            break;
-          case 'river':
-            fillColor = theme.palette.routeColor || '#38bdf8';
-            break;
-          case 'mountain':
-            fillColor = (theme.palette.mountainColor as string) || '#2a3b63';
-            break;
-          case 'forest':
-            fillColor = '#0f3824';
-            break;
-          case 'desert':
-            fillColor = '#664a1e';
-            break;
-          case 'swamp':
-            fillColor = '#1e3328';
-            break;
-          case 'ice':
-            fillColor = '#60a5fa';
-            break;
-          case 'volcanic':
-            fillColor = '#7f1d1d';
-            break;
-          case 'void':
-            fillColor = '#1e1b4b';
-            break;
-          case 'plains':
-          default:
-            fillColor = (theme.palette.landColor as string) || '#17233d';
-            break;
-        }
-      }
-
-      g.poly(flatPoints).fill({ color: fillColor, alpha: 0.85 });
-      g.poly(flatPoints).stroke({ color: theme.palette.primaryAccent, width: 1, alpha: 0.3 });
-
-      this.terrainContainer.addChild(g);
-    }
+  public flyTo(targetX: number, targetY: number, targetZoom?: number, durationMs: number = 500): void {
+    this.camera.flyTo(targetX, targetY, targetZoom, this.reducedMotion ? 16 : durationMs);
   }
 
-  /**
-   * 3. Draw Regions and Faction Spheres of Influence
-   */
-  private drawRegionsAndTerritories(snapshot: ProjectedWorldMapSnapshot, theme: MapTheme): void {
-    // Geographic Regions
-    for (const region of snapshot.regions || []) {
-      const g = new Graphics();
-      const geom = region.geometry;
-
-      const drawPolygonRings = (rings: number[][][]) => {
-        for (const ring of rings) {
-          const flat = ring.flat();
-          if (flat.length >= 6) {
-            g.poly(flat).fill({ color: theme.palette.primaryAccent, alpha: 0.08 });
-            g.poly(flat).stroke({ color: theme.palette.primaryAccent, width: 1.5, alpha: 0.6 });
-          }
-        }
-      };
-
-      if (geom.type === 'Polygon') {
-        drawPolygonRings(geom.coordinates as number[][][]);
-      } else if (geom.type === 'MultiPolygon') {
-        for (const poly of geom.coordinates as number[][][][]) {
-          drawPolygonRings(poly);
-        }
-      }
-
-      g.eventMode = 'static';
-      g.cursor = 'pointer';
-      g.on('pointerdown', (e) => {
-        e.stopPropagation();
-        this.onSelectRegion?.(region.id);
-      });
-
-      this.regionsContainer.addChild(g);
-    }
-
-    // Faction Spheres of Influence
-    for (const territory of snapshot.territories || []) {
-      if (!territory.boundary || territory.boundary.length < 3) continue;
-
-      const g = new Graphics();
-      const flat = territory.boundary.flat();
-      const alpha = (territory.currentInfluencePct / 100) * (theme.palette.territoryAlpha ?? 0.22);
-      const color = theme.palette.secondaryAccent || theme.palette.primaryAccent;
-
-      g.poly(flat).fill({ color, alpha });
-      g.poly(flat).stroke({ color, width: 1, alpha: Math.min(1, alpha * 2) });
-
-      this.regionsContainer.addChild(g);
-    }
+  /** Instant camera cut with a warp spiral at the destination. */
+  public warpTo(x: number, y: number, zoom: number = 1.8): void {
+    this.camera.stopAnimation();
+    this.camera.setZoom(zoom);
+    this.camera.setPosition(x, y);
+    const accent = this.latestTheme?.palette.primaryAccent ?? '#ffffff';
+    this.layers?.fx.warp(x, y, accent);
+    this.syncCameraTransform();
   }
 
-  /**
-   * 4. Draw Travel Routes
-   */
-  private drawRoutes(snapshot: ProjectedWorldMapSnapshot, theme: MapTheme): void {
-    for (const route of snapshot.routes || []) {
-      if (!route.points || route.points.length < 2) continue;
-
-      const g = new Graphics();
-      const color = theme.palette.routeColor || theme.palette.primaryAccent;
-      const strokeWidth = route.routeType === 'flight' || route.routeType === 'portal' ? 2 : 1.5;
-
-      g.moveTo(route.points[0][0], route.points[0][1]);
-      for (let i = 1; i < route.points.length; i++) {
-        g.lineTo(route.points[i][0], route.points[i][1]);
-      }
-      g.stroke({ color, width: strokeWidth, alpha: 0.75 });
-
-      this.routesContainer.addChild(g);
-    }
-  }
-
-  /**
-   * 5. Draw Protagonist Character Paths
-   */
-  private drawCharacterPaths(snapshot: ProjectedWorldMapSnapshot, theme: MapTheme): void {
-    const isAdventure = this.mode === 'adventure';
-
-    for (const path of snapshot.characterPaths || []) {
-      if (!path.waypoints || path.waypoints.length === 0) continue;
-
-      const g = new Graphics();
-      const pathColor = theme.palette.secondaryAccent || theme.palette.primaryAccent;
-      const lineWidth = isAdventure ? 3 : 2;
-
-      if (path.waypoints.length > 1) {
-        g.moveTo(path.waypoints[0].x, path.waypoints[0].y);
-        for (let i = 1; i < path.waypoints.length; i++) {
-          g.lineTo(path.waypoints[i].x, path.waypoints[i].y);
-        }
-        g.stroke({ color: pathColor, width: lineWidth, alpha: 0.9 });
-      }
-
-      // Draw waypoints
-      for (let i = 0; i < path.waypoints.length; i++) {
-        const wp = path.waypoints[i];
-        const isLatest = i === path.waypoints.length - 1;
-
-        if (isLatest) {
-          // Beacon for current character position
-          g.circle(wp.x, wp.y, 8).stroke({ color: '#ffffff', width: 2, alpha: 0.9 });
-          g.circle(wp.x, wp.y, 4).fill('#ffffff');
-        } else {
-          g.circle(wp.x, wp.y, 2.5).fill(pathColor);
-        }
-      }
-
-      this.characterPathContainer.addChild(g);
-    }
-  }
-
-  /**
-   * 6. Draw Landmark Markers and Historical Events
-   */
-  private drawMarkersAndEvents(snapshot: ProjectedWorldMapSnapshot, theme: MapTheme): void {
-    const markerShape = theme.markerStyle.shape || 'diamond';
-    const defaultSize = theme.markerStyle.defaultSize || 8;
-    const criticalSize = theme.markerStyle.criticalSize || 14;
-
-    // Draw Locations
-    for (const loc of snapshot.locations || []) {
-      if (loc.fogStatus === FogStatus.UNKNOWN) continue;
-
-      const g = new Graphics();
-      const isCritical = loc.importance === 'critical';
-      const size = isCritical ? criticalSize : defaultSize;
-
-      let color = theme.palette.primaryAccent;
-      let alpha = 0.9;
-
-      if (loc.isCurrentPosition || loc.fogStatus === FogStatus.CURRENT) {
-        color = '#ffffff';
-        alpha = 1.0;
-      } else if (loc.fogStatus === FogStatus.KNOWN) {
-        alpha = 0.4;
-      }
-
-      // Draw geometric shape
-      if (markerShape === 'diamond') {
-        const half = size / 2;
-        g.poly([
-          loc.x, loc.y - half,
-          loc.x + half, loc.y,
-          loc.x, loc.y + half,
-          loc.x - half, loc.y,
-        ]).fill({ color, alpha });
-        g.poly([
-          loc.x, loc.y - half,
-          loc.x + half, loc.y,
-          loc.x, loc.y + half,
-          loc.x - half, loc.y,
-        ]).stroke({ color: '#ffffff', width: 1, alpha: 0.8 });
-      } else {
-        // Circle default
-        g.circle(loc.x, loc.y, size / 2).fill({ color, alpha });
-        g.circle(loc.x, loc.y, size / 2).stroke({ color: '#ffffff', width: 1, alpha: 0.8 });
-      }
-
-      // Current station pulsating outer ring
-      if (loc.isCurrentPosition) {
-        g.circle(loc.x, loc.y, size + 2).stroke({
-          color: theme.palette.primaryAccent,
-          width: 2,
-          alpha: 0.7,
-        });
-      }
-
-      g.eventMode = 'static';
-      g.cursor = 'pointer';
-      g.on('pointerdown', (e) => {
-        e.stopPropagation();
-        this.onSelectLocation?.(loc.id);
-      });
-
-      this.markersContainer.addChild(g);
-    }
-
-    // Draw Lore Events
-    for (const ev of snapshot.events || []) {
-      let evX = 0;
-      let evY = 0;
-
-      if (ev.locationId) {
-        const matchedLoc = snapshot.locations.find((l) => l.id === ev.locationId);
-        if (matchedLoc) {
-          evX = matchedLoc.x;
-          evY = matchedLoc.y - 12;
-        }
-      }
-
-      if (evX === 0 && evY === 0) continue;
-
-      const g = new Graphics();
-      const evColor = theme.palette.secondaryAccent || '#dc2626';
-
-      // Event Star/Cross glyph
-      g.rect(evX - 4, evY - 4, 8, 8).fill(evColor);
-      g.rect(evX - 4, evY - 4, 8, 8).stroke({ color: '#ffffff', width: 1 });
-
-      g.eventMode = 'static';
-      g.cursor = 'pointer';
-      g.on('pointerdown', (e) => {
-        e.stopPropagation();
-        this.onSelectEvent?.(ev.id);
-      });
-
-      this.markersContainer.addChild(g);
-    }
-  }
-
-  /**
-   * 7. Draw Fog of War Mask with Circular Discovery Apertures
-   */
-  private drawFogOfWar(snapshot: ProjectedWorldMapSnapshot, theme: MapTheme): void {
-    const fogCol = theme.fogStyle.color || '#020705';
-    const fogAlpha = theme.fogStyle.opacity ?? 0.85;
-
-    const g = new Graphics();
-
-    // Fill world rectangle with fog
-    g.rect(0, 0, snapshot.width, snapshot.height);
-
-    // Punch out holes for discovered locations
-    for (const loc of snapshot.locations || []) {
-      if (
-        loc.fogStatus === FogStatus.CURRENT ||
-        loc.fogStatus === FogStatus.DISCOVERED ||
-        loc.fogStatus === FogStatus.REVEALED
-      ) {
-        const radius = loc.importance === 'critical' ? 70 : 45;
-        g.cut();
-        g.circle(loc.x, loc.y, radius);
-      }
-    }
-
-    // Also punch out apertures along character waypoints
-    for (const path of snapshot.characterPaths || []) {
-      for (const wp of path.waypoints || []) {
-        g.cut();
-        g.circle(wp.x, wp.y, 50);
-      }
-    }
-
-    g.fill({ color: fogCol, alpha: fogAlpha });
-    this.fogContainer.addChild(g);
-  }
-
-  /**
-   * 8. Initialize Atmospheric Particles
-   */
-  private initAtmosphere(snapshot: ProjectedWorldMapSnapshot, theme: MapTheme): void {
-    if (!theme.atmosphereParticles) return;
-
-    const count = theme.atmosphereParticles.count || 25;
-    this.particles = [];
-
-    for (let i = 0; i < count; i++) {
-      this.particles.push({
-        x: Math.random() * snapshot.width,
-        y: Math.random() * snapshot.height,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
-        size: Math.random() * 2 + 1,
-        alpha: Math.random() * 0.6 + 0.2,
-      });
-    }
-
-    this.particleGraphics = new Graphics();
-    this.atmosphereContainer.addChild(this.particleGraphics);
-    this.updateParticles();
-  }
-
-  private updateParticles(): void {
-    if (!this.particleGraphics || !this.latestTheme?.atmosphereParticles) return;
-
-    this.particleGraphics.clear();
-    const col = this.latestTheme.atmosphereParticles.color || '#10b981';
-
-    for (const p of this.particles) {
-      this.particleGraphics.circle(p.x, p.y, p.size).fill({ color: col, alpha: p.alpha });
-    }
-  }
-
-  /**
-   * 9. Draw Retro Typography Labels
-   */
-  private drawLabels(snapshot: ProjectedWorldMapSnapshot, theme: MapTheme): void {
-    const textColor = theme.palette.textColor || '#ffffff';
-
-    for (const loc of snapshot.locations || []) {
-      if (loc.fogStatus === FogStatus.UNKNOWN || loc.fogStatus === FogStatus.KNOWN) continue;
-
-      const isCritical = loc.importance === 'critical';
-      const label = new Text({
-        text: loc.name,
-        style: {
-          fontFamily: 'monospace',
-          fontSize: isCritical ? 11 : 9,
-          fill: textColor,
-          align: 'center',
-        },
-      });
-
-      label.anchor.set(0.5, 0);
-      label.position.set(loc.x, loc.y + 8);
-
-      this.labelsContainer.addChild(label);
-    }
-  }
-
-  /**
-   * Synchronize World Container matrix with Camera Controller
-   */
-  public syncCameraTransform(): void {
-    this.worldContainer.scale.set(this.camera.zoom);
-    this.worldContainer.position.set(
-      this.camera.viewWidth / 2 - this.camera.x * this.camera.zoom,
-      this.camera.viewHeight / 2 - this.camera.y * this.camera.zoom
-    );
-  }
-
-  /**
-   * Render and animation tick loop
-   */
-  private startRenderLoop(): void {
-    const tick = (now: number) => {
-      if (this.isDestroyed) return;
-
-      const dt = this.lastTickTime === 0 ? 16 : Math.min(64, now - this.lastTickTime);
-      this.lastTickTime = now;
-
-      // Camera animation interpolation
-      if (this.camera.isAnimating) {
-        this.camera.tick(dt);
-        this.syncCameraTransform();
-      }
-
-      // Particle simulation drift
-      if (this.particles.length > 0 && this.latestSnapshot) {
-        for (const p of this.particles) {
-          p.x += p.vx;
-          p.y += p.vy;
-
-          if (p.x < 0) p.x = this.latestSnapshot.width;
-          if (p.x > this.latestSnapshot.width) p.x = 0;
-          if (p.y < 0) p.y = this.latestSnapshot.height;
-          if (p.y > this.latestSnapshot.height) p.y = 0;
-        }
-        this.updateParticles();
-      }
-
-      this.animationFrameId = requestAnimationFrame(tick);
-    };
-
-    if (typeof window !== 'undefined') {
-      this.animationFrameId = requestAnimationFrame(tick);
-    }
-  }
-
-  /**
-   * Interactive Pan/Zoom/Wheel Event Handlers
-   */
-  private attachCanvasListeners(canvas: HTMLCanvasElement): void {
-    const onWheel = (e: WheelEvent) => {
-      e.preventDefault();
-      const rect = canvas.getBoundingClientRect();
-      const screenX = e.clientX - rect.left;
-      const screenY = e.clientY - rect.top;
-      const factor = e.deltaY < 0 ? 1.15 : 0.87;
-      this.camera.zoomBy(factor, screenX, screenY);
-      this.syncCameraTransform();
-    };
-
-    const onPointerDown = (e: PointerEvent) => {
-      this.isDragging = true;
-      this.lastDragX = e.clientX;
-      this.lastDragY = e.clientY;
-    };
-
-    const onPointerMove = (e: PointerEvent) => {
-      if (!this.isDragging) return;
-      const dx = e.clientX - this.lastDragX;
-      const dy = e.clientY - this.lastDragY;
-      this.lastDragX = e.clientX;
-      this.lastDragY = e.clientY;
-
-      this.camera.panByScreen(dx, dy);
-      this.syncCameraTransform();
-    };
-
-    const onPointerUp = () => {
-      this.isDragging = false;
-    };
-
-    canvas.addEventListener('wheel', onWheel, { passive: false });
-    canvas.addEventListener('pointerdown', onPointerDown);
-    window.addEventListener('pointermove', onPointerMove);
-    window.addEventListener('pointerup', onPointerUp);
-    window.addEventListener('pointercancel', onPointerUp);
-
-    this.cleanupListeners = () => {
-      canvas.removeEventListener('wheel', onWheel);
-      canvas.removeEventListener('pointerdown', onPointerDown);
-      window.removeEventListener('pointermove', onPointerMove);
-      window.removeEventListener('pointerup', onPointerUp);
-      window.removeEventListener('pointercancel', onPointerUp);
+  public getCameraView(): CameraView {
+    return {
+      x: this.camera.x,
+      y: this.camera.y,
+      zoom: this.camera.zoom,
+      viewWidth: this.camera.viewWidth,
+      viewHeight: this.camera.viewHeight,
+      worldWidth: this.camera.worldWidth,
+      worldHeight: this.camera.worldHeight,
     };
   }
 
-  private cleanupListeners: () => void = () => {};
+  public async getMinimapImage(): Promise<string | null> {
+    await this.ready;
+    const entry = this.bakedKey ? this.staticCache.get(this.bakedKey) : undefined;
+    if (!entry) return null;
+    try {
+      return entry.canvas.toDataURL('image/png');
+    } catch {
+      return null;
+    }
+  }
 
-  /**
-   * Resize viewport dimensions
-   */
-  public resize(width: number, height: number): void {
-    this.camera.resize(width, height);
-    if (this.app?.renderer) {
-      this.app.renderer.resize(width, height);
+  // ---------------------------------------------------------------- input
+
+  public hoverAt(screenX: number, screenY: number): void {
+    this.hoverScreen = { x: screenX, y: screenY };
+    const target = this.pickScreen(screenX, screenY);
+    const world = this.camera.screenToWorld(screenX, screenY);
+    this.layers?.atmosphere.setCursor(world);
+    this.setHover(target, screenX, screenY);
+  }
+
+  public clickAt(screenX: number, screenY: number): void {
+    const target = this.pickScreen(screenX, screenY);
+    if (!target) return;
+    if (target.kind === 'location') this.onSelectLocation?.(target.id);
+    else if (target.kind === 'region') this.onSelectRegion?.(target.id);
+    else this.onSelectEvent?.(target.id);
+  }
+
+  private pickScreen(screenX: number, screenY: number): PickTarget | null {
+    if (!this.latestSnapshot) return null;
+    const world = this.camera.screenToWorld(screenX, screenY);
+    return pickAt(this.latestSnapshot, world.x, world.y, this.camera.zoom);
+  }
+
+  private setHover(target: PickTarget | null, screenX: number, screenY: number): void {
+    this.hovered = target;
+    this.layers?.markers.setHovered(target?.kind === 'location' ? target.id : null);
+    this.layers?.regions.setHovered(target?.kind === 'region' ? target.id : null);
+    if (this.canvas) this.canvas.style.cursor = target && target.kind !== 'region' ? 'pointer' : 'grab';
+    this.options.onHover?.(target ? { target, screenX, screenY } : null);
+  }
+
+  private clearHover(): void {
+    this.hoverScreen = null;
+    this.layers?.atmosphere.setCursor(null);
+    if (this.hovered) this.setHover(null, 0, 0);
+  }
+
+  private refreshHover(): void {
+    if (this.hoverScreen) this.hoverAt(this.hoverScreen.x, this.hoverScreen.y);
+    else if (this.hovered) this.setHover(null, 0, 0);
+  }
+
+  private handleGesture(event: GestureEvent | null): void {
+    if (!event) return;
+    switch (event.type) {
+      case 'pan':
+        this.camera.stopAnimation();
+        this.camera.panByScreen(event.dx, event.dy);
+        this.clearHover();
+        break;
+      case 'pinch':
+        this.camera.stopAnimation();
+        this.camera.zoomAt(this.camera.zoom * event.scale, event.centerX, event.centerY);
+        break;
+      case 'hover':
+        this.hoverAt(event.x, event.y);
+        break;
+      case 'click':
+        this.clickAt(event.x, event.y);
+        break;
     }
     this.syncCameraTransform();
   }
 
-  /**
-   * Clean destruction of Pixi application, stage, and event listeners
-   */
+  private attachCanvasListeners(canvas: HTMLCanvasElement): void {
+    const local = (e: { clientX: number; clientY: number }) => {
+      const rect = canvas.getBoundingClientRect();
+      return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+    };
+
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      const p = local(e);
+      this.camera.stopAnimation();
+      this.camera.zoomBy(e.deltaY < 0 ? 1.15 : 0.87, p.x, p.y);
+      this.syncCameraTransform();
+    };
+    const onPointerDown = (e: PointerEvent) => {
+      canvas.setPointerCapture?.(e.pointerId);
+      const p = local(e);
+      this.gestures.down(e.pointerId, p.x, p.y);
+    };
+    const onPointerMove = (e: PointerEvent) => {
+      const p = local(e);
+      this.handleGesture(this.gestures.move(e.pointerId, p.x, p.y));
+    };
+    const onPointerUp = (e: PointerEvent) => {
+      const p = local(e);
+      this.handleGesture(this.gestures.up(e.pointerId, p.x, p.y));
+    };
+    const onPointerCancel = () => this.gestures.cancel();
+    const onPointerLeave = () => {
+      if (!this.gestures.isDragging) this.clearHover();
+    };
+
+    canvas.addEventListener('wheel', onWheel, { passive: false });
+    canvas.addEventListener('pointerdown', onPointerDown);
+    canvas.addEventListener('pointermove', onPointerMove);
+    canvas.addEventListener('pointerup', onPointerUp);
+    canvas.addEventListener('pointercancel', onPointerCancel);
+    canvas.addEventListener('pointerleave', onPointerLeave);
+
+    this.cleanupListeners = () => {
+      canvas.removeEventListener('wheel', onWheel);
+      canvas.removeEventListener('pointerdown', onPointerDown);
+      canvas.removeEventListener('pointermove', onPointerMove);
+      canvas.removeEventListener('pointerup', onPointerUp);
+      canvas.removeEventListener('pointercancel', onPointerCancel);
+      canvas.removeEventListener('pointerleave', onPointerLeave);
+    };
+  }
+
+  // ---------------------------------------------------------------- frame loop
+
+  public syncCameraTransform(): void {
+    this.worldContainer.scale.set(this.camera.zoom);
+    this.worldContainer.position.set(
+      Math.round(this.camera.viewWidth / 2 - this.camera.x * this.camera.zoom),
+      Math.round(this.camera.viewHeight / 2 - this.camera.y * this.camera.zoom)
+    );
+  }
+
+  private emitCameraChange(): void {
+    if (!this.options.onCameraChange) return;
+    const c = this.camera;
+    const signature = `${c.x.toFixed(1)}:${c.y.toFixed(1)}:${c.zoom.toFixed(3)}:${c.viewWidth}:${c.viewHeight}:${c.worldWidth}:${c.worldHeight}`;
+    if (signature === this.lastCameraSignature) return;
+    this.lastCameraSignature = signature;
+    this.options.onCameraChange(this.getCameraView());
+  }
+
+  private startRenderLoop(): void {
+    const tick = (now: number) => {
+      if (this.isDestroyed) return;
+      const dt = this.lastTickTime === 0 ? 16 : Math.min(64, now - this.lastTickTime);
+      this.lastTickTime = now;
+
+      if (this.camera.isAnimating) this.camera.tick(dt);
+      this.tweens.tick(dt);
+
+      const layers = this.layers;
+      if (layers) {
+        if (this.camera.zoom !== this.lastZoom) {
+          this.lastZoom = this.camera.zoom;
+          layers.markers.setZoom(this.camera.zoom);
+          layers.labels.setZoom(this.camera.zoom);
+        }
+        layers.markers.update(dt);
+        layers.routes.update(dt);
+        layers.hero.update(dt);
+        layers.fog.update(dt);
+        layers.fx.update(dt);
+        layers.atmosphere.update(dt);
+      }
+
+      this.syncCameraTransform();
+      this.emitCameraChange();
+      this.animationFrameId = requestAnimationFrame(tick);
+    };
+    this.animationFrameId = requestAnimationFrame(tick);
+  }
+
+  // ---------------------------------------------------------------- lifecycle
+
+  public resize(width: number, height: number): void {
+    if (width <= 0 || height <= 0) return;
+    this.camera.resize(width, height);
+    this.app?.renderer?.resize(width, height);
+    this.syncCameraTransform();
+  }
+
+  private clearContainerAndDestroyChildren(container: Container): void {
+    for (const child of container.removeChildren()) {
+      try {
+        child.destroy({ children: true });
+      } catch {
+        // Mock environments
+      }
+    }
+  }
+
   public destroy(removeView: boolean = true): void {
     this.isDestroyed = true;
     if (this.animationFrameId !== null && typeof cancelAnimationFrame !== 'undefined') {
       cancelAnimationFrame(this.animationFrameId);
       this.animationFrameId = null;
     }
-
     this.cleanupListeners();
     this.camera.stopAnimation();
+    this.disposeLayers();
+    this.tiles.destroy();
+    this.latestSnapshot = null;
 
     if (this.app) {
       try {
-        this.app.destroy(removeView, { children: true, texture: true, textureSource: true } as any);
-      } catch (e) {
+        uninstallPixelFont();
+        this.app.destroy(removeView, { children: true, texture: true, textureSource: true });
+      } catch {
         // Safe destroy fallback
       }
       this.app = null;
     }
-
-    this.clearAllContainers();
   }
 }
