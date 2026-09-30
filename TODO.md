@@ -13,7 +13,7 @@ This document tracks all features, bug fixes, enhancements, and technical debt f
 | 🔥 **P0** | Foundation & Core Explorers | **DONE** | **100% (4/4)** |
 | 🟠 **P1** | Rich World Engagement & Cartography | **DONE** | **100% (4/4)** |
 | 🚀 **EXT** | OmniLore Reader Chrome Extension (MV3) | **DONE** | **100% (6/6)** |
-| 🟢 **P2** | Map Engine v2 & 6th Universe Expansion | **DONE** | **100% (2/2)** |
+| 🟢 **P2** | Map Engine v3 & 6th Universe Expansion | **DONE** | **100% (3/3)** |
 | 🟣 **P2.1** | AI Intelligence & Cosmic Arena | **PLANNED** | **0% (0/2)** |
 | 🟢 **P3** | Retention & Local Bookmarks | **IN PROGRESS** | **50% (1/2)** |
 
@@ -103,7 +103,7 @@ This document tracks all features, bug fixes, enhancements, and technical debt f
 
 ---
 
-## 🟢 Priority P2: Map Engine v2 & 6th Universe Expansion (100% Complete)
+## 🟢 Priority P2: Map Engine v3 & 6th Universe Expansion (100% Complete)
 
 - [x] **Map Engine v2 & Interactive RPG Atlas**
   - [x] 9-layer PixiJS 8 WebGL cartographic scene graph (`PixiWorldRenderer`).
@@ -171,7 +171,7 @@ This document tracks all features, bug fixes, enhancements, and technical debt f
 
 ## 🛠️ Technical Debt & Polish Backlog
 
-- [x] **Mobile Touch Optimization:** Pinch-to-zoom and drag on the atlas handled via the pure `GestureTracker` (`src/engine/map/input/gesture-tracker.ts`) — two-finger pinch distance → scale, click-vs-drag threshold — usable down to 390px wide.
+- [x] **Mobile Touch Optimization:** Pinch-to-zoom and drag on the atlas handled via the pure `GestureTracker` (`src/engine/map/input/gesture-tracker.ts`) — two-finger pinch distance → scale, click-vs-drag threshold.
 - [ ] **Audio Policy Fallback:** Add graceful fallback for iOS Safari audio autoplay policy when SFX are unmuted.
 - [x] **Universe Data Expansion:** Add pilot universe 6 (*Reverend Insanity* complete with 2,334 chapters, 3 planes, 81 entities, and 54 pixel assets).
 - [ ] **Spec 2: Hand-author organic map.json (with rivers and lakes) for Coiling Dragon, Demonic Emperor, Lord of the Mysteries, One Piece, Solo Leveling** — these 5 universes currently render through `adaptGraphToWorldMap()`'s synthesized fallback rather than a bespoke, organically-shaped map definition.

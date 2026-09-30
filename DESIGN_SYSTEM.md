@@ -116,13 +116,14 @@ Both sheets are credited in [`CREDITS.md`](file:///Users/deepaknaik/Downloads/wo
 ### 6.3 Paint order
 Each plane is painted once (cached per `mapId:planeId:universe`) in this fixed order, so later strokes never get buried under earlier fills:
 1. **Backdrop** — sea/sky/abyss/void/river base color, deep-water blobs, wave glints (water backdrops); cloud rim (sky); drop shadow (abyss/void).
-2. **Coast shelf → shallows → foam / sand rim** — layered bands around every landmass (shelf 14px, shallows 7px, sand rim 3px, 1px foam line), traced along coastlines roughened by seeded fractal midpoint displacement so even rectangular source polygons read as organic coastline.
-3. **Ground fills** — grass tile pattern, sand, snow, ash, bog, voidstone, by terrain type.
-4. **Patches** — darker grass tone patches, forest/lone tree clumps, mountain peaks (35% snow variant), desert rocks, oasis palms; seeded value-noise + jittered grids, y-sorted so canopies overlap correctly.
-5. **Rivers** — stroked ribbons across the ground fills.
-6. **Bridges** — drawn at recorded crossing points over rivers.
-7. **Stamps** — the same tree/peak/rock/palm sprites drawn as discrete Puny World / mountain-sheet cutouts (peaks clipped to a triangle silhouette with a 1px outline).
-8. **Universe grade** — a pure per-pixel color grade (`gradePixels`) applied once over the finished raster.
+2. **Open water** — sea polygons filled plain, before the coast, so shores stay intact underneath.
+3. **Coast shelf → shallows → foam / sand rim** — layered bands around every landmass (shelf 14px, shallows 7px, sand rim 3px, 1px foam line), traced along coastlines roughened by seeded fractal midpoint displacement so even rectangular source polygons read as organic coastline.
+4. **Ground fills** — grass tile pattern, sand (with speckle), snow, ash, bog, voidstone by terrain type, plus lake fills (sand-rim stroke, shallows fill) inside land.
+5. **Patches** — darker grass tone patches only (translucent ellipses); trees, peaks, rocks and palms are *not* painted here — see step 8.
+6. **Rivers** — stroked ribbons (sand outline, shelf body, shallows highlight) across the ground fills.
+7. **Bridges** — drawn at recorded crossing points over rivers.
+8. **Stamps** — forest/lone tree clumps, mountain peaks (35% snow variant, clipped to a triangle silhouette with a 1px outline), desert rocks and oasis palms, drawn as discrete Puny World / mountain-sheet cutouts; seeded value-noise + jittered grids, already y-sorted so canopies overlap correctly.
+9. **Universe grade** — a pure per-pixel color grade (`gradePixels`) applied once over the finished raster.
 
 ### 6.4 Per-universe look (`UNIVERSE_LOOKS`)
 Each universe tints the shared tileset palette and sets its own fog mood:
@@ -158,4 +159,4 @@ Fog is a soft, light cloud color per universe, never black — every look keeps 
 - **Minimap** (`AtlasMinimap.tsx`): pixelated world overview with the live camera frustum rectangle.
 
 ### 6.8 Reduced motion
-`prefers-reduced-motion: reduce` (detected once on mount, `RpgWorldAtlas.tsx`) disables: the hero's walking animation and torch bob (hero snaps directly to position), fog drift and reveal-burst particles, the warp spiral on plane travel, discovery-burst sparks, ambient atmosphere particles/cloud drift, and route dash animation. `flyTo()` camera moves also collapse to a near-instant 16ms instead of an eased tween.
+`prefers-reduced-motion: reduce` (detected once on mount, `RpgWorldAtlas.tsx`) disables: the hero's walking animation and torch bob (hero snaps directly to position), the vertical bob on critical markers, fog drift and reveal-burst particles, the warp spiral on plane travel, discovery-burst sparks, ambient atmosphere particles/cloud drift, and route dash animation. `flyTo()` camera moves also collapse to a near-instant 16ms instead of an eased tween.
