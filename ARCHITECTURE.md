@@ -409,7 +409,7 @@ The OmniLore Reader Chrome Extension (`chrome-extension/`) operates as a lightwe
 ## 🧪 9. Quality & Verification Standards
 
 1. **Automated Testing:**
-   All 37 test suites (310 unit tests) run in about a second using Vitest:
+   All 37 test suites (312 unit tests) run in about a second using Vitest:
    - [`tests/temporal-engine.test.ts`](file:///Users/deepaknaik/Downloads/world-building/omni-lore/tests/temporal-engine.test.ts): Fact intervals, masking, temporal boundary enforcement.
    - [`tests/conflict-engine.test.ts`](file:///Users/deepaknaik/Downloads/world-building/omni-lore/tests/conflict-engine.test.ts): Priority tie-breaking and latest breakthrough prioritization.
    - [`tests/projections.test.ts`](file:///Users/deepaknaik/Downloads/world-building/omni-lore/tests/projections.test.ts): Ladder, web, map, timeline, and journey transforms.

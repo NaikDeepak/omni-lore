@@ -117,7 +117,7 @@ Both sheets are credited in [`CREDITS.md`](file:///Users/deepaknaik/Downloads/wo
 Each plane is painted once (cached per `mapId:planeId:universe`) in this fixed order, so later strokes never get buried under earlier fills:
 1. **Backdrop** — sea/sky/abyss/void/river base color, deep-water blobs, wave glints (water backdrops); cloud rim (sky); drop shadow (abyss/void).
 2. **Open water** — sea polygons filled plain, before the coast, so shores stay intact underneath.
-3. **Coast shelf → shallows → foam / sand rim** — layered bands around every landmass (shelf 14px, shallows 7px, sand rim 3px, 1px foam line), traced along coastlines roughened by seeded fractal midpoint displacement so even rectangular source polygons read as organic coastline.
+3. **Coast shelf → shallows → foam / sand rim** — layered bands around every landmass (outward extent from the coastline in baked pixels — strokes are centred on it: shelf 14px, shallows 7px, foam 4px, sand rim 3px), traced along coastlines roughened by seeded fractal midpoint displacement so even rectangular source polygons read as organic coastline.
 4. **Ground fills** — grass tile pattern, sand (with speckle), snow, ash, bog, voidstone by terrain type, plus lake fills (sand-rim stroke, shallows fill) inside land.
 5. **Patches** — darker grass tone patches only (translucent ellipses); trees, peaks, rocks and palms are *not* painted here — see step 8.
 6. **Rivers** — stroked ribbons (sand outline, shelf body, shallows highlight) across the ground fills.

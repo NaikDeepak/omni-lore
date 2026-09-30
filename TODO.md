@@ -181,7 +181,7 @@ This document tracks all features, bug fixes, enhancements, and technical debt f
 ## 🧪 Verification Commands
  
 ```bash
-# Run complete Vitest suite (Must pass 310/310 tests across 37 test files)
+# Run complete Vitest suite (Must pass 312/312 tests across 37 test files)
 npm test
 
 # Build Chrome Extension (Manifest V3 unpacked bundle in chrome-extension/dist)
