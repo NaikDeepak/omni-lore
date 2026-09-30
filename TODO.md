@@ -120,6 +120,17 @@ This document tracks all features, bug fixes, enhancements, and technical debt f
   - [x] Multi-persona temporal identity unmasking for Fang Yuan across 6 distinct aliases (*Chang Shan Yin*, *Liu Guan Yi*, etc.).
   - [x] 54 custom Xianxia retro pixel SVGs (avatars, faction crests, landmark pins).
   - [x] 6 canonical duel presets in RPG Duel Simulator with signature moves.
+- [x] **Map Engine v3 — Level-Select Tileset Atlas**
+  - [x] Retained, diff-driven `PixiWorldRenderer` with a coalescing snapshot queue (only the newest pending snapshot commits, so rapid chapter scrubbing never backs up).
+  - [x] Tileset plane compositor: pure `buildPlaneLayout()` + browser-only `paintPlane()` baking Puny World (CC0) and MrBeast mountains (CC-BY 3.0) tilesets to a cached Canvas 2D texture per `(map, plane, universe)`.
+  - [x] Per-universe looks (`UNIVERSE_LOOKS`): tint/saturation grade plus water/sand/foam/fog colors for all 6 universes.
+  - [x] Multi-plane support with `?plane=<id>` URL deep-linking, cross-plane waypoint travel, and sealed-plane (`??? SEALED REALM`) gating.
+  - [x] Hand-authored rivers (`MapRiver`) with bridges, painted as geography (never chapter-gated).
+  - [x] Hero dirt-path walk (constant speed, capped duration, retargetable) along a packed-earth trail distinct from roads/sea lanes/flight arcs.
+  - [x] Light dithered cloud fog: world-anchored Bayer-4 `Mesh` shader (GLSL ES 1.00) with per-universe opacity, lowered after browser review so tileset terrain reads through.
+  - [x] Numbered journey badges, hover tooltips, coalescing "NEW AREA DISCOVERED (+N MORE)" banner, waypoint panel, pixel frame and minimap.
+  - [x] Reverend Insanity re-authored across 3 organic planes with roughened coastlines and winding mountain-ribbon regional walls.
+  - [x] Art credits in `CREDITS.md` and the atlas frame's "Art:" links (CC-BY 3.0 attribution requirement).
 
 ---
 
@@ -160,16 +171,17 @@ This document tracks all features, bug fixes, enhancements, and technical debt f
 
 ## 🛠️ Technical Debt & Polish Backlog
 
-- [ ] **Mobile Touch Optimization:** Ensure pinch-to-zoom on `PixelMapCanvas.tsx` handles multi-touch gestures smoothly on mobile Safari/Chrome.
+- [x] **Mobile Touch Optimization:** Pinch-to-zoom and drag on the atlas handled via the pure `GestureTracker` (`src/engine/map/input/gesture-tracker.ts`) — two-finger pinch distance → scale, click-vs-drag threshold — usable down to 390px wide.
 - [ ] **Audio Policy Fallback:** Add graceful fallback for iOS Safari audio autoplay policy when SFX are unmuted.
 - [x] **Universe Data Expansion:** Add pilot universe 6 (*Reverend Insanity* complete with 2,334 chapters, 3 planes, 81 entities, and 54 pixel assets).
+- [ ] **Spec 2: Hand-author organic map.json (with rivers and lakes) for Coiling Dragon, Demonic Emperor, Lord of the Mysteries, One Piece, Solo Leveling** — these 5 universes currently render through `adaptGraphToWorldMap()`'s synthesized fallback rather than a bespoke, organically-shaped map definition.
 
 ---
 
 ## 🧪 Verification Commands
  
 ```bash
-# Run complete Vitest suite (Must pass 115/115 tests across 16 test files)
+# Run complete Vitest suite (Must pass 310/310 tests across 37 test files)
 npm test
 
 # Build Chrome Extension (Manifest V3 unpacked bundle in chrome-extension/dist)

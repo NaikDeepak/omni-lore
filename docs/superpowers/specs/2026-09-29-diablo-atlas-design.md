@@ -255,3 +255,4 @@ Unchanged from v1: hover tooltips with glow, click → dossier + fly, walking he
 4. Secret routes are chapter-filtered in the projection.
 5. Fog is a custom world-space Mesh shader (not a Filter); WebGL/GLSL only.
 6. `edgeStyle` stays in the schema for compatibility but the v2 painter ignores it.
+7. Fog opacity and dither density were lowered after in-browser comparison with the approved spike: the original `fogOpacity` (BASE 0.94, solo-leveling 0.96) and shader density factor (`fog * (0.82 + 0.18 * drift)`) painted a near-opaque cream-white shroud that hid the tileset terrain even at deep chapters. Per controller ruling, BASE `fogOpacity` is now 0.62 (solo-leveling 0.7) and the density factor is `fog * (0.5 + 0.2 * drift)`, leaving roughly half the dither cells unpainted so terrain reads through. Geography is ungated (§7), so a lighter fog reveals no spoilers.
