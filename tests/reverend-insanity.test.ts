@@ -7,6 +7,9 @@ import { getCanonPresets, simulateDuel } from '../src/engine/duel-simulator';
 import { validateWorldMap } from '../src/domain/map-schema';
 import { UNIVERSE_THEMES } from '../src/domain/themes';
 import { TemporalEngine } from '../src/engine/temporal-engine';
+import { projectTemporalMap } from '../src/projections/temporal-map';
+import { buildPlaneLayout } from '../src/engine/map/scene/plane-layout';
+import { pointInPolygon } from '../src/engine/map/scene/geometry';
 
 describe('Reverend Insanity Universe Integration', () => {
   const store = new LocalGitDataStore();
@@ -132,5 +135,78 @@ describe('Reverend Insanity Universe Integration', () => {
     expect(duel.fighterA.name).toBe('Great Love Demon Venerable');
     expect(duel.fighterB.name).toBe('Duke Long');
     expect(duel.rounds.length).toBeGreaterThan(0);
+  });
+
+  it('defines three organic planes with every location placed on a declared plane', () => {
+    const mapData = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'data/reverend-insanity/map.json'), 'utf-8'));
+    expect(mapData.planes.map((p: { id: string }) => p.id)).toEqual([
+      'plane-mortal-five-regions',
+      'plane-two-heavens',
+      'plane-river-of-time',
+    ]);
+    const planeIds = new Set(mapData.planes.map((p: { id: string }) => p.id));
+    for (const loc of mapData.locations) {
+      expect(planeIds.has(loc.planeId), loc.id).toBe(true);
+      expect(['EX', 'S', 'A', 'B', 'Safe']).toContain(loc.dangerLevel);
+    }
+    expect(mapData.locations.find((l: { id: string }) => l.id === 'loc-stone-lotus-island').planeId).toBe('plane-river-of-time');
+    expect(mapData.locations.find((l: { id: string }) => l.id === 'loc-river-of-time').planeId).toBe('plane-river-of-time');
+
+    for (const id of ['terrain-southern-border', 'terrain-central-continent', 'terrain-northern-plains', 'terrain-western-desert', 'terrain-eastern-sea']) {
+      const terrain = mapData.terrain.find((t: { id: string }) => t.id === id);
+      expect(terrain.polygon.length, id).toBeGreaterThanOrEqual(60);
+    }
+    expect(mapData.terrain.filter((t: { type: string; planeId: string }) => t.type === 'mountain' && t.planeId === 'plane-mortal-five-regions').length).toBeGreaterThanOrEqual(8);
+    expect(mapData.terrain.some((t: { id: string }) => t.id === 'terrain-crescent-lake')).toBe(true);
+    expect(mapData.rivers.map((r: { id: string }) => r.id)).toEqual(['river-reverse-flow', 'river-southern-karst']);
+    for (const river of mapData.rivers) expect(river.bridges.length).toBeGreaterThanOrEqual(1);
+    expect(mapData.locations.filter((l: { waypoint?: boolean }) => l.waypoint).length).toBeGreaterThanOrEqual(8);
+    expect(mapData.landmarkGlyphs.length).toBeGreaterThanOrEqual(6);
+    expect(() => validateWorldMap(mapData)).not.toThrow();
+  });
+
+  it('keeps the protagonist journey chapters and snaps waypoints to their locations', () => {
+    const mapData = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'data/reverend-insanity/map.json'), 'utf-8'));
+    const path0 = mapData.characterPaths[0];
+    expect(path0.waypoints.map((w: { chapter: number }) => w.chapter)).toEqual([1, 210, 260, 350, 410, 540, 650, 1020, 1285, 1960, 2210]);
+    for (const wp of path0.waypoints) {
+      const loc = mapData.locations.find((l: { id: string }) => l.id === wp.locationId);
+      expect([wp.x, wp.y, wp.planeId]).toEqual([loc.x, loc.y, loc.planeId]);
+    }
+  });
+
+  it('reveals landmark glyphs only from their canonical chapter', () => {
+    const mapData = validateWorldMap(JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'data/reverend-insanity/map.json'), 'utf-8')));
+    const ids = (ch: number) => projectTemporalMap(mapData, ch).landmarkGlyphs.map((g) => g.id);
+    expect(ids(949)).not.toContain('lg-yi-tian-spire');
+    expect(ids(950)).toContain('lg-yi-tian-spire');
+    expect(ids(1)).toEqual([]);
+  });
+
+  it('lays out the real mortal plane within budget with sensible decoration', () => {
+    const mapData = validateWorldMap(JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'data/reverend-insanity/map.json'), 'utf-8')));
+    const snap = projectTemporalMap(mapData, 1);
+    const t0 = performance.now();
+    const layout = buildPlaneLayout(snap);
+    const elapsed = performance.now() - t0;
+    expect(elapsed).toBeLessThan(250);
+    const trees = layout.stamps.filter((st) => st.sprite.startsWith('conifer') || st.sprite.startsWith('tree'));
+    const peaks = layout.stamps.filter((st) => st.sprite.startsWith('peak'));
+    expect(trees.length).toBeGreaterThan(300);
+    expect(peaks.length).toBeGreaterThan(150);
+    expect(layout.fills.find((f) => f.id === 'terrain-eastern-sea')!.kind).toBe('water');
+    const lake = layout.fills.find((f) => f.id === 'terrain-crescent-lake')!;
+    expect(lake.kind).toBe('lake');
+    expect(layout.stamps.some((st) => pointInPolygon(st.x, st.y, lake.ring))).toBe(false);
+    for (const fill of layout.fills) expect(fill.ring.length).toBeLessThanOrEqual(260);
+  });
+
+  it('keeps the River of Time plane sealed until chapter 600', () => {
+    const mapData = validateWorldMap(JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'data/reverend-insanity/map.json'), 'utf-8')));
+    const early = projectTemporalMap(mapData, 599, { planeId: 'plane-river-of-time' });
+    expect(early.planeId).toBe('plane-mortal-five-regions');
+    const late = projectTemporalMap(mapData, 600, { planeId: 'plane-river-of-time' });
+    expect(late.planeId).toBe('plane-river-of-time');
+    expect(late.locations.map((l) => l.id)).toContain('loc-river-of-time');
   });
 });
