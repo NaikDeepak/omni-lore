@@ -13,6 +13,8 @@ export interface AtlasMinimapProps {
   onPan: (worldX: number, worldY: number) => void;
   accentColor: string;
   fogColor: string;
+  /** Fog opacity from the universe look, matching the world fog. */
+  fogOpacity: number;
   /** Start collapsed (e.g. on narrow screens, so the radar doesn't cover the map). */
   defaultCollapsed?: boolean;
 }
@@ -29,6 +31,7 @@ export function AtlasMinimap({
   onPan,
   accentColor,
   fogColor,
+  fogOpacity,
   defaultCollapsed = false,
 }: AtlasMinimapProps) {
   const [view, setView] = useState<CameraView | null>(null);
@@ -80,7 +83,7 @@ export function AtlasMinimap({
                 ))}
               </mask>
             </defs>
-            <rect width={worldWidth} height={worldHeight} fill={fogColor} opacity="0.85" mask="url(#minimap-fog-mask)" />
+            <rect width={worldWidth} height={worldHeight} fill={fogColor} opacity={fogOpacity} mask="url(#minimap-fog-mask)" />
             {hero && <rect x={hero.x - 12} y={hero.y - 12} width={24} height={24} fill="#ffb347" />}
           </svg>
           {frustum && (

@@ -602,6 +602,7 @@ export function RpgWorldAtlas({
         onPan={(x, y) => rendererRef.current?.flyTo(x, y, undefined, 250)}
         accentColor={accent}
         fogColor={getUniverseLook(universeSlug).fogColor}
+        fogOpacity={getUniverseLook(universeSlug).fogOpacity}
         defaultCollapsed={minimapDefaultCollapsed}
       />
 

@@ -5,7 +5,6 @@
 
 import { DangerLevel, WorldMapDefinition } from '../../domain/map-types';
 import { planeForLocation } from '../../domain/map-planes';
-import { isDiscoveredStatus } from '../../projections/map-snapshot-diff';
 import {
   FogStatus,
   ProjectedPlane,
@@ -15,6 +14,7 @@ import {
   projectTemporalMap,
 } from '../../projections/temporal-map';
 import { PickTarget } from '../../engine/map/input/picking';
+import { computeApertureTargets } from '../../engine/map/layers/fog-apertures';
 
 // ---------------------------------------------------------------- emitter
 
@@ -206,10 +206,9 @@ export function groupWaypoints(
 
 // ---------------------------------------------------------------- minimap
 
+/** Same apertures as the world fog layer (discovered locations + hero waypoints). */
 export function fogCirclesForMinimap(snapshot: ProjectedWorldMapSnapshot): Array<{ x: number; y: number; r: number }> {
-  return snapshot.locations
-    .filter((l) => isDiscoveredStatus(l.fogStatus))
-    .map((l) => ({ x: l.x, y: l.y, r: l.importance === 'critical' ? 70 : 45 }));
+  return Array.from(computeApertureTargets(snapshot).values()).map((t) => ({ x: t.x, y: t.y, r: t.radius }));
 }
 
 // ---------------------------------------------------------------- plane + keys

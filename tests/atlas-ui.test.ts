@@ -17,6 +17,7 @@ import { AtlasFrame } from '../src/components/map/AtlasFrame';
 import { AtlasMinimap } from '../src/components/map/AtlasMinimap';
 import { MapHudControls } from '../src/components/map/MapHudControls';
 import { projectTemporalMap } from '../src/projections/temporal-map';
+import { computeApertureTargets } from '../src/engine/map/layers/fog-apertures';
 import { WorldMapDefinition, MapVisibleLayers } from '../src/domain/map-types';
 
 const def: WorldMapDefinition = {
@@ -137,9 +138,16 @@ describe('waypoint grouping', () => {
 });
 
 describe('fogCirclesForMinimap', () => {
-  it('returns one circle per discovered location', () => {
-    const circles = fogCirclesForMinimap(projectTemporalMap(def, 20));
-    expect(circles).toEqual([{ x: 100, y: 100, r: 70 }]);
+  it('opens exactly the same apertures as the world fog (locations + hero waypoints)', () => {
+    const snap = projectTemporalMap(def, 20, { activeCharacterId: 'hero' });
+    const circles = fogCirclesForMinimap(snap);
+    expect(circles).toEqual([
+      { x: 100, y: 100, r: 70 },
+      { x: 100, y: 100, r: 50 },
+    ]);
+    expect(circles).toEqual(
+      Array.from(computeApertureTargets(snap).values()).map((t) => ({ x: t.x, y: t.y, r: t.radius }))
+    );
   });
 });
 
@@ -189,14 +197,18 @@ describe('overlay components', () => {
     const html = renderToStaticMarkup(React.createElement(AtlasMinimap, {
       imageUrl: null, worldWidth: 1000, worldHeight: 1000, fogCircles: [{ x: 100, y: 100, r: 70 }],
       hero: { x: 100, y: 100 }, subscribe: () => () => {}, onPan: () => {}, accentColor: '#10b981', fogColor: '#020705',
+      fogOpacity: 0.62,
     }));
     expect(html).toContain('data-testid="atlas-minimap"');
+    // Minimap fog uses the universe look's opacity, not a hard-coded value
+    expect(html).toContain('opacity="0.62"');
+    expect(html).not.toContain('opacity="0.85"');
   });
 
   it('starts collapsed on narrow screens via defaultCollapsed, with no map image drawn', () => {
     const html = renderToStaticMarkup(React.createElement(AtlasMinimap, {
       imageUrl: 'data:image/png;base64,AAAA', worldWidth: 1000, worldHeight: 1000, fogCircles: [{ x: 100, y: 100, r: 70 }],
-      hero: { x: 100, y: 100 }, subscribe: () => () => {}, onPan: () => {}, accentColor: '#10b981', fogColor: '#020705',
+      hero: { x: 100, y: 100 }, subscribe: () => () => {}, onPan: () => {}, accentColor: '#10b981', fogColor: '#020705', fogOpacity: 0.62,
       defaultCollapsed: true,
     }));
     expect(html).toContain('▸ RADAR');
