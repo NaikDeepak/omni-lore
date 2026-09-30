@@ -11306,8 +11306,8 @@
         ]
       ],
       "routeType": "road",
-      "visibleFromChapter": 200,
-      "revealedAtChapter": 200,
+      "visibleFromChapter": 260,
+      "revealedAtChapter": 260,
       "planeId": "plane-mortal-five-regions"
     },
     {
@@ -11350,8 +11350,8 @@
         ]
       ],
       "routeType": "road",
-      "visibleFromChapter": 420,
-      "revealedAtChapter": 420,
+      "visibleFromChapter": 540,
+      "revealedAtChapter": 540,
       "planeId": "plane-mortal-five-regions"
     },
     {
@@ -11373,7 +11373,7 @@
       ],
       "routeType": "secret",
       "visibleFromChapter": 1,
-      "revealedAtChapter": 600,
+      "revealedAtChapter": 1350,
       "planeId": "plane-river-of-time"
     }
   ],

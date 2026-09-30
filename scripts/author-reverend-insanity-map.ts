@@ -12,6 +12,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { chaikinSmooth, Vec2 } from '../src/engine/map/scene/geometry';
 import { validateWorldMap } from '../src/domain/map-schema';
+import { routeGateChapter } from '../src/projections/route-gating';
 import {
   CharacterPath,
   DangerLevel,
@@ -262,16 +263,25 @@ function main(): void {
     return { ...source, geometry: shape.geometry, planeId: shape.planeId };
   });
 
-  const routeShapes: Record<string, { points: Pt[]; planeId: string }> = {
-    'route-southern-caravan': { planeId: MORTAL, points: [at('loc-qing-mao-mountain'), at('loc-bai-gu-mountain'), at('loc-shang-city')] },
-    'route-three-kings-conquest': { planeId: MORTAL, points: [at('loc-shang-city'), [700, 915], at('loc-san-cha-mountain')] },
-    'route-plains-conquest': { planeId: MORTAL, points: [at('loc-crescent-lake'), [660, 190], at('loc-eighty-eight-true-yang')] },
-    'route-temporal-reversal': { planeId: RIVER, points: [at('loc-river-of-time'), [730, 370], at('loc-stone-lotus-island')] },
+  // `baseChapter` is the story chapter a route opens; the written gate is raised to the latest
+  // debut of any location the route passes through (route-gating.ts), so a route never
+  // draws a line to a landmark the reader has not reached yet.
+  const routeShapes: Record<string, { points: Pt[]; planeId: string; baseChapter: number }> = {
+    'route-southern-caravan': { planeId: MORTAL, baseChapter: 200, points: [at('loc-qing-mao-mountain'), at('loc-bai-gu-mountain'), at('loc-shang-city')] },
+    'route-three-kings-conquest': { planeId: MORTAL, baseChapter: 350, points: [at('loc-shang-city'), [700, 915], at('loc-san-cha-mountain')] },
+    'route-plains-conquest': { planeId: MORTAL, baseChapter: 420, points: [at('loc-crescent-lake'), [660, 190], at('loc-eighty-eight-true-yang')] },
+    'route-temporal-reversal': { planeId: RIVER, baseChapter: 600, points: [at('loc-river-of-time'), [730, 370], at('loc-stone-lotus-island')] },
   };
   const routes: MapRoute[] = existing.routes.map((route) => {
     const shape = routeShapes[route.id];
     if (!shape) throw new Error(`No shape for route ${route.id}`);
-    return { ...route, points: shape.points, planeId: shape.planeId };
+    const gate = routeGateChapter(shape, locations, planes, shape.baseChapter);
+    // Secret routes open only on their explicit reveal; `visibleFromChapter` is ignored for them.
+    const chapters =
+      route.routeType === 'secret'
+        ? { revealedAtChapter: gate }
+        : { visibleFromChapter: gate, revealedAtChapter: gate };
+    return { ...route, points: shape.points, planeId: shape.planeId, ...chapters };
   });
 
   const territories: FactionTerritory[] = existing.territories.map((territory) => {

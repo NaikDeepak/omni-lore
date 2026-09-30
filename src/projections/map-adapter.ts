@@ -32,6 +32,8 @@ import {
   PlaneBackdrop,
   CharacterWaypoint,
 } from '../domain/map-types';
+import { getMapPlanes } from '../domain/map-planes';
+import { routeGateChapter } from './route-gating';
 
 /**
  * Infers a valid Map Engine v2 LocationType based on location name and description.
@@ -421,32 +423,41 @@ export function adaptGraphToWorldMap(
   // Sort characterPaths so character with most waypoints is primary
   characterPaths.sort((a, b) => b.waypoints.length - a.waypoints.length);
 
-  // 5. Synthesize Routes (one journey polyline per plane)
+  // 5. Synthesize Routes: one journey leg per consecutive waypoint pair.
+  // A leg only appears once both of its ends are reached and have debuted,
+  // so the line never points at a landmark past userChapter. Legs that
+  // cross planes or stay on the same spot are dropped.
   const routes: MapRoute[] = [];
   if (characterPaths.length > 0) {
     const primary = characterPaths[0];
-    const byPlane = new Map<string, CharacterWaypoint[]>();
-    for (const wp of primary.waypoints) {
-      const key = wp.planeId ?? '__single__';
-      const list = byPlane.get(key) ?? [];
-      list.push(wp);
-      byPlane.set(key, list);
-    }
-    let routeIndex = 0;
-    for (const [key, planeWaypoints] of byPlane) {
-      if (planeWaypoints.length < 2) continue;
-      routeIndex += 1;
+    const routePlanes = getMapPlanes({ planes: mapPlanes, width, height });
+    const legCountByPlane = new Map<string, number>();
+    for (let i = 1; i < primary.waypoints.length; i++) {
+      const from: CharacterWaypoint = primary.waypoints[i - 1];
+      const to: CharacterWaypoint = primary.waypoints[i];
+      if (from.planeId !== to.planeId) continue;
+      if (from.x === to.x && from.y === to.y) continue;
+      const planeKey = to.planeId ?? 'main';
+      const leg = (legCountByPlane.get(planeKey) ?? 0) + 1;
+      legCountByPlane.set(planeKey, leg);
+      const points: [number, number][] = [
+        [from.x, from.y],
+        [to.x, to.y],
+      ];
+      const gate = routeGateChapter(
+        { points, planeId: to.planeId },
+        locations,
+        routePlanes,
+        Math.max(from.chapter, to.chapter)
+      );
       routes.push({
-        id:
-          routeIndex === 1
-            ? `route-${primary.characterId}-path`
-            : `route-${primary.characterId}-path-${routeIndex}`,
+        id: `route-${primary.characterId}-path-${planeKey}-${leg}`,
         name: `${primary.characterName}'s Journey`,
-        points: planeWaypoints.map((wp) => [wp.x, wp.y] as [number, number]),
+        points,
         routeType: inferRouteType(slug),
-        visibleFromChapter: planeWaypoints[0].chapter,
-        revealedAtChapter: planeWaypoints[planeWaypoints.length - 1].chapter,
-        planeId: key === '__single__' ? undefined : key,
+        visibleFromChapter: gate,
+        revealedAtChapter: gate,
+        planeId: to.planeId,
       });
     }
   }
