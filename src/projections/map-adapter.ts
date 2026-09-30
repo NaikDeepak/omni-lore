@@ -28,7 +28,12 @@ import {
   FactionTerritory,
   LocationType,
   TerrainType,
+  MapPlane,
+  PlaneBackdrop,
+  CharacterWaypoint,
 } from '../domain/map-types';
+import { getMapPlanes } from '../domain/map-planes';
+import { routeGateChapter } from './route-gating';
 
 /**
  * Infers a valid Map Engine v2 LocationType based on location name and description.
@@ -72,23 +77,12 @@ function inferTerrainType(name: string, seriesSlug: string): TerrainType {
   if (/\b(void|chaos|astral|spirit|divine|dimension|space)\b/.test(text)) return 'void';
   if (/\b(plains|grassland|meadow|continent|basin|domain|field|earth)\b/.test(text)) return 'plains';
 
-  if (seriesSlug === 'one-piece') return 'ocean';
-  if (seriesSlug === 'coiling-dragon') return 'mountain';
-  if (seriesSlug === 'demonic-emperor') return 'mountain';
-  if (seriesSlug === 'lord-of-the-mysteries') return 'ocean';
-
   return 'plains';
 }
 
-/**
- * Base terrain type for universal canvas background.
- */
-function inferBaseTerrain(seriesSlug: string): TerrainType {
-  if (seriesSlug === 'one-piece') return 'ocean';
-  if (seriesSlug === 'lord-of-the-mysteries') return 'ocean';
-  if (seriesSlug === 'coiling-dragon') return 'mountain';
-  if (seriesSlug === 'demonic-emperor') return 'mountain';
-  return 'plains';
+/** Plane regions contain locations, so they are always painted as land. */
+function asLandTerrain(type: TerrainType): TerrainType {
+  return type === 'ocean' || type === 'river' ? 'plains' : type;
 }
 
 /**
@@ -100,6 +94,26 @@ function inferRouteType(seriesSlug: string): 'road' | 'sea' | 'flight' | 'portal
   if (seriesSlug === 'solo-leveling') return 'portal';
   if (seriesSlug === 'lord-of-the-mysteries') return 'portal';
   return 'road';
+}
+
+/**
+ * Plane backdrop per universe (what lies beyond the landmass).
+ */
+function inferBackdrop(seriesSlug: string): PlaneBackdrop {
+  if (seriesSlug === 'one-piece') return 'sea';
+  if (seriesSlug === 'lord-of-the-mysteries') return 'sea';
+  if (seriesSlug === 'solo-leveling') return 'abyss';
+  if (seriesSlug === 'demonic-emperor') return 'abyss';
+  return 'void';
+}
+
+const WAYPOINT_TYPES = new Set<LocationType>(['city', 'sect', 'portal', 'castle', 'temple']);
+
+/**
+ * Fast-travel waypoint derivation rule for generated maps.
+ */
+export function isWaypointLocation(loc: Pick<MapLocation, 'importance' | 'type'>): boolean {
+  return loc.importance === 'critical' || WAYPOINT_TYPES.has(loc.type);
 }
 
 /**
@@ -136,6 +150,27 @@ export function adaptGraphToWorldMap(
   const rawCharacters = Object.values(graph.entities).filter(
     (e): e is CharacterEntity => e.type === 'character'
   );
+
+  // 0. Resolve planes that actually contain locations
+  const sortedPlanes = rawPlanes.slice().sort((a, b) => a.tier_order - b.tier_order);
+  const planesWithLocations = sortedPlanes.filter((plane) =>
+    rawLocations.some((loc) => loc.plane_id === plane.id)
+  );
+  const mapPlanes: MapPlane[] = planesWithLocations.map((plane, idx) => ({
+    id: plane.id,
+    name: plane.name,
+    width,
+    height,
+    revealedAtChapter: Math.max(0, plane.revealed_at ?? plane.first_appearance ?? 0),
+    backdrop: inferBackdrop(slug),
+    order: idx,
+  }));
+  const planeIdSet = new Set(mapPlanes.map((p) => p.id));
+  const resolvePlaneId = (rawPlaneId: string | undefined): string | undefined => {
+    if (mapPlanes.length === 0) return undefined;
+    return rawPlaneId && planeIdSet.has(rawPlaneId) ? rawPlaneId : mapPlanes[0].id;
+  };
+  const totalPlanes = Math.max(1, planesWithLocations.length);
 
   // Helper map for fast faction lookup by name keyword
   const factionsList = rawFactions;
@@ -204,33 +239,40 @@ export function adaptGraphToWorldMap(
       description: loc.description || undefined,
       aliases: loc.aliases && loc.aliases.length > 0 ? loc.aliases : undefined,
       controllingFactionId,
+      planeId: resolvePlaneId(loc.plane_id),
     };
+    mapLoc.waypoint = isWaypointLocation(mapLoc);
 
     locations.push(mapLoc);
     locationsById.set(loc.id, mapLoc);
   }
 
   // 2. Synthesize Regions & Terrain from Planes
-  const sortedPlanes = rawPlanes.slice().sort((a, b) => a.tier_order - b.tier_order);
-  const totalPlanes = Math.max(1, sortedPlanes.length);
   const regions: MapRegion[] = [];
   const terrain: TerrainLayer[] = [];
 
-  // Universal Base Terrain Layer
-  terrain.push({
-    id: 'terrain-base',
-    type: inferBaseTerrain(slug),
-    name: `${graph.series.title} Prime Domain`,
-    polygon: [
-      [20, 20],
-      [width - 20, 20],
-      [width - 20, height - 20],
-      [20, height - 20],
-    ],
-    elevation: 1,
+  // Whole-plane base ground. On sea backdrops the plane regions below become islands,
+  // so no base; elsewhere a plains base so every marker stands on land.
+  const backdrop = inferBackdrop(slug);
+  const basePlanes: Array<MapPlane | null> =
+    mapPlanes.length === 0 ? [null] : backdrop === 'sea' ? [] : mapPlanes;
+  basePlanes.forEach((plane, idx) => {
+    terrain.push({
+      id: idx === 0 ? 'terrain-base' : `terrain-base-${plane!.id}`,
+      type: 'plains',
+      name: plane ? `${plane.name} Prime Domain` : `${graph.series.title} Prime Domain`,
+      polygon: [
+        [20, 20],
+        [width - 20, 20],
+        [width - 20, height - 20],
+        [20, height - 20],
+      ],
+      elevation: 1,
+      planeId: plane?.id,
+    });
   });
 
-  if (sortedPlanes.length === 0) {
+  if (planesWithLocations.length === 0) {
     // Default fallback region if graph has no planes
     regions.push({
       id: 'region-prime',
@@ -250,7 +292,7 @@ export function adaptGraphToWorldMap(
       revealedAtChapter: 1,
     });
   } else {
-    sortedPlanes.forEach((plane, idx) => {
+    planesWithLocations.forEach((plane, idx) => {
       const planeLocations = locations.filter((l) => l.regionId === plane.id);
       let polygonRing: [number, number][];
 
@@ -290,7 +332,7 @@ export function adaptGraphToWorldMap(
         ];
       }
 
-      const planeTerrainType = inferTerrainType(plane.name, slug);
+      const planeTerrainType = asLandTerrain(inferTerrainType(plane.name, slug));
 
       regions.push({
         id: plane.id,
@@ -303,6 +345,7 @@ export function adaptGraphToWorldMap(
         visibleFromChapter: Math.max(0, plane.first_appearance ?? 1),
         revealedAtChapter: Math.max(0, plane.revealed_at ?? plane.first_appearance ?? 1),
         notes: plane.description || undefined,
+        planeId: plane.id,
       });
 
       // Layered Terrain polygon corresponding to plane region
@@ -312,6 +355,7 @@ export function adaptGraphToWorldMap(
         name: `${plane.name} Terrain`,
         polygon: polygonRing,
         elevation: plane.tier_order ?? idx + 1,
+        planeId: plane.id,
       });
     });
   }
@@ -361,6 +405,7 @@ export function adaptGraphToWorldMap(
             x: loc.x,
             y: loc.y,
             note: ev.name,
+            planeId: loc.planeId,
           };
         })
         .filter((wp): wp is NonNullable<typeof wp> => wp !== null);
@@ -378,20 +423,43 @@ export function adaptGraphToWorldMap(
   // Sort characterPaths so character with most waypoints is primary
   characterPaths.sort((a, b) => b.waypoints.length - a.waypoints.length);
 
-  // 5. Synthesize Routes
+  // 5. Synthesize Routes: one journey leg per consecutive waypoint pair.
+  // A leg only appears once both of its ends are reached and have debuted,
+  // so the line never points at a landmark past userChapter. Legs that
+  // cross planes or stay on the same spot are dropped.
   const routes: MapRoute[] = [];
-  if (characterPaths.length > 0 && characterPaths[0].waypoints.length >= 2) {
+  if (characterPaths.length > 0) {
     const primary = characterPaths[0];
-    const points: [number, number][] = primary.waypoints.map((wp) => [wp.x, wp.y]);
-
-    routes.push({
-      id: `route-${primary.characterId}-path`,
-      name: `${primary.characterName}'s Journey`,
-      points,
-      routeType: inferRouteType(slug),
-      visibleFromChapter: primary.waypoints[0].chapter,
-      revealedAtChapter: primary.waypoints[primary.waypoints.length - 1].chapter,
-    });
+    const routePlanes = getMapPlanes({ planes: mapPlanes, width, height });
+    const legCountByPlane = new Map<string, number>();
+    for (let i = 1; i < primary.waypoints.length; i++) {
+      const from: CharacterWaypoint = primary.waypoints[i - 1];
+      const to: CharacterWaypoint = primary.waypoints[i];
+      if (from.planeId !== to.planeId) continue;
+      if (from.x === to.x && from.y === to.y) continue;
+      const planeKey = to.planeId ?? 'main';
+      const leg = (legCountByPlane.get(planeKey) ?? 0) + 1;
+      legCountByPlane.set(planeKey, leg);
+      const points: [number, number][] = [
+        [from.x, from.y],
+        [to.x, to.y],
+      ];
+      const gate = routeGateChapter(
+        { points, planeId: to.planeId },
+        locations,
+        routePlanes,
+        Math.max(from.chapter, to.chapter)
+      );
+      routes.push({
+        id: `route-${primary.characterId}-path-${planeKey}-${leg}`,
+        name: `${primary.characterName}'s Journey`,
+        points,
+        routeType: inferRouteType(slug),
+        visibleFromChapter: gate,
+        revealedAtChapter: gate,
+        planeId: to.planeId,
+      });
+    }
   }
 
   // 6. Synthesize Faction Territories
@@ -404,10 +472,13 @@ export function adaptGraphToWorldMap(
     );
 
     if (factionLocs.length > 0) {
+      const territoryPlaneId = factionLocs[0].planeId;
+      const planeLocs = factionLocs.filter((l) => l.planeId === territoryPlaneId);
+
       let boundary: [number, number][];
 
-      if (factionLocs.length === 1) {
-        const { x, y } = factionLocs[0];
+      if (planeLocs.length === 1) {
+        const { x, y } = planeLocs[0];
         const r = 35;
         boundary = [
           [Math.max(10, x - r), Math.max(10, y - r)],
@@ -420,7 +491,7 @@ export function adaptGraphToWorldMap(
           maxX = -Infinity,
           minY = Infinity,
           maxY = -Infinity;
-        factionLocs.forEach((l) => {
+        planeLocs.forEach((l) => {
           minX = Math.min(minX, l.x);
           maxX = Math.max(maxX, l.x);
           minY = Math.min(minY, l.y);
@@ -446,6 +517,7 @@ export function adaptGraphToWorldMap(
             influencePct: 85,
           },
         ],
+        planeId: territoryPlaneId,
       });
     }
   }
@@ -463,5 +535,6 @@ export function adaptGraphToWorldMap(
     territories,
     events,
     characterPaths,
+    planes: mapPlanes.length > 0 ? mapPlanes : undefined,
   };
 }

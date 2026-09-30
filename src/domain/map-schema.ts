@@ -11,6 +11,7 @@ import type {
   CharacterWaypoint,
   CharacterPath,
 } from './map-types';
+import { getMapPlanes } from './map-planes';
 
 export const CoordinateSystemSchema = z.enum(['normalized', 'world']);
 
@@ -49,6 +50,54 @@ export const LocationTypeSchema = z.enum([
 
 export const Point2DSchema = z.tuple([z.number(), z.number()]);
 
+export const PlaneBackdropSchema = z.enum(['void', 'sky', 'sea', 'abyss', 'river']);
+
+export const MapPlaneSchema = z.object({
+  id: z.string().min(1),
+  name: z.string().min(1),
+  width: z.number().positive(),
+  height: z.number().positive(),
+  revealedAtChapter: z.number().int().min(0),
+  backdrop: PlaneBackdropSchema,
+  order: z.number().int().optional(),
+});
+
+export const LandmarkGlyphKindSchema = z.enum([
+  'volcano',
+  'spire',
+  'ruin',
+  'great-tree',
+  'citadel',
+  'crater',
+  'monolith',
+  'shipwreck',
+  'portal-arch',
+  'skull-rock',
+]);
+
+export const LandmarkGlyphSchema = z.object({
+  id: z.string().min(1),
+  glyph: LandmarkGlyphKindSchema,
+  x: z.number(),
+  y: z.number(),
+  planeId: z.string().min(1).optional(),
+  scale: z.number().positive().optional(),
+  revealedAtChapter: z.number().int().min(0),
+  name: z.string().optional(),
+});
+
+export const DangerLevelSchema = z.enum(['EX', 'S', 'A', 'B', 'Safe']);
+export const TerrainEdgeStyleSchema = z.enum(['coast', 'cliff', 'soft']);
+
+export const MapRiverSchema = z.object({
+  id: z.string().min(1),
+  name: z.string().min(1),
+  points: z.array(Point2DSchema).min(2),
+  width: z.number().positive(),
+  planeId: z.string().min(1).optional(),
+  bridges: z.array(Point2DSchema).optional(),
+});
+
 export const TerrainLayerSchema = z.object({
   id: z.string().min(1),
   type: TerrainTypeSchema,
@@ -56,6 +105,8 @@ export const TerrainLayerSchema = z.object({
   polygon: z.array(Point2DSchema).min(3),
   elevation: z.number().optional(),
   colorOverride: z.string().optional(),
+  planeId: z.string().min(1).optional(),
+  edgeStyle: TerrainEdgeStyleSchema.optional(),
 });
 
 export const MapRegionGeometrySchema = z.object({
@@ -76,6 +127,7 @@ export const MapRegionSchema = z.object({
   revealedAtChapter: z.number().int().min(0).optional(),
   factionIds: z.array(z.string()).optional(),
   notes: z.string().optional(),
+  planeId: z.string().min(1).optional(),
 });
 
 export const MapLocationSchema = z.object({
@@ -92,6 +144,9 @@ export const MapLocationSchema = z.object({
   description: z.string().optional(),
   aliases: z.array(z.string()).optional(),
   controllingFactionId: z.string().optional(),
+  planeId: z.string().min(1).optional(),
+  waypoint: z.boolean().optional(),
+  dangerLevel: DangerLevelSchema.optional(),
 });
 
 export const MapRouteSchema = z.object({
@@ -101,6 +156,7 @@ export const MapRouteSchema = z.object({
   routeType: z.enum(['road', 'sea', 'flight', 'portal', 'secret']),
   visibleFromChapter: z.number().int().min(0),
   revealedAtChapter: z.number().int().min(0).optional(),
+  planeId: z.string().min(1).optional(),
 });
 
 export const FactionControlPeriodSchema = z.object({
@@ -114,6 +170,7 @@ export const FactionTerritorySchema = z.object({
   name: z.string().min(1),
   boundary: z.array(Point2DSchema).min(3),
   controlPeriods: z.array(FactionControlPeriodSchema),
+  planeId: z.string().min(1).optional(),
 });
 
 export const MapEventSchema = z.object({
@@ -142,6 +199,7 @@ export const CharacterWaypointSchema = z.object({
   x: z.number(),
   y: z.number(),
   note: z.string().optional(),
+  planeId: z.string().min(1).optional(),
 });
 
 export const CharacterPathSchema = z.object({
@@ -164,60 +222,120 @@ export const WorldMapSchema = z
     territories: z.array(FactionTerritorySchema).default([]),
     events: z.array(MapEventSchema).default([]),
     characterPaths: z.array(CharacterPathSchema).default([]),
+    planes: z.array(MapPlaneSchema).optional(),
+    landmarkGlyphs: z.array(LandmarkGlyphSchema).optional(),
+    rivers: z.array(MapRiverSchema).optional(),
   })
   .superRefine((data, ctx) => {
     const isNormalized = data.coordinateSystem === 'normalized';
-    const maxX = isNormalized ? 1.0 : data.width;
-    const maxY = isNormalized ? 1.0 : data.height;
+    const planes = getMapPlanes(data as WorldMapDefinition);
+    const planeById = new Map(planes.map((p) => [p.id, p]));
+    const locationPlane = new Map(
+      data.locations.map((loc) => [loc.id, loc.planeId ?? planes[0].id])
+    );
 
-    // Check location coordinates
-    data.locations.forEach((loc, idx) => {
-      if (loc.x < 0 || loc.x > maxX || loc.y < 0 || loc.y > maxY) {
+    if (data.planes) {
+      const seen = new Set<string>();
+      data.planes.forEach((plane, idx) => {
+        if (seen.has(plane.id)) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: `Duplicate plane id "${plane.id}"`,
+            path: ['planes', idx, 'id'],
+          });
+        }
+        seen.add(plane.id);
+      });
+    }
+
+    type Bounds = { maxX: number; maxY: number };
+
+    const boundsFor = (
+      planeId: string | undefined,
+      label: string,
+      path: (string | number)[]
+    ): Bounds | null => {
+      if (planeId !== undefined && !planeById.has(planeId)) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: `Location "${loc.name}" (${loc.id}) coordinate [${loc.x}, ${loc.y}] is out of bounds for ${data.coordinateSystem} coordinate system (expected 0..${maxX}, 0..${maxY})`,
-          path: ['locations', idx],
+          message: `${label} references unknown plane "${planeId}"`,
+          path,
+        });
+        return null;
+      }
+      if (isNormalized) return { maxX: 1.0, maxY: 1.0 };
+      const plane = planeById.get(planeId ?? planes[0].id) ?? planes[0];
+      return { maxX: plane.width, maxY: plane.height };
+    };
+
+    const checkPoint = (
+      x: number,
+      y: number,
+      bounds: Bounds | null,
+      label: string,
+      path: (string | number)[]
+    ) => {
+      if (!bounds) return;
+      if (x < 0 || x > bounds.maxX || y < 0 || y > bounds.maxY) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: `${label} [${x}, ${y}] is out of bounds for ${data.coordinateSystem} coordinate system (expected 0..${bounds.maxX}, 0..${bounds.maxY})`,
+          path,
         });
       }
+    };
+
+    data.terrain.forEach((terrain, idx) => {
+      boundsFor(terrain.planeId, `Terrain "${terrain.name}"`, ['terrain', idx, 'planeId']);
     });
 
-    // Check character path waypoints
+    data.regions.forEach((region, idx) => {
+      boundsFor(region.planeId, `Region "${region.name}"`, ['regions', idx, 'planeId']);
+    });
+
+    data.locations.forEach((loc, idx) => {
+      const bounds = boundsFor(loc.planeId, `Location "${loc.name}" (${loc.id})`, ['locations', idx, 'planeId']);
+      checkPoint(loc.x, loc.y, bounds, `Location "${loc.name}" (${loc.id}) coordinate`, ['locations', idx]);
+    });
+
     data.characterPaths.forEach((cp, cpIdx) => {
       cp.waypoints.forEach((wp, wpIdx) => {
-        if (wp.x < 0 || wp.x > maxX || wp.y < 0 || wp.y > maxY) {
-          ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: `Waypoint in character path "${cp.characterName}" at chapter ${wp.chapter} [${wp.x}, ${wp.y}] is out of bounds for ${data.coordinateSystem} coordinate system (expected 0..${maxX}, 0..${maxY})`,
-            path: ['characterPaths', cpIdx, 'waypoints', wpIdx],
-          });
-        }
+        const planeId =
+          wp.planeId ?? (wp.locationId ? locationPlane.get(wp.locationId) : undefined);
+        const path = ['characterPaths', cpIdx, 'waypoints', wpIdx];
+        const bounds = boundsFor(planeId, `Waypoint in character path "${cp.characterName}"`, path);
+        checkPoint(wp.x, wp.y, bounds, `Waypoint in character path "${cp.characterName}" at chapter ${wp.chapter}`, path);
       });
     });
 
-    // Check route points
     data.routes.forEach((route, rIdx) => {
+      const bounds = boundsFor(route.planeId, `Route "${route.name}"`, ['routes', rIdx, 'planeId']);
       route.points.forEach((pt, pIdx) => {
-        if (pt[0] < 0 || pt[0] > maxX || pt[1] < 0 || pt[1] > maxY) {
-          ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: `Route point in "${route.name}" [${pt[0]}, ${pt[1]}] is out of bounds for ${data.coordinateSystem} coordinate system (expected 0..${maxX}, 0..${maxY})`,
-            path: ['routes', rIdx, 'points', pIdx],
-          });
-        }
+        checkPoint(pt[0], pt[1], bounds, `Route point in "${route.name}"`, ['routes', rIdx, 'points', pIdx]);
       });
     });
 
-    // Check territory boundary points
     data.territories.forEach((terr, tIdx) => {
+      const bounds = boundsFor(terr.planeId, `Territory "${terr.name}"`, ['territories', tIdx, 'planeId']);
       terr.boundary.forEach((pt, pIdx) => {
-        if (pt[0] < 0 || pt[0] > maxX || pt[1] < 0 || pt[1] > maxY) {
-          ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: `Boundary point in territory "${terr.name}" [${pt[0]}, ${pt[1]}] is out of bounds for ${data.coordinateSystem} coordinate system (expected 0..${maxX}, 0..${maxY})`,
-            path: ['territories', tIdx, 'boundary', pIdx],
-          });
-        }
+        checkPoint(pt[0], pt[1], bounds, `Boundary point in territory "${terr.name}"`, ['territories', tIdx, 'boundary', pIdx]);
       });
+    });
+
+    (data.rivers ?? []).forEach((river, rIdx) => {
+      const bounds = boundsFor(river.planeId, `River "${river.name}"`, ['rivers', rIdx, 'planeId']);
+      river.points.forEach((pt, pIdx) => {
+        checkPoint(pt[0], pt[1], bounds, `River point in "${river.name}"`, ['rivers', rIdx, 'points', pIdx]);
+      });
+      (river.bridges ?? []).forEach((pt, bIdx) => {
+        checkPoint(pt[0], pt[1], bounds, `Bridge on "${river.name}"`, ['rivers', rIdx, 'bridges', bIdx]);
+      });
+    });
+
+    (data.landmarkGlyphs ?? []).forEach((glyph, gIdx) => {
+      const path = ['landmarkGlyphs', gIdx];
+      const bounds = boundsFor(glyph.planeId, `Landmark glyph "${glyph.id}"`, path);
+      checkPoint(glyph.x, glyph.y, bounds, `Landmark glyph "${glyph.id}"`, path);
     });
   });
 

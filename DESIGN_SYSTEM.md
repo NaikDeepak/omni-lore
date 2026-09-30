@@ -73,10 +73,8 @@ flowchart LR
   - Mentor / Master: `border-purple-400/50 bg-purple-950/40 text-purple-300`
 
 ### 4.4 `PixelMapCanvas` (`src/components/pixel/PixelMapCanvas.tsx`)
-- **Fog of War Shroud:** SVG `<mask id="fog-of-war-mask">` with `<feGaussianBlur stdDeviation="12">`.
-- **Apertures:** Punches circular holes (`r=105px`) at discovered landmarks, a voyage route corridor (`80px`), and active station perimeter (`125px`).
-- **Dither Pattern:** SVG `<pattern id="retro-fog-dither">` with alternating pixel blocks.
 - **Controls:** Pan, drag, zoom (`0.75x` to `2.5x`), center on landmark, and fog toggle.
+- Superseded as the primary atlas by the Level-Select Tileset Atlas (`RpgWorldAtlas.tsx`, PixiJS-rendered) — see § 6 below for its fog, tileset and marker treatment.
 
 ---
 
@@ -95,3 +93,70 @@ OmniLore includes a built-in sound engine requiring zero external audio assets, 
 ### Audio Safety Rules
 - Audio is muted by default on first visit or initial render until user interaction.
 - Mute state persists across tabs and is toggled via `[ SFX: ON / OFF ]` button in the header bar.
+
+---
+
+## 🗺️ 6. Level-Select Tileset Atlas
+
+The world atlas (`RpgWorldAtlas.tsx`, PixiJS-rendered) composes each plane from licensed 16px tilesets on a baked Canvas 2D layer, in the style of a Diablo-esque "LEVEL SELECT / WORLD 1" screen: textured grass, dense tree clumps, snowy mountain ranges, shaded coastal water, winding dirt paths and numbered stage nodes inside an ornate pixel frame.
+
+### 6.1 Art sources & licenses
+| Sheet | File | License | Use |
+| :--- | :--- | :--- | :--- |
+| Puny World overworld tileset (Shade) | `public/assets/tilesets/punyworld/punyworld-overworld-tileset.png` | **CC0 1.0** | grass, conifers, round trees, palms, rocks, castles, halls, houses, cave |
+| Worldmap mountains (MrBeast, commissioned by OpenGameArt.org) | `public/assets/tilesets/oga-worldmap/mountains.png` | **CC-BY 3.0** | grey and snow mountain peaks |
+
+Both sheets are credited in [`CREDITS.md`](file:///Users/deepaknaik/Downloads/world-building/omni-lore/CREDITS.md) at the repo root. Because the MrBeast sheet is CC-BY, attribution is also always on screen: `AtlasFrame.tsx` renders a small "Art:" credit line with links to both source pages in the bottom-left corner of every atlas view.
+
+### 6.2 Scale
+- Baked plane texture: **0.5 px per world unit** (16 px tile = 32 world units), giving the reference's chunky, readable proportions. Displayed at 2×.
+- Live-layer tileset sprites (markers/props) use the same sheets at **scale 2** (world units per sheet pixel) so baked terrain and live props match pixel-for-pixel.
+- All scale factors are kept integer so PixiJS nearest-neighbor filtering stays crisp at every zoom level.
+
+### 6.3 Paint order
+Each plane is painted once (cached per `mapId:planeId:universe`) in this fixed order, so later strokes never get buried under earlier fills:
+1. **Backdrop** — sea/sky/abyss/void/river base color, deep-water blobs, wave glints (water backdrops); cloud rim (sky); drop shadow (abyss/void).
+2. **Open water** — sea polygons filled plain, before the coast, so shores stay intact underneath.
+3. **Coast shelf → shallows → foam / sand rim** — layered bands around every landmass (outward extent from the coastline in baked pixels — strokes are centred on it: shelf 14px, shallows 7px, foam 4px, sand rim 3px), traced along coastlines roughened by seeded fractal midpoint displacement so even rectangular source polygons read as organic coastline.
+4. **Ground fills** — grass tile pattern, sand (with speckle), snow, ash, bog, voidstone by terrain type, plus lake fills (sand-rim stroke, shallows fill) inside land.
+5. **Patches** — darker grass tone patches only (translucent ellipses); trees, peaks, rocks and palms are *not* painted here — see step 8.
+6. **Rivers** — stroked ribbons (sand outline, shelf body, shallows highlight) across the ground fills.
+7. **Bridges** — drawn at recorded crossing points over rivers.
+8. **Stamps** — forest/lone tree clumps, mountain peaks (35% snow variant, clipped to a triangle silhouette with a 1px outline), desert rocks and oasis palms, drawn as discrete Puny World / mountain-sheet cutouts; seeded value-noise + jittered grids, already y-sorted so canopies overlap correctly.
+9. **Universe grade** — a pure per-pixel color grade (`gradePixels`) applied once over the finished raster.
+
+### 6.4 Per-universe look (`UNIVERSE_LOOKS`)
+Each universe tints the shared tileset palette and sets its own fog mood:
+
+| Universe | Tint / amount / saturation | Fog color | Fog opacity |
+| :--- | :--- | :--- | :--- |
+| reverend-insanity | `#14966e` / 0.12 / 0.90 | `#dfeee6` | 0.62 |
+| lord-of-the-mysteries | `#503282` / 0.22 / 0.60 | `#cfc8dc` | 0.62 |
+| coiling-dragon | `#f0a030` / 0.08 / 1.05 | `#f2eadb` | 0.62 |
+| demonic-emperor | `#8a1830` / 0.16 / 0.75 | `#d8c8cc` | 0.62 |
+| one-piece | `#1080d0` / 0.05 / 1.10 | `#e8f2fa` | 0.62 |
+| solo-leveling | `#102850` / 0.25 / 0.70 | `#b8c4d8` | 0.70 |
+
+Fog is a soft, light cloud color per universe, never black — every look keeps `fogOpacity` between 0.4 and 0.7 (lowered from an earlier near-opaque 0.94–0.96 range after in-browser review: at full fog only about half the dither cells paint, so the baked terrain reads through instead of vanishing under a cream-white shroud).
+
+### 6.5 Markers, clearings, silhouettes, badges
+- **Tileset props by location type:** city → castle, castle → red castle, sect/temple → teal hall, clan/village → house, dungeon/cave/mountain → cave.
+- **Code-drawn fallback icons** cover everything the sheets don't have: battlefield, portal, landmark, ruin, ocean, island, lake, plus landmark glyphs (volcano, spire, crater, …) and the waypoint pylon — all baked once per theme into cached textures (`icon-atlas.ts`).
+- **Grass clearings:** every *visible* marker draws its own grass-tone clearing ellipse under itself at render time. There is no bake-time clearing around locations — that would betray where an undiscovered location sits before the story reveals it.
+- **KNOWN (undiscovered) silhouettes:** prop tinted to a dark, flat silhouette at 70% alpha, no pylon, no badge; hovering shows `??? UNCHARTED` instead of a name.
+- **Numbered journey badges:** gold square badges numbered by the order the active character first visited each location on the current plane (`journey-numbers.ts`), shown only for visits at or before the current chapter.
+- **`DANGER_COLORS`:** `EX #dc2626`, `S #f97316`, `A #f59e0b`, `B #64748b`, `Safe #10b981` — used for tooltip danger badges and marker accents.
+
+### 6.6 Roads, hero trail & fog
+- **Dirt-path roads:** the reference's packed-earth look — dark brown edge (`#6e4824`) with a tan/gold center fill (`#d4a860` roads, `#e0b86a` the hero's own trail), no animated dashing (unlike sea lanes/flight arcs, which keep the v1 pixel-dash style).
+- **Light dithered cloud fog:** a Bayer-4 ordered-dither pattern rendered as a world-anchored Pixi `Mesh` shader (`fog-material.ts`), not a screen-space filter, so the dither cells and drifting noise stay locked to the map at every zoom/pan. Circular apertures (critical landmarks 70px, other locations 45px, waypoints 50px) punch through the fog around discovered content; unopened cells stay in the classic 4×4 Bayer matrix, at the lowered opacity in § 6.4.
+
+### 6.7 HUD chrome
+- **Tooltip** (`AtlasTooltip.tsx`): type, danger color, controlling faction, first-seen chapter; `??? UNCHARTED` for KNOWN locations.
+- **Discovery banner** (`DiscoveryBanner.tsx`): "NEW AREA DISCOVERED" pixel banner that coalesces rapid reveals into a single `+N MORE` line instead of stacking.
+- **Waypoint panel** (`WaypointPanel.tsx`, `M` key): travel list grouped by plane; sealed (unrevealed) planes show `??? SEALED REALM` and are not selectable.
+- **Frame** (`AtlasFrame.tsx`): ornate pixel border with universe-rune corners and the CC-BY "Art:" credit links.
+- **Minimap** (`AtlasMinimap.tsx`): pixelated world overview with the live camera frustum rectangle.
+
+### 6.8 Reduced motion
+`prefers-reduced-motion: reduce` (detected once on mount, `RpgWorldAtlas.tsx`) disables: the hero's walking animation and torch bob (hero snaps directly to position), the vertical bob on critical markers, fog drift and reveal-burst particles, the warp spiral on plane travel, discovery-burst sparks, ambient atmosphere particles/cloud drift, and route dash animation. `flyTo()` camera moves also collapse to a near-instant 16ms instead of an eased tween.

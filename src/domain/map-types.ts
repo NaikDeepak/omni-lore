@@ -39,6 +39,54 @@ export type LocationType =
   | 'landmark'
   | 'lake';
 
+export type PlaneBackdrop = 'void' | 'sky' | 'sea' | 'abyss' | 'river';
+
+export interface MapPlane {
+  id: string;
+  name: string;
+  width: number;
+  height: number;
+  revealedAtChapter: number;
+  backdrop: PlaneBackdrop;
+  order?: number;
+}
+
+export type LandmarkGlyphKind =
+  | 'volcano'
+  | 'spire'
+  | 'ruin'
+  | 'great-tree'
+  | 'citadel'
+  | 'crater'
+  | 'monolith'
+  | 'shipwreck'
+  | 'portal-arch'
+  | 'skull-rock';
+
+export interface LandmarkGlyph {
+  id: string;
+  glyph: LandmarkGlyphKind;
+  x: number;
+  y: number;
+  planeId?: string;
+  scale?: number;
+  revealedAtChapter: number;
+  name?: string;
+}
+
+export type DangerLevel = 'EX' | 'S' | 'A' | 'B' | 'Safe';
+
+export type TerrainEdgeStyle = 'coast' | 'cliff' | 'soft';
+
+export interface MapRiver {
+  id: string;
+  name: string;
+  points: [number, number][];
+  width: number;
+  planeId?: string;
+  bridges?: [number, number][];
+}
+
 export interface TerrainLayer {
   id: string;
   type: TerrainType;
@@ -46,6 +94,8 @@ export interface TerrainLayer {
   polygon: [number, number][];
   elevation?: number;
   colorOverride?: string;
+  planeId?: string;
+  edgeStyle?: TerrainEdgeStyle;
 }
 
 export interface MapRegion {
@@ -61,6 +111,7 @@ export interface MapRegion {
   revealedAtChapter?: number;
   factionIds?: string[];
   notes?: string;
+  planeId?: string;
 }
 
 export interface MapLocation {
@@ -77,6 +128,9 @@ export interface MapLocation {
   description?: string;
   aliases?: string[];
   controllingFactionId?: string;
+  planeId?: string;
+  waypoint?: boolean;
+  dangerLevel?: DangerLevel;
 }
 
 export interface MapRoute {
@@ -86,6 +140,7 @@ export interface MapRoute {
   routeType: 'road' | 'sea' | 'flight' | 'portal' | 'secret';
   visibleFromChapter: number;
   revealedAtChapter?: number;
+  planeId?: string;
 }
 
 export interface FactionControlPeriod {
@@ -99,6 +154,7 @@ export interface FactionTerritory {
   name: string;
   boundary: [number, number][];
   controlPeriods: FactionControlPeriod[];
+  planeId?: string;
 }
 
 export type MapEventType =
@@ -128,6 +184,7 @@ export interface CharacterWaypoint {
   x: number;
   y: number;
   note?: string;
+  planeId?: string;
 }
 
 export interface CharacterPath {
@@ -149,6 +206,9 @@ export interface WorldMapDefinition {
   territories: FactionTerritory[];
   events: MapEvent[];
   characterPaths: CharacterPath[];
+  planes?: MapPlane[];
+  landmarkGlyphs?: LandmarkGlyph[];
+  rivers?: MapRiver[];
 }
 
 /**

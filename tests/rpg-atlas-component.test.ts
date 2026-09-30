@@ -308,8 +308,7 @@ describe('RpgWorldAtlas Component', () => {
     );
 
     // Canvas element
-    expect(html).toContain('<canvas');
-    expect(html).toContain('data-testid="rpg-atlas-canvas"');
+    expect(html).toContain('data-testid="rpg-atlas-canvas-host"');
 
     // Scanlines & Vignette overlay
     expect(html).toContain('pointer-events-none');
@@ -338,6 +337,6 @@ describe('RpgWorldAtlas Component', () => {
     );
 
     expect(html).toContain('ADVENTURE');
-    expect(html).toContain('<canvas');
+    expect(html).toContain('data-testid="rpg-atlas-canvas-host"');
   });
 });

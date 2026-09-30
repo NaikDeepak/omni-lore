@@ -1,0 +1,146 @@
+import { describe, it, expect } from 'vitest';
+import React from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
+import { planeSwitchForLocation, keyToAtlasAction, isTypingTarget, resolveAtlasPlaneId } from '../src/components/map/atlas-ui-state';
+import { MapHudControls } from '../src/components/map/MapHudControls';
+import { RpgWorldAtlas } from '../src/components/map/RpgWorldAtlas';
+import { projectTemporalMap } from '../src/projections/temporal-map';
+import { WorldMapDefinition, MapVisibleLayers } from '../src/domain/map-types';
+
+const def: WorldMapDefinition = {
+  id: 'wiring', universeId: 'reverend-insanity', coordinateSystem: 'world', width: 1000, height: 1000,
+  planes: [
+    { id: 'mortal', name: 'Mortal Five Regions', width: 1000, height: 1000, revealedAtChapter: 0, backdrop: 'sea', order: 0 },
+    { id: 'river', name: 'River of Time', width: 800, height: 400, revealedAtChapter: 600, backdrop: 'abyss', order: 1 },
+  ],
+  terrain: [], regions: [], routes: [], territories: [], events: [],
+  locations: [
+    { id: 'village', name: 'Village', x: 100, y: 100, type: 'village', importance: 'major', firstAppearanceChapter: 1, revealedAtChapter: 1, planeId: 'mortal', waypoint: true },
+    { id: 'lotus', name: 'Stone Lotus', x: 300, y: 200, type: 'island', importance: 'critical', firstAppearanceChapter: 600, revealedAtChapter: 600, planeId: 'river', waypoint: true },
+  ],
+  characterPaths: [{ characterId: 'fy', characterName: 'Fang Yuan', waypoints: [
+    { chapter: 1, locationId: 'village', x: 100, y: 100 },
+    { chapter: 650, locationId: 'lotus', x: 300, y: 200 },
+  ] }],
+};
+
+const layers: MapVisibleLayers = {
+  terrain: true, regions: true, routes: true, territories: true, markers: true,
+  events: true, characterPaths: true, fogOfWar: true, labels: true,
+};
+
+describe('planeSwitchForLocation', () => {
+  it('returns the revealed plane of a location on another plane', () => {
+    const snap = projectTemporalMap(def, 700, { planeId: 'mortal' });
+    expect(planeSwitchForLocation(def, snap, 'lotus')).toBe('river');
+  });
+
+  it('returns null for same-plane, sealed-plane or unknown locations', () => {
+    expect(planeSwitchForLocation(def, projectTemporalMap(def, 700), 'village')).toBeNull();
+    expect(planeSwitchForLocation(def, projectTemporalMap(def, 100), 'lotus')).toBeNull();
+    expect(planeSwitchForLocation(def, projectTemporalMap(def, 700), 'nowhere')).toBeNull();
+  });
+
+  it('returns null for an undiscovered location on a revealed plane (no spoiler fly)', () => {
+    const withFuture: WorldMapDefinition = {
+      ...def,
+      locations: [
+        ...def.locations,
+        { id: 'future', name: 'Future Isle', x: 500, y: 300, type: 'island', importance: 'major', firstAppearanceChapter: 900, revealedAtChapter: 900, planeId: 'river' },
+      ],
+    };
+    expect(planeSwitchForLocation(withFuture, projectTemporalMap(withFuture, 700, { planeId: 'mortal' }), 'future')).toBeNull();
+    expect(planeSwitchForLocation(withFuture, projectTemporalMap(withFuture, 950, { planeId: 'mortal' }), 'future')).toBe('river');
+  });
+});
+
+describe('resolveAtlasPlaneId', () => {
+  it("opens on the active character's plane when it is revealed", () => {
+    expect(resolveAtlasPlaneId(def, 700, 'fy')).toBe('river');
+    expect(resolveAtlasPlaneId(def, 100, 'fy')).toBe('mortal');
+  });
+
+  it('falls back to the first plane when the hero stands on a sealed plane', () => {
+    const early: WorldMapDefinition = {
+      ...def,
+      characterPaths: [{ characterId: 'fy', characterName: 'Fang Yuan', waypoints: [
+        { chapter: 1, locationId: 'village', x: 100, y: 100 },
+        { chapter: 590, locationId: 'lotus', x: 300, y: 200 },
+      ] }],
+    };
+    expect(resolveAtlasPlaneId(early, 595, 'fy')).toBe('mortal');
+  });
+
+  it('falls back to the first plane without a hero position', () => {
+    expect(resolveAtlasPlaneId(def, 700, 'nobody')).toBe('mortal');
+    expect(resolveAtlasPlaneId({ ...def, characterPaths: [] }, 700, undefined)).toBe('mortal');
+  });
+
+  it('passes an explicit ?plane= request through unchanged (the projection handles sealed ids)', () => {
+    expect(resolveAtlasPlaneId(def, 100, 'fy', 'river')).toBe('river');
+    expect(resolveAtlasPlaneId(def, 700, 'fy', 'bogus')).toBe('bogus');
+  });
+});
+
+describe('keyToAtlasAction', () => {
+  it('maps WASD, arrows, zoom keys, M and Escape', () => {
+    expect(keyToAtlasAction('w')).toBe('pan-up');
+    expect(keyToAtlasAction('ArrowDown')).toBe('pan-down');
+    expect(keyToAtlasAction('A')).toBe('pan-left');
+    expect(keyToAtlasAction('ArrowRight')).toBe('pan-right');
+    expect(keyToAtlasAction('+')).toBe('zoom-in');
+    expect(keyToAtlasAction('=')).toBe('zoom-in');
+    expect(keyToAtlasAction('-')).toBe('zoom-out');
+    expect(keyToAtlasAction('m')).toBe('toggle-waypoints');
+    expect(keyToAtlasAction('Escape')).toBe('escape');
+    expect(keyToAtlasAction('q')).toBeNull();
+  });
+});
+
+describe('isTypingTarget', () => {
+  it('is true for form fields and contentEditable elements', () => {
+    expect(isTypingTarget({ tagName: 'INPUT' })).toBe(true);
+    expect(isTypingTarget({ tagName: 'select' })).toBe(true);
+    expect(isTypingTarget({ tagName: 'TEXTAREA' })).toBe(true);
+    expect(isTypingTarget({ tagName: 'DIV', isContentEditable: true })).toBe(true);
+  });
+
+  it('is false for the atlas container, buttons and non-elements', () => {
+    expect(isTypingTarget({ tagName: 'DIV', isContentEditable: false })).toBe(false);
+    expect(isTypingTarget({ tagName: 'BUTTON' })).toBe(false);
+    expect(isTypingTarget(null)).toBe(false);
+    expect(isTypingTarget(undefined)).toBe(false);
+  });
+});
+
+describe('MapHudControls planes and waypoints', () => {
+  it('renders the waypoint button with a count', () => {
+    const html = renderToStaticMarkup(React.createElement(MapHudControls, {
+      mode: 'atlas', onModeChange: () => {}, visibleLayers: layers, onToggleLayer: () => {},
+      onZoomIn: () => {}, onZoomOut: () => {}, onResetZoom: () => {}, onRecenter: () => {},
+      onOpenWaypoints: () => {}, waypointCount: 3,
+    }));
+    expect(html).toContain('data-testid="waypoints-btn"');
+    expect(html).toContain('WAYPOINTS');
+    expect(html).toContain('3');
+  });
+});
+
+describe('RpgWorldAtlas wiring', () => {
+  it('renders frame, minimap and hero-elsewhere chip from the projection', () => {
+    const html = renderToStaticMarkup(React.createElement(RpgWorldAtlas, {
+      mapDefinition: def, userChapter: 700, totalChapters: 2334, universeSlug: 'reverend-insanity', activePlaneId: 'mortal',
+    }));
+    expect(html).toContain('data-testid="atlas-frame"');
+    expect(html).toContain('data-testid="atlas-minimap"');
+    expect(html).toContain('HERO IN RIVER OF TIME');
+    expect(html).toContain('Fang Yuan');
+  });
+
+  it('never names a sealed plane', () => {
+    const html = renderToStaticMarkup(React.createElement(RpgWorldAtlas, {
+      mapDefinition: def, userChapter: 100, universeSlug: 'reverend-insanity',
+    }));
+    expect(html).not.toContain('River of Time');
+  });
+});
