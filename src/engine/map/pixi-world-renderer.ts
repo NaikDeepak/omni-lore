@@ -25,7 +25,7 @@ import { MapTheme } from '../../domain/map-themes';
 import { MapMode, MapVisibleLayers } from '../../domain/map-types';
 import { TweenManager } from './anim/tween';
 import { GestureEvent, GestureTracker } from './input/gesture-tracker';
-import { pickAt, PickTarget } from './input/picking';
+import { isSelectableTarget, pickAt, PickTarget } from './input/picking';
 import { createRendererBaker, IconAtlas } from './scene/icon-atlas';
 import { buildPlaneLayout, PIXELS_PER_WORLD } from './scene/plane-layout';
 import { paintPlane } from './scene/plane-painter';
@@ -571,7 +571,7 @@ export class PixiWorldRenderer {
 
   public clickAt(screenX: number, screenY: number): void {
     const target = this.pickScreen(screenX, screenY);
-    if (!target) return;
+    if (!target || !this.latestSnapshot || !isSelectableTarget(this.latestSnapshot, target)) return;
     if (target.kind === 'location') this.onSelectLocation?.(target.id);
     else if (target.kind === 'region') this.onSelectRegion?.(target.id);
     else this.onSelectEvent?.(target.id);

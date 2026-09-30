@@ -383,6 +383,27 @@ describe('PixiWorldRenderer v3 (retained, diff-driven)', () => {
     expect(onSelectLocation).toHaveBeenCalledWith('l1');
   });
 
+  it('hovers but never selects a KNOWN (uncharted) marker', async () => {
+    const onHover = vi.fn();
+    const onSelectLocation = vi.fn();
+    const onSelectRegion = vi.fn();
+    const withRumor: WorldMapDefinition = {
+      ...def,
+      locations: [
+        ...def.locations,
+        { id: 'rumor', name: 'Secret Name', x: 300, y: 300, type: 'city', importance: 'major', firstAppearanceChapter: 99, revealedAtChapter: 1, planeId: 'a' },
+      ],
+    };
+    const r = new PixiWorldRenderer(null, { width: 800, height: 600, onHover, onSelectLocation, onSelectRegion });
+    await r.applySnapshot(projectTemporalMap(withRumor, 10, { planeId: 'a' }), riTheme);
+    const screen = r.camera.worldToScreen(300, 295);
+    r.hoverAt(screen.x, screen.y);
+    expect(onHover).toHaveBeenLastCalledWith({ target: { kind: 'location', id: 'rumor' }, screenX: screen.x, screenY: screen.y });
+    r.clickAt(screen.x, screen.y);
+    expect(onSelectLocation).not.toHaveBeenCalled();
+    expect(onSelectRegion).not.toHaveBeenCalled();
+  });
+
   it('clears hover when the hovered marker disappears after a scrub', async () => {
     const onHover = vi.fn();
     const r = new PixiWorldRenderer(null, { width: 800, height: 600, onHover });

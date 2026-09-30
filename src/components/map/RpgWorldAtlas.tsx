@@ -14,6 +14,7 @@ import { CameraView, HoverInfo, PixiWorldRenderer } from '../../engine/map/pixi-
 import { SoundEngine } from '../../lib/sound-effects';
 import { ART_CREDITS } from '../../engine/map/scene/sprite-catalog';
 import { getUniverseLook } from '../../engine/map/scene/universe-look';
+import { isSelectableTarget } from '../../engine/map/input/picking';
 import { MapHudControls, PlaneOption } from './MapHudControls';
 import { MapTimelineBar } from './MapTimelineBar';
 import { MapLocationDrawer } from './MapLocationDrawer';
@@ -482,8 +483,12 @@ export function RpgWorldAtlas({
     'Protagonist';
 
   const selectedLocation = useMemo(
-    () => snapshot.locations.find((l) => l.id === selectedLocationId) || null,
-    [snapshot.locations, selectedLocationId]
+    // A KNOWN silhouette (e.g. a hand-typed ?loc=) never opens the dossier: that would reveal its name
+    () =>
+      (selectedLocationId && isSelectableTarget(snapshot, { kind: 'location', id: selectedLocationId })
+        ? snapshot.locations.find((l) => l.id === selectedLocationId)
+        : null) || null,
+    [snapshot, selectedLocationId]
   );
   const selectedRegion = useMemo(
     () => snapshot.regions.find((r) => r.id === selectedRegionId) || null,

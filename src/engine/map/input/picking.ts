@@ -63,3 +63,18 @@ export function pickAt(
 
   return null;
 }
+
+/**
+ * Whether a picked target may be selected (opened in the drawer / written to `?loc=`).
+ * KNOWN locations are hoverable silhouettes (`??? UNCHARTED`) but never selectable,
+ * and neither are event flags standing on them: selecting would reveal the real name.
+ */
+export function isSelectableTarget(snapshot: ProjectedWorldMapSnapshot, target: PickTarget): boolean {
+  const isOpen = (locationId: string | undefined): boolean => {
+    const loc = locationId ? snapshot.locations.find((l) => l.id === locationId) : undefined;
+    return Boolean(loc && loc.fogStatus !== FogStatus.UNKNOWN && loc.fogStatus !== FogStatus.KNOWN);
+  };
+  if (target.kind === 'location') return isOpen(target.id);
+  if (target.kind === 'event') return isOpen(snapshot.events.find((e) => e.id === target.id)?.locationId);
+  return true;
+}

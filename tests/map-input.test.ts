@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { CameraController } from '../src/engine/map/camera-controller';
 import { GestureTracker } from '../src/engine/map/input/gesture-tracker';
-import { pickAt, EVENT_FLAG_OFFSET } from '../src/engine/map/input/picking';
+import { pickAt, EVENT_FLAG_OFFSET, isSelectableTarget } from '../src/engine/map/input/picking';
 import { projectTemporalMap } from '../src/projections/temporal-map';
 import { WorldMapDefinition } from '../src/domain/map-types';
 
@@ -130,5 +130,41 @@ describe('pickAt', () => {
     // 14 units above the point is inside the icon; 14 below is not
     expect(pickAt(snap, 100, 86, 1)).toEqual({ kind: 'location', id: 'near' });
     expect(pickAt(snap, 100, 114, 1)).toEqual({ kind: 'region', id: 'big' });
+  });
+});
+
+describe('isSelectableTarget', () => {
+  const def: WorldMapDefinition = {
+    id: 'select', universeId: 'test', coordinateSystem: 'world', width: 1000, height: 1000,
+    terrain: [],
+    regions: [{ id: 'big', name: 'Big', geometry: { type: 'Polygon', coordinates: [[[0, 0], [1000, 0], [1000, 1000], [0, 1000]]] } }],
+    locations: [
+      { id: 'open', name: 'Open', x: 100, y: 100, type: 'city', importance: 'major', firstAppearanceChapter: 1, revealedAtChapter: 1 },
+      // Rumored before it debuts: a KNOWN silhouette at chapter 10
+      { id: 'rumor', name: 'Secret Name', x: 500, y: 500, type: 'city', importance: 'major', firstAppearanceChapter: 50, revealedAtChapter: 5 },
+    ],
+    routes: [], territories: [],
+    events: [
+      { id: 'ev-open', name: 'Fair', chapter: 1, locationId: 'open', eventType: 'battle', importance: 'minor' },
+      { id: 'ev-rumor', name: 'Whisper', chapter: 2, locationId: 'rumor', eventType: 'battle', importance: 'minor' },
+    ],
+    characterPaths: [],
+  };
+  const snap = projectTemporalMap(def, 10);
+
+  it('still hovers KNOWN silhouettes (tooltip shows ??? UNCHARTED)', () => {
+    expect(pickAt(snap, 500, 490, 1)).toEqual({ kind: 'location', id: 'rumor' });
+  });
+
+  it('never lets a KNOWN location or its event flag be selected', () => {
+    expect(isSelectableTarget(snap, { kind: 'location', id: 'rumor' })).toBe(false);
+    expect(isSelectableTarget(snap, { kind: 'event', id: 'ev-rumor' })).toBe(false);
+    expect(isSelectableTarget(snap, { kind: 'location', id: 'missing' })).toBe(false);
+  });
+
+  it('selects discovered locations, their events and regions', () => {
+    expect(isSelectableTarget(snap, { kind: 'location', id: 'open' })).toBe(true);
+    expect(isSelectableTarget(snap, { kind: 'event', id: 'ev-open' })).toBe(true);
+    expect(isSelectableTarget(snap, { kind: 'region', id: 'big' })).toBe(true);
   });
 });
