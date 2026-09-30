@@ -106,18 +106,30 @@ export function WorldExplorer({ graph, mapDefinition }: WorldExplorerProps) {
   const [duelFighterA, setDuelFighterA] = useState<string | undefined>(undefined);
   const [duelFighterB, setDuelFighterB] = useState<string | undefined>(undefined);
   const defaultProtagonistId = useMemo(() => {
-    return graph.series.slug === 'demonic-emperor'
-      ? 'zhuo-fan'
-      : graph.series.slug === 'one-piece'
-        ? 'luffy'
-        : graph.series.slug === 'solo-leveling'
-          ? 'sung-jin-woo'
-          : graph.series.slug === 'lord-of-the-mysteries'
-            ? 'klein-moretti'
-            : 'linley-baruch';
-  }, [graph.series.slug]);
+    const bySlug: Record<string, string> = {
+      'demonic-emperor': 'zhuo-fan',
+      'one-piece': 'luffy',
+      'solo-leveling': 'sung-jin-woo',
+      'lord-of-the-mysteries': 'klein-moretti',
+      'reverend-insanity': 'fang-yuan',
+      'coiling-dragon': 'linley-baruch',
+    };
+    const preferred = bySlug[graph.series.slug];
+    if (preferred && graph.entities[preferred]) return preferred;
+    // Fall back to the character with the longest mapped journey, then any character
+    const journey = activeMapDefinition.characterPaths
+      .slice()
+      .sort((a, b) => b.waypoints.length - a.waypoints.length)[0]?.characterId;
+    if (journey && graph.entities[journey]) return journey;
+    return Object.values(graph.entities).find((e) => e.type === 'character')?.id ?? '';
+  }, [graph.series.slug, graph.entities, activeMapDefinition]);
 
   const [selectedCharacterId, setSelectedCharacterId] = useState<string>(defaultProtagonistId);
+
+  const heroAvatarUrl = useMemo(() => {
+    const entity = graph.entities[selectedCharacterId];
+    return entity && entity.type === 'character' ? (entity as CharacterEntity).avatar_url : undefined;
+  }, [graph.entities, selectedCharacterId]);
 
   // Faction Web Filters & Views
   const [webFilter, setWebFilter] = useState<'all' | 'faction' | 'character'>('all');
@@ -131,6 +143,7 @@ export function WorldExplorer({ graph, mapDefinition }: WorldExplorerProps) {
 
   // Map & Timeline Cross-linking
   const [selectedLocationId, setSelectedLocationId] = useState<string | null>(null);
+  const [selectedPlaneId, setSelectedPlaneId] = useState<string | undefined>(undefined);
   const [timelineFilter, setTimelineFilter] = useState<'all' | 'battle' | 'breakthrough' | 'political' | 'discovery' | 'tragedy'>('all');
 
   // URL state persistence and share toast
@@ -169,6 +182,7 @@ export function WorldExplorer({ graph, mapDefinition }: WorldExplorerProps) {
     const tabParam = params.get('tab');
     const charParam = params.get('char');
     const locParam = params.get('loc');
+    const planeParam = params.get('plane');
 
     // Check saved local progress fallback if URL does not specify
     const saved = UserProgressService.getProgress(graph.series.slug);
@@ -197,6 +211,9 @@ export function WorldExplorer({ graph, mapDefinition }: WorldExplorerProps) {
     ) {
       setSelectedLocationId(locParam);
     }
+    if (planeParam) {
+      setSelectedPlaneId(planeParam);
+    }
     setHasInitializedUrl(true);
   }, [totalChapters, graph.entities, graph.series.slug, defaultProtagonistId, activeMapDefinition]);
 
@@ -221,9 +238,12 @@ export function WorldExplorer({ graph, mapDefinition }: WorldExplorerProps) {
     if (selectedLocationId) {
       params.set('loc', selectedLocationId);
     }
+    if (selectedPlaneId) {
+      params.set('plane', selectedPlaneId);
+    }
     const newUrl = `/${graph.series.slug}?${params.toString()}`;
     window.history.replaceState(null, '', newUrl);
-  }, [userChapter, activeTab, selectedCharacterId, selectedLocationId, graph.series.slug, hasInitializedUrl]);
+  }, [userChapter, activeTab, selectedCharacterId, selectedLocationId, selectedPlaneId, graph.series.slug, hasInitializedUrl]);
 
   const handleShareSnapshot = async () => {
     if (typeof window === 'undefined') return;
@@ -660,6 +680,9 @@ export function WorldExplorer({ graph, mapDefinition }: WorldExplorerProps) {
                 setSelectedLocationId(locId);
               }}
               planes={mapPlanes}
+              activePlaneId={selectedPlaneId}
+              onSelectPlane={setSelectedPlaneId}
+              heroAvatarUrl={heroAvatarUrl}
               activeCharacterId={selectedCharacterId}
               onJumpToJourney={(charId) => {
                 setSelectedCharacterId(charId);

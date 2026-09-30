@@ -14,6 +14,7 @@ import {
   ChevronDown,
   Eye,
   EyeOff,
+  MapPin,
 } from 'lucide-react';
 import { MapMode, MapVisibleLayers } from '../../domain/map-types';
 import { SoundEngine } from '../../lib/sound-effects';
@@ -22,6 +23,7 @@ export interface PlaneOption {
   id: string;
   name: string;
   description?: string;
+  locked?: boolean;
 }
 
 export interface MapHudControlsProps {
@@ -36,6 +38,8 @@ export interface MapHudControlsProps {
   planes?: PlaneOption[];
   activePlaneId?: string;
   onPlaneChange?: (planeId: string) => void;
+  onOpenWaypoints?: () => void;
+  waypointCount?: number;
   accentColor?: string;
   className?: string;
 }
@@ -64,6 +68,8 @@ export function MapHudControls({
   planes = [],
   activePlaneId,
   onPlaneChange,
+  onOpenWaypoints,
+  waypointCount,
   accentColor = '#10b981',
   className = '',
 }: MapHudControlsProps) {
@@ -82,10 +88,11 @@ export function MapHudControls({
     onToggleLayer(layerKey);
   };
 
-  const handlePlaneSelect = (planeId: string) => {
+  const handlePlaneSelect = (plane: PlaneOption) => {
+    if (plane.locked) return;
     SoundEngine.playPlaneWarp();
     setShowPlaneDropdown(false);
-    onPlaneChange?.(planeId);
+    onPlaneChange?.(plane.id);
   };
 
   const currentPlane = planes.find((p) => p.id === activePlaneId) || planes[0];
@@ -178,14 +185,18 @@ export function MapHudControls({
                   <button
                     key={plane.id}
                     type="button"
-                    onClick={() => handlePlaneSelect(plane.id)}
+                    onClick={() => handlePlaneSelect(plane)}
+                    disabled={plane.locked}
+                    aria-disabled={plane.locked}
                     className={`w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-mono transition flex items-center justify-between ${
                       plane.id === activePlaneId
                         ? 'bg-cyan-950/60 text-cyan-300 border border-cyan-500/40'
                         : 'text-slate-300 hover:bg-slate-900 hover:text-white'
                     }`}
                   >
-                    <span className="truncate">{plane.name}</span>
+                    <span className={`truncate ${plane.locked ? 'text-slate-600' : ''}`}>
+                      {plane.locked ? '??? SEALED REALM' : plane.name}
+                    </span>
                     {plane.id === activePlaneId && (
                       <span className="text-[10px] text-cyan-400 font-pixel">ACTIVE</span>
                     )}
@@ -194,6 +205,23 @@ export function MapHudControls({
               </div>
             )}
           </div>
+        )}
+
+        {onOpenWaypoints && (
+          <button
+            type="button"
+            onClick={() => {
+              SoundEngine.playMenuSelect();
+              onOpenWaypoints();
+            }}
+            data-testid="waypoints-btn"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 bg-slate-900 border border-slate-700/80 hover:border-slate-500 rounded-xl text-slate-200 hover:text-white transition font-mono text-[11px]"
+            title="Waypoints — fast travel (M)"
+          >
+            <MapPin className="w-3.5 h-3.5" style={{ color: accentColor }} />
+            <span className="font-pixel text-[10px]">WAYPOINTS</span>
+            <span className="font-mono text-[10px] text-slate-400">{waypointCount ?? 0}</span>
+          </button>
         )}
 
         {/* Layer Toggles Popover/Pills */}
@@ -284,7 +312,7 @@ export function MapHudControls({
           }}
           data-testid="zoom-reset-btn"
           className="flex items-center gap-1 px-2 py-1 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition font-pixel text-[9px]"
-          title="Reset Zoom to 1.0x"
+          title="Fit plane to view"
         >
           <RotateCcw className="w-3 h-3" />
           <span>1.0x</span>

@@ -4,6 +4,7 @@
  */
 
 import { DangerLevel, WorldMapDefinition } from '../../domain/map-types';
+import { planeForLocation } from '../../domain/map-planes';
 import { isDiscoveredStatus } from '../../projections/map-snapshot-diff';
 import {
   FogStatus,
@@ -208,4 +209,48 @@ export function fogCirclesForMinimap(snapshot: ProjectedWorldMapSnapshot): Array
   return snapshot.locations
     .filter((l) => isDiscoveredStatus(l.fogStatus))
     .map((l) => ({ x: l.x, y: l.y, r: l.importance === 'critical' ? 70 : 45 }));
+}
+
+// ---------------------------------------------------------------- plane + keys
+
+export function planeSwitchForLocation(
+  def: WorldMapDefinition,
+  snapshot: ProjectedWorldMapSnapshot,
+  locationId: string
+): string | null {
+  const target = planeForLocation(def, locationId);
+  if (!target || target === snapshot.planeId) return null;
+  const plane = snapshot.planes.find((p) => p.id === target);
+  return plane?.isRevealed ? target : null;
+}
+
+export type AtlasKeyAction =
+  | 'pan-up'
+  | 'pan-down'
+  | 'pan-left'
+  | 'pan-right'
+  | 'zoom-in'
+  | 'zoom-out'
+  | 'toggle-waypoints'
+  | 'escape';
+
+const KEY_ACTIONS: Record<string, AtlasKeyAction> = {
+  w: 'pan-up',
+  arrowup: 'pan-up',
+  s: 'pan-down',
+  arrowdown: 'pan-down',
+  a: 'pan-left',
+  arrowleft: 'pan-left',
+  d: 'pan-right',
+  arrowright: 'pan-right',
+  '+': 'zoom-in',
+  '=': 'zoom-in',
+  '-': 'zoom-out',
+  _: 'zoom-out',
+  m: 'toggle-waypoints',
+  escape: 'escape',
+};
+
+export function keyToAtlasAction(key: string): AtlasKeyAction | null {
+  return KEY_ACTIONS[key.toLowerCase()] ?? null;
 }
