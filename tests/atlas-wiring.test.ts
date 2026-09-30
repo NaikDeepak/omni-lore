@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { planeSwitchForLocation, keyToAtlasAction } from '../src/components/map/atlas-ui-state';
+import { planeSwitchForLocation, keyToAtlasAction, isTypingTarget } from '../src/components/map/atlas-ui-state';
 import { MapHudControls } from '../src/components/map/MapHudControls';
 import { RpgWorldAtlas } from '../src/components/map/RpgWorldAtlas';
 import { projectTemporalMap } from '../src/projections/temporal-map';
@@ -40,6 +40,18 @@ describe('planeSwitchForLocation', () => {
     expect(planeSwitchForLocation(def, projectTemporalMap(def, 100), 'lotus')).toBeNull();
     expect(planeSwitchForLocation(def, projectTemporalMap(def, 700), 'nowhere')).toBeNull();
   });
+
+  it('returns null for an undiscovered location on a revealed plane (no spoiler fly)', () => {
+    const withFuture: WorldMapDefinition = {
+      ...def,
+      locations: [
+        ...def.locations,
+        { id: 'future', name: 'Future Isle', x: 500, y: 300, type: 'island', importance: 'major', firstAppearanceChapter: 900, revealedAtChapter: 900, planeId: 'river' },
+      ],
+    };
+    expect(planeSwitchForLocation(withFuture, projectTemporalMap(withFuture, 700, { planeId: 'mortal' }), 'future')).toBeNull();
+    expect(planeSwitchForLocation(withFuture, projectTemporalMap(withFuture, 950, { planeId: 'mortal' }), 'future')).toBe('river');
+  });
 });
 
 describe('keyToAtlasAction', () => {
@@ -54,6 +66,22 @@ describe('keyToAtlasAction', () => {
     expect(keyToAtlasAction('m')).toBe('toggle-waypoints');
     expect(keyToAtlasAction('Escape')).toBe('escape');
     expect(keyToAtlasAction('q')).toBeNull();
+  });
+});
+
+describe('isTypingTarget', () => {
+  it('is true for form fields and contentEditable elements', () => {
+    expect(isTypingTarget({ tagName: 'INPUT' })).toBe(true);
+    expect(isTypingTarget({ tagName: 'select' })).toBe(true);
+    expect(isTypingTarget({ tagName: 'TEXTAREA' })).toBe(true);
+    expect(isTypingTarget({ tagName: 'DIV', isContentEditable: true })).toBe(true);
+  });
+
+  it('is false for the atlas container, buttons and non-elements', () => {
+    expect(isTypingTarget({ tagName: 'DIV', isContentEditable: false })).toBe(false);
+    expect(isTypingTarget({ tagName: 'BUTTON' })).toBe(false);
+    expect(isTypingTarget(null)).toBe(false);
+    expect(isTypingTarget(undefined)).toBe(false);
   });
 });
 

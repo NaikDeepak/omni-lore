@@ -30,6 +30,7 @@ import {
   createEmitter,
   fogCirclesForMinimap,
   groupWaypoints,
+  isTypingTarget,
   keyToAtlasAction,
   planeSwitchForLocation,
   visibleRegionNames,
@@ -139,7 +140,8 @@ export function RpgWorldAtlas({
   const canvasHostRef = useRef<HTMLDivElement | null>(null);
   const rendererRef = useRef<PixiWorldRenderer | null>(null);
   const handledLocPropRef = useRef<string | null | undefined>(undefined);
-  const pendingFlyRef = useRef<{ x: number; y: number } | null>(null);
+  // A fly queued for after a commit; only consumed by a snapshot of its own plane
+  const pendingFlyRef = useRef<{ x: number; y: number; planeId: string } | null>(null);
   const minimapKeyRef = useRef<string | null>(null);
 
   const universeSlug = universeSlugProp || mapDefinition.universeId || 'reverend-insanity';
@@ -270,7 +272,7 @@ export function RpgWorldAtlas({
     if (!loc) return;
     const target = planeSwitchForLocation(mapDefinition, snapshotRef.current, selectedLocationIdProp);
     if (target) {
-      pendingFlyRef.current = { x: loc.x, y: loc.y };
+      pendingFlyRef.current = { x: loc.x, y: loc.y, planeId: target };
       switchPlane(target);
       return;
     }
@@ -278,7 +280,8 @@ export function RpgWorldAtlas({
     const onPlane = snapshotRef.current.locations.find((l) => l.id === selectedLocationIdProp);
     if (!onPlane) return;
     if (renderer?.currentSnapshot) renderer.flyTo(onPlane.x, onPlane.y, 1.8, 450);
-    else pendingFlyRef.current = { x: onPlane.x, y: onPlane.y }; // renderer not ready yet: fly after first commit
+    // renderer not ready yet: fly after first commit
+    else pendingFlyRef.current = { x: onPlane.x, y: onPlane.y, planeId: snapshotRef.current.planeId };
   }, [selectedLocationIdProp, mapDefinition, switchPlane]);
 
   // Renderer lifecycle. Pixi's destroy() calls WEBGL_lose_context, so a canvas
@@ -348,17 +351,21 @@ export function RpgWorldAtlas({
   useEffect(() => {
     const renderer = rendererRef.current;
     if (!renderer) return;
+    // rendererRef is cleared (or replaced) when this renderer is destroyed
+    const isLive = () => rendererRef.current === renderer;
     void renderer.applySnapshot(snapshot, activeTheme, { mode, activeLayers: visibleLayers }).then(() => {
-      if (renderer.currentSnapshot !== snapshot) return;
+      if (!isLive() || renderer.currentSnapshot !== snapshot) return;
       const fly = pendingFlyRef.current;
-      if (fly) {
+      if (fly && fly.planeId === snapshot.planeId) {
         pendingFlyRef.current = null;
         renderer.warpTo(fly.x, fly.y, 1.8);
       }
       const key = `${snapshot.mapId}:${snapshot.planeId}:${activeTheme.slug}`;
       if (minimapKeyRef.current !== key) {
         minimapKeyRef.current = key;
-        void renderer.getMinimapImage().then(setMinimapUrl);
+        void renderer.getMinimapImage().then((url) => {
+          if (isLive()) setMinimapUrl(url);
+        });
       }
     });
   }, [snapshot, activeTheme, mode, visibleLayers]);
@@ -395,7 +402,7 @@ export function RpgWorldAtlas({
       SoundEngine.playPlaneWarp();
       setWaypointsOpen(false);
       if (wp.planeId !== snapshotRef.current.planeId) {
-        pendingFlyRef.current = { x: wp.x, y: wp.y };
+        pendingFlyRef.current = { x: wp.x, y: wp.y, planeId: wp.planeId };
         switchPlane(wp.planeId);
       } else {
         rendererRef.current?.warpTo(wp.x, wp.y, 1.8);
@@ -407,6 +414,8 @@ export function RpgWorldAtlas({
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLDivElement>) => {
+      // Focused controls (timeline range slider, search field) keep their own keys
+      if (isTypingTarget(e.target as HTMLElement)) return;
       const action = keyToAtlasAction(e.key);
       if (!action) return;
       e.preventDefault();
@@ -543,7 +552,11 @@ export function RpgWorldAtlas({
           type="button"
           onClick={() => {
             SoundEngine.playPlaneWarp();
-            pendingFlyRef.current = { x: heroElsewhere.hero.x, y: heroElsewhere.hero.y };
+            pendingFlyRef.current = {
+              x: heroElsewhere.hero.x,
+              y: heroElsewhere.hero.y,
+              planeId: heroElsewhere.plane.id,
+            };
             switchPlane(heroElsewhere.plane.id);
           }}
           className="absolute left-1/2 top-[88px] z-30 -translate-x-1/2 flex items-center gap-1.5 border px-3 py-1 bg-black/80 font-pixel text-[9px] tracking-wider text-amber-200 hover:bg-black"

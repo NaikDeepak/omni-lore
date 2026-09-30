@@ -15,7 +15,12 @@
 import { MeshGeometry, Shader, Texture, UniformGroup } from 'pixi.js';
 import { hexToRgb01 } from '../scene/pixel-palette';
 
-const vertex = `
+/**
+ * Written for GLSL ES 1.00: Pixi only inserts `#version 300 es` when the source
+ * already declares it, otherwise it shims in/out/texture/finalColor with
+ * #defines. So no arrays, non-constant indexing, uint or bitwise ops here.
+ */
+export const FOG_VERTEX_SRC = `
 in vec2 aPosition;
 in vec2 aUV;
 out vec2 vUV;
@@ -31,7 +36,7 @@ void main() {
 }
 `;
 
-const fragment = `
+export const FOG_FRAGMENT_SRC = `
 in vec2 vUV;
 out vec4 finalColor;
 
@@ -41,12 +46,17 @@ uniform float uOpacity;
 uniform float uTime;
 uniform vec2 uWorldSize;
 
+// 2x2 Bayer level: (0,0)=0, (1,0)=2/4, (0,1)=3/4, (1,1)=1/4
+float bayer2(vec2 a) {
+  return fract(a.x * 0.5 + a.y * a.y * 0.75);
+}
+
+// Recursive 4x4 Bayer: the fine 2x2 level carries weight 1, the coarse level
+// 1/4, giving the classic matrix (0 8 2 10 / 12 4 14 6 / 3 11 1 9 / 15 7 13 5)
+// as thresholds (k + 0.5) / 16.
 float bayer4(vec2 p) {
-  int x = int(mod(p.x, 4.0));
-  int y = int(mod(p.y, 4.0));
-  int idx = x + y * 4;
-  int m[16] = int[16](0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5);
-  return (float(m[idx]) + 0.5) / 16.0;
+  vec2 c = floor(p);
+  return bayer2(mod(c, 2.0)) + bayer2(mod(floor(c * 0.5), 2.0)) * 0.25 + 1.0 / 32.0;
 }
 
 float hash(vec2 p) {
@@ -105,7 +115,7 @@ export class DitherFogMaterial {
       uWorldSize: { value: new Float32Array([options.worldWidth, options.worldHeight]), type: 'vec2<f32>' },
     });
     this.shader = Shader.from({
-      gl: { vertex, fragment },
+      gl: { vertex: FOG_VERTEX_SRC, fragment: FOG_FRAGMENT_SRC },
       resources: {
         uTexture: options.mask.source,
         uSampler: options.mask.source.style,

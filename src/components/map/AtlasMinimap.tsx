@@ -64,7 +64,7 @@ export function AtlasMinimap({
         {collapsed ? '▸ RADAR' : '▾ RADAR'}
       </button>
       {!collapsed && (
-        <div className="relative cursor-crosshair" style={{ width: WIDTH, height }} onClick={handleClick}>
+        <div className="relative overflow-hidden cursor-crosshair" style={{ width: WIDTH, height }} onClick={handleClick}>
           {imageUrl && (
             <img src={imageUrl} alt="" width={WIDTH} height={height} className="absolute inset-0 h-full w-full [image-rendering:pixelated]" />
           )}

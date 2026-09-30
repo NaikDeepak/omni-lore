@@ -12,6 +12,7 @@ import {
   ProjectedWaypoint,
   ProjectedWorldMapSnapshot,
   isRegionVisible,
+  projectTemporalMap,
 } from '../../projections/temporal-map';
 import { PickTarget } from '../../engine/map/input/picking';
 
@@ -221,7 +222,29 @@ export function planeSwitchForLocation(
   const target = planeForLocation(def, locationId);
   if (!target || target === snapshot.planeId) return null;
   const plane = snapshot.planes.find((p) => p.id === target);
-  return plane?.isRevealed ? target : null;
+  if (!plane?.isRevealed) return null;
+  // The location itself must be visible at this chapter: reuse the projection
+  // of the target plane rather than re-deriving the reveal rules here.
+  const targetView = projectTemporalMap(def, snapshot.userChapter, {
+    planeId: target,
+    activeCharacterId: snapshot.activeCharacterId,
+  });
+  return targetView.locations.some((l) => l.id === locationId) ? target : null;
+}
+
+/** Minimal element shape so the key guard is testable without a DOM. */
+export interface KeyTargetLike {
+  tagName?: string;
+  isContentEditable?: boolean;
+}
+
+const TYPING_TAGS = new Set(['INPUT', 'SELECT', 'TEXTAREA']);
+
+/** True when a key event comes from a control that owns its keys (range slider, text field, ...). */
+export function isTypingTarget(target: KeyTargetLike | null | undefined): boolean {
+  if (!target) return false;
+  if (target.isContentEditable) return true;
+  return typeof target.tagName === 'string' && TYPING_TAGS.has(target.tagName.toUpperCase());
 }
 
 export type AtlasKeyAction =
