@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { planeSwitchForLocation, keyToAtlasAction, isTypingTarget } from '../src/components/map/atlas-ui-state';
+import { planeSwitchForLocation, keyToAtlasAction, isTypingTarget, resolveAtlasPlaneId } from '../src/components/map/atlas-ui-state';
 import { MapHudControls } from '../src/components/map/MapHudControls';
 import { RpgWorldAtlas } from '../src/components/map/RpgWorldAtlas';
 import { projectTemporalMap } from '../src/projections/temporal-map';
@@ -51,6 +51,34 @@ describe('planeSwitchForLocation', () => {
     };
     expect(planeSwitchForLocation(withFuture, projectTemporalMap(withFuture, 700, { planeId: 'mortal' }), 'future')).toBeNull();
     expect(planeSwitchForLocation(withFuture, projectTemporalMap(withFuture, 950, { planeId: 'mortal' }), 'future')).toBe('river');
+  });
+});
+
+describe('resolveAtlasPlaneId', () => {
+  it("opens on the active character's plane when it is revealed", () => {
+    expect(resolveAtlasPlaneId(def, 700, 'fy')).toBe('river');
+    expect(resolveAtlasPlaneId(def, 100, 'fy')).toBe('mortal');
+  });
+
+  it('falls back to the first plane when the hero stands on a sealed plane', () => {
+    const early: WorldMapDefinition = {
+      ...def,
+      characterPaths: [{ characterId: 'fy', characterName: 'Fang Yuan', waypoints: [
+        { chapter: 1, locationId: 'village', x: 100, y: 100 },
+        { chapter: 590, locationId: 'lotus', x: 300, y: 200 },
+      ] }],
+    };
+    expect(resolveAtlasPlaneId(early, 595, 'fy')).toBe('mortal');
+  });
+
+  it('falls back to the first plane without a hero position', () => {
+    expect(resolveAtlasPlaneId(def, 700, 'nobody')).toBe('mortal');
+    expect(resolveAtlasPlaneId({ ...def, characterPaths: [] }, 700, undefined)).toBe('mortal');
+  });
+
+  it('passes an explicit ?plane= request through unchanged (the projection handles sealed ids)', () => {
+    expect(resolveAtlasPlaneId(def, 100, 'fy', 'river')).toBe('river');
+    expect(resolveAtlasPlaneId(def, 700, 'fy', 'bogus')).toBe('bogus');
   });
 });
 

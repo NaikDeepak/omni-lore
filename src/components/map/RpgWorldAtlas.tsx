@@ -34,6 +34,7 @@ import {
   isTypingTarget,
   keyToAtlasAction,
   planeSwitchForLocation,
+  resolveAtlasPlaneId,
   visibleRegionNames,
 } from './atlas-ui-state';
 
@@ -188,9 +189,15 @@ export function RpgWorldAtlas({
   }, [activePlaneIdProp]);
 
   // Zero-spoiler, plane-aware snapshot bounded strictly by userChapter
-  const snapshot: ProjectedWorldMapSnapshot = useMemo(
-    () => projectTemporalMap(mapDefinition, userChapter, { activeCharacterId, planeId }),
+  // Without an explicit plane the atlas follows the active character's (revealed) plane.
+  // Derived, not stored, so it never writes ?plane= and never races the URL hydration.
+  const effectivePlaneId = useMemo(
+    () => resolveAtlasPlaneId(mapDefinition, userChapter, activeCharacterId, planeId),
     [mapDefinition, userChapter, activeCharacterId, planeId]
+  );
+  const snapshot: ProjectedWorldMapSnapshot = useMemo(
+    () => projectTemporalMap(mapDefinition, userChapter, { activeCharacterId, planeId: effectivePlaneId }),
+    [mapDefinition, userChapter, activeCharacterId, effectivePlaneId]
   );
   const snapshotRef = useRef(snapshot);
   snapshotRef.current = snapshot;

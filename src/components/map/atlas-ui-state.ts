@@ -231,6 +231,24 @@ export function planeSwitchForLocation(
   return targetView.locations.some((l) => l.id === locationId) ? target : null;
 }
 
+/**
+ * Which plane the atlas shows. An explicit `?plane=` request wins (the projection
+ * falls back itself when it is sealed or unknown); otherwise the atlas opens where
+ * the active character currently stands, if that plane is revealed, else the first plane.
+ */
+export function resolveAtlasPlaneId(
+  def: WorldMapDefinition,
+  userChapter: number,
+  activeCharacterId: string | undefined,
+  requestedPlaneId?: string
+): string {
+  if (requestedPlaneId !== undefined) return requestedPlaneId;
+  const view = projectTemporalMap(def, userChapter, { activeCharacterId });
+  const heroPlane = view.heroPosition?.planeId;
+  const revealed = view.planes.find((p) => p.id === heroPlane && p.isRevealed);
+  return revealed ? revealed.id : view.planes[0].id;
+}
+
 /** Minimal element shape so the key guard is testable without a DOM. */
 export interface KeyTargetLike {
   tagName?: string;
