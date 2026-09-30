@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest';
-import { Container } from 'pixi.js';
+import { describe, it, expect, vi, afterEach } from 'vitest';
+import { Assets, Container, Texture, TextureSource } from 'pixi.js';
 import { HeroWalker, heroTrailPoints, HERO_JUMP_WAYPOINTS } from '../src/engine/map/layers/hero-walker';
 import { HeroLayer } from '../src/engine/map/layers/hero-layer';
 import { IconAtlas } from '../src/engine/map/scene/icon-atlas';
@@ -149,5 +149,51 @@ describe('HeroLayer', () => {
       { x: 200, y: 100 },
       { x: 250, y: 100 },
     ]);
+  });
+});
+
+describe('HeroLayer avatar loading', () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+    vi.unstubAllGlobals();
+  });
+
+  const makeLayer = () => {
+    const theme = getMapTheme('reverend-insanity');
+    return new HeroLayer(new Container(), {
+      theme, atlas: new IconAtlas(null, theme), tiles: new TileAtlas(null), tweens: new TweenManager(), reducedMotion: false,
+    });
+  };
+  const deferred = () => {
+    let resolve!: (t: Texture) => void;
+    const promise = new Promise<Texture>((r) => (resolve = r));
+    return { promise, resolve, texture: new Texture({ source: new TextureSource() }) };
+  };
+
+  it('never lets a stale load replace a newer avatar', async () => {
+    vi.stubGlobal('window', {});
+    const a = deferred();
+    const b = deferred();
+    vi.spyOn(Assets, 'load').mockImplementation(((url: string) => (url === 'a.svg' ? a.promise : b.promise)) as any);
+    const layer = makeLayer();
+    const loadA = layer.setAvatar('a.svg');
+    const loadB = layer.setAvatar('b.svg');
+    b.resolve(b.texture);
+    await loadB;
+    a.resolve(a.texture);
+    await loadA;
+    expect(layer.avatarTexture).toBe(b.texture);
+  });
+
+  it('drops a load that finishes after the layer is destroyed', async () => {
+    vi.stubGlobal('window', {});
+    const a = deferred();
+    vi.spyOn(Assets, 'load').mockImplementation((() => a.promise) as any);
+    const layer = makeLayer();
+    const load = layer.setAvatar('a.svg');
+    layer.destroy();
+    a.resolve(a.texture);
+    await load;
+    expect(layer.avatarTexture).toBeNull();
   });
 });

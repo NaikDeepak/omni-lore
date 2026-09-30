@@ -19,6 +19,7 @@ export class HeroLayer {
   private readonly light: Sprite;
   private avatar: Sprite | null = null;
   private avatarMask: Graphics | null = null;
+  private avatarLoadToken = 0;
   private trailBase: MapPoint[] = [];
   private trailFull: MapPoint[] = [];
   private time = 0;
@@ -55,10 +56,17 @@ export class HeroLayer {
       : this.trailBase;
   }
 
+  public get avatarTexture(): Texture | null {
+    return this.avatar?.texture ?? null;
+  }
+
   public async setAvatar(url: string | undefined): Promise<void> {
+    // Every call (and destroy) bumps the token, so a slower earlier load can never win
+    const token = ++this.avatarLoadToken;
     if (!url || typeof window === 'undefined') return;
     try {
       const texture = await Assets.load<Texture>(url);
+      if (token !== this.avatarLoadToken) return;
       texture.source.scaleMode = 'nearest';
       const sprite = new Sprite(texture);
       sprite.anchor.set(0.5);
@@ -143,6 +151,7 @@ export class HeroLayer {
   }
 
   public destroy(): void {
+    this.avatarLoadToken += 1;
     this.ctx.tweens.cancel('hero:alpha');
     this.container.removeChildren();
     this.trail.destroy();
