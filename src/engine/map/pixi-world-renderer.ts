@@ -3,7 +3,7 @@
  *
  * Retained, diff-driven scene graph over 9 top-level containers:
  *  1. backgroundContainer    - void beyond the plane edges
- *  2. terrainContainer       - baked static plane (backdrop + terrain + glyphs)
+ *  2. terrainContainer       - baked static plane (backdrop + terrain + rivers; never chapter-gated)
  *  3. regionsContainer       - region borders & faction territories
  *  4. routesContainer        - animated travel routes
  *  5. characterPathContainer - hero trail + walking hero token
